@@ -1,0 +1,34 @@
+PODS:
+  - Alamofire (2.0.0-beta.3)
+  - SDWebImage (3.7.3):
+    - SDWebImage/Core (= 3.7.3)
+  - SDWebImage/Core (3.7.3)
+  - SwiftyJSON (2.2.1)
+
+DEPENDENCIES:
+  - Alamofire (from `https://github.com/Alamofire/Alamofire.git`, branch `swift-2.0`)
+  - SDWebImage (~> 3.7)
+  - SwiftyJSON (from `https://github.com/SwiftyJSON/SwiftyJSON.git`, branch `xcode7`)
+
+EXTERNAL SOURCES:
+  Alamofire:
+    :branch: swift-2.0
+    :git: https://github.com/Alamofire/Alamofire.git
+  SwiftyJSON:
+    :branch: xcode7
+    :git: https://github.com/SwiftyJSON/SwiftyJSON.git
+
+CHECKOUT OPTIONS:
+  Alamofire:
+    :commit: 1bc35abfa7c167ba54af4e87158af7945cc9984e
+    :git: https://github.com/Alamofire/Alamofire.git
+  SwiftyJSON:
+    :commit: f269523ac572979245baa99c8475eab73caf1e9b
+    :git: https://github.com/SwiftyJSON/SwiftyJSON.git
+
+SPEC CHECKSUMS:
+  Alamofire: 39dddb7d3725d1771b1d2f7099c8bd45bd83ffbb
+  SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
+  SwiftyJSON: ae2d0a3d68025d136602a33c4ee215091ced3e33
+
+COCOAPODS: 0.38.2
