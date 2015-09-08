@@ -14,11 +14,11 @@ enum SlideOutState {
     case LeftPanelExpanded
 }
 
+
 class ContainerViewController: UIViewController, UIGestureRecognizerDelegate{
     
     // 0 ~ 320
     let centerPanelExpandedOffset: CGFloat = kScreenWidth - kExpandedOffSet
-    
     var centerVCFrontBlurView: UIVisualEffectView!
     var centerNavigationController: UINavigationController!
     var mainViewController: MainViewController!
@@ -30,48 +30,55 @@ class ContainerViewController: UIViewController, UIGestureRecognizerDelegate{
         }
     }
     
-    override func loadView() {
-        super.loadView()
-        configureViews()
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.configureBlurView()
         mainViewController = UIStoryboard.mainViewController()
         centerNavigationController = UINavigationController(rootViewController: mainViewController)
         centerNavigationController.setNavigationBarHidden(true , animated: false)
         view.addSubview(centerNavigationController.view)
         addChildViewController(centerNavigationController)
         centerNavigationController.didMoveToParentViewController(self)
-        
+
+        self.configureGestureRecognizer()
+    }
+    
+
+    func configureBlurView(){
+        //        centerVCFrontBlurView = UIButton.buttonWithType(UIButtonType.Custom) as! UIButton
+        let viewEffect = UIBlurEffect(style: .Light)
+        centerVCFrontBlurView = UIVisualEffectView(effect: viewEffect)
+        centerVCFrontBlurView.alpha = 0.9
+        centerVCFrontBlurView.frame = self.view.bounds
+
+    }
+    
+    func configureGestureRecognizer(){
         let panGestureRecognizer = UIScreenEdgePanGestureRecognizer(target: self, action: "handlePanGesture:")
         panGestureRecognizer.edges = UIRectEdge.Left
         centerNavigationController.view.addGestureRecognizer(panGestureRecognizer)
-        panGestureRecognizer.delegate = self
+//        panGestureRecognizer.delegate = self
         
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: "handleTapGesture:")
         centerVCFrontBlurView.addGestureRecognizer(tapGestureRecognizer)
-    }
-    
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        centerVCFrontBlurView.frame = CGRect(x: kExpandedOffSet , y: 0, width: kScreenWidth, height: kScreenHeight)
     }
     
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
     }
     
-    func configureViews(){
-        //        centerVCFrontBlurView = UIButton.buttonWithType(UIButtonType.Custom) as! UIButton
-        let viewEffect = UIBlurEffect(style: .Light)
-        centerVCFrontBlurView = UIVisualEffectView(effect: viewEffect)
-        centerVCFrontBlurView.alpha = 0.9
-        centerVCFrontBlurView.hidden = true
-        self.navigationController?.view.addSubview(centerVCFrontBlurView)
-    }
-    
+//    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailByGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+//        
+//        if gestureRecognizer.isKindOfClass(UIScreenEdgePanGestureRecognizer.classForCoder()) {
+//            if (otherGestureRecognizer.view?.isKindOfClass(UIScrollView.classForCoder()) != nil){
+//                return true
+//            }
+//        }
+//        if (otherGestureRecognizer.view?.isKindOfClass(UITableView.classForCoder()) != nil){
+//            return true
+//        }
+//        return false
+//    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -158,7 +165,8 @@ class ContainerViewController: UIViewController, UIGestureRecognizerDelegate{
         let gestureIsDraggingFromLeftToRight = (recognizer.velocityInView(view).x > 0)
         switch(recognizer.state) {
         case .Began:
-            self.centerVCFrontBlurView.hidden = true
+            mainViewController.view.addSubview(centerVCFrontBlurView)
+            mainViewController.navigationController?.setNavigationBarHidden(true , animated: false)
             if (currentState == .collapsed) {
                 if (gestureIsDraggingFromLeftToRight) {
                     addLeftPanelViewController()
@@ -166,7 +174,6 @@ class ContainerViewController: UIViewController, UIGestureRecognizerDelegate{
                 }
             }
         case .Changed:
-            self.centerVCFrontBlurView.hidden = true
             let pointX = centerNavigationController.view.frame.origin.x
             if (gestureIsDraggingFromLeftToRight || pointX > 0){
                 recognizer.view!.center.x = recognizer.view!.center.x + recognizer.translationInView(view).x
@@ -178,8 +185,9 @@ class ContainerViewController: UIViewController, UIGestureRecognizerDelegate{
                 // animate the side panel open or closed based on whether the view has moved more or less than halfway
                 let hasMovedGreaterThanHalfway = recognizer.view!.center.x > view.bounds.size.width / 1.5
                 animateLeftPanel(hasMovedGreaterThanHalfway)
-                if hasMovedGreaterThanHalfway {
-                    self.centerVCFrontBlurView.hidden = false
+                if !hasMovedGreaterThanHalfway {
+                    centerVCFrontBlurView.removeFromSuperview()
+
                 }
             }
         default:
@@ -191,15 +199,14 @@ class ContainerViewController: UIViewController, UIGestureRecognizerDelegate{
     func handleTapGesture(recognizer: UITapGestureRecognizer){
         if leftViewController != nil {
             animateLeftPanel(false)
-            self.centerVCFrontBlurView.hidden = true
+            self.centerVCFrontBlurView.removeFromSuperview()
         }
     }
     // close left panel
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         if leftViewController != nil{
             animateLeftPanel(false)
-            self.centerVCFrontBlurView.hidden = true
-            
+            self.centerVCFrontBlurView.removeFromSuperview()
         }
     }
     

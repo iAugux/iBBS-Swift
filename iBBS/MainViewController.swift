@@ -9,9 +9,16 @@
 import UIKit
 import SwiftyJSON
 
+
 class MainViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet weak var tableView: UITableView!
+    
+    var refreshControl: UIRefreshControl!
+    var gearRefreshControl: GearRefreshControl!
+    var refreshInSeconds: Double!
+    var nodeJSON: JSON?  // json of node
+    
     struct MainStoryboard {
         struct CellIdentifiers {
             static let iBBSTableViewCell = "iBBSTableViewCell"
@@ -24,28 +31,35 @@ class MainViewController: BaseViewController, UITableViewDataSource, UITableView
         }
     }
     
-    var refreshControl: UIRefreshControl!
-    var gearRefreshControl: GearRefreshControl!
-    var refreshInSeconds: Double!
-    
-    
-    var nodeJSON: JSON?  // json of node
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.setupView()
+        self.configureView()
         self.automaticPullingDownToRefresh()
         self.sendRequest()
-
-        tableView?.registerNib(UINib(nibName: MainStoryboard.NibNames.iBBSTableViewCellNibName, bundle: nil), forCellReuseIdentifier: MainStoryboard.CellIdentifiers.iBBSTableViewCell)
-        tableView.tableFooterView = UIView(frame: CGRectZero)
-        tableView.estimatedRowHeight = 100
-        tableView.rowHeight = UITableViewAutomaticDimension
+        self.configureTableView()
+        self.configureGestureRecognizer()
         self.gearRefreshManager()
+    
 
     }
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+//        // Your Menu View Controller vew must know the following data for the proper animatio
+//        let destinationVC = segue.destinationViewController as! GuillotineMenuViewController
+//        destinationVC.hostNavigationBarHeight = self.navigationController!.navigationBar.frame.size.height
+//        destinationVC.hostTitleText = self.navigationItem.title
+//        destinationVC.view.backgroundColor = self.navigationController!.navigationBar.barTintColor
+////        destinationVC.setMenuButtonWithImage(barButton.imageView!.image!)
+//        destinationVC.setMenuButtonWithImage(UIImage(named: "refresh")!)
+    }
+    
+    @IBAction func toggleSideMenu(sender: AnyObject) {
+//        self.navigationController?.setNavigationBarHidden(true , animated: true)
+//        self.toggleSideMenuView()
+        self.showSideMenuView()
+        
+    }
+    
     
     func sendRequest() {
         if let node = self.nodeJSON {
@@ -75,8 +89,8 @@ class MainViewController: BaseViewController, UITableViewDataSource, UITableView
         super.viewDidAppear(animated)
         self.navigationController?.hidesBarsOnSwipe = true
     }
-
-    func setupView(){
+    
+    func configureView(){
         self.navigationController?.navigationBarHidden = false
 //        self.navigationController?.hidesBarsOnSwipe = true
         
@@ -86,6 +100,20 @@ class MainViewController: BaseViewController, UITableViewDataSource, UITableView
             self.title = "iBBS"
         }
     }
+   
+    func configureTableView(){
+        tableView?.registerNib(UINib(nibName: MainStoryboard.NibNames.iBBSTableViewCellNibName, bundle: nil), forCellReuseIdentifier: MainStoryboard.CellIdentifiers.iBBSTableViewCell)
+        tableView.tableFooterView = UIView(frame: CGRectZero)
+        tableView.estimatedRowHeight = 100
+        tableView.rowHeight = UITableViewAutomaticDimension
+    }
+    
+    func configureGestureRecognizer(){
+        let edgeGestureRecognizer = UIScreenEdgePanGestureRecognizer(target: self, action: "toggleSideMenu:")
+        edgeGestureRecognizer.edges = UIRectEdge.Right
+        self.view.addGestureRecognizer(edgeGestureRecognizer)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

@@ -24,7 +24,7 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rUZ-WL-lhR">
-                        <rect key="frame" x="54" y="32" width="258" height="125.5"/>
+                        <rect key="frame" x="54" y="32" width="250" height="125.5"/>
                         <animations/>
                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -44,7 +44,7 @@
                     <constraint firstItem="rUZ-WL-lhR" firstAttribute="leading" secondItem="oeZ-Xd-ShK" secondAttribute="trailing" constant="8" id="Mxy-pk-j3H"/>
                     <constraint firstItem="oeZ-Xd-ShK" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="QYP-zx-Pby"/>
                     <constraint firstItem="kBo-YW-vg2" firstAttribute="leading" secondItem="oeZ-Xd-ShK" secondAttribute="trailing" constant="8" id="XIY-hA-y4s"/>
-                    <constraint firstItem="rUZ-WL-lhR" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="eQy-4h-47Z"/>
+                    <constraint firstItem="rUZ-WL-lhR" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" constant="-8" id="eQy-4h-47Z"/>
                     <constraint firstItem="oeZ-Xd-ShK" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="8" id="iBB-xA-dSk"/>
                     <constraint firstAttribute="bottomMargin" secondItem="rUZ-WL-lhR" secondAttribute="bottom" constant="8" id="lBX-QD-7VE"/>
                     <constraint firstItem="rUZ-WL-lhR" firstAttribute="top" secondItem="kBo-YW-vg2" secondAttribute="bottom" constant="8" id="wgW-E5-Wlf"/>

@@ -17,7 +17,7 @@ class IBBSReplyCell: UITableViewCell {
             avatarImageView.clipsToBounds = true
             avatarImageView.layer.borderWidth = 0.3
             avatarImageView.layer.borderColor = UIColor.blackColor().CGColor
-            avatarImageView.backgroundColor = getRandomColor()
+            avatarImageView.backgroundColor = UIColor.randomColor()
         }
     }
     @IBOutlet weak var usernameLabel: UILabel!

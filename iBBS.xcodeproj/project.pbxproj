@@ -24,6 +24,10 @@
 		B179394B1B96DE08002E1B21 /* IBBSTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17939461B96DE08002E1B21 /* IBBSTableViewCell.swift */; settings = {ASSET_TAGS = (); }; };
 		B179394D1B96DE08002E1B21 /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17939481B96DE08002E1B21 /* ContainerViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		B179394E1B96DE08002E1B21 /* SlidePanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17939491B96DE08002E1B21 /* SlidePanelViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		B1BFC0F91B9B37E30080058E /* ENSideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1BFC0F71B9B37E30080058E /* ENSideMenu.swift */; settings = {ASSET_TAGS = (); }; };
+		B1BFC0FA1B9B37E30080058E /* ENSideMenuNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1BFC0F81B9B37E30080058E /* ENSideMenuNavigationController.swift */; settings = {ASSET_TAGS = (); }; };
+		B1BFC0FC1B9B388D0080058E /* RootNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1BFC0FB1B9B388D0080058E /* RootNavigationController.swift */; settings = {ASSET_TAGS = (); }; };
+		B1BFC0FE1B9B3B0A0080058E /* MyMenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1BFC0FD1B9B3B0A0080058E /* MyMenuTableViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		B1CA72081B96DE74006823B3 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1CA72071B96DE74006823B3 /* APIClient.swift */; settings = {ASSET_TAGS = (); }; };
 		B1CA720A1B96DE96006823B3 /* Alamofire-SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1CA72091B96DE96006823B3 /* Alamofire-SwiftyJSON.swift */; settings = {ASSET_TAGS = (); }; };
 		B1CA720C1B96DEA1006823B3 /* DefaultConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1CA720B1B96DEA1006823B3 /* DefaultConstants.swift */; settings = {ASSET_TAGS = (); }; };
@@ -54,6 +58,10 @@
 		B17939471B96DE08002E1B21 /* IBBSTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IBBSTableViewCell.xib; sourceTree = "<group>"; };
 		B17939481B96DE08002E1B21 /* ContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
 		B17939491B96DE08002E1B21 /* SlidePanelViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlidePanelViewController.swift; sourceTree = "<group>"; };
+		B1BFC0F71B9B37E30080058E /* ENSideMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ENSideMenu.swift; sourceTree = "<group>"; };
+		B1BFC0F81B9B37E30080058E /* ENSideMenuNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ENSideMenuNavigationController.swift; sourceTree = "<group>"; };
+		B1BFC0FB1B9B388D0080058E /* RootNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootNavigationController.swift; sourceTree = "<group>"; };
+		B1BFC0FD1B9B3B0A0080058E /* MyMenuTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyMenuTableViewController.swift; sourceTree = "<group>"; };
 		B1CA72071B96DE74006823B3 /* APIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
 		B1CA72091B96DE96006823B3 /* Alamofire-SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Alamofire-SwiftyJSON.swift"; sourceTree = "<group>"; };
 		B1CA720B1B96DEA1006823B3 /* DefaultConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultConstants.swift; sourceTree = "<group>"; };
@@ -125,6 +133,15 @@
 			path = iBBS;
 			sourceTree = "<group>";
 		};
+		B1BFC0F61B9B37E30080058E /* ENSwiftSideMenu */ = {
+			isa = PBXGroup;
+			children = (
+				B1BFC0F71B9B37E30080058E /* ENSideMenu.swift */,
+				B1BFC0F81B9B37E30080058E /* ENSideMenuNavigationController.swift */,
+			);
+			path = ENSwiftSideMenu;
+			sourceTree = "<group>";
+		};
 		B1CA72031B96DE4F006823B3 /* API */ = {
 			isa = PBXGroup;
 			children = (
@@ -136,6 +153,7 @@
 		B1CA72041B96DE55006823B3 /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				B1BFC0F61B9B37E30080058E /* ENSwiftSideMenu */,
 				B1CA72101B9709ED006823B3 /* GearRefreshControl */,
 			);
 			name = ThirdParty;
@@ -162,6 +180,8 @@
 		B1CA72141B972299006823B3 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				B1BFC0FB1B9B388D0080058E /* RootNavigationController.swift */,
+				B1BFC0FD1B9B3B0A0080058E /* MyMenuTableViewController.swift */,
 				B17939451B96DE08002E1B21 /* MainViewController.swift */,
 				B148AF171B98572900D00524 /* MainDetailViewController.swift */,
 				B1CA721E1B9734DA006823B3 /* BaseViewController.swift */,
@@ -335,15 +355,19 @@
 				B1CA720A1B96DE96006823B3 /* Alamofire-SwiftyJSON.swift in Sources */,
 				B1CA72081B96DE74006823B3 /* APIClient.swift in Sources */,
 				B1455C151B994F230025B517 /* UIView+Additions.swift in Sources */,
+				B1BFC0FA1B9B37E30080058E /* ENSideMenuNavigationController.swift in Sources */,
 				B148AF241B98C52300D00524 /* IBBSDetailHeaderView.swift in Sources */,
 				B148AF1A1B98A94800D00524 /* UIColor+Additions.swift in Sources */,
 				B1CA72121B9709ED006823B3 /* GearRefreshControl.swift in Sources */,
+				B1BFC0F91B9B37E30080058E /* ENSideMenu.swift in Sources */,
 				B148AF181B98572900D00524 /* MainDetailViewController.swift in Sources */,
 				B1CA721F1B9734DA006823B3 /* BaseViewController.swift in Sources */,
 				B179394B1B96DE08002E1B21 /* IBBSTableViewCell.swift in Sources */,
 				B179394D1B96DE08002E1B21 /* ContainerViewController.swift in Sources */,
 				B1CA720C1B96DEA1006823B3 /* DefaultConstants.swift in Sources */,
+				B1BFC0FE1B9B3B0A0080058E /* MyMenuTableViewController.swift in Sources */,
 				B148AF1D1B98B1D800D00524 /* IBBSReplyCell.swift in Sources */,
+				B1BFC0FC1B9B388D0080058E /* RootNavigationController.swift in Sources */,
 				B17939321B96DDD3002E1B21 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

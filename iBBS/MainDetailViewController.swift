@@ -9,7 +9,7 @@
 import UIKit
 import SwiftyJSON
 
-class MainDetailViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate{
+class MainDetailViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate {
     struct MainStoryboard {
         struct CellIdentifiers {
             static let replyCellIdentifier = "iBBSReplyCell"
@@ -26,15 +26,13 @@ class MainDetailViewController: BaseViewController, UITableViewDataSource, UITab
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.registerNib(UINib(nibName: MainStoryboard.NibNames.cellNibName, bundle: nil), forCellReuseIdentifier: MainStoryboard.CellIdentifiers.replyCellIdentifier)
-        tableView.tableFooterView = UIView(frame: CGRectZero)
-        tableView.estimatedRowHeight = 90
-        tableView.rowHeight = UITableViewAutomaticDimension
-        self.setupHeaderView()
+        self.configureTableView()
+        self.configureHeaderView()
         self.sendRequest()
+        self.configureGesture()
     }
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -54,7 +52,15 @@ class MainDetailViewController: BaseViewController, UITableViewDataSource, UITab
         self.tableView.tableHeaderView = headerView
     }
     
-    func setupHeaderView(){
+    func configureTableView(){
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.registerNib(UINib(nibName: MainStoryboard.NibNames.cellNibName, bundle: nil), forCellReuseIdentifier: MainStoryboard.CellIdentifiers.replyCellIdentifier)
+        tableView.tableFooterView = UIView(frame: CGRectZero)
+        tableView.estimatedRowHeight = 90
+        tableView.rowHeight = UITableViewAutomaticDimension
+    }
+    func configureHeaderView(){
         let headerViewNib = NSBundle.mainBundle().loadNibNamed(MainStoryboard.NibNames.headerViewNibName, owner: self, options: nil)
         headerView = headerViewNib.first as! IBBSDetailHeaderView
         
@@ -75,7 +81,6 @@ class MainDetailViewController: BaseViewController, UITableViewDataSource, UITab
         
     }
     
-    
     func sendRequest() {
         //        self.refreshing = true
         APIClient.SharedAPIClient.getReplies(self.json["id"].stringValue, success: { (json) -> Void in
@@ -88,6 +93,26 @@ class MainDetailViewController: BaseViewController, UITableViewDataSource, UITab
                 //                self.refreshing = false
         }
     }
+    
+    // MARK: - configure gesture
+    func configureGesture(){
+        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
+        self.navigationController?.interactivePopGestureRecognizer?.enabled = true
+
+    }
+    
+    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailByGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
+    
+//    func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
+//        if self.navigationController?.viewControllers.count == 1 {
+//            return false
+//        }
+//        return true
+//    }
+    
+
     
     // MARK: - table view data source
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

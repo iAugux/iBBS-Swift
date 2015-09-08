@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SlidePanelViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class SlidePanelViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
     struct MainStoryBoard {
         struct TableViewCellIdentifiers {
             static let slidePanelCell = "slidePanelCell"
