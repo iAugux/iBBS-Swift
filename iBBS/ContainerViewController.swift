@@ -67,18 +67,18 @@ class ContainerViewController: UIViewController, UIGestureRecognizerDelegate{
         return true
     }
     
-//    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailByGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-//        
-//        if gestureRecognizer.isKindOfClass(UIScreenEdgePanGestureRecognizer.classForCoder()) {
-//            if (otherGestureRecognizer.view?.isKindOfClass(UIScrollView.classForCoder()) != nil){
-//                return true
-//            }
-//        }
-//        if (otherGestureRecognizer.view?.isKindOfClass(UITableView.classForCoder()) != nil){
-//            return true
-//        }
-//        return false
-//    }
+    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailByGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        
+        if gestureRecognizer.isKindOfClass(UIScreenEdgePanGestureRecognizer.classForCoder()) {
+            if (otherGestureRecognizer.view?.isKindOfClass(UIScrollView.classForCoder()) != nil){
+                return true
+            }
+        }
+        if (otherGestureRecognizer.view?.isKindOfClass(UITableView.classForCoder()) != nil){
+            return true
+        }
+        return false
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

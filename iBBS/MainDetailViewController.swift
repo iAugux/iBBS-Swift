@@ -148,7 +148,7 @@ class MainDetailViewController: BaseViewController, UITableViewDataSource, UITab
         let json = datasource[indexPath.row]
         cell.loadDataToCell(json)
         cell.replyContent.setFrameHeight(CGRectGetMaxX(cell.replyContent.frame))
-        print(cell.replyContent.text)
+//        print(cell.replyContent.text)
         return cell
     }
     
