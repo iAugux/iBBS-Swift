@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>065903C5-7CDA-4055-998D-98D8010249F4</string>
+	<key>IDESourceControlProjectName</key>
+	<string>iBBS</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>CFE2EED1518B0071F8C07C18AFCA16F09A50F377</key>
+		<string>https://github.com/iAugux/iBBS.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>iBBS.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>CFE2EED1518B0071F8C07C18AFCA16F09A50F377</key>
+		<string>..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/iAugux/iBBS.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>CFE2EED1518B0071F8C07C18AFCA16F09A50F377</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>CFE2EED1518B0071F8C07C18AFCA16F09A50F377</string>
+			<key>IDESourceControlWCCName</key>
+			<string>iBBS</string>
+		</dict>
+	</array>
+</dict>
+</plist>

@@ -1,28 +1,32 @@
 //
-//  MyMenuTableViewController.swift
-//  SwiftSideMenu
+//  NodesViewController.swift
+//  iBBS
 //
-//  Created by Evgeny Nazarov on 29.09.14.
-//  Copyright (c) 2014 Evgeny Nazarov. All rights reserved.
+//  Created by Augus on 9/2/15.
+//  Copyright © 2015 iAugus. All rights reserved.
 //
+
 
 import UIKit
 
-class MyMenuTableViewController: UITableViewController {
+class NodesViewController: UITableViewController {
+    
     var selectedMenuItem : Int = 0
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Customize apperance of table view
-        tableView.contentInset = UIEdgeInsetsMake(64.0, 0, 0, 0) //
-        tableView.separatorStyle = .None
+        tableView.contentInset = UIEdgeInsetsMake(64.0, 0, 0, 0)
+//        tableView.separatorStyle = .None
         tableView.backgroundColor = UIColor.clearColor()
         tableView.scrollsToTop = false
         
         // Preserve selection between presentations
-        self.clearsSelectionOnViewWillAppear = false
+//        self.clearsSelectionOnViewWillAppear = false
         
-        tableView.selectRowAtIndexPath(NSIndexPath(forRow: selectedMenuItem, inSection: 0), animated: false, scrollPosition: .Middle)
+//        tableView.selectRowAtIndexPath(NSIndexPath(forRow: selectedMenuItem, inSection: 0), animated: false, scrollPosition: .Middle)
     }
 
     override func didReceiveMemoryWarning() {
@@ -33,12 +37,10 @@ class MyMenuTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // Return the number of sections.
         return 1
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // Return the number of rows in the section.
         return 4
     }
 

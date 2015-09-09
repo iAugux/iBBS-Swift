@@ -15,7 +15,8 @@ extension NSString{
         paragraphStyle.lineBreakMode = NSLineBreakMode.ByWordWrapping
         let attributes: [String : AnyObject] = [NSFontAttributeName: font, NSParagraphStyleAttributeName: paragraphStyle.copy()]
         expectedLabelSize = self.boundingRectWithSize(size, options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: attributes, context: nil).size
-        
         return CGSizeMake(ceil(expectedLabelSize.width), ceil(expectedLabelSize.height))
     }
+    
+    
 }

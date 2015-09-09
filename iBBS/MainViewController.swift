@@ -40,8 +40,6 @@ class MainViewController: BaseViewController, UITableViewDataSource, UITableView
         self.configureTableView()
         self.configureGestureRecognizer()
         self.gearRefreshManager()
-    
-
     }
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 //        // Your Menu View Controller vew must know the following data for the proper animatio
@@ -63,24 +61,22 @@ class MainViewController: BaseViewController, UITableViewDataSource, UITableView
     
     func sendRequest() {
         if let node = self.nodeJSON {
-//            self.refreshing = true
             APIClient.SharedAPIClient.getLatestTopics(node["id"].stringValue, success: { (json) -> Void in
-//                self.refreshing = false
                 if json.type == Type.Array {
                     self.datasource = json.arrayValue
+                    self.tableView.reloadData()
+                    self.refreshControl.endRefreshing()
                 }
                 }, failure: { (error) -> Void in
-//                    self.refreshing = false
             })
         } else {
-//            self.refreshing = true
             APIClient.SharedAPIClient.getLatestTopics({ (json) -> Void in
-//                self.refreshing = false
                 if json.type == Type.Array {
                     self.datasource = json.arrayValue
+                    self.tableView.reloadData()
+                    self.refreshControl.endRefreshing()
                 }
                 }, failure: { (error) -> Void in
-//                    self.refreshing = false
             })
         }
     }
@@ -132,10 +128,7 @@ class MainViewController: BaseViewController, UITableViewDataSource, UITableView
         let cell = tableView.dequeueReusableCellWithIdentifier(MainStoryboard.CellIdentifiers.iBBSTableViewCell) as! IBBSTableViewCell
         
         let json = self.datasource[indexPath.row]
-        cell.topicLabel?.text = json["title"].stringValue
-        let avatarURL = "https:" + json["member"]["avatar_large"].stringValue
-        cell.userProfireImage?.sd_setImageWithURL(NSURL(string: avatarURL))
-        
+        cell.loadDataToCell(json)
         return cell
     }
     
@@ -151,10 +144,10 @@ class MainViewController: BaseViewController, UITableViewDataSource, UITableView
     
     // MARK: - part of GearRefreshControl
     func refresh(){
+        self.sendRequest()
         let popTime = dispatch_time(DISPATCH_TIME_NOW, Int64(refreshInSeconds * Double(NSEC_PER_SEC)));
         dispatch_after(popTime, dispatch_get_main_queue()) { () -> Void in
-            //            self.loadStatuses()
-            self.tableView.reloadData()
+//            self.tableView.reloadData()
             self.gearRefreshControl.endRefreshing()
         }
         
@@ -165,7 +158,7 @@ class MainViewController: BaseViewController, UITableViewDataSource, UITableView
     }
     
     func gearRefreshManager(){
-        refreshInSeconds = 1.3
+        refreshInSeconds = 1.1
         gearRefreshControl = GearRefreshControl(frame: self.view.bounds)
         gearRefreshControl.addTarget(self, action: "refresh", forControlEvents: UIControlEvents.ValueChanged)
         refreshControl = UIRefreshControl()

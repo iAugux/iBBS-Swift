@@ -23,13 +23,6 @@
                             <constraint firstAttribute="height" constant="30" id="qbg-Tc-eit"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rUZ-WL-lhR">
-                        <rect key="frame" x="54" y="32" width="250" height="125.5"/>
-                        <animations/>
-                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kBo-YW-vg2">
                         <rect key="frame" x="54" y="8" width="33" height="16"/>
                         <animations/>
@@ -37,26 +30,37 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="WSP-e0-EZh">
+                        <rect key="frame" x="54" y="32" width="250" height="125.5"/>
+                        <animations/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="125.5" id="emH-Ew-XQv"/>
+                        </constraints>
+                        <mutableString key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</mutableString>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                    </textView>
                 </subviews>
                 <animations/>
                 <constraints>
+                    <constraint firstAttribute="trailingMargin" secondItem="WSP-e0-EZh" secondAttribute="trailing" constant="8" id="1m8-WX-Att"/>
+                    <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="oeZ-Xd-ShK" secondAttribute="bottom" constant="8" id="3bE-CB-OSY"/>
                     <constraint firstItem="kBo-YW-vg2" firstAttribute="top" secondItem="oeZ-Xd-ShK" secondAttribute="top" id="Mt0-qX-PkN"/>
-                    <constraint firstItem="rUZ-WL-lhR" firstAttribute="leading" secondItem="oeZ-Xd-ShK" secondAttribute="trailing" constant="8" id="Mxy-pk-j3H"/>
                     <constraint firstItem="oeZ-Xd-ShK" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="QYP-zx-Pby"/>
                     <constraint firstItem="kBo-YW-vg2" firstAttribute="leading" secondItem="oeZ-Xd-ShK" secondAttribute="trailing" constant="8" id="XIY-hA-y4s"/>
-                    <constraint firstItem="rUZ-WL-lhR" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" constant="-8" id="eQy-4h-47Z"/>
+                    <constraint firstItem="WSP-e0-EZh" firstAttribute="top" secondItem="kBo-YW-vg2" secondAttribute="bottom" constant="8" id="cTa-8R-yz0"/>
+                    <constraint firstItem="WSP-e0-EZh" firstAttribute="leading" secondItem="oeZ-Xd-ShK" secondAttribute="trailing" constant="8" id="cd5-Yl-0uh"/>
                     <constraint firstItem="oeZ-Xd-ShK" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="8" id="iBB-xA-dSk"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="rUZ-WL-lhR" secondAttribute="bottom" constant="8" id="lBX-QD-7VE"/>
-                    <constraint firstItem="rUZ-WL-lhR" firstAttribute="top" secondItem="kBo-YW-vg2" secondAttribute="bottom" constant="8" id="wgW-E5-Wlf"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="WSP-e0-EZh" secondAttribute="bottom" constant="8" id="ws8-U9-Hrn"/>
                 </constraints>
             </tableViewCellContentView>
             <animations/>
             <connections>
                 <outlet property="avatarImageView" destination="oeZ-Xd-ShK" id="O5m-hM-f4d"/>
-                <outlet property="replyContent" destination="rUZ-WL-lhR" id="mvr-ko-78a"/>
+                <outlet property="replyContent" destination="WSP-e0-EZh" id="NoZ-oT-OOJ"/>
                 <outlet property="usernameLabel" destination="kBo-YW-vg2" id="Aze-qb-czI"/>
             </connections>
-            <point key="canvasLocation" x="315" y="311"/>
+            <point key="canvasLocation" x="305" y="231"/>
         </tableViewCell>
     </objects>
 </document>

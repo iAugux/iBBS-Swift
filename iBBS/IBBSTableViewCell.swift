@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 class IBBSTableViewCell: UITableViewCell {
 
@@ -37,5 +38,10 @@ class IBBSTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    func loadDataToCell(json: JSON){
+        let avatarUrl = NSURL(string: json["avatar"].stringValue)
+        self.userProfireImage?.sd_setImageWithURL(avatarUrl)
+        self.topicLabel?.text = json["title"].stringValue
+    }
    
 }

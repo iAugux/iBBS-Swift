@@ -40,24 +40,24 @@
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e9J-XK-YbL">
-                    <rect key="frame" x="17" y="87.5" width="295" height="17.5"/>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="gzi-QC-LIt">
+                    <rect key="frame" x="16" y="84" width="296" height="280"/>
                     <animations/>
-                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
-                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                    <nil key="highlightedColor"/>
-                </label>
+                    <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                </textView>
             </subviews>
             <animations/>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="e9J-XK-YbL" secondAttribute="bottom" id="0zD-JK-6TY"/>
+                <constraint firstAttribute="bottom" secondItem="gzi-QC-LIt" secondAttribute="bottom" constant="8" id="1AM-3Q-9Ca"/>
                 <constraint firstItem="OJR-0V-lNE" firstAttribute="leading" secondItem="Wyl-K8-Gdm" secondAttribute="leading" constant="16" id="6Me-QV-xmb"/>
-                <constraint firstItem="e9J-XK-YbL" firstAttribute="leading" secondItem="Wyl-K8-Gdm" secondAttribute="leading" constant="17" id="MZu-kG-ssd"/>
+                <constraint firstItem="gzi-QC-LIt" firstAttribute="top" secondItem="Yup-fe-YQi" secondAttribute="bottom" constant="8" id="8nv-kn-Awn"/>
+                <constraint firstItem="gzi-QC-LIt" firstAttribute="leading" secondItem="Wyl-K8-Gdm" secondAttribute="leading" constant="16" id="AiD-OL-3Fs"/>
+                <constraint firstAttribute="trailing" secondItem="gzi-QC-LIt" secondAttribute="trailing" constant="16" id="Nlu-qi-Ii9"/>
                 <constraint firstAttribute="trailing" secondItem="OJR-0V-lNE" secondAttribute="trailing" constant="16" id="Oal-zw-INR"/>
-                <constraint firstAttribute="trailing" secondItem="e9J-XK-YbL" secondAttribute="trailing" constant="16" id="PUW-gy-k3y"/>
                 <constraint firstItem="Yup-fe-YQi" firstAttribute="top" secondItem="OJR-0V-lNE" secondAttribute="bottom" constant="16" id="RYp-hn-2A3"/>
                 <constraint firstItem="phZ-T4-Rb5" firstAttribute="centerY" secondItem="nEL-0e-BTH" secondAttribute="centerY" id="VZv-T6-IGW"/>
-                <constraint firstItem="e9J-XK-YbL" firstAttribute="top" secondItem="Yup-fe-YQi" secondAttribute="bottom" constant="12" id="aqO-92-T9o"/>
                 <constraint firstItem="nEL-0e-BTH" firstAttribute="centerY" secondItem="Yup-fe-YQi" secondAttribute="centerY" id="b8O-1g-u2d"/>
                 <constraint firstItem="nEL-0e-BTH" firstAttribute="leading" secondItem="Yup-fe-YQi" secondAttribute="trailing" constant="8" id="fVN-tH-FpS"/>
                 <constraint firstItem="OJR-0V-lNE" firstAttribute="top" secondItem="Wyl-K8-Gdm" secondAttribute="top" constant="12" id="iSK-Yc-Hj4"/>
@@ -65,19 +65,14 @@
                 <constraint firstAttribute="trailing" secondItem="phZ-T4-Rb5" secondAttribute="trailing" constant="16" id="uj7-RN-16S"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <variation key="default">
-                <mask key="constraints">
-                    <exclude reference="0zD-JK-6TY"/>
-                </mask>
-            </variation>
             <connections>
                 <outlet property="avatarImageView" destination="Yup-fe-YQi" id="OJM-ag-d3T"/>
-                <outlet property="content" destination="e9J-XK-YbL" id="Ebk-s1-aW5"/>
+                <outlet property="content" destination="gzi-QC-LIt" id="Hc4-al-6Xa"/>
                 <outlet property="headerTitleLabel" destination="OJR-0V-lNE" id="gFO-WI-Jpl"/>
                 <outlet property="timeLabel" destination="phZ-T4-Rb5" id="fHZ-QX-qmh"/>
                 <outlet property="usernameLabel" destination="nEL-0e-BTH" id="QbU-b8-beT"/>
             </connections>
-            <point key="canvasLocation" x="511" y="-12"/>
+            <point key="canvasLocation" x="489" y="-34"/>
         </view>
     </objects>
 </document>

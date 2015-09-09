@@ -46,12 +46,35 @@ class MainDetailViewController: BaseViewController, UITableViewDataSource, UITab
     //        headerView.setFrameHeight(CGRectGetMaxY(headerView.content.frame) + 20)
     //    }
     
+    
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        headerView.setFrameHeight(CGRectGetMaxY(headerView.content.frame) + 20)
+        headerView.content.sizeToFit()
+        headerView.content.scrollEnabled = false
+        let contentStr = headerView.content.text as NSString
+        if contentStr.length == 0 {
+            headerView.setFrameHeight(CGRectGetMaxY(headerView.content.frame) - 20)
+        }else{
+            headerView.setFrameHeight(CGRectGetMaxY(headerView.content.frame) + 20)
+        }
         self.tableView.tableHeaderView = headerView
+        
+        
+
     }
     
+//    func configureHeaderViewHeight(){
+//        headerView.content.sizeToFit()
+//        
+//        let contentHeight = headerView.content.ausTextViewFrameSize().height
+//        headerView.content.setFrameHeight(contentHeight)
+//        headerView.content.scrollEnabled = false
+//        let headerViewHeight = contentHeight + 80
+//        headerView.setFrameHeight(headerViewHeight)
+//        self.tableView.tableHeaderView = headerView
+//
+//    }
+//    
     func configureTableView(){
         tableView.dataSource = self
         tableView.delegate = self
@@ -60,6 +83,7 @@ class MainDetailViewController: BaseViewController, UITableViewDataSource, UITab
         tableView.estimatedRowHeight = 90
         tableView.rowHeight = UITableViewAutomaticDimension
     }
+    
     func configureHeaderView(){
         let headerViewNib = NSBundle.mainBundle().loadNibNamed(MainStoryboard.NibNames.headerViewNibName, owner: self, options: nil)
         headerView = headerViewNib.first as! IBBSDetailHeaderView
@@ -68,17 +92,11 @@ class MainDetailViewController: BaseViewController, UITableViewDataSource, UITab
         headerView?.avatarImageView.clipsToBounds = true
         headerView?.avatarImageView.layer.borderWidth = 1.0
         headerView?.avatarImageView.layer.borderColor = UIColor.blackColor().CGColor
-        let url = "https:" + json["member"]["avatar_large"].stringValue
-        headerView?.avatarImageView.sd_setImageWithURL(NSURL(string: url))
-        
-        headerView?.headerTitleLabel?.text = json["title"].stringValue
-        headerView?.usernameLabel?.text = json["member"]["username"].stringValue
-        headerView?.timeLabel?.text = ""
-        headerView?.content?.text = json["content"].stringValue
         //        headerView.autoresizingMask = UIViewAutoresizing.FlexibleHeight
         headerView?.setFrameHeight(kScreenHeight)
+        headerView.loadData(json)
+
         self.tableView.tableHeaderView = headerView
-        
     }
     
     func sendRequest() {
@@ -98,21 +116,21 @@ class MainDetailViewController: BaseViewController, UITableViewDataSource, UITab
     func configureGesture(){
         self.navigationController?.interactivePopGestureRecognizer?.delegate = self
         self.navigationController?.interactivePopGestureRecognizer?.enabled = true
-
+        
     }
     
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailByGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
     }
     
-//    func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
-//        if self.navigationController?.viewControllers.count == 1 {
-//            return false
-//        }
-//        return true
-//    }
+    //    func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
+    //        if self.navigationController?.viewControllers.count == 1 {
+    //            return false
+    //        }
+    //        return true
+    //    }
     
-
+    
     
     // MARK: - table view data source
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -126,10 +144,11 @@ class MainDetailViewController: BaseViewController, UITableViewDataSource, UITab
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(MainStoryboard.CellIdentifiers.replyCellIdentifier) as! IBBSReplyCell
-//        let cell = prototypeCell as! IBBSReplyCell
+        //        let cell = prototypeCell as! IBBSReplyCell
         let json = datasource[indexPath.row]
         cell.loadDataToCell(json)
-//        cell.setFrameHeight(CGRectGetMaxX(cell.replyContent.frame))
+        cell.replyContent.setFrameHeight(CGRectGetMaxX(cell.replyContent.frame))
+        print(cell.replyContent.text)
         return cell
     }
     
@@ -150,12 +169,12 @@ class MainDetailViewController: BaseViewController, UITableViewDataSource, UITab
         let headerViewForSection = UITableViewHeaderFooterView(frame: CGRectMake(0, 0, kScreenWidth, 22))
         titleLabel.text = text as? String
         titleLabel.font = UIFont.systemFontOfSize(TITLE_FOR_HEADER_IN_SECTION_FONT_SIZE)
-
+        
         titleLabel.center.y = 14
         titleLabel.frame.origin.x = 18
         headerViewForSection.addSubview(titleLabel)
         
-//        headerViewForSection.tintColor = UIColor.redColor()
+        //        headerViewForSection.tintColor = UIColor.redColor()
         return headerViewForSection
         
         
@@ -164,24 +183,24 @@ class MainDetailViewController: BaseViewController, UITableViewDataSource, UITab
     
     
     
-//    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-////        if prototypeCell == nil {
-//          let   prototypeCell = tableView.dequeueReusableCellWithIdentifier(MainStoryboard.CellIdentifiers.replyCellIdentifier) as! IBBSReplyCell
-////        }
-//        let json = datasource[indexPath.row]
-//        prototypeCell.loadDataToCell(json)
-//        let contentStr = prototypeCell.replyContent.text as NSString?
-//        let replyLabelSize = contentStr?.ausCalculateSize(CGSizeMake(prototypeCell.replyContent.frame.size.width, prototypeCell.frame.size.height), font: prototypeCell.replyContent.font)
-//        prototypeCell.setNeedsLayout()
-//        prototypeCell.layoutIfNeeded()
-//        
-//        let height = replyLabelSize!.height + 32
-//        print(height)
-//        return height
-//    }
-//    
-//    func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-//        return 90
-//    }
-
+    //    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    ////        if prototypeCell == nil {
+    //          let   prototypeCell = tableView.dequeueReusableCellWithIdentifier(MainStoryboard.CellIdentifiers.replyCellIdentifier) as! IBBSReplyCell
+    ////        }
+    //        let json = datasource[indexPath.row]
+    //        prototypeCell.loadDataToCell(json)
+    //        let contentStr = prototypeCell.replyContent.text as NSString?
+    //        let replyLabelSize = contentStr?.ausCalculateSize(CGSizeMake(prototypeCell.replyContent.frame.size.width, prototypeCell.frame.size.height), font: prototypeCell.replyContent.font)
+    //        prototypeCell.setNeedsLayout()
+    //        prototypeCell.layoutIfNeeded()
+    //
+    //        let height = replyLabelSize!.height + 32
+    //        print(height)
+    //        return height
+    //    }
+    //
+    //    func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    //        return 90
+    //    }
+    
 }

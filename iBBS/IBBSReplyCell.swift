@@ -21,7 +21,7 @@ class IBBSReplyCell: UITableViewCell {
         }
     }
     @IBOutlet weak var usernameLabel: UILabel!
-    @IBOutlet weak var replyContent: UILabel!
+    @IBOutlet weak var replyContent: UITextView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -41,9 +41,12 @@ class IBBSReplyCell: UITableViewCell {
     }
     
     func loadDataToCell(json: JSON) {
-        let imageUrl = "https:" + json["member"]["avatar_large"].stringValue
-        avatarImageView.sd_setImageWithURL(NSURL(string: imageUrl))
-        usernameLabel.text = json["member"]["username"].stringValue
-        replyContent.text = json["content"].stringValue
+        let imageUrl = NSURL(string: json["avatar"].stringValue)
+        avatarImageView.sd_setImageWithURL(imageUrl)
+        usernameLabel.text = json["username"].stringValue
+        let data = json["comment_content"].stringValue
+        replyContent.ausAttributedText(data)
+        
+        
     }
 }

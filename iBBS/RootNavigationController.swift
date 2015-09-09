@@ -12,7 +12,7 @@ class RootNavigationController: ENSideMenuNavigationController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        sideMenu = ENSideMenu(sourceView: self.view, menuViewController: MyMenuTableViewController(), menuPosition:.Right)
+        sideMenu = ENSideMenu(sourceView: self.view, menuViewController: NodesViewController(), menuPosition:.Right)
 //        sideMenu?.delegate = self //optional
         sideMenu?.menuWidth = 180.0 // optional, default is 160
         sideMenu?.bouncingEnabled = false
