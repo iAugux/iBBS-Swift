@@ -10,14 +10,14 @@ import UIKit
 import SwiftyJSON
 
 class IBBSReplyCell: UITableViewCell {
-
+    
     @IBOutlet weak var avatarImageView: UIImageView!{
         didSet{
             avatarImageView.layer.cornerRadius = 15.0
-            avatarImageView.clipsToBounds = true
-            avatarImageView.layer.borderWidth = 0.3
-            avatarImageView.layer.borderColor = UIColor.blackColor().CGColor
-            avatarImageView.backgroundColor = UIColor.randomColor()
+            avatarImageView.clipsToBounds      = true
+            avatarImageView.layer.borderWidth  = 0.3
+            avatarImageView.layer.borderColor  = UIColor.blackColor().CGColor
+            avatarImageView.backgroundColor    = UIColor.randomColor()
         }
     }
     @IBOutlet weak var usernameLabel: UILabel!
@@ -28,25 +28,21 @@ class IBBSReplyCell: UITableViewCell {
         // Initialization code
         selectionStyle = .None
     }
-
-//    override func layoutSubviews() {
-//        super.layoutSubviews()
-//        self.contentView.layoutSubviews()
-//        self.replyContent.preferredMaxLayoutWidth = replyContent.frame.size.width
-//    }
+    
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        
         // Configure the view for the selected state
     }
     
     func loadDataToCell(json: JSON) {
         let imageUrl = NSURL(string: json["avatar"].stringValue)
         avatarImageView.sd_setImageWithURL(imageUrl)
+        //        avatarImageView.sd_setImageWithURL(imageUrl, placeholderImage: UIImage(named: "iAugus_500k"))
         usernameLabel.text = json["username"].stringValue
         let data = json["comment_content"].stringValue
         replyContent.ausAttributedText(data)
-        
-        
+        replyContent.ausReturnFrameSizeAfterResizingTextView()
     }
+    
 }

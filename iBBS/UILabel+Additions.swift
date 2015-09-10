@@ -25,4 +25,20 @@ extension UILabel {
             print("something error with NSAttributedString")
         }
     }
+    
+    /**
+    calculate size of UILabel
+    
+    :returns: CGSize
+    */
+    func ausReturnFrameSizeAfterResizingLabel() -> CGSize{
+        let fixedWidth = self.frame.size.width
+        self.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.max))
+        let newSize = self.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.max))
+        var newFrame = self.frame
+        newFrame.size = CGSize(width: max(newSize.width, fixedWidth), height: newSize.height)
+        self.frame = newFrame
+        return self.frame.size
+    }
+
 }

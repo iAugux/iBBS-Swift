@@ -84,6 +84,13 @@ class MainViewController: BaseViewController, UITableViewDataSource, UITableView
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         self.navigationController?.hidesBarsOnSwipe = true
+        
+        /**
+        important: if present NavigationController's property of interactivePopGestureRecognizer is enable, we must set it to disable,
+        otherwise if we call UIScreenEdgePanGestureRecognizer on present ViewController it will crash.
+        */
+        self.navigationController?.interactivePopGestureRecognizer?.delegate = nil
+//        self.navigationController?.interactivePopGestureRecognizer?.enabled = false
     }
     
     func configureView(){

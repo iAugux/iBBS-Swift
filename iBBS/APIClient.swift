@@ -10,7 +10,9 @@ import Foundation
 import Alamofire
 import SwiftyJSON
 
-let APIRootURL = "http://yabbs.sinaapp.com/index.php/Home/Api/"
+//let APIRootURL = "http://yabbs.sinaapp.com/index.php/Home/Api/"
+let APIRootURL = "http://127.0.0.1/~Augus/YABBS/index.php/Home/Api/"
+
 //let APIRootURL = "https://www.v2ex.com/api/"
 
 class APIClient {

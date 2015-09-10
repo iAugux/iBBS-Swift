@@ -9,11 +9,11 @@
 import Foundation
 
 extension UIScreen {
-    func screenWidth() -> CGFloat {
+    class func screenWidth() -> CGFloat {
         return UIScreen.mainScreen().bounds.width
     }
     
-    func screenHeight() -> CGFloat {
+    class func screenHeight() -> CGFloat {
         return UIScreen.mainScreen().bounds.height
     }
     

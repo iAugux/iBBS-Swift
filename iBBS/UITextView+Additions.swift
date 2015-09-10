@@ -28,11 +28,11 @@ extension UITextView {
     }
     
     /**
-    calculate size of text view
+    calculate size of UITextView
     
     :returns: CGSize
     */
-    func ausTextViewFrameSize() -> CGSize{
+    func ausReturnFrameSizeAfterResizingTextView() -> CGSize{
         let fixedWidth = self.frame.size.width
         self.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.max))
         let newSize = self.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.max))
@@ -41,5 +41,14 @@ extension UITextView {
         self.frame = newFrame
         return self.frame.size
     }
+    
+    
+}
 
+
+func AusTextViewSizeForAttributedText(text: String) -> CGSize {
+    let calculationView = UITextView()
+    calculationView.ausAttributedText(text)
+    let size = calculationView.sizeThatFits(CGSizeMake(CGFloat.max, CGFloat.max))
+    return size
 }

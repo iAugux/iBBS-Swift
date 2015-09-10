@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8187.4" systemVersion="15A278b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="15A278b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8151.3"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -27,20 +27,20 @@
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nEL-0e-BTH">
-                    <rect key="frame" x="52" y="53.5" width="33" height="16"/>
+                    <rect key="frame" x="52" y="53" width="33" height="16"/>
                     <animations/>
                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="phZ-T4-Rb5">
-                    <rect key="frame" x="282" y="54" width="30" height="16"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" enabled="NO" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="phZ-T4-Rb5">
+                    <rect key="frame" x="286" y="55.5" width="26" height="13.5"/>
                     <animations/>
-                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="gzi-QC-LIt">
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="gzi-QC-LIt">
                     <rect key="frame" x="16" y="84" width="296" height="280"/>
                     <animations/>
                     <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
@@ -57,8 +57,8 @@
                 <constraint firstAttribute="trailing" secondItem="gzi-QC-LIt" secondAttribute="trailing" constant="16" id="Nlu-qi-Ii9"/>
                 <constraint firstAttribute="trailing" secondItem="OJR-0V-lNE" secondAttribute="trailing" constant="16" id="Oal-zw-INR"/>
                 <constraint firstItem="Yup-fe-YQi" firstAttribute="top" secondItem="OJR-0V-lNE" secondAttribute="bottom" constant="16" id="RYp-hn-2A3"/>
-                <constraint firstItem="phZ-T4-Rb5" firstAttribute="centerY" secondItem="nEL-0e-BTH" secondAttribute="centerY" id="VZv-T6-IGW"/>
-                <constraint firstItem="nEL-0e-BTH" firstAttribute="centerY" secondItem="Yup-fe-YQi" secondAttribute="centerY" id="b8O-1g-u2d"/>
+                <constraint firstItem="phZ-T4-Rb5" firstAttribute="centerY" secondItem="nEL-0e-BTH" secondAttribute="centerY" constant="1.25" id="VZv-T6-IGW"/>
+                <constraint firstItem="nEL-0e-BTH" firstAttribute="centerY" secondItem="Yup-fe-YQi" secondAttribute="centerY" constant="-1" id="b8O-1g-u2d"/>
                 <constraint firstItem="nEL-0e-BTH" firstAttribute="leading" secondItem="Yup-fe-YQi" secondAttribute="trailing" constant="8" id="fVN-tH-FpS"/>
                 <constraint firstItem="OJR-0V-lNE" firstAttribute="top" secondItem="Wyl-K8-Gdm" secondAttribute="top" constant="12" id="iSK-Yc-Hj4"/>
                 <constraint firstItem="Yup-fe-YQi" firstAttribute="leading" secondItem="Wyl-K8-Gdm" secondAttribute="leading" constant="16" id="kdC-Vx-MF4"/>
