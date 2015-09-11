@@ -109,8 +109,11 @@ class MainViewController: BaseViewController {
     }
     
     func configureTableView(){
-        tableView.delegate = self
-        tableView?.registerNib(UINib(nibName: MainStoryboard.NibNames.iBBSTableViewCellNibName, bundle: nil), forCellReuseIdentifier: MainStoryboard.CellIdentifiers.iBBSTableViewCell)
+//        tableView.delegate = self
+        
+        
+        tableView.backgroundColor = UIColor.redColor()
+//        tableView?.registerNib(UINib(nibName: MainStoryboard.NibNames.iBBSTableViewCellNibName, bundle: nil), forCellReuseIdentifier: MainStoryboard.CellIdentifiers.iBBSTableViewCell)
         tableView.tableFooterView = UIView(frame: CGRectZero)
         tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableViewAutomaticDimension
