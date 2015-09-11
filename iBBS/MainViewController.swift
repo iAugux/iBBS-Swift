@@ -78,7 +78,7 @@ class MainViewController: BaseViewController, UITableViewDataSource, UITableView
             APIClient.sharedInstance.getLatestTopics(node["id"].stringValue, success: { (json) -> Void in
                 if json.type == Type.Array {
                     self.datasource = json.arrayValue
-                    self.tableView?.reloadData()
+//                    self.tableView.reloadData()
                     self.refreshControl?.endRefreshing()
 //                    print(self.datasource)
                 }
@@ -88,7 +88,7 @@ class MainViewController: BaseViewController, UITableViewDataSource, UITableView
             APIClient.sharedInstance.getLatestTopics({ (json) -> Void in
                 if json.type == Type.Array {
                     self.datasource = json.arrayValue
-                    self.tableView?.reloadData()
+//                    self.tableView?.reloadData()
                     self.refreshControl?.endRefreshing()
                 }
                 }, failure: { (error) -> Void in

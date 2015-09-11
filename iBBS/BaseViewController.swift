@@ -28,7 +28,6 @@ class BaseViewController: UIViewController {
     var datasource: Array<JSON>!{
         didSet{
 //            print(datasource)
-            MainViewController.sharedInstance.tableView?.reloadData()
             
         }
     }
