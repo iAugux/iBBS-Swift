@@ -9,7 +9,7 @@
 import UIKit
 import SwiftyJSON
 
-class MainDetailViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate {
+class MainDetailViewController: BaseViewController, UIGestureRecognizerDelegate {
     struct MainStoryboard {
         struct CellIdentifiers {
             static let replyCellIdentifier = "iBBSReplyCell"
@@ -19,7 +19,7 @@ class MainDetailViewController: BaseViewController, UITableViewDataSource, UITab
             static let headerViewNibName = "IBBSDetailHeaderView"
         }
     }
-    @IBOutlet weak var tableView: UITableView!
+
     var json: JSON!
     var headerView: IBBSDetailHeaderView!
     var prototypeCell: IBBSReplyCell!
@@ -125,7 +125,7 @@ class MainDetailViewController: BaseViewController, UITableViewDataSource, UITab
     
     
     // MARK: - table view data source
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if datasource != nil {
             return datasource.count
         }
@@ -134,7 +134,7 @@ class MainDetailViewController: BaseViewController, UITableViewDataSource, UITab
     }
     
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCellWithIdentifier(MainStoryboard.CellIdentifiers.replyCellIdentifier) as? IBBSReplyCell {
             let json = datasource[indexPath.row]
             cell.loadDataToCell(json)
@@ -156,7 +156,7 @@ class MainDetailViewController: BaseViewController, UITableViewDataSource, UITab
         return "Replies : \(datasource.count)"
     }
     
-    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let text = titleForHeaderInSection()
         let labelSize = text!.sizeWithAttributes([NSFontAttributeName: UIFont.systemFontOfSize(TITLE_FOR_HEADER_IN_SECTION_FONT_SIZE)])
         let titleLabel = UILabel(frame: CGRectMake(0, 0, labelSize.width , labelSize.height))
@@ -174,7 +174,7 @@ class MainDetailViewController: BaseViewController, UITableViewDataSource, UITab
         
     }
     
-    func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 90
     }
     

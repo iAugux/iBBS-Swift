@@ -41,7 +41,6 @@
 		B1CA72081B96DE74006823B3 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1CA72071B96DE74006823B3 /* APIClient.swift */; settings = {ASSET_TAGS = (); }; };
 		B1CA720A1B96DE96006823B3 /* Alamofire-SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1CA72091B96DE96006823B3 /* Alamofire-SwiftyJSON.swift */; settings = {ASSET_TAGS = (); }; };
 		B1CA720C1B96DEA1006823B3 /* DefaultConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1CA720B1B96DEA1006823B3 /* DefaultConstants.swift */; settings = {ASSET_TAGS = (); }; };
-		B1CA720F1B97038D006823B3 /* IBBSTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B17939471B96DE08002E1B21 /* IBBSTableViewCell.xib */; settings = {ASSET_TAGS = (); }; };
 		B1CA72121B9709ED006823B3 /* GearRefreshControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1CA72111B9709ED006823B3 /* GearRefreshControl.swift */; settings = {ASSET_TAGS = (); }; };
 		B1CA721F1B9734DA006823B3 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1CA721E1B9734DA006823B3 /* BaseViewController.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
@@ -73,7 +72,6 @@
 		B17939431B96DDF3002E1B21 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		B17939451B96DE08002E1B21 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		B17939461B96DE08002E1B21 /* IBBSTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSTableViewCell.swift; sourceTree = "<group>"; };
-		B17939471B96DE08002E1B21 /* IBBSTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IBBSTableViewCell.xib; sourceTree = "<group>"; };
 		B17939481B96DE08002E1B21 /* ContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
 		B17939491B96DE08002E1B21 /* SlidePanelViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlidePanelViewController.swift; sourceTree = "<group>"; };
 		B1BFC0F71B9B37E30080058E /* ENSideMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ENSideMenu.swift; sourceTree = "<group>"; };
@@ -229,7 +227,6 @@
 			isa = PBXGroup;
 			children = (
 				B17939461B96DE08002E1B21 /* IBBSTableViewCell.swift */,
-				B17939471B96DE08002E1B21 /* IBBSTableViewCell.xib */,
 				B148AF231B98C52300D00524 /* IBBSDetailHeaderView.swift */,
 				B148AF211B98C3B100D00524 /* IBBSDetailHeaderView.xib */,
 				B148AF1B1B98B1D800D00524 /* IBBSReplyCell.swift */,
@@ -325,7 +322,6 @@
 			files = (
 				B148AF1E1B98B1D800D00524 /* IBBSReplyCell.xib in Resources */,
 				B17939441B96DDF3002E1B21 /* Main.storyboard in Resources */,
-				B1CA720F1B97038D006823B3 /* IBBSTableViewCell.xib in Resources */,
 				B113B0471BA196BF004ECFA0 /* arrow@2x.png in Resources */,
 				B179393C1B96DDD3002E1B21 /* LaunchScreen.storyboard in Resources */,
 				B148AF221B98C3B100D00524 /* IBBSDetailHeaderView.xib in Resources */,

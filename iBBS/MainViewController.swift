@@ -10,18 +10,11 @@ import UIKit
 import SwiftyJSON
 
 
-class MainViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate {
-
+class MainViewController: BaseViewController {
+    
     static let sharedInstance = MainViewController()
     
-    @IBOutlet var tableView: UITableView!{
-        didSet{
-            tableView.reloadData()
-        }
-    }
-    
-    var refreshControl: UIRefreshControl!
-    var gearRefreshControl: GearRefreshControl!
+    //    var gearRefreshControl: GearRefreshControl!
     var refreshInSeconds: Double!
     var nodeJSON: JSON?
     
@@ -41,13 +34,14 @@ class MainViewController: BaseViewController, UITableViewDataSource, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureView()
-        self.automaticPullingDownToRefresh()
+        tableView.backgroundColor = UIColor.randomColor()
+        //        self.automaticPullingDownToRefresh()
         self.sendRequest()
         self.configureTableView()
         self.configureGestureRecognizer()
-        self.gearRefreshManager()
-        self.setupLoadmore()
-       
+        //        self.gearRefreshManager()
+        //        self.setupLoadmore()
+        
     }
     
     override func viewDidLayoutSubviews() {
@@ -56,18 +50,18 @@ class MainViewController: BaseViewController, UITableViewDataSource, UITableView
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-//        // Your Menu View Controller vew must know the following data for the proper animatio
-//        let destinationVC = segue.destinationViewController as! GuillotineMenuViewController
-//        destinationVC.hostNavigationBarHeight = self.navigationController!.navigationBar.frame.size.height
-//        destinationVC.hostTitleText = self.navigationItem.title
-//        destinationVC.view.backgroundColor = self.navigationController!.navigationBar.barTintColor
-////        destinationVC.setMenuButtonWithImage(barButton.imageView!.image!)
-//        destinationVC.setMenuButtonWithImage(UIImage(named: "refresh")!)
+        //        // Your Menu View Controller vew must know the following data for the proper animatio
+        //        let destinationVC = segue.destinationViewController as! GuillotineMenuViewController
+        //        destinationVC.hostNavigationBarHeight = self.navigationController!.navigationBar.frame.size.height
+        //        destinationVC.hostTitleText = self.navigationItem.title
+        //        destinationVC.view.backgroundColor = self.navigationController!.navigationBar.barTintColor
+        ////        destinationVC.setMenuButtonWithImage(barButton.imageView!.image!)
+        //        destinationVC.setMenuButtonWithImage(UIImage(named: "refresh")!)
     }
     
     @IBAction func toggleSideMenu(sender: AnyObject) {
-//        self.navigationController?.setNavigationBarHidden(true , animated: true)
-//        self.toggleSideMenuView()
+        //        self.navigationController?.setNavigationBarHidden(true , animated: true)
+        //        self.toggleSideMenuView()
         self.showSideMenuView()
         
     }
@@ -80,7 +74,7 @@ class MainViewController: BaseViewController, UITableViewDataSource, UITableView
                     self.datasource = json.arrayValue
                     self.tableView?.reloadData()
                     self.refreshControl?.endRefreshing()
-//                    print(self.datasource)
+                    //                    print(self.datasource)
                 }
                 }, failure: { (error) -> Void in
             })
@@ -105,12 +99,12 @@ class MainViewController: BaseViewController, UITableViewDataSource, UITableView
         otherwise if we call UIScreenEdgePanGestureRecognizer on present ViewController it will crash.
         */
         self.navigationController?.interactivePopGestureRecognizer?.delegate = nil
-//        self.navigationController?.interactivePopGestureRecognizer?.enabled = false
+        //        self.navigationController?.interactivePopGestureRecognizer?.enabled = false
     }
     
     func configureView(){
         self.navigationController?.navigationBarHidden = false
-//        self.navigationController?.hidesBarsOnSwipe = true
+        //        self.navigationController?.hidesBarsOnSwipe = true
         
         if let node = self.nodeJSON {
             self.title = node["title"].stringValue
@@ -118,9 +112,9 @@ class MainViewController: BaseViewController, UITableViewDataSource, UITableView
             self.title = "iBBS"
         }
     }
-   
+    
     func configureTableView(){
-        tableView?.registerNib(UINib(nibName: MainStoryboard.NibNames.iBBSTableViewCellNibName, bundle: nil), forCellReuseIdentifier: MainStoryboard.CellIdentifiers.iBBSTableViewCell)
+        //        tableView?.registerNib(UINib(nibName: MainStoryboard.NibNames.iBBSTableViewCellNibName, bundle: nil), forCellReuseIdentifier: MainStoryboard.CellIdentifiers.iBBSTableViewCell)
         tableView.tableFooterView = UIView(frame: CGRectZero)
         tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -136,27 +130,32 @@ class MainViewController: BaseViewController, UITableViewDataSource, UITableView
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
     // MARK: - Table view data source
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if datasource != nil {
             return datasource.count
         }
         return 0
     }
-
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(MainStoryboard.CellIdentifiers.iBBSTableViewCell) as! IBBSTableViewCell
+    
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        if let cell = tableView.dequeueReusableCellWithIdentifier(MainStoryboard.CellIdentifiers.iBBSTableViewCell) as? IBBSTableViewCell{
+            
+            cell.backgroundColor = UIColor.randomColor()
+            
+            let json = self.datasource[indexPath.row]
+            cell.loadDataToCell(json)
+            return cell
+        }
         
-        let json = self.datasource[indexPath.row]
-        cell.loadDataToCell(json)
-        return cell
+        return UITableViewCell()
     }
     
-   
+    
     // MARK: - table view delegate
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let json = self.datasource[indexPath.row]
         let vc = storyboard!.instantiateViewControllerWithIdentifier(MainStoryboard.VCIdentifiers.mainDetailVC) as! MainDetailViewController
         vc.json = json
@@ -166,60 +165,60 @@ class MainViewController: BaseViewController, UITableViewDataSource, UITableView
     
     
     // MARK: - part of GearRefreshControl
-    func refresh(){
-        self.sendRequest()
-        let popTime = dispatch_time(DISPATCH_TIME_NOW, Int64(refreshInSeconds * Double(NSEC_PER_SEC)));
-        dispatch_after(popTime, dispatch_get_main_queue()) { () -> Void in
-//            self.tableView.reloadData()
-            self.gearRefreshControl.endRefreshing()
-        }
+    //    func refresh(){
+    //        self.sendRequest()
+    //        let popTime = dispatch_time(DISPATCH_TIME_NOW, Int64(refreshInSeconds * Double(NSEC_PER_SEC)));
+    //        dispatch_after(popTime, dispatch_get_main_queue()) { () -> Void in
+    ////            self.tableView.reloadData()
+    //            self.gearRefreshControl.endRefreshing()
+    //        }
+    //
+    //    }
     
-    }
-    
-    func scrollViewDidScroll(scrollView: UIScrollView) {
-        gearRefreshControl.scrollViewDidScroll(scrollView)
-    }
-    
-    func gearRefreshManager(){
-        refreshInSeconds = 1.1
-        gearRefreshControl = GearRefreshControl(frame: self.view.bounds)
-        gearRefreshControl.addTarget(self, action: "refresh", forControlEvents: UIControlEvents.ValueChanged)
-        refreshControl = UIRefreshControl()
-        refreshControl = gearRefreshControl
-        tableView?.addSubview(refreshControl)
-    }
-    
-    // MARK: - Automatic pulling down to refresh
-    func automaticPullingDownToRefresh(){
-        
-        NSTimer.scheduledTimerWithTimeInterval(0.001, target: self, selector: "automaticContentOffset", userInfo: nil, repeats: false)
-        //        NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: "endRefresh", userInfo: nil, repeats: false)
-        //        NSTimer.performSelector("endRefresh", withObject: nil, afterDelay: 0.1)
-    }
-    
-    func automaticContentOffset(){
-        self.gearRefreshControl.beginRefreshing()
-        self.refresh()
-        self.tableView.setContentOffset(CGPointMake(0, -125.0), animated: true)
-        
-    }
-    
-    
-    func setupLoadmore(){
-        self.tableView.addFooterWithCallback({
-            for var i = 0; i < 90; i++ {
-//                self.numberOfRows?.addObject(0)
-            }
-            //                        let delayInSeconds: Double = 0.3
-            //                        let delta = Int64(Double(NSEC_PER_SEC) * delayInSeconds)
-            //                        let popTime:dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW,delta)
-            //                        dispatch_after(popTime, dispatch_get_main_queue(), {
-            //                            self.tableView.reloadData()
-            //                            self.tableView.footerEndRefreshing()
-            //            //                self.tableView.setFooterHidden(true)
-            //                        })
-            self.tableView.reloadData()
-            self.tableView.footerEndRefreshing()
-        })
-    }
+    //    override func scrollViewDidScroll(scrollView: UIScrollView) {
+    //        gearRefreshControl.scrollViewDidScroll(scrollView)
+    //    }
+    //
+    //    func gearRefreshManager(){
+    //        refreshInSeconds = 1.1
+    //        gearRefreshControl = GearRefreshControl(frame: self.view.bounds)
+    //        gearRefreshControl.addTarget(self, action: "refresh", forControlEvents: UIControlEvents.ValueChanged)
+    //        refreshControl = UIRefreshControl()
+    //        refreshControl = gearRefreshControl
+    //        tableView?.addSubview(refreshControl!)
+    //    }
+    //
+    //    // MARK: - Automatic pulling down to refresh
+    //    func automaticPullingDownToRefresh(){
+    //
+    //        NSTimer.scheduledTimerWithTimeInterval(0.001, target: self, selector: "automaticContentOffset", userInfo: nil, repeats: false)
+    //        //        NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: "endRefresh", userInfo: nil, repeats: false)
+    //        //        NSTimer.performSelector("endRefresh", withObject: nil, afterDelay: 0.1)
+    //    }
+    //
+    //    func automaticContentOffset(){
+    //        self.gearRefreshControl.beginRefreshing()
+    //        self.refresh()
+    //        self.tableView.setContentOffset(CGPointMake(0, -125.0), animated: true)
+    //
+    //    }
+    //
+    //
+    //    func setupLoadmore(){
+    //        self.tableView.addFooterWithCallback({
+    //            for var i = 0; i < 90; i++ {
+    ////                self.numberOfRows?.addObject(0)
+    //            }
+    //            //                        let delayInSeconds: Double = 0.3
+    //            //                        let delta = Int64(Double(NSEC_PER_SEC) * delayInSeconds)
+    //            //                        let popTime:dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW,delta)
+    //            //                        dispatch_after(popTime, dispatch_get_main_queue(), {
+    //            //                            self.tableView.reloadData()
+    //            //                            self.tableView.footerEndRefreshing()
+    //            //            //                self.tableView.setFooterHidden(true)
+    //            //                        })
+    //            self.tableView.reloadData()
+    //            self.tableView.footerEndRefreshing()
+    //        })
+    //    }
 }

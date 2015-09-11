@@ -9,11 +9,8 @@
 import UIKit
 import SwiftyJSON
 
-class BaseViewController: UIViewController {
-    struct VCIdentifiers {
-        static let mainDetailVC = "mainDetailViewController"
-        
-    }
+class BaseViewController: UITableViewController {
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,7 +25,7 @@ class BaseViewController: UIViewController {
     var datasource: Array<JSON>!{
         didSet{
 //            print(datasource)
-            MainViewController.sharedInstance.tableView?.reloadData()
+//            MainViewController.sharedInstance.tableView?.reloadData()
             
         }
     }
