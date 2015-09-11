@@ -14,7 +14,7 @@ class MainViewController: BaseViewController {
     
     static let sharedInstance = MainViewController()
     
-    //    var gearRefreshControl: GearRefreshControl!
+    var gearRefreshControl: GearRefreshControl!
     var refreshInSeconds: Double!
     var nodeJSON: JSON?
     
@@ -33,21 +33,16 @@ class MainViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.configureView()
-        tableView.backgroundColor = UIColor.randomColor()
-        //        self.automaticPullingDownToRefresh()
-        self.sendRequest()
         self.configureTableView()
+        self.configureView()
+        self.automaticPullingDownToRefresh()
+        self.sendRequest()
         self.configureGestureRecognizer()
-        //        self.gearRefreshManager()
-        //        self.setupLoadmore()
+        self.gearRefreshManager()
+        self.setupLoadmore()
         
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        self.configureTableView()
-    }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         //        // Your Menu View Controller vew must know the following data for the proper animatio
@@ -114,7 +109,8 @@ class MainViewController: BaseViewController {
     }
     
     func configureTableView(){
-        //        tableView?.registerNib(UINib(nibName: MainStoryboard.NibNames.iBBSTableViewCellNibName, bundle: nil), forCellReuseIdentifier: MainStoryboard.CellIdentifiers.iBBSTableViewCell)
+        tableView.delegate = self
+        tableView?.registerNib(UINib(nibName: MainStoryboard.NibNames.iBBSTableViewCellNibName, bundle: nil), forCellReuseIdentifier: MainStoryboard.CellIdentifiers.iBBSTableViewCell)
         tableView.tableFooterView = UIView(frame: CGRectZero)
         tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -165,60 +161,60 @@ class MainViewController: BaseViewController {
     
     
     // MARK: - part of GearRefreshControl
-    //    func refresh(){
-    //        self.sendRequest()
-    //        let popTime = dispatch_time(DISPATCH_TIME_NOW, Int64(refreshInSeconds * Double(NSEC_PER_SEC)));
-    //        dispatch_after(popTime, dispatch_get_main_queue()) { () -> Void in
-    ////            self.tableView.reloadData()
-    //            self.gearRefreshControl.endRefreshing()
-    //        }
-    //
-    //    }
+    func refresh(){
+        self.sendRequest()
+        let popTime = dispatch_time(DISPATCH_TIME_NOW, Int64(refreshInSeconds * Double(NSEC_PER_SEC)));
+        dispatch_after(popTime, dispatch_get_main_queue()) { () -> Void in
+            //            self.tableView.reloadData()
+            self.gearRefreshControl.endRefreshing()
+        }
+        
+    }
     
-    //    override func scrollViewDidScroll(scrollView: UIScrollView) {
-    //        gearRefreshControl.scrollViewDidScroll(scrollView)
-    //    }
-    //
-    //    func gearRefreshManager(){
-    //        refreshInSeconds = 1.1
-    //        gearRefreshControl = GearRefreshControl(frame: self.view.bounds)
-    //        gearRefreshControl.addTarget(self, action: "refresh", forControlEvents: UIControlEvents.ValueChanged)
-    //        refreshControl = UIRefreshControl()
-    //        refreshControl = gearRefreshControl
-    //        tableView?.addSubview(refreshControl!)
-    //    }
-    //
-    //    // MARK: - Automatic pulling down to refresh
-    //    func automaticPullingDownToRefresh(){
-    //
-    //        NSTimer.scheduledTimerWithTimeInterval(0.001, target: self, selector: "automaticContentOffset", userInfo: nil, repeats: false)
-    //        //        NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: "endRefresh", userInfo: nil, repeats: false)
-    //        //        NSTimer.performSelector("endRefresh", withObject: nil, afterDelay: 0.1)
-    //    }
-    //
-    //    func automaticContentOffset(){
-    //        self.gearRefreshControl.beginRefreshing()
-    //        self.refresh()
-    //        self.tableView.setContentOffset(CGPointMake(0, -125.0), animated: true)
-    //
-    //    }
-    //
-    //
-    //    func setupLoadmore(){
-    //        self.tableView.addFooterWithCallback({
-    //            for var i = 0; i < 90; i++ {
-    ////                self.numberOfRows?.addObject(0)
-    //            }
-    //            //                        let delayInSeconds: Double = 0.3
-    //            //                        let delta = Int64(Double(NSEC_PER_SEC) * delayInSeconds)
-    //            //                        let popTime:dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW,delta)
-    //            //                        dispatch_after(popTime, dispatch_get_main_queue(), {
-    //            //                            self.tableView.reloadData()
-    //            //                            self.tableView.footerEndRefreshing()
-    //            //            //                self.tableView.setFooterHidden(true)
-    //            //                        })
-    //            self.tableView.reloadData()
-    //            self.tableView.footerEndRefreshing()
-    //        })
-    //    }
+    override func scrollViewDidScroll(scrollView: UIScrollView) {
+        gearRefreshControl.scrollViewDidScroll(scrollView)
+    }
+    
+    func gearRefreshManager(){
+        refreshInSeconds = 1.1
+        gearRefreshControl = GearRefreshControl(frame: self.view.bounds)
+        gearRefreshControl.addTarget(self, action: "refresh", forControlEvents: UIControlEvents.ValueChanged)
+        refreshControl = UIRefreshControl()
+        refreshControl = gearRefreshControl
+        tableView?.addSubview(refreshControl!)
+    }
+    
+    // MARK: - Automatic pulling down to refresh
+    func automaticPullingDownToRefresh(){
+        
+        NSTimer.scheduledTimerWithTimeInterval(0.001, target: self, selector: "automaticContentOffset", userInfo: nil, repeats: false)
+        //        NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: "endRefresh", userInfo: nil, repeats: false)
+        //        NSTimer.performSelector("endRefresh", withObject: nil, afterDelay: 0.1)
+    }
+    
+    func automaticContentOffset(){
+        self.gearRefreshControl.beginRefreshing()
+        self.refresh()
+        self.tableView.setContentOffset(CGPointMake(0, -125.0), animated: true)
+        
+    }
+    
+    
+    func setupLoadmore(){
+        self.tableView.addFooterWithCallback({
+            //                for var i = 0; i < 90; i++ {
+            //    //                self.numberOfRows?.addObject(0)
+            //                }
+            //                        let delayInSeconds: Double = 0.3
+            //                        let delta = Int64(Double(NSEC_PER_SEC) * delayInSeconds)
+            //                        let popTime:dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW,delta)
+            //                        dispatch_after(popTime, dispatch_get_main_queue(), {
+            //                            self.tableView.reloadData()
+            //                            self.tableView.footerEndRefreshing()
+            //            //                self.tableView.setFooterHidden(true)
+            //                        })
+            self.tableView.reloadData()
+            self.tableView.footerEndRefreshing()
+        })
+    }
 }
