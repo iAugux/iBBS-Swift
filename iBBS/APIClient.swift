@@ -11,17 +11,11 @@ import Alamofire
 import SwiftyJSON
 
 //let APIRootURL = "http://yabbs.sinaapp.com/index.php/Home/Api/"
-let APIRootURL = "http://127.0.0.1/~Augus/YABBS/index.php/Home/Api/"
-
-//let APIRootURL = "https://www.v2ex.com/api/"
+let APIRootURL = "http://127.0.0.1/YABBS/index.php/Home/Api/"
 
 class APIClient {
-    class var SharedAPIClient: APIClient {
-        struct Static{
-            static let sharedInstance = APIClient()
-        }
-        return Static.sharedInstance
-    }
+    
+    static let sharedInstance = APIClient()
     
     func getJSONData(path: String, parameters: [String : AnyObject]?, success: (JSON) -> Void, failure: (NSError) -> Void) {
         Alamofire.request(.GET, APIRootURL + path, parameters: parameters)
@@ -39,8 +33,8 @@ class APIClient {
     }
     
     func getLatestTopics(nodeID: NSString, success: (JSON) -> Void, failure: (NSError) -> Void) {
-        let dict = ["node_id": nodeID]
-        self.getJSONData("topics/latest.json", parameters: dict, success: success, failure: failure)
+        let dict = ["boardId": nodeID]
+        self.getJSONData("posts", parameters: dict, success: success, failure: failure)
     }
 
     func getReplies(postID: NSString, success: (JSON) -> Void, failure: (NSError) -> Void) {
@@ -49,6 +43,6 @@ class APIClient {
     }
     
     func getNodes(success: (JSON) -> Void, failure: (NSError) -> Void) {
-        self.getJSONData("nodes/all.json", parameters: nil, success: success, failure: failure)
+        self.getJSONData("boards", parameters: nil, success: success, failure: failure)
     }
 }

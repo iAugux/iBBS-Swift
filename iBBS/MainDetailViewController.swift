@@ -30,7 +30,7 @@ class MainDetailViewController: BaseViewController, UITableViewDataSource, UITab
         
         self.configureHeaderView()
         self.configureTableView()
-        self.configureGesture()
+        self.configureGesture()        
     }
     
     
@@ -93,7 +93,7 @@ class MainDetailViewController: BaseViewController, UITableViewDataSource, UITab
     
     func sendRequest() {
         //        self.refreshing = true
-        APIClient.SharedAPIClient.getReplies(self.json["id"].stringValue, success: { (json) -> Void in
+        APIClient.sharedInstance.getReplies(self.json["id"].stringValue, success: { (json) -> Void in
             //            self.refreshing = false
             if json.type == Type.Array {
                 self.datasource = json.arrayValue
@@ -151,9 +151,9 @@ class MainDetailViewController: BaseViewController, UITableViewDataSource, UITab
             return "No reply yet"
         }
         else if datasource.count == 1 {
-            return "Reply"
+            return "Reply : 1"
         }
-        return "Replies"
+        return "Replies : \(datasource.count)"
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

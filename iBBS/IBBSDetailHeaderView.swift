@@ -34,9 +34,9 @@ class IBBSDetailHeaderView: UIView {
         let avatarUrl = NSURL(string: json["avatar"].stringValue)
         avatarImageView?.sd_setImageWithURL(avatarUrl)
         usernameLabel?.text = json["username"].stringValue
-        headerTitleLabel?.text = json["title"].stringValue
+        headerTitleLabel?.text = json["title"].stringValue.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
         timeLabel?.text = json["post_time"].stringValue
-        let data = json["post_content"].stringValue
+        let data = json["post_content"].stringValue.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
         self.content.ausAttributedText(data)
 //        self.content.ausAutomanticResizeTextViewFrameSize()
         

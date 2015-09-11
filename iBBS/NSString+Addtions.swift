@@ -19,4 +19,16 @@ extension NSString{
     }
     
     
+    
+    /**
+    *  delete trailing "<br>" for string
+    */
+    class func ausStringByTrimmingCharactersDeleteTrailingBlank(string: String) -> NSString {
+        var str = string
+        str = str.stringByTrimmingCharactersInSet(NSCharacterSet(charactersInString: "<br>"))
+        return str
+    }
+
+    
 }
+

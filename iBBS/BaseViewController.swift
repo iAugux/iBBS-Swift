@@ -12,6 +12,7 @@ import SwiftyJSON
 class BaseViewController: UIViewController {
     struct VCIdentifiers {
         static let mainDetailVC = "mainDetailViewController"
+        
     }
     
     override func viewDidLoad() {
@@ -24,7 +25,13 @@ class BaseViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    var datasource: Array<JSON>!
+    var datasource: Array<JSON>!{
+        didSet{
+//            print(datasource)
+            MainViewController.sharedInstance.tableView?.reloadData()
+            
+        }
+    }
     
     // after swiping, navigation bar has  been hidden, but background color of status bar is clearColor, so I need to set status bar' color to navigation bar' tintcolor
     func changeStatusBarColorOnSwipe(){

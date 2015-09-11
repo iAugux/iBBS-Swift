@@ -8,58 +8,95 @@
 
 
 import UIKit
+import SwiftyJSON
 
 class NodesViewController: UITableViewController {
-    
+    struct MainStoryboard {
+        static let nodeCellIdentifier = "nodesCell"
+        static let mainVCIdentifier = "MainViewController"
+        static let nodeToMainVCSegueIdentifier = "nodeToMainVC"
+    }
     var selectedMenuItem : Int = 0
-    
+    var nodesArray: [JSON]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Customize apperance of table view
-        tableView.contentInset = UIEdgeInsetsMake(64.0, 0, 0, 0)
-//        tableView.separatorStyle = .None
-        tableView.backgroundColor = UIColor.clearColor()
-        tableView.scrollsToTop = false
-        
-        // Preserve selection between presentations
-//        self.clearsSelectionOnViewWillAppear = false
-        
-//        tableView.selectRowAtIndexPath(NSIndexPath(forRow: selectedMenuItem, inSection: 0), animated: false, scrollPosition: .Middle)
+        self.configureTableView()
+        self.configureNodesInfo()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
+    func configureTableView(){
+        tableView.tableFooterView = UIView(frame: CGRectZero)
+        tableView.registerClass(NodesCell.classForCoder() , forCellReuseIdentifier: MainStoryboard.nodeCellIdentifier)
+        
+        tableView.contentInset = UIEdgeInsetsMake(64.0, 0, 0, 0)
+        tableView.backgroundColor = UIColor.clearColor()
+        //        tableView.scrollsToTop = false
+        
+        // Preserve selection between presentations
+        //        self.clearsSelectionOnViewWillAppear = false
+        
+        //        tableView.selectRowAtIndexPath(NSIndexPath(forRow: selectedMenuItem, inSection: 0), animated: false, scrollPosition: .Middle)
+        
+        
+    }
+    
+    func sendRequest() {
+        APIClient.sharedInstance.getNodes({ (json) -> Void in
+            if json.type == Type.Array {
+                self.nodesArray = json.arrayValue
+                self.tableView?.reloadData()
+                
+                NodesContext.sharedInstance.saveNodes(json.object)
+            }
+            }) { (error) -> Void in
+        }
+    }
+    
+    func configureNodesInfo(){
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+            let nodes = NodesContext.sharedInstance.getNodes()
+            dispatch_async(dispatch_get_main_queue(), {
+                if let json = nodes {
+                    self.nodesArray = json.arrayValue
+                    self.tableView.reloadData()
+                } else {
+                    self.sendRequest()
+                }
+            })
+        })
+    }
     // MARK: - Table view data source
-
+    
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
-
+    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
-    }
-
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
-        var cell = tableView.dequeueReusableCellWithIdentifier("CELL")
-        
-        if (cell == nil) {
-            cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "CELL")
-            cell!.backgroundColor = UIColor.clearColor()
-            cell!.textLabel?.textColor = UIColor.darkGrayColor()
-            let selectedBackgroundView = UIView(frame: CGRectMake(0, 0, cell!.frame.size.width, cell!.frame.size.height))
-            selectedBackgroundView.backgroundColor = UIColor.grayColor().colorWithAlphaComponent(0.2)
-            cell!.selectedBackgroundView = selectedBackgroundView
+        if nodesArray != nil {
+            return nodesArray!.count
+        }else{
+            return 0
         }
-        
-        cell!.textLabel?.text = "ViewController #\(indexPath.row+1)"
-        
-        return cell!
+    }
+    
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        if let cell = tableView.dequeueReusableCellWithIdentifier(MainStoryboard.nodeCellIdentifier) {
+            if let array = self.nodesArray {
+                let json = array[indexPath.row]
+                cell.textLabel?.text = json["name"].stringValue
+            }
+            cell.backgroundColor = UIColor.redColor()
+            return cell
+        }
+        else{
+            return UITableViewCell()
+        }
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -68,42 +105,34 @@ class NodesViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
-        print("did select row: \(indexPath.row)")
-        
         if (indexPath.row == selectedMenuItem) {
             return
         }
-        selectedMenuItem = indexPath.row
-        
-        //Present new view controller
-        let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main",bundle: nil)
-        var destViewController : UIViewController
-        switch (indexPath.row) {
-        case 0:
-            destViewController = mainStoryboard.instantiateViewControllerWithIdentifier("ViewController1") 
-            break
-        case 1:
-            destViewController = mainStoryboard.instantiateViewControllerWithIdentifier("ViewController2")
-            break
-        case 2:
-            destViewController = mainStoryboard.instantiateViewControllerWithIdentifier("ViewController3")
-            break
-        default:
-            destViewController = mainStoryboard.instantiateViewControllerWithIdentifier("ViewController4")
-            break
+        if let array = self.nodesArray {
+            let json = array[indexPath.row]
+            if let destinationVC = MainViewController() ?? nil{
+                
+                destinationVC.nodeJSON = json
+                destinationVC.sendRequest()
+                self.hideSideMenuView()
+                
+//                destinationVC.tableView.reloadData()
+//                print(json["name"])
+            }
         }
-        sideMenuController()?.setContentViewController(destViewController)
+        
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
     
-
+    
     /*
     // MARK: - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue!, sender: AnyObject!) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
     }
     */
-
+    
 }

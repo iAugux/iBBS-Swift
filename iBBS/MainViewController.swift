@@ -12,12 +12,18 @@ import SwiftyJSON
 
 class MainViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate {
 
-    @IBOutlet weak var tableView: UITableView!
+    static let sharedInstance = MainViewController()
+    
+    @IBOutlet var tableView: UITableView!{
+        didSet{
+            tableView.reloadData()
+        }
+    }
     
     var refreshControl: UIRefreshControl!
     var gearRefreshControl: GearRefreshControl!
     var refreshInSeconds: Double!
-    var nodeJSON: JSON?  // json of node
+    var nodeJSON: JSON?
     
     struct MainStoryboard {
         struct CellIdentifiers {
@@ -40,7 +46,15 @@ class MainViewController: BaseViewController, UITableViewDataSource, UITableView
         self.configureTableView()
         self.configureGestureRecognizer()
         self.gearRefreshManager()
+        self.setupLoadmore()
+       
     }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.configureTableView()
+    }
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 //        // Your Menu View Controller vew must know the following data for the proper animatio
 //        let destinationVC = segue.destinationViewController as! GuillotineMenuViewController
@@ -61,20 +75,21 @@ class MainViewController: BaseViewController, UITableViewDataSource, UITableView
     
     func sendRequest() {
         if let node = self.nodeJSON {
-            APIClient.SharedAPIClient.getLatestTopics(node["id"].stringValue, success: { (json) -> Void in
+            APIClient.sharedInstance.getLatestTopics(node["id"].stringValue, success: { (json) -> Void in
                 if json.type == Type.Array {
                     self.datasource = json.arrayValue
-                    self.tableView.reloadData()
-                    self.refreshControl.endRefreshing()
+                    self.tableView?.reloadData()
+                    self.refreshControl?.endRefreshing()
+//                    print(self.datasource)
                 }
                 }, failure: { (error) -> Void in
             })
         } else {
-            APIClient.SharedAPIClient.getLatestTopics({ (json) -> Void in
+            APIClient.sharedInstance.getLatestTopics({ (json) -> Void in
                 if json.type == Type.Array {
                     self.datasource = json.arrayValue
-                    self.tableView.reloadData()
-                    self.refreshControl.endRefreshing()
+                    self.tableView?.reloadData()
+                    self.refreshControl?.endRefreshing()
                 }
                 }, failure: { (error) -> Void in
             })
@@ -146,6 +161,7 @@ class MainViewController: BaseViewController, UITableViewDataSource, UITableView
         let vc = storyboard!.instantiateViewControllerWithIdentifier(MainStoryboard.VCIdentifiers.mainDetailVC) as! MainDetailViewController
         vc.json = json
         self.navigationController?.pushViewController(vc, animated: true)
+        
     }
     
     
@@ -157,7 +173,7 @@ class MainViewController: BaseViewController, UITableViewDataSource, UITableView
 //            self.tableView.reloadData()
             self.gearRefreshControl.endRefreshing()
         }
-        
+    
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
@@ -186,5 +202,24 @@ class MainViewController: BaseViewController, UITableViewDataSource, UITableView
         self.refresh()
         self.tableView.setContentOffset(CGPointMake(0, -125.0), animated: true)
         
+    }
+    
+    
+    func setupLoadmore(){
+        self.tableView.addFooterWithCallback({
+            for var i = 0; i < 90; i++ {
+//                self.numberOfRows?.addObject(0)
+            }
+            //                        let delayInSeconds: Double = 0.3
+            //                        let delta = Int64(Double(NSEC_PER_SEC) * delayInSeconds)
+            //                        let popTime:dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW,delta)
+            //                        dispatch_after(popTime, dispatch_get_main_queue(), {
+            //                            self.tableView.reloadData()
+            //                            self.tableView.footerEndRefreshing()
+            //            //                self.tableView.setFooterHidden(true)
+            //                        })
+            self.tableView.reloadData()
+            self.tableView.footerEndRefreshing()
+        })
     }
 }
