@@ -1,5 +1,5 @@
 //
-//  BaseViewController.swift
+//  IBBSBaseViewController.swift
 //  iBBS
 //
 //  Created by Augus on 9/2/15.
@@ -9,7 +9,7 @@
 import UIKit
 import SwiftyJSON
 
-class BaseViewController: UITableViewController {
+class IBBSBaseViewController: UITableViewController {
     var gearRefreshControl: GearRefreshControl!
     
     
@@ -31,7 +31,7 @@ class BaseViewController: UITableViewController {
         didSet{
             //            print(datasource)
             self.tableView.reloadData()
-            //            MainViewController.sharedInstance.automaticContentOffset()
+            //            IBBSViewController.sharedInstance.automaticContentOffset()
             
         }
     }

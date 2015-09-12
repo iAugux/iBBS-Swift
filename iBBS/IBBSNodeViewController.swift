@@ -1,5 +1,5 @@
 //
-//  MainViewController.swift
+//  IBBSNodeViewController.swift
 //  iBBS
 //
 //  Created by Augus on 9/2/15.
@@ -10,8 +10,8 @@ import UIKit
 import SwiftyJSON
 
 
-class MainViewController: BaseViewController {
-        
+class IBBSNodeViewController: IBBSBaseViewController {
+    
     var nodeJSON: JSON?
     
     struct MainStoryboard {
@@ -27,22 +27,21 @@ class MainViewController: BaseViewController {
     }
     
     @IBAction func tapToReload(sender: AnyObject) {
-//        tableView.reloadData()
-//        print("###########")
-//        print(datasource)
-//        print("###########")
-
-        let vc = NodeViewController()
-        self.navigationController?.pushViewController(vc , animated: true)
+        //        tableView.reloadData()
+        //        print("###########")
+        //        print(datasource)
+        //        print("###########")
+        
+        
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         self.configureTableView()
         self.configureView()
         self.configureGestureRecognizer()
-
+        
         self.refreshing = true
         self.sendRequest()
     }
@@ -56,7 +55,7 @@ class MainViewController: BaseViewController {
         
     }
     
-
+    
     
     
     func sendRequest() {
@@ -66,9 +65,9 @@ class MainViewController: BaseViewController {
                 self.refreshing = false
                 if json.type == Type.Array {
                     self.datasource = json.arrayValue
-//                    self.tableView?.reloadData()
-//                    self.refreshControl?.endRefreshing()
-     
+                    //                    self.tableView?.reloadData()
+                    //                    self.refreshControl?.endRefreshing()
+                    
                 }
                 }, failure: { (error) -> Void in
                     self.refreshing = false
@@ -79,9 +78,9 @@ class MainViewController: BaseViewController {
                 self.refreshing = false
                 if json.type == Type.Array {
                     self.datasource = json.arrayValue
-//                    self.tableView?.reloadData()
-//                    self.refreshControl?.endRefreshing()
-                
+                    //                    self.tableView?.reloadData()
+                    //                    self.refreshControl?.endRefreshing()
+                    
                 }
                 }, failure: { (error) -> Void in
                     self.refreshing = false
@@ -134,23 +133,23 @@ class MainViewController: BaseViewController {
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if datasource != nil {
-//            print(datasource)
-
+            //            print(datasource)
+            
             return datasource.count
-
+            
         }
         return 0
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-
+        
         if let cell = tableView.dequeueReusableCellWithIdentifier(MainStoryboard.CellIdentifiers.iBBSTableViewCell) as? IBBSTableViewCell {
             let json = self.datasource[indexPath.row]
             print("****************")
             print(json)
             print("****************")
             print("****************")
-
+            
             cell.loadDataToCell(json)
             return cell
         }
@@ -162,7 +161,7 @@ class MainViewController: BaseViewController {
     // MARK: - table view delegate
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let json = self.datasource[indexPath.row]
-        let vc = MainDetailViewController()
+        let vc = IBBSDetailViewController()
         vc.json = json
         self.navigationController?.pushViewController(vc, animated: true)
         
@@ -171,7 +170,7 @@ class MainViewController: BaseViewController {
     // MARK: - refresh
     func refreshData(){
         
-//        self.sendRequest()
+        //        self.sendRequest()
         // be sure to stop refreshing while there is an error with network or something else
         let refreshInSeconds = 5.0
         let popTime = dispatch_time(DISPATCH_TIME_NOW, Int64(refreshInSeconds * Double(NSEC_PER_SEC)));
@@ -185,5 +184,5 @@ class MainViewController: BaseViewController {
     func onPullToFresh() {
         self.sendRequest()
     }
-      
+    
 }

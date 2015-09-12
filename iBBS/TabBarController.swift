@@ -1,24 +1,17 @@
 //
-//  RootNavigationController.swift
+//  TabBarController.swift
 //  iBBS
 //
-//  Created by Augus on 9/5/15.
+//  Created by Augus on 9/12/15.
 //  Copyright © 2015 iAugus. All rights reserved.
 //
 
 import UIKit
 
-class RootNavigationController: ENSideMenuNavigationController {
+class TabBarController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        sideMenu = ENSideMenu(sourceView: self.view, menuViewController: NodesViewController(), menuPosition:.Right)
-//        sideMenu?.delegate = self //optional
-//        sideMenu?.menuWidth = 180.0 // optional, default is 160
-        sideMenu?.bouncingEnabled = false
-            
-        // make navigation bar showing over side menu
-        view.bringSubviewToFront(navigationBar)
 
         // Do any additional setup after loading the view.
     }
@@ -27,6 +20,7 @@ class RootNavigationController: ENSideMenuNavigationController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
 
     /*
     // MARK: - Navigation

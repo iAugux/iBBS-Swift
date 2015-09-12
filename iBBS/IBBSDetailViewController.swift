@@ -1,5 +1,5 @@
 //
-//  MainDetailViewController.swift
+//  IBBSDetailViewController.swift
 //  iBBS
 //
 //  Created by Augus on 9/3/15.
@@ -9,7 +9,7 @@
 import UIKit
 import SwiftyJSON
 
-class MainDetailViewController: BaseViewController, UIGestureRecognizerDelegate {
+class IBBSDetailViewController: IBBSBaseViewController, UIGestureRecognizerDelegate {
     struct MainStoryboard {
         struct CellIdentifiers {
             static let replyCellIdentifier = "iBBSReplyCell"

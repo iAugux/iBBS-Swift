@@ -10,13 +10,13 @@
 import UIKit
 import SwiftyJSON
 
-class NodesViewController: UITableViewController {
+class IBBSNodeCatalogueViewController: UITableViewController {
     struct MainStoryboard {
         static let nodeCellIdentifier = "nodesCell"
-        static let mainVCIdentifier = "MainViewController"
+        static let mainVCIdentifier = "iBBSViewController"
         static let nodeToMainVCSegueIdentifier = "nodeToMainVC"
     }
-
+    
     var nodesArray: [JSON]?
     
     override func viewDidLoad() {
@@ -92,7 +92,7 @@ class NodesViewController: UITableViewController {
                 let json = array[indexPath.row]
                 cell.textLabel?.text = json["name"].stringValue
             }
-//            cell.nav = self.navigationController
+            //            cell.nav = self.navigationController
             cell.backgroundColor = UIColor.redColor()
             
             return cell
@@ -110,22 +110,22 @@ class NodesViewController: UITableViewController {
         
         if let array = self.nodesArray {
             let json = array[indexPath.row]
-//            print(json)
-            if let destinationVC = MainViewController() ?? nil{
+            //            print(json)
+            if let destinationVC = IBBSViewController() ?? nil{
                 
-                destinationVC.nodeJSON = json
+//                destinationVC.nodeJSON = json
                 
-//                print(json["name"])
+                //                print(json["name"])
                 sideMenuController()?.dismissViewOpen()
                 sideMenuController()?.setContentViewController(destinationVC)
                 
             }
         }
         
-//        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        //        tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
     
-   
+    
     
     /*
     // MARK: - Navigation
