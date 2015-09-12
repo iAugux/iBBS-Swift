@@ -14,6 +14,10 @@
 		B113B0491BA196BF004ECFA0 /* RefreshConst.swift in Sources */ = {isa = PBXBuildFile; fileRef = B113B0441BA196BF004ECFA0 /* RefreshConst.swift */; settings = {ASSET_TAGS = (); }; };
 		B113B04A1BA196BF004ECFA0 /* RefreshFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B113B0451BA196BF004ECFA0 /* RefreshFooterView.swift */; settings = {ASSET_TAGS = (); }; };
 		B113B04B1BA196BF004ECFA0 /* UIScrollView+Refresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = B113B0461BA196BF004ECFA0 /* UIScrollView+Refresh.swift */; settings = {ASSET_TAGS = (); }; };
+		B1209C5B1BA32ABF00F75673 /* NodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1209C5A1BA32ABF00F75673 /* NodeViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		B1209C5D1BA32B6800F75673 /* NodeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1209C5C1BA32B6800F75673 /* NodeCell.swift */; settings = {ASSET_TAGS = (); }; };
+		B1209C5F1BA346C900F75673 /* IBBSNibTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1209C5E1BA346C900F75673 /* IBBSNibTableViewCell.swift */; settings = {ASSET_TAGS = (); }; };
+		B1209C611BA3477B00F75673 /* IBBSTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B1209C601BA3477B00F75673 /* IBBSTableViewCell.xib */; settings = {ASSET_TAGS = (); }; };
 		B1455C151B994F230025B517 /* UIView+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1455C141B994F230025B517 /* UIView+Additions.swift */; settings = {ASSET_TAGS = (); }; };
 		B1455C171B9AB5640025B517 /* NSString+Addtions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1455C161B9AB5640025B517 /* NSString+Addtions.swift */; settings = {ASSET_TAGS = (); }; };
 		B148AF181B98572900D00524 /* MainDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B148AF171B98572900D00524 /* MainDetailViewController.swift */; settings = {ASSET_TAGS = (); }; };
@@ -54,6 +58,10 @@
 		B113B0441BA196BF004ECFA0 /* RefreshConst.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RefreshConst.swift; sourceTree = "<group>"; };
 		B113B0451BA196BF004ECFA0 /* RefreshFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RefreshFooterView.swift; sourceTree = "<group>"; };
 		B113B0461BA196BF004ECFA0 /* UIScrollView+Refresh.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Refresh.swift"; sourceTree = "<group>"; };
+		B1209C5A1BA32ABF00F75673 /* NodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NodeViewController.swift; sourceTree = "<group>"; };
+		B1209C5C1BA32B6800F75673 /* NodeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NodeCell.swift; sourceTree = "<group>"; };
+		B1209C5E1BA346C900F75673 /* IBBSNibTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSNibTableViewCell.swift; sourceTree = "<group>"; };
+		B1209C601BA3477B00F75673 /* IBBSTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IBBSTableViewCell.xib; sourceTree = "<group>"; };
 		B1455C141B994F230025B517 /* UIView+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Additions.swift"; sourceTree = "<group>"; };
 		B1455C161B9AB5640025B517 /* NSString+Addtions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSString+Addtions.swift"; sourceTree = "<group>"; };
 		B148AF171B98572900D00524 /* MainDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainDetailViewController.swift; sourceTree = "<group>"; };
@@ -219,6 +227,7 @@
 				B1CA721E1B9734DA006823B3 /* BaseViewController.swift */,
 				B17939491B96DE08002E1B21 /* SlidePanelViewController.swift */,
 				B17939481B96DE08002E1B21 /* ContainerViewController.swift */,
+				B1209C5A1BA32ABF00F75673 /* NodeViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -227,10 +236,13 @@
 			isa = PBXGroup;
 			children = (
 				B17939461B96DE08002E1B21 /* IBBSTableViewCell.swift */,
+				B1209C601BA3477B00F75673 /* IBBSTableViewCell.xib */,
 				B148AF231B98C52300D00524 /* IBBSDetailHeaderView.swift */,
+				B1209C5E1BA346C900F75673 /* IBBSNibTableViewCell.swift */,
 				B148AF211B98C3B100D00524 /* IBBSDetailHeaderView.xib */,
 				B148AF1B1B98B1D800D00524 /* IBBSReplyCell.swift */,
 				B148AF1C1B98B1D800D00524 /* IBBSReplyCell.xib */,
+				B1209C5C1BA32B6800F75673 /* NodeCell.swift */,
 				B1C105D21BA1D4730088DBCB /* NodesCell.swift */,
 			);
 			name = Views;
@@ -322,6 +334,7 @@
 			files = (
 				B148AF1E1B98B1D800D00524 /* IBBSReplyCell.xib in Resources */,
 				B17939441B96DDF3002E1B21 /* Main.storyboard in Resources */,
+				B1209C611BA3477B00F75673 /* IBBSTableViewCell.xib in Resources */,
 				B113B0471BA196BF004ECFA0 /* arrow@2x.png in Resources */,
 				B179393C1B96DDD3002E1B21 /* LaunchScreen.storyboard in Resources */,
 				B148AF221B98C3B100D00524 /* IBBSDetailHeaderView.xib in Resources */,
@@ -392,6 +405,7 @@
 				B1C105D31BA1D4730088DBCB /* NodesCell.swift in Sources */,
 				B113B0481BA196BF004ECFA0 /* RefreshBaseView.swift in Sources */,
 				B1455C151B994F230025B517 /* UIView+Additions.swift in Sources */,
+				B1209C5D1BA32B6800F75673 /* NodeCell.swift in Sources */,
 				B113B0491BA196BF004ECFA0 /* RefreshConst.swift in Sources */,
 				B1BFC0FA1B9B37E30080058E /* ENSideMenuNavigationController.swift in Sources */,
 				B113B04A1BA196BF004ECFA0 /* RefreshFooterView.swift in Sources */,
@@ -400,6 +414,7 @@
 				B10CA7CA1B9F0BCD0065AF07 /* UIScreen+Additions.swift in Sources */,
 				B1CA72121B9709ED006823B3 /* GearRefreshControl.swift in Sources */,
 				B1BFC0F91B9B37E30080058E /* ENSideMenu.swift in Sources */,
+				B1209C5F1BA346C900F75673 /* IBBSNibTableViewCell.swift in Sources */,
 				B148AF181B98572900D00524 /* MainDetailViewController.swift in Sources */,
 				B1CA721F1B9734DA006823B3 /* BaseViewController.swift in Sources */,
 				B1658FC31B9ED98300BF01EB /* UITextView+Additions.swift in Sources */,
@@ -412,6 +427,7 @@
 				B1BFC0FE1B9B3B0A0080058E /* NodesViewController.swift in Sources */,
 				B148AF1D1B98B1D800D00524 /* IBBSReplyCell.swift in Sources */,
 				B1BFC0FC1B9B388D0080058E /* RootNavigationController.swift in Sources */,
+				B1209C5B1BA32ABF00F75673 /* NodeViewController.swift in Sources */,
 				B17939321B96DDD3002E1B21 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

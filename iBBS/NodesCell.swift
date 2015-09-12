@@ -10,8 +10,11 @@ import Foundation
 
 class NodesCell: UITableViewCell {
     
+    var nav: UINavigationController?
+    
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: .Default, reuseIdentifier: nil)
+        nav = UINavigationController()
     }
 
     required init?(coder aDecoder: NSCoder) {

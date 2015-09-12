@@ -16,13 +16,14 @@ class NodesViewController: UITableViewController {
         static let mainVCIdentifier = "MainViewController"
         static let nodeToMainVCSegueIdentifier = "nodeToMainVC"
     }
-    var selectedMenuItem : Int = 0
+
     var nodesArray: [JSON]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureTableView()
         self.configureNodesInfo()
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -86,44 +87,45 @@ class NodesViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCellWithIdentifier(MainStoryboard.nodeCellIdentifier) {
+        if let cell = tableView.dequeueReusableCellWithIdentifier(MainStoryboard.nodeCellIdentifier) as? NodesCell {
             if let array = self.nodesArray {
                 let json = array[indexPath.row]
                 cell.textLabel?.text = json["name"].stringValue
             }
+//            cell.nav = self.navigationController
             cell.backgroundColor = UIColor.redColor()
+            
             return cell
         }
-        else{
-            return UITableViewCell()
-        }
+        return UITableViewCell()
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 50.0
+        
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
-        if (indexPath.row == selectedMenuItem) {
-            return
-        }
+        
         if let array = self.nodesArray {
             let json = array[indexPath.row]
+//            print(json)
             if let destinationVC = MainViewController() ?? nil{
                 
                 destinationVC.nodeJSON = json
-                destinationVC.sendRequest()
-                self.hideSideMenuView()
                 
-//                destinationVC.tableView.reloadData()
 //                print(json["name"])
+                sideMenuController()?.dismissViewOpen()
+                sideMenuController()?.setContentViewController(destinationVC)
+                
             }
         }
         
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+//        tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
     
+   
     
     /*
     // MARK: - Navigation

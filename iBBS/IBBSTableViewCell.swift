@@ -47,9 +47,9 @@ class IBBSTableViewCell: UITableViewCell {
         let avatarUrl                        = NSURL(string: json["avatar"].stringValue)
         self.userProfireImage?.sd_setImageWithURL(avatarUrl)
         self.topicLabel?.text                = json["title"].stringValue
-        self.userName.text                   = json["username"].stringValue
-        self.nodeName.text                   = json["board"].stringValue
-        self.postTime.text                   = json["post_time"].stringValue
+//        self.userName.text                   = json["username"].stringValue
+//        self.nodeName.text                   = json["board"].stringValue
+//        self.postTime.text                   = json["post_time"].stringValue
     }
 
 }

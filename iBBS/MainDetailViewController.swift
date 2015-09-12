@@ -57,6 +57,7 @@ class MainDetailViewController: BaseViewController, UIGestureRecognizerDelegate 
     
     
     func configureTableView(){
+    
         tableView.dataSource = self
         tableView.delegate = self
         tableView.registerNib(UINib(nibName: MainStoryboard.NibNames.cellNibName, bundle: nil), forCellReuseIdentifier: MainStoryboard.CellIdentifiers.replyCellIdentifier)
@@ -178,4 +179,19 @@ class MainDetailViewController: BaseViewController, UIGestureRecognizerDelegate 
         return 90
     }
     
+    // MARK: - refresh
+    func refreshData(){
+        
+        self.sendRequest()
+        // be sure to stop refreshing while there is an error with network or something else
+        let refreshInSeconds = 5.0
+        let popTime = dispatch_time(DISPATCH_TIME_NOW, Int64(refreshInSeconds * Double(NSEC_PER_SEC)));
+        dispatch_after(popTime, dispatch_get_main_queue()) { () -> Void in
+            //            self.tableView.reloadData()
+            
+            self.gearRefreshControl.endRefreshing()
+        }
+        
+    }
+
 }

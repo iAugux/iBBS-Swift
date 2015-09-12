@@ -21,7 +21,7 @@ class ContainerViewController: UIViewController, UIGestureRecognizerDelegate{
     let centerPanelExpandedOffset: CGFloat = kScreenWidth - kExpandedOffSet
     var centerVCFrontBlurView: UIVisualEffectView!
     var centerNavigationController: UINavigationController!
-    var baseViewController: UIViewController!
+    var mainViewController: UIViewController!
     var leftViewController: SlidePanelViewController?
     var currentState: SlideOutState = .collapsed {
         didSet {
@@ -33,8 +33,8 @@ class ContainerViewController: UIViewController, UIGestureRecognizerDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureBlurView()
-        baseViewController = BaseViewController()
-        centerNavigationController = UINavigationController(rootViewController: baseViewController)
+        mainViewController = MainViewController()
+        centerNavigationController = UINavigationController(rootViewController: mainViewController)
         centerNavigationController.setNavigationBarHidden(true , animated: false)
         view.addSubview(centerNavigationController.view)
         addChildViewController(centerNavigationController)
@@ -143,7 +143,7 @@ class ContainerViewController: UIViewController, UIGestureRecognizerDelegate{
     
     func menuSelected(index: Int) {
         if index == 0 {
-            centerNavigationController.viewControllers[0] = baseViewController
+            centerNavigationController.viewControllers[0] = mainViewController
         }
         view.addSubview(centerNavigationController.view)
         addChildViewController(centerNavigationController)
@@ -165,8 +165,8 @@ class ContainerViewController: UIViewController, UIGestureRecognizerDelegate{
         let gestureIsDraggingFromLeftToRight = (recognizer.velocityInView(view).x > 0)
         switch(recognizer.state) {
         case .Began:
-            baseViewController.view.addSubview(centerVCFrontBlurView)
-            baseViewController.navigationController?.setNavigationBarHidden(true , animated: false)
+            mainViewController.view.addSubview(centerVCFrontBlurView)
+            mainViewController.navigationController?.setNavigationBarHidden(true , animated: false)
             if (currentState == .collapsed) {
                 if (gestureIsDraggingFromLeftToRight) {
                     addLeftPanelViewController()
