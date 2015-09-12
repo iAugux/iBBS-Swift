@@ -10,10 +10,8 @@ import UIKit
 import SwiftyJSON
 
 
-class MainViewController: BaseViewController, ENSideMenuDelegate {
-    
-    static let sharedInstance = MainViewController()
-    
+class MainViewController: BaseViewController {
+        
     var nodeJSON: JSON?
     
     struct MainStoryboard {
@@ -40,7 +38,6 @@ class MainViewController: BaseViewController, ENSideMenuDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.sideMenuController()?.sideMenu?.delegate = self
 
         self.configureTableView()
         self.configureView()
@@ -155,7 +152,6 @@ class MainViewController: BaseViewController, ENSideMenuDelegate {
             print("****************")
 
             cell.loadDataToCell(json)
-            cell.topicLabel.text = json["title"].stringValue
             return cell
         }
         

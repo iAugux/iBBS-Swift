@@ -13,6 +13,7 @@ class BaseViewController: UITableViewController {
     var gearRefreshControl: GearRefreshControl!
     
     
+    
     var refreshing: Bool = false {
         didSet {
             if (self.refreshing) {
@@ -41,7 +42,6 @@ class BaseViewController: UITableViewController {
 //        self.automaticPullingDownToRefresh()
 //        self.gearRefreshManager()
 
-        
         self.refreshControl = UIRefreshControl()
         self.refreshControl?.addTarget(self, action: "onPullToFresh", forControlEvents: UIControlEvents.ValueChanged)
 

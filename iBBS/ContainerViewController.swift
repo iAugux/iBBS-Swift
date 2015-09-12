@@ -21,7 +21,7 @@ class ContainerViewController: UIViewController, UIGestureRecognizerDelegate{
     let centerPanelExpandedOffset: CGFloat = kScreenWidth - kExpandedOffSet
     var centerVCFrontBlurView: UIVisualEffectView!
     var centerNavigationController: UINavigationController!
-    var mainViewController: UIViewController!
+    var mainViewController: MainViewController!
     var leftViewController: SlidePanelViewController?
     var currentState: SlideOutState = .collapsed {
         didSet {
@@ -33,7 +33,7 @@ class ContainerViewController: UIViewController, UIGestureRecognizerDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureBlurView()
-        mainViewController = MainViewController()
+        mainViewController = UIStoryboard.mainViewController()
         centerNavigationController = UINavigationController(rootViewController: mainViewController)
         centerNavigationController.setNavigationBarHidden(true , animated: false)
         view.addSubview(centerNavigationController.view)
@@ -222,4 +222,7 @@ private extension UIStoryboard {
         return mainStoryboard().instantiateViewControllerWithIdentifier("LeftViewController") as? SlidePanelViewController
     }
     
+    class func mainViewController() -> MainViewController? {
+        return mainStoryboard().instantiateViewControllerWithIdentifier("MainViewController") as? MainViewController
+    }
 }
