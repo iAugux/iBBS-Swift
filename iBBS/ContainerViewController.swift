@@ -21,7 +21,7 @@ class ContainerViewController: UIViewController, UIGestureRecognizerDelegate{
     let centerPanelExpandedOffset: CGFloat = kScreenWidth - kExpandedOffSet
     var centerVCFrontBlurView: UIVisualEffectView!
     var centerNavigationController: UINavigationController!
-    var mainViewController: TabBarController!
+    var mainViewController: UIViewController!
     var leftViewController: SlidePanelViewController?
     var currentState: SlideOutState = .collapsed {
         didSet {

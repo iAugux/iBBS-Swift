@@ -96,8 +96,8 @@ class IBBSViewController: IBBSBaseViewController {
         important: if present NavigationController's property of interactivePopGestureRecognizer is enable, we must set it to disable,
         otherwise if we call UIScreenEdgePanGestureRecognizer on present ViewController it will crash.
         */
-        self.navigationController?.interactivePopGestureRecognizer?.delegate = nil
-        //        self.navigationController?.interactivePopGestureRecognizer?.enabled = false
+//        self.navigationController?.interactivePopGestureRecognizer?.delegate = nil
+                self.navigationController?.interactivePopGestureRecognizer?.enabled = false
     }
     
     func configureView(){
