@@ -13,7 +13,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zmZ-JV-fcz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-99" y="-669"/>
+            <point key="canvasLocation" x="-107" y="-669"/>
         </scene>
         <!--Detail View Controller-->
         <scene sceneID="HuC-Lc-mC7">
@@ -44,48 +44,25 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VSX-CM-Alq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="410" y="-669"/>
+            <point key="canvasLocation" x="402" y="-669"/>
         </scene>
-        <!--Node View Controller-->
+        <!--Node Catalogue View Controller-->
         <scene sceneID="JJk-fE-nHI">
             <objects>
-                <tableViewController storyboardIdentifier="iBBSNodeViewController" id="lbF-HR-uRW" customClass="IBBSNodeViewController" customModule="iBBS" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="iBBSNodeCatalogueViewController" id="lbF-HR-uRW" customClass="IBBSNodeCatalogueViewController" customModule="iBBS" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="7r0-Wf-tV0"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jSa-tl-aTL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-99" y="8"/>
         </scene>
-        <!--Node Catalogue View Controller-->
-        <scene sceneID="lql-Ae-bbb">
+        <!--Node View Controller-->
+        <scene sceneID="83w-xd-DKK">
             <objects>
-                <tableViewController storyboardIdentifier="iBBSNodeCatalogueViewController" id="P36-YV-LMa" customClass="IBBSNodeCatalogueViewController" customModule="iBBS" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="V9o-0e-qxN">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <animations/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="amY-p1-ier">
-                                <rect key="frame" x="0.0" y="28" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="amY-p1-ier" id="etL-Nl-8Ug">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <animations/>
-                                </tableViewCellContentView>
-                                <animations/>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="P36-YV-LMa" id="0yQ-Gw-ds4"/>
-                            <outlet property="delegate" destination="P36-YV-LMa" id="UHJ-nf-JVE"/>
-                        </connections>
-                    </tableView>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="c9M-ZW-JKW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tableViewController storyboardIdentifier="iBBSNodeViewController" id="SAd-RE-di8" customClass="IBBSNodeViewController" customModule="iBBS" customModuleProvider="target" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kkh-dm-3iK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="358" y="8"/>
+            <point key="canvasLocation" x="402" y="8"/>
         </scene>
         <!--Slide Panel View Controller-->
         <scene sceneID="9ha-dd-P5K">

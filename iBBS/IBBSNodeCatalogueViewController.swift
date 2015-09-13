@@ -13,7 +13,7 @@ import SwiftyJSON
 class IBBSNodeCatalogueViewController: UITableViewController {
     struct MainStoryboard {
         static let nodeCellIdentifier = "nodesCell"
-        static let mainVCIdentifier = "iBBSViewController"
+        static let nodeVCIdentifier = "iBBSNodeViewController"
         static let nodeToMainVCSegueIdentifier = "nodeToMainVC"
     }
     
@@ -26,6 +26,11 @@ class IBBSNodeCatalogueViewController: UITableViewController {
         
     }
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        self.navigationController?.interactivePopGestureRecognizer?.enabled = false
+
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -101,7 +106,7 @@ class IBBSNodeCatalogueViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 50.0
+        return 80.0
         
     }
     
@@ -111,20 +116,15 @@ class IBBSNodeCatalogueViewController: UITableViewController {
         if let array = self.nodesArray {
             let json = array[indexPath.row]
             //            print(json)
-            if let destinationVC = IBBSViewController() ?? nil{
-                
-//                destinationVC.nodeJSON = json
-                
-                //                print(json["name"])
-                sideMenuController()?.dismissViewOpen()
-                sideMenuController()?.setContentViewController(destinationVC)
-                
+            if let vc = storyboard?.instantiateViewControllerWithIdentifier(MainStoryboard.nodeVCIdentifier) as? IBBSNodeViewController{
+                vc.nodeJSON = json
+                self.navigationController?.pushViewController(vc , animated: true)
+                //
             }
         }
         
-        //        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+                tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
-    
     
     
     /*

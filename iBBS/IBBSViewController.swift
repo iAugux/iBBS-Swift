@@ -40,7 +40,6 @@ class IBBSViewController: IBBSBaseViewController {
         
         self.configureTableView()
         self.configureView()
-        self.configureGestureRecognizer()
         
         self.refreshing = true
         self.sendRequest()
@@ -50,8 +49,6 @@ class IBBSViewController: IBBSBaseViewController {
     
     @IBAction func toggleSideMenu(sender: AnyObject) {
         //        self.navigationController?.setNavigationBarHidden(true , animated: true)
-        //        self.toggleSideMenuView()
-        self.showSideMenuView()
         
     }
     
@@ -118,11 +115,7 @@ class IBBSViewController: IBBSBaseViewController {
         tableView.rowHeight = UITableViewAutomaticDimension
     }
     
-    func configureGestureRecognizer(){
-        let edgeGestureRecognizer = UIScreenEdgePanGestureRecognizer(target: self, action: "toggleSideMenu:")
-        edgeGestureRecognizer.edges = UIRectEdge.Right
-        self.view.addGestureRecognizer(edgeGestureRecognizer)
-    }
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

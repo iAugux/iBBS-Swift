@@ -10,19 +10,19 @@ import UIKit
 import SwiftyJSON
 
 
-class IBBSNodeViewController: IBBSBaseViewController {
+class IBBSNodeViewController: IBBSBaseViewController, UIGestureRecognizerDelegate {
     
     var nodeJSON: JSON?
     
     struct MainStoryboard {
         struct CellIdentifiers {
-            static let iBBSTableViewCell = "iBBSTableViewCell"
+            static let iBBSNodeTableViewCell = "iBBSNodeTableViewCell"
         }
         struct NibNames {
-            static let iBBSTableViewCellNibName = "IBBSTableViewCell"
+            static let iBBSNodeTableViewCellName = "IBBSNodeTableViewCell"
         }
         struct VCIdentifiers {
-            static let mainDetailVC = "mainDetailViewController"
+            static let iBBSDetailVC = "iBBSDetailViewController"
         }
     }
     
@@ -51,7 +51,6 @@ class IBBSNodeViewController: IBBSBaseViewController {
     @IBAction func toggleSideMenu(sender: AnyObject) {
         //        self.navigationController?.setNavigationBarHidden(true , animated: true)
         //        self.toggleSideMenuView()
-        self.showSideMenuView()
         
     }
     
@@ -92,12 +91,8 @@ class IBBSNodeViewController: IBBSBaseViewController {
         super.viewDidAppear(animated)
         self.navigationController?.hidesBarsOnSwipe = true
         
-        /**
-        important: if present NavigationController's property of interactivePopGestureRecognizer is enable, we must set it to disable,
-        otherwise if we call UIScreenEdgePanGestureRecognizer on present ViewController it will crash.
-        */
-        self.navigationController?.interactivePopGestureRecognizer?.delegate = nil
-        //        self.navigationController?.interactivePopGestureRecognizer?.enabled = false
+        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
+        self.navigationController?.interactivePopGestureRecognizer?.enabled = true
     }
     
     func configureView(){
@@ -112,7 +107,7 @@ class IBBSNodeViewController: IBBSBaseViewController {
     }
     
     func configureTableView(){
-        tableView.registerNib(UINib(nibName: MainStoryboard.NibNames.iBBSTableViewCellNibName, bundle: nil ), forCellReuseIdentifier: MainStoryboard.CellIdentifiers.iBBSTableViewCell)
+        tableView.registerNib(UINib(nibName: MainStoryboard.NibNames.iBBSNodeTableViewCellName, bundle: nil ), forCellReuseIdentifier: MainStoryboard.CellIdentifiers.iBBSNodeTableViewCell)
         tableView.tableFooterView = UIView(frame: CGRectZero)
         tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -143,13 +138,13 @@ class IBBSNodeViewController: IBBSBaseViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        if let cell = tableView.dequeueReusableCellWithIdentifier(MainStoryboard.CellIdentifiers.iBBSTableViewCell) as? IBBSTableViewCell {
+        if let cell = tableView.dequeueReusableCellWithIdentifier(MainStoryboard.CellIdentifiers.iBBSNodeTableViewCell) as? IBBSNodeTableViewCell {
             let json = self.datasource[indexPath.row]
             print("****************")
             print(json)
             print("****************")
             print("****************")
-            
+            cell.backgroundColor = UIColor.randomColor()
             cell.loadDataToCell(json)
             return cell
         }
@@ -161,10 +156,10 @@ class IBBSNodeViewController: IBBSBaseViewController {
     // MARK: - table view delegate
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let json = self.datasource[indexPath.row]
-        let vc = IBBSDetailViewController()
-        vc.json = json
-        self.navigationController?.pushViewController(vc, animated: true)
-        
+        if let destinationVC = storyboard?.instantiateViewControllerWithIdentifier(MainStoryboard.VCIdentifiers.iBBSDetailVC) as? IBBSDetailViewController {
+            destinationVC.json = json
+            self.navigationController?.pushViewController(destinationVC, animated: true)
+        }
     }
     
     // MARK: - refresh
