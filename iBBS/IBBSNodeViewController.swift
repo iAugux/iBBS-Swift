@@ -144,7 +144,6 @@ class IBBSNodeViewController: IBBSBaseViewController, UIGestureRecognizerDelegat
             print(json)
             print("****************")
             print("****************")
-            cell.backgroundColor = UIColor.randomColor()
             cell.loadDataToCell(json)
             return cell
         }

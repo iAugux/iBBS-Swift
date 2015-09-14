@@ -30,7 +30,8 @@ class IBBSDetailViewController: IBBSBaseViewController, UIGestureRecognizerDeleg
         
         self.configureHeaderView()
         self.configureTableView()
-        self.configureGesture()        
+        self.configureGesture()
+        self.changeStatusBarColorOnSwipe()
     }
     
     
@@ -55,6 +56,12 @@ class IBBSDetailViewController: IBBSBaseViewController, UIGestureRecognizerDeleg
         
     }
     
+    func changeStatusBarColorOnSwipe(){
+        let statusBarView: UIToolbar = UIToolbar(frame: CGRectMake(0, 0, kScreenWidth, 21))
+        statusBarView.barStyle = UIBarStyle.Default
+        //        statusBarView.barTintColor = UIColor.redColor()
+        self.navigationController?.view.addSubview(statusBarView)
+    }
     
     func configureTableView(){
     
@@ -147,7 +154,7 @@ class IBBSDetailViewController: IBBSBaseViewController, UIGestureRecognizerDeleg
         return UITableViewCell()
     }
     
-    func titleForHeaderInSection() -> NSString? {
+    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if datasource == nil || datasource.count == 0 {
             return "No reply yet"
         }
@@ -155,25 +162,38 @@ class IBBSDetailViewController: IBBSBaseViewController, UIGestureRecognizerDeleg
             return "Reply : 1"
         }
         return "Replies : \(datasource.count)"
+
     }
     
-    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let text = titleForHeaderInSection()
-        let labelSize = text!.sizeWithAttributes([NSFontAttributeName: UIFont.systemFontOfSize(TITLE_FOR_HEADER_IN_SECTION_FONT_SIZE)])
-        let titleLabel = UILabel(frame: CGRectMake(0, 0, labelSize.width , labelSize.height))
-        let headerViewForSection = UITableViewHeaderFooterView(frame: CGRectMake(0, 0, kScreenWidth, 22))
-        titleLabel.text = text as? String
-        titleLabel.font = UIFont.systemFontOfSize(TITLE_FOR_HEADER_IN_SECTION_FONT_SIZE)
-        
-        titleLabel.center.y = 14
-        titleLabel.frame.origin.x = 18
-        headerViewForSection.addSubview(titleLabel)
-        
-        //        headerViewForSection.tintColor = UIColor.redColor()
-        return headerViewForSection
-        
-        
-    }
+    
+//    // customize title for header in section
+//    func titleForHeaderInSection() -> NSString? {
+//        if datasource == nil || datasource.count == 0 {
+//            return "No reply yet"
+//        }
+//        else if datasource.count == 1 {
+//            return "Reply : 1"
+//        }
+//        return "Replies : \(datasource.count)"
+//    }
+//    
+//    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//        let text = titleForHeaderInSection()
+//        let labelSize = text!.sizeWithAttributes([NSFontAttributeName: UIFont.systemFontOfSize(TITLE_FOR_HEADER_IN_SECTION_FONT_SIZE)])
+//        let titleLabel = UILabel(frame: CGRectMake(0, 0, labelSize.width , labelSize.height))
+//        let headerViewForSection = UITableViewHeaderFooterView(frame: CGRectMake(0, 0, kScreenWidth, 22))
+//        titleLabel.text = text as? String
+//        titleLabel.font = UIFont.systemFontOfSize(TITLE_FOR_HEADER_IN_SECTION_FONT_SIZE)
+//        
+//        titleLabel.center.y = 14
+//        titleLabel.frame.origin.x = 18
+//        headerViewForSection.addSubview(titleLabel)
+//        
+//        headerViewForSection.backgroundColor = UIColor.redColor()
+//        return headerViewForSection
+//        
+//        
+//    }
     
     override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 90

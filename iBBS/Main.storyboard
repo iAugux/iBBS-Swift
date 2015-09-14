@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="15A282a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Kxb-TR-yzk">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9046" systemVersion="15A282a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Kxb-TR-yzk">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9035"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
         <scene sceneID="24R-xF-9SW">
             <objects>
                 <viewController storyboardIdentifier="iBBSViewController" id="T5a-bP-HpV" customClass="IBBSViewController" customModule="iBBS" customModuleProvider="target" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="Due-VP-skg"/>
+                    <navigationItem key="navigationItem" id="Due-VP-skg">
+                        <barButtonItem key="rightBarButtonItem" systemItem="compose" id="Mdl-mj-oIb">
+                            <connections>
+                                <segue destination="5ns-5w-MgJ" kind="modal" identifier="postSegue" id="wsG-KD-s01"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zmZ-JV-fcz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -79,7 +85,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Okh-bE-T3D">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="135"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ljr-27-UBM">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login" translatesAutoresizingMaskIntoConstraints="NO" id="ljr-27-UBM">
                                         <rect key="frame" x="26" y="33" width="70" height="70"/>
                                         <animations/>
                                         <color key="backgroundColor" red="0.0" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -139,12 +145,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zly-VH-L7M" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2138" y="-207.99999999999997"/>
+            <point key="canvasLocation" x="-2138" y="-208"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Root Navigation Controller-->
         <scene sceneID="8wT-y8-xiN">
             <objects>
-                <navigationController storyboardIdentifier="homeNav" id="Kxb-TR-yzk" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="homeNav" id="Kxb-TR-yzk" customClass="RootNavigationController" customModule="iBBS" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="07s-Ez-oq2">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -218,5 +224,60 @@
             </objects>
             <point key="canvasLocation" x="-647" y="-669"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="2nN-Td-Wc5">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="5ns-5w-MgJ" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="NVm-WG-QWr"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="qbn-Dh-9pA">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="v06-id-Tuo" kind="relationship" relationship="rootViewController" id="T7n-PU-PfD"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MRn-oK-JD2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-118" y="-1499"/>
+        </scene>
+        <!--Post View Controller-->
+        <scene sceneID="eF2-6W-OjT">
+            <objects>
+                <viewController id="v06-id-Tuo" customClass="IBBSPostViewController" customModule="iBBS" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="5sl-Nj-NP8"/>
+                        <viewControllerLayoutGuide type="bottom" id="Y8g-Oj-mzN"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="QJt-h7-2m9">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uvz-jc-892">
+                                <rect key="frame" x="12" y="88" width="297" height="30"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="zPO-nM-To6">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="jX4-Py-lOA"/>
+                        <barButtonItem key="rightBarButtonItem" image="send" id="g6B-4A-hAp"/>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ExD-Cc-t21" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="303" y="-1499"/>
+        </scene>
     </scenes>
+    <resources>
+        <image name="login" width="46" height="46"/>
+        <image name="send" width="25" height="25"/>
+    </resources>
 </document>

@@ -41,7 +41,6 @@ class IBBSNodeCatalogueViewController: UITableViewController {
         tableView.registerClass(NodesCell.classForCoder() , forCellReuseIdentifier: MainStoryboard.nodeCellIdentifier)
         
         tableView.contentInset = UIEdgeInsetsMake(64.0, 0, 0, 0)
-        tableView.backgroundColor = UIColor.clearColor()
         //        tableView.scrollsToTop = false
         
         // Preserve selection between presentations

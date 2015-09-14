@@ -5,3 +5,7 @@ use_frameworks!
 pod 'Alamofire', '~> 2.0'
 pod 'SwiftyJSON', :git => 'https://github.com/SwiftyJSON/SwiftyJSON.git', :branch => 'xcode7'
 pod 'SDWebImage', '~>3.7'
+
+#pod 'WordPress-iOS-Editor'
+
+

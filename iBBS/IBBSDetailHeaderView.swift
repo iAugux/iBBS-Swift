@@ -19,10 +19,11 @@ class IBBSDetailHeaderView: UIView {
         didSet{
             avatarImageView.layer.cornerRadius = 14.0
             avatarImageView.clipsToBounds      = true
-            avatarImageView.layer.borderWidth  = 1.0
+            avatarImageView.layer.borderWidth  = 0.3
             avatarImageView.layer.borderColor  = UIColor.blackColor().CGColor
         }
     }
+    
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var content: UITextView!

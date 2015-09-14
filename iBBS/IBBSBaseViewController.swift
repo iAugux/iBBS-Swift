@@ -38,7 +38,6 @@ class IBBSBaseViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        self.changeStatusBarColorOnSwipe()
 //        self.automaticPullingDownToRefresh()
 //        self.gearRefreshManager()
 
@@ -54,14 +53,7 @@ class IBBSBaseViewController: UITableViewController {
     
     
     
-    // after swiping, navigation bar has  been hidden, but background color of status bar is clearColor, so I need to set status bar' color to navigation bar' tintcolor
-    func changeStatusBarColorOnSwipe(){
-        let statusBarView: UIToolbar = UIToolbar(frame: CGRectMake(0, 0, kScreenWidth, 22))
-        statusBarView.barStyle = UIBarStyle.Default
-        //        statusBarView.barTintColor = UIColor.redColor()
-        
-        self.view.addSubview(statusBarView)
-    }
+    
     
     // MARK: - part of GearRefreshControl
    

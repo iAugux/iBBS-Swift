@@ -43,6 +43,8 @@ class IBBSViewController: IBBSBaseViewController {
         
         self.refreshing = true
         self.sendRequest()
+        
+        
     }
     
     

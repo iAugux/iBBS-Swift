@@ -28,6 +28,11 @@ class APIClient {
         }
     }
 
+    func userLogin(userID: String, passwd: String, success: (JSON) -> Void, failure: (NSError) -> Void) {
+        let dict = ["user": userID, "password": passwd]
+        self.getJSONData("login", parameters: dict, success: success, failure: failure)
+    }
+
     func getLatestTopics(success: (JSON) -> Void, failure: (NSError) -> Void) {
         self.getJSONData("latest", parameters: nil, success: success, failure: failure)
     }
