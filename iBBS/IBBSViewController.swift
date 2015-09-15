@@ -26,15 +26,7 @@ class IBBSViewController: IBBSBaseViewController {
         }
     }
     
-    @IBAction func tapToReload(sender: AnyObject) {
-        //        tableView.reloadData()
-        //        print("###########")
-        //        print(datasource)
-        //        print("###########")
-        
-        
-    }
-    
+   
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -43,7 +35,8 @@ class IBBSViewController: IBBSBaseViewController {
         
         self.refreshing = true
         self.sendRequest()
-        
+    
+        IBBSNodeCatalogueViewController.sharedInstance.sendRequest()
         
     }
     
@@ -53,8 +46,6 @@ class IBBSViewController: IBBSBaseViewController {
         //        self.navigationController?.setNavigationBarHidden(true , animated: true)
         
     }
-    
-    
     
     
     func sendRequest() {

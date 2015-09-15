@@ -10,6 +10,6 @@
 #define iBBS_Bridging_Header_h
 
 #import <SDWebImage/UIImageView+WebCache.h>
-
+#import "ZSSRichTextEditor.h"
 
 #endif /* iBBS_Bridging_Header_h */

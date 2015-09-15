@@ -11,6 +11,9 @@ import UIKit
 import SwiftyJSON
 
 class IBBSNodeCatalogueViewController: UITableViewController {
+    
+    static let sharedInstance = IBBSNodeCatalogueViewController()
+    
     struct MainStoryboard {
         static let nodeCellIdentifier = "nodesCell"
         static let nodeVCIdentifier = "iBBSNodeViewController"
@@ -29,7 +32,7 @@ class IBBSNodeCatalogueViewController: UITableViewController {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         self.navigationController?.interactivePopGestureRecognizer?.enabled = false
-
+        
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -55,17 +58,18 @@ class IBBSNodeCatalogueViewController: UITableViewController {
         APIClient.sharedInstance.getNodes({ (json) -> Void in
             if json.type == Type.Array {
                 self.nodesArray = json.arrayValue
+                print(json.arrayValue)
                 self.tableView?.reloadData()
-                
-                NodesContext.sharedInstance.saveNodes(json.object)
+                IBBSContext.sharedInstance.saveNodes(json.object)
             }
             }) { (error) -> Void in
         }
     }
     
+    
     func configureNodesInfo(){
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-            let nodes = NodesContext.sharedInstance.getNodes()
+            let nodes = IBBSContext.sharedInstance.getNodes()
             dispatch_async(dispatch_get_main_queue(), {
                 if let json = nodes {
                     self.nodesArray = json.arrayValue
@@ -122,7 +126,7 @@ class IBBSNodeCatalogueViewController: UITableViewController {
             }
         }
         
-                tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
     
     

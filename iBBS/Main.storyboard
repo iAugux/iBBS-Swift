@@ -12,7 +12,7 @@
                     <navigationItem key="navigationItem" id="Due-VP-skg">
                         <barButtonItem key="rightBarButtonItem" systemItem="compose" id="Mdl-mj-oIb">
                             <connections>
-                                <segue destination="5ns-5w-MgJ" kind="modal" identifier="postSegue" id="wsG-KD-s01"/>
+                                <segue destination="KeS-cg-uVx" kind="modal" id="0gJ-R1-zQg"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -207,7 +207,7 @@
         <!--Item-->
         <scene sceneID="gyP-Qm-7fE">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="TgU-iI-2hn" sceneMemberID="viewController">
+                <navigationController id="TgU-iI-2hn" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="yWm-OW-u6N"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="min-vC-fhU">
@@ -224,56 +224,129 @@
             </objects>
             <point key="canvasLocation" x="-647" y="-669"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="2nN-Td-Wc5">
+        <!--Post View Controller-->
+        <scene sceneID="JHA-DO-euF">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="5ns-5w-MgJ" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="iBBSPostViewController" id="Eru-Uo-yiR" customClass="IBBSPostViewController" customModule="iBBS" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Aq4-67-TgH"/>
+                        <viewControllerLayoutGuide type="bottom" id="8fe-fm-hDw"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="gSP-pe-Qm2">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="xiy-QC-57k">
+                        <barButtonItem key="rightBarButtonItem" image="send" id="yZy-YZ-C9X">
+                            <connections>
+                                <action selector="sendAction:" destination="Eru-Uo-yiR" id="f2Y-n8-BUW"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rkk-8Z-pN7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="765" y="-1395"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="oAS-oA-qNR">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hE9-B7-Tq5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationController id="KeS-cg-uVx" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" id="NVm-WG-QWr"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="qbn-Dh-9pA">
+                    <navigationItem key="navigationItem" id="7Fp-8q-Xol"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="HWQ-4B-DjI">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <animations/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="v06-id-Tuo" kind="relationship" relationship="rootViewController" id="T7n-PU-PfD"/>
+                        <segue destination="Wc1-gO-KjN" kind="relationship" relationship="rootViewController" id="Eer-ms-nXB"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="MRn-oK-JD2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-118" y="-1499"/>
+            <point key="canvasLocation" x="-99" y="-1395"/>
         </scene>
-        <!--Post View Controller-->
-        <scene sceneID="eF2-6W-OjT">
+        <!--Editing View Controller-->
+        <scene sceneID="fU1-xO-dY4">
             <objects>
-                <viewController id="v06-id-Tuo" customClass="IBBSPostViewController" customModule="iBBS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Wc1-gO-KjN" customClass="IBBSEditingViewController" customModule="iBBS" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="5sl-Nj-NP8"/>
-                        <viewControllerLayoutGuide type="bottom" id="Y8g-Oj-mzN"/>
+                        <viewControllerLayoutGuide type="top" id="daO-MN-Rni"/>
+                        <viewControllerLayoutGuide type="bottom" id="Sg5-io-Zcq"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="QJt-h7-2m9">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                    <view key="view" contentMode="scaleToFill" id="2c0-UF-i8b">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uvz-jc-892">
-                                <rect key="frame" x="12" y="88" width="297" height="30"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wwQ-Cd-tkF">
+                                <rect key="frame" x="130" y="15" width="60" height="60"/>
                                 <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
+                                <color key="backgroundColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="JpX-vW-EAH"/>
+                                    <constraint firstAttribute="height" constant="60" id="qN9-fM-xrf"/>
+                                </constraints>
+                            </imageView>
+                            <pickerView contentMode="scaleToFill" showsSelectionIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2MA-Y9-qTH">
+                                <rect key="frame" x="70" y="197" width="180" height="216"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="180" id="WWk-SY-WLh"/>
+                                    <constraint firstAttribute="height" constant="216" id="oua-uJ-A27"/>
+                                </constraints>
+                            </pickerView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="tqk-A2-d08">
+                                <rect key="frame" x="33" y="91" width="254" height="128"/>
+                                <animations/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="254" id="MQJ-DG-IWw"/>
+                                    <constraint firstAttribute="height" constant="128" id="X0L-gO-riK"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mkj-kh-jSH">
+                                <rect key="frame" x="137" y="444" width="46" height="30"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="DP3-OU-jfm"/>
+                                    <constraint firstAttribute="width" constant="46" id="L2u-hi-sUP"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="okAction:" destination="Wc1-gO-KjN" eventType="touchUpInside" id="ugp-T8-YmT"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="mkj-kh-jSH" firstAttribute="centerX" secondItem="2c0-UF-i8b" secondAttribute="centerX" id="BQ7-3n-MqP"/>
+                            <constraint firstItem="wwQ-Cd-tkF" firstAttribute="top" secondItem="daO-MN-Rni" secondAttribute="bottom" constant="15" id="CeJ-LJ-1uu"/>
+                            <constraint firstItem="tqk-A2-d08" firstAttribute="top" secondItem="wwQ-Cd-tkF" secondAttribute="bottom" constant="16" id="NMh-Oc-7dF"/>
+                            <constraint firstItem="Sg5-io-Zcq" firstAttribute="top" secondItem="mkj-kh-jSH" secondAttribute="bottom" constant="30" id="ZwF-QR-LIg"/>
+                            <constraint firstItem="mkj-kh-jSH" firstAttribute="top" secondItem="2MA-Y9-qTH" secondAttribute="bottom" constant="31" id="b6x-jE-Jjz"/>
+                            <constraint firstItem="wwQ-Cd-tkF" firstAttribute="centerX" secondItem="2c0-UF-i8b" secondAttribute="centerX" id="eEd-Pc-wEo"/>
+                            <constraint firstItem="2MA-Y9-qTH" firstAttribute="centerX" secondItem="2c0-UF-i8b" secondAttribute="centerX" id="mIO-Mf-hOw"/>
+                            <constraint firstItem="tqk-A2-d08" firstAttribute="centerX" secondItem="2c0-UF-i8b" secondAttribute="centerX" id="okW-3o-xyZ"/>
+                            <constraint firstItem="2MA-Y9-qTH" firstAttribute="top" secondItem="tqk-A2-d08" secondAttribute="bottom" constant="-22" id="tWM-6u-ynt"/>
+                        </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="zPO-nM-To6">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="jX4-Py-lOA"/>
-                        <barButtonItem key="rightBarButtonItem" image="send" id="g6B-4A-hAp"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="iJ4-pY-GXY"/>
+                    <connections>
+                        <outlet property="avatarImageView" destination="wwQ-Cd-tkF" id="Z2b-eO-cko"/>
+                        <outlet property="contentTextView" destination="tqk-A2-d08" id="6f0-Mw-dLB"/>
+                        <outlet property="nodesPickerView" destination="2MA-Y9-qTH" id="w5Q-or-3UO"/>
+                    </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ExD-Cc-t21" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Mxb-ek-eIX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="303" y="-1499"/>
+            <point key="canvasLocation" x="331" y="-1396"/>
         </scene>
     </scenes>
     <resources>

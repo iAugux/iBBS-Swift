@@ -27,7 +27,7 @@ class IBBSBaseViewController: UITableViewController {
         }
     }
     
-    var datasource: Array<JSON>! {
+    var datasource: [JSON]! {
         didSet{
             //            print(datasource)
             self.tableView.reloadData()
