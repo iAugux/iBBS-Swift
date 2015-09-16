@@ -17,12 +17,14 @@ class IBBSBaseViewController: UITableViewController {
     var refreshing: Bool = false {
         didSet {
             if (self.refreshing) {
-                self.refreshControl?.beginRefreshing()
-                self.refreshControl?.attributedTitle = NSAttributedString(string: "正在刷新...")
+//                self.refreshControl?.beginRefreshing()
+//                self.refreshControl?.attributedTitle = NSAttributedString(string: "正在刷新...")
+                self.gearRefreshControl.beginRefreshing()
             }
             else {
-                self.refreshControl?.endRefreshing()
-                self.refreshControl?.attributedTitle = NSAttributedString(string: "正在刷新...")
+//                self.refreshControl?.endRefreshing()
+//                self.refreshControl?.attributedTitle = NSAttributedString(string: "正在刷新...")
+                self.gearRefreshControl.endRefreshing()
             }
         }
     }
@@ -39,10 +41,10 @@ class IBBSBaseViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 //        self.automaticPullingDownToRefresh()
-//        self.gearRefreshManager()
+        self.gearRefreshManager()
 
-        self.refreshControl = UIRefreshControl()
-        self.refreshControl?.addTarget(self, action: "onPullToFresh", forControlEvents: UIControlEvents.ValueChanged)
+//        self.refreshControl = UIRefreshControl()
+//        self.refreshControl?.addTarget(self, action: "onPullToFresh", forControlEvents: UIControlEvents.ValueChanged)
 
     }
     
@@ -59,13 +61,13 @@ class IBBSBaseViewController: UITableViewController {
    
     
     override func scrollViewDidScroll(scrollView: UIScrollView) {
-//        gearRefreshControl.scrollViewDidScroll(scrollView)
+        gearRefreshControl.scrollViewDidScroll(scrollView)
     }
     
     func gearRefreshManager(){
         gearRefreshControl = GearRefreshControl(frame: self.view.bounds)
         gearRefreshControl.addTarget(self, action: "refreshData", forControlEvents: UIControlEvents.ValueChanged)
-        self.refreshControl = gearRefreshControl
+        refreshControl = gearRefreshControl
         tableView?.addSubview(refreshControl!)
     }
     

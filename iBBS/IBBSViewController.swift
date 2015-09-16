@@ -29,7 +29,7 @@ class IBBSViewController: IBBSBaseViewController {
    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+//        self.automaticPullingDownToRefresh()
         self.configureTableView()
         self.configureView()
         
@@ -50,8 +50,6 @@ class IBBSViewController: IBBSBaseViewController {
                 self.refreshing = false
                 if json.type == Type.Array {
                     self.datasource = json.arrayValue
-                    //                    self.tableView?.reloadData()
-                    //                    self.refreshControl?.endRefreshing()
                     
                 }
                 }, failure: { (error) -> Void in
@@ -62,10 +60,7 @@ class IBBSViewController: IBBSBaseViewController {
             APIClient.sharedInstance.getLatestTopics({ (json) -> Void in
                 self.refreshing = false
                 if json.type == Type.Array {
-                    self.datasource = json.arrayValue
-                    //                    self.tableView?.reloadData()
-                    //                    self.refreshControl?.endRefreshing()
-                    
+                    self.datasource = json.arrayValue                    
                 }
                 }, failure: { (error) -> Void in
                     self.refreshing = false
@@ -151,19 +146,16 @@ class IBBSViewController: IBBSBaseViewController {
     // MARK: - refresh
     func refreshData(){
         
-        //        self.sendRequest()
-        // be sure to stop refreshing while there is an error with network or something else
-        let refreshInSeconds = 5.0
-        let popTime = dispatch_time(DISPATCH_TIME_NOW, Int64(refreshInSeconds * Double(NSEC_PER_SEC)));
-        dispatch_after(popTime, dispatch_get_main_queue()) { () -> Void in
-            //            self.tableView.reloadData()
-            
-            self.gearRefreshControl.endRefreshing()
-        }
+                self.sendRequest()
+//         be sure to stop refreshing while there is an error with network or something else
+//        let refreshInSeconds = 5.0
+//        let popTime = dispatch_time(DISPATCH_TIME_NOW, Int64(refreshInSeconds * Double(NSEC_PER_SEC)));
+//        dispatch_after(popTime, dispatch_get_main_queue()) { () -> Void in
+//            //            self.tableView.reloadData()
+//            
+//            self.gearRefreshControl.endRefreshing()
+//        }
         
-    }
-    func onPullToFresh() {
-        self.sendRequest()
     }
     
 }

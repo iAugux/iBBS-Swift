@@ -164,15 +164,15 @@ class IBBSNodeViewController: IBBSBaseViewController, UIGestureRecognizerDelegat
     // MARK: - refresh
     func refreshData(){
         
-        //        self.sendRequest()
+                self.sendRequest()
         // be sure to stop refreshing while there is an error with network or something else
-        let refreshInSeconds = 5.0
-        let popTime = dispatch_time(DISPATCH_TIME_NOW, Int64(refreshInSeconds * Double(NSEC_PER_SEC)));
-        dispatch_after(popTime, dispatch_get_main_queue()) { () -> Void in
-            //            self.tableView.reloadData()
-            
-            self.gearRefreshControl.endRefreshing()
-        }
+//        let refreshInSeconds = 5.0
+//        let popTime = dispatch_time(DISPATCH_TIME_NOW, Int64(refreshInSeconds * Double(NSEC_PER_SEC)));
+//        dispatch_after(popTime, dispatch_get_main_queue()) { () -> Void in
+//            //            self.tableView.reloadData()
+//            
+//            self.gearRefreshControl.endRefreshing()
+//        }
         
     }
     func onPullToFresh() {

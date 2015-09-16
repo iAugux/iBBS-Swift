@@ -178,7 +178,8 @@
         <scene sceneID="8wT-y8-xiN">
             <objects>
                 <navigationController storyboardIdentifier="homeNav" id="Kxb-TR-yzk" customClass="RootNavigationController" customModule="iBBS" customModuleProvider="target" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="07s-Ez-oq2">
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="07s-Ez-oq2">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <animations/>
@@ -196,6 +197,7 @@
             <objects>
                 <tabBarController storyboardIdentifier="tabBarController" id="ljr-Zy-mv6" customClass="TabBarController" customModule="iBBS" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="z2r-xK-xAH"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="Rf2-7f-Zhn">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>

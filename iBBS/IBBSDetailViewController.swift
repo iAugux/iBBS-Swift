@@ -28,7 +28,6 @@ class IBBSDetailViewController: IBBSBaseViewController, UIGestureRecognizerDeleg
     override func viewDidLoad() {
         super.viewDidLoad()
         self.sendRequest()
-        
         self.configureHeaderView()
         self.configureTableView()
         self.configureGesture()
@@ -56,7 +55,7 @@ class IBBSDetailViewController: IBBSBaseViewController, UIGestureRecognizerDeleg
                 vc.post_id = post_id
                 self.navigationController?.pushViewController(vc , animated: true)
             }
-
+            
         }
     }
     
@@ -104,15 +103,15 @@ class IBBSDetailViewController: IBBSBaseViewController, UIGestureRecognizerDeleg
     }
     
     func sendRequest() {
-        //        self.refreshing = true
+        self.refreshing = true
         APIClient.sharedInstance.getReplies(self.json["id"].stringValue, success: { (json) -> Void in
-            //            self.refreshing = false
+            self.refreshing = false
             if json.type == Type.Array {
                 self.datasource = json.arrayValue
                 self.tableView.reloadData()
             }
             }) { (error) -> Void in
-                //                self.refreshing = false
+                self.refreshing = false
         }
     }
     
@@ -207,14 +206,14 @@ class IBBSDetailViewController: IBBSBaseViewController, UIGestureRecognizerDeleg
     func refreshData(){
         
         self.sendRequest()
-        // be sure to stop refreshing while there is an error with network or something else
-        let refreshInSeconds = 5.0
-        let popTime = dispatch_time(DISPATCH_TIME_NOW, Int64(refreshInSeconds * Double(NSEC_PER_SEC)));
-        dispatch_after(popTime, dispatch_get_main_queue()) { () -> Void in
-            //            self.tableView.reloadData()
-            
-            self.gearRefreshControl.endRefreshing()
-        }
+        //        // be sure to stop refreshing while there is an error with network or something else
+        //        let refreshInSeconds = 5.0
+        //        let popTime = dispatch_time(DISPATCH_TIME_NOW, Int64(refreshInSeconds * Double(NSEC_PER_SEC)));
+        //        dispatch_after(popTime, dispatch_get_main_queue()) { () -> Void in
+        //            //            self.tableView.reloadData()
+        //
+        //            self.gearRefreshControl.endRefreshing()
+        //        }
         
     }
     
