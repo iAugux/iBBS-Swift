@@ -56,6 +56,7 @@ class IBBSContext {
                     let alert = UIAlertController(title: "Error Message", message: msg, preferredStyle: UIAlertControllerStyle.Alert)
                     let cancelAction = UIAlertAction(title: "Try again", style: .Cancel, handler: { (_) -> Void in
                         self.login(alertVC, presentingVC: presentingVC, avatar: avatar)
+                        alertVC.dismissViewControllerAnimated(true , completion: nil)
                     })
                     alert.addAction(cancelAction)
                     presentingVC.presentViewController(alert , animated: true, completion: nil)
@@ -70,7 +71,6 @@ class IBBSContext {
                 }) { (error ) -> Void in
                     print(error)
             }
-            
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { (_) -> Void in
             alertVC.dismissViewControllerAnimated(true , completion: nil)
@@ -84,16 +84,15 @@ class IBBSContext {
     func logout(var alertController: UIAlertController, presentingVC: UIViewController){
         
         alertController = UIAlertController(title: "", message: "Are you sure to logout ?", preferredStyle: .Alert)
-        presentingVC.addChildViewController(alertController)
         let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
         let okAction = UIAlertAction(title: "OK", style: .Default) { (_) -> Void in
             let userDefaults = NSUserDefaults.standardUserDefaults()
             userDefaults.removeObjectForKey(self.loginFeedbackJson)
+            
         }
         alertController.addAction(cancelAction)
         alertController.addAction(okAction)
         presentingVC.presentViewController(alertController, animated: true, completion: nil)
-        
     }
     
     

@@ -33,19 +33,20 @@ class IBBSEditingViewController: UIViewController, UITextViewDelegate {
     }
     
     private let node: JSON? = IBBSContext.sharedInstance.getNodes()
-    private let nodeID = "nodeID"
+    private let nodeID = "board"
     private let uid = "uid"
     private let articleTitle = "title"
     private let token = "token"
     private let postControllerID = "iBBSPostViewController"
     private var loginAlertController: UIAlertController!
+    private let defaultSelectedRow = 2
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.prepareForPosting()
         self.nodesPickerView.delegate = self
         self.nodesPickerView.dataSource = self
-        self.nodesPickerView.selectRow(3, inComponent: 0, animated: true)
+        self.nodesPickerView.selectRow(defaultSelectedRow, inComponent: 0, animated: true)
         self.contentTextView.delegate = self
         print("$$$$$$$$$$$$$$")
 
@@ -54,7 +55,7 @@ class IBBSEditingViewController: UIViewController, UITextViewDelegate {
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self , action: "cancelAction")
         articleArray = NSMutableDictionary()
         // set default node ID
-        articleArray.setValue(0, forKey: nodeID)
+        articleArray.setValue(defaultSelectedRow + 1, forKey: nodeID)
     }
     
     func cancelAction(){
@@ -139,7 +140,7 @@ extension IBBSEditingViewController: UIPickerViewDataSource {
         let pickerID = self.nodesPickerView.selectedRowInComponent(0)
         print(pickerID)
         // save node ID to array
-        articleArray.setDictionary(["nodeID": pickerID])
+        articleArray.setDictionary([nodeID: pickerID])
     }
 }
 

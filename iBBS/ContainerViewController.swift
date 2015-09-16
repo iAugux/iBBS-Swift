@@ -41,6 +41,7 @@ class ContainerViewController: UIViewController, UIGestureRecognizerDelegate{
         centerNavigationController.didMoveToParentViewController(self)
 
         self.configureGestureRecognizer()
+       
     }
     
 

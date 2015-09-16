@@ -29,6 +29,7 @@
 		B15BD5B91BA54C8100969D36 /* IBBSNodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B15BD5B81BA54C8100969D36 /* IBBSNodeViewController.swift */; };
 		B1658FC11B9ED48D00BF01EB /* UILabel+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1658FC01B9ED48D00BF01EB /* UILabel+Additions.swift */; };
 		B1658FC31B9ED98300BF01EB /* UITextView+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1658FC21B9ED98300BF01EB /* UITextView+Additions.swift */; };
+		B165BCEA1BA940DC00036477 /* IBBSCommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B165BCE91BA940DC00036477 /* IBBSCommentViewController.swift */; };
 		B17939321B96DDD3002E1B21 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17939311B96DDD3002E1B21 /* AppDelegate.swift */; };
 		B17939391B96DDD3002E1B21 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B17939381B96DDD3002E1B21 /* Assets.xcassets */; };
 		B179393C1B96DDD3002E1B21 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B179393A1B96DDD3002E1B21 /* LaunchScreen.storyboard */; };
@@ -161,6 +162,7 @@
 		B15BD5B81BA54C8100969D36 /* IBBSNodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSNodeViewController.swift; sourceTree = "<group>"; };
 		B1658FC01B9ED48D00BF01EB /* UILabel+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+Additions.swift"; sourceTree = "<group>"; };
 		B1658FC21B9ED98300BF01EB /* UITextView+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextView+Additions.swift"; sourceTree = "<group>"; };
+		B165BCE91BA940DC00036477 /* IBBSCommentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSCommentViewController.swift; sourceTree = "<group>"; };
 		B179392E1B96DDD3002E1B21 /* iBBS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iBBS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B17939311B96DDD3002E1B21 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B17939381B96DDD3002E1B21 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -530,11 +532,12 @@
 			children = (
 				B15AF5B41BA5763700810969 /* RootNavigationController.swift */,
 				B1B097CA1BA42F1E009B02E2 /* TabBarController.swift */,
+				B1CA721E1B9734DA006823B3 /* IBBSBaseViewController.swift */,
 				B17939451B96DE08002E1B21 /* IBBSViewController.swift */,
 				B148AF171B98572900D00524 /* IBBSDetailViewController.swift */,
+				B165BCE91BA940DC00036477 /* IBBSCommentViewController.swift */,
 				B1B097CC1BA43A86009B02E2 /* IBBSNodeCatalogueViewController.swift */,
 				B15BD5B81BA54C8100969D36 /* IBBSNodeViewController.swift */,
-				B1CA721E1B9734DA006823B3 /* IBBSBaseViewController.swift */,
 				B1C5F5F71BA80B2400CAF514 /* IBBSEditingViewController.swift */,
 				B197C82B1BA73D1D00DE0678 /* IBBSPostViewController.swift */,
 				B197C8321BA74C0200DE0678 /* IBBSPickerViewController.swift */,
@@ -782,6 +785,7 @@
 				B1455C171B9AB5640025B517 /* NSString+Addtions.swift in Sources */,
 				B179394E1B96DE08002E1B21 /* SlidePanelViewController.swift in Sources */,
 				B1CA720A1B96DE96006823B3 /* Alamofire-SwiftyJSON.swift in Sources */,
+				B165BCEA1BA940DC00036477 /* IBBSCommentViewController.swift in Sources */,
 				B197C8331BA74C0200DE0678 /* IBBSPickerViewController.swift in Sources */,
 				B197C82A1BA730FC00DE0678 /* ZSSTextView.m in Sources */,
 				B1CA72081B96DE74006823B3 /* APIClient.swift in Sources */,

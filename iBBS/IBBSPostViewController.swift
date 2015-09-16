@@ -7,24 +7,31 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 class IBBSPostViewController: ZSSRichTextEditor {
 
+    private let nodeID = "board"
+    private let uid = "uid"
+    private let articleTitle = "title"
+    private let token = "token"
+    private let content = "content"
    
     override func viewDidLoad() {
         super.viewDidLoad()
 //        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Preview", style: .Plain, target: self, action: "exportHTML")
-//        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: "cancelAction")
-        // HTML Content to set in the editor
-        let html = "<!-- This is an HTML comment -->"
-        "<p>This is a test of the <strong>ZSSRichTextEditor</strong> by <a title=\"Zed Said\" href=\"http://www.zedsaid.com\">Zed Said Studio</a></p>"
-        // Set the HTML contents of the editor
-        self.setHTML(html)
+//      self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: "cancelAction")
         
-        self.placeholder = "Please tap to start editing";
+        // Set the HTML contents of the editor
+//        self.setHTML(html)
+        
+//        self.placeholder = "Please tap to start editing";
+        
+        self.formatHTML = false
         
         // Set the base URL if you would like to use relative links, such as to images.
         self.baseURL = NSURL(string: "http://iAugus.com")
+        
         
         // Set the toolbar item color
         self.toolbarItemTintColor = UIColor.redColor()
@@ -75,10 +82,27 @@ class IBBSPostViewController: ZSSRichTextEditor {
         
 
     }
- 
+
+
     @IBAction func sendAction(sender: AnyObject) {
+
+        articleArray.setValue(getHTML(), forKey: content)
         
+        APIClient.sharedInstance.post(articleArray[uid]!, nodeID: articleArray[nodeID]!, content: articleArray[content]!, title: articleArray[articleTitle]!, token: articleArray[token]!, success: { (json) -> Void in
+            print(json)
+            }) { (error ) -> Void in
+                print(error)
+        }
+        
+//        let param = [nodeID: articleArray[nodeID]!, uid: articleArray[uid]!, articleTitle: articleArray[articleTitle]!, token: articleArray[token]!, content: articleArray[content]!]
+//        print(param)
+//        APIClient.sharedInstance.post(param, success: { (json) -> Void in
+//            print(json)
+//            }) { (error ) -> Void in
+//            print(error)
+//        }
         print(articleArray)
+
     }
     
     func cancelAction(){
@@ -86,9 +110,6 @@ class IBBSPostViewController: ZSSRichTextEditor {
     }
 
     
-    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        
-    }
     override func showInsertURLAlternatePicker(){
         self.dismissAlertView()
         let picker = IBBSPickerViewController()

@@ -24,12 +24,14 @@
         <!--Detail View Controller-->
         <scene sceneID="HuC-Lc-mC7">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VSX-CM-Alq" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController storyboardIdentifier="iBBSDetailViewController" id="7lF-As-k9x" customClass="IBBSDetailViewController" customModule="iBBS" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="I0C-Hg-BTI">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="6Xf-Na-3Pf">
                                 <rect key="frame" x="0.0" y="28" width="320" height="44"/>
@@ -47,10 +49,35 @@
                             <outlet property="delegate" destination="7lF-As-k9x" id="wdA-ki-XpF"/>
                         </connections>
                     </tableView>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="sYA-Gr-2L5"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                 </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="VSX-CM-Alq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="402" y="-669"/>
+            <point key="canvasLocation" x="346" y="-669"/>
+        </scene>
+        <!--Comment View Controller-->
+        <scene sceneID="gxe-uU-bE0">
+            <objects>
+                <viewController storyboardIdentifier="iBBSCommentViewController" id="KPZ-Q0-di0" customClass="IBBSCommentViewController" customModule="iBBS" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="pcC-BA-f7K"/>
+                        <viewControllerLayoutGuide type="bottom" id="UgD-tz-Hxk"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="F3K-TD-iuB">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="LYj-kD-oid"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ruL-Yt-G5X" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="822" y="-669"/>
         </scene>
         <!--Node Catalogue View Controller-->
         <scene sceneID="JJk-fE-nHI">
@@ -233,7 +260,7 @@
                         <viewControllerLayoutGuide type="bottom" id="8fe-fm-hDw"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="gSP-pe-Qm2">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -245,6 +272,7 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rkk-8Z-pN7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -253,7 +281,6 @@
         <!--Navigation Controller-->
         <scene sceneID="oAS-oA-qNR">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="hE9-B7-Tq5" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController id="KeS-cg-uVx" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="7Fp-8q-Xol"/>
@@ -267,6 +294,7 @@
                         <segue destination="Wc1-gO-KjN" kind="relationship" relationship="rootViewController" id="Eer-ms-nXB"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hE9-B7-Tq5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-99" y="-1395"/>
         </scene>

@@ -18,8 +18,9 @@ class IBBSDetailViewController: IBBSBaseViewController, UIGestureRecognizerDeleg
             static let cellNibName = "IBBSReplyCell"
             static let headerViewNibName = "IBBSDetailHeaderView"
         }
+        static let commentViewController = "iBBSCommentViewController"
     }
-
+    
     var json: JSON!
     var headerView: IBBSDetailHeaderView!
     var prototypeCell: IBBSReplyCell!
@@ -32,6 +33,8 @@ class IBBSDetailViewController: IBBSBaseViewController, UIGestureRecognizerDeleg
         self.configureTableView()
         self.configureGesture()
         self.changeStatusBarColorOnSwipe()
+        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Comment", style: .Plain, target: self, action: "commentAction")
     }
     
     
@@ -41,19 +44,20 @@ class IBBSDetailViewController: IBBSBaseViewController, UIGestureRecognizerDeleg
     }
     
     
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        //        headerView.content.sizeToFit()
-        //        headerView.content.scrollEnabled = false
-        //        let contentStr = headerView.content.text as NSString
-        //        if contentStr.length == 0 {
-        //            headerView.setFrameHeight(CGRectGetMaxY(headerView.content.frame) - 20)
-        //        }else{
-        //            headerView.setFrameHeight(CGRectGetMaxY(headerView.content.frame) + 20)
-        //        }
-        //        self.tableView.tableHeaderView = headerView
-        
-        
+    
+    func commentAction() {
+        if let userInfo = IBBSContext.sharedInstance.getLoginData() {
+            let uid = userInfo["uid"].stringValue
+            let token = userInfo["token"].stringValue
+            let post_id = json["id"].stringValue
+            if let vc = IBBSCommentViewController() ?? nil {
+                vc.uid = uid
+                vc.token = token
+                vc.post_id = post_id
+                self.navigationController?.pushViewController(vc , animated: true)
+            }
+
+        }
     }
     
     func changeStatusBarColorOnSwipe(){
@@ -64,7 +68,7 @@ class IBBSDetailViewController: IBBSBaseViewController, UIGestureRecognizerDeleg
     }
     
     func configureTableView(){
-    
+        
         tableView.dataSource = self
         tableView.delegate = self
         tableView.registerNib(UINib(nibName: MainStoryboard.NibNames.cellNibName, bundle: nil), forCellReuseIdentifier: MainStoryboard.CellIdentifiers.replyCellIdentifier)
@@ -78,7 +82,7 @@ class IBBSDetailViewController: IBBSBaseViewController, UIGestureRecognizerDeleg
         headerView = headerViewNib.first as! IBBSDetailHeaderView
         
         headerView.loadData(json)
-//                headerView.content.backgroundColor = UIColor.randomColor()
+        //                headerView.content.backgroundColor = UIColor.randomColor()
         let headerTitleLabelHeight = headerView.headerTitleLabel.ausReturnFrameSizeAfterResizingLabel().height
         let contentLabelHeight = headerView.content.ausReturnFrameSizeAfterResizingTextView().height
         let totalHeight = headerTitleLabelHeight + contentLabelHeight + 12 + 28 + 16 + 8 + 8
@@ -162,38 +166,38 @@ class IBBSDetailViewController: IBBSBaseViewController, UIGestureRecognizerDeleg
             return "Reply : 1"
         }
         return "Replies : \(datasource.count)"
-
+        
     }
     
     
-//    // customize title for header in section
-//    func titleForHeaderInSection() -> NSString? {
-//        if datasource == nil || datasource.count == 0 {
-//            return "No reply yet"
-//        }
-//        else if datasource.count == 1 {
-//            return "Reply : 1"
-//        }
-//        return "Replies : \(datasource.count)"
-//    }
-//    
-//    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        let text = titleForHeaderInSection()
-//        let labelSize = text!.sizeWithAttributes([NSFontAttributeName: UIFont.systemFontOfSize(TITLE_FOR_HEADER_IN_SECTION_FONT_SIZE)])
-//        let titleLabel = UILabel(frame: CGRectMake(0, 0, labelSize.width , labelSize.height))
-//        let headerViewForSection = UITableViewHeaderFooterView(frame: CGRectMake(0, 0, kScreenWidth, 22))
-//        titleLabel.text = text as? String
-//        titleLabel.font = UIFont.systemFontOfSize(TITLE_FOR_HEADER_IN_SECTION_FONT_SIZE)
-//        
-//        titleLabel.center.y = 14
-//        titleLabel.frame.origin.x = 18
-//        headerViewForSection.addSubview(titleLabel)
-//        
-//        headerViewForSection.backgroundColor = UIColor.redColor()
-//        return headerViewForSection
-//        
-//        
-//    }
+    //    // customize title for header in section
+    //    func titleForHeaderInSection() -> NSString? {
+    //        if datasource == nil || datasource.count == 0 {
+    //            return "No reply yet"
+    //        }
+    //        else if datasource.count == 1 {
+    //            return "Reply : 1"
+    //        }
+    //        return "Replies : \(datasource.count)"
+    //    }
+    //
+    //    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    //        let text = titleForHeaderInSection()
+    //        let labelSize = text!.sizeWithAttributes([NSFontAttributeName: UIFont.systemFontOfSize(TITLE_FOR_HEADER_IN_SECTION_FONT_SIZE)])
+    //        let titleLabel = UILabel(frame: CGRectMake(0, 0, labelSize.width , labelSize.height))
+    //        let headerViewForSection = UITableViewHeaderFooterView(frame: CGRectMake(0, 0, kScreenWidth, 22))
+    //        titleLabel.text = text as? String
+    //        titleLabel.font = UIFont.systemFontOfSize(TITLE_FOR_HEADER_IN_SECTION_FONT_SIZE)
+    //
+    //        titleLabel.center.y = 14
+    //        titleLabel.frame.origin.x = 18
+    //        headerViewForSection.addSubview(titleLabel)
+    //
+    //        headerViewForSection.backgroundColor = UIColor.redColor()
+    //        return headerViewForSection
+    //
+    //
+    //    }
     
     override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 90
@@ -213,5 +217,5 @@ class IBBSDetailViewController: IBBSBaseViewController, UIGestureRecognizerDeleg
         }
         
     }
-
+    
 }

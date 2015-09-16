@@ -9,6 +9,8 @@
 import UIKit
 import SwiftyJSON
 
+
+
 class SlidePanelViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate {
     struct MainStoryBoard {
         struct TableViewCellIdentifiers {
@@ -27,6 +29,7 @@ class SlidePanelViewController: UIViewController, UITableViewDataSource, UITable
     @IBOutlet weak var tableView: UITableView!
     private var loginAlertController: UIAlertController!
     private var logoutAlertController: UIAlertController!
+    private let loginFeedbackJson = "loginFeedbackJson"
     
     override func loadView() {
         super.loadView()
@@ -64,7 +67,6 @@ class SlidePanelViewController: UIViewController, UITableViewDataSource, UITable
         
     }
 
-    
     
     // MARK: - table view delegate
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {

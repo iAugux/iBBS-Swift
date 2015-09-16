@@ -27,6 +27,7 @@ class IBBSReplyCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         selectionStyle = .None
+        self.layoutMargins = UIEdgeInsetsZero
     }
     
     override func setSelected(selected: Bool, animated: Bool) {
@@ -41,6 +42,12 @@ class IBBSReplyCell: UITableViewCell {
         //        avatarImageView.sd_setImageWithURL(imageUrl, placeholderImage: UIImage(named: "iAugus_500k"))
         usernameLabel.text = json["username"].stringValue
         let data = json["comment_content"].stringValue
+        print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+        print(data)
+        print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+        print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+        print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+
         replyContent.ausAttributedText(data)
         replyContent.ausReturnFrameSizeAfterResizingTextView()
     }

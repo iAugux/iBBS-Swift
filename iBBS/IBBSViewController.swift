@@ -42,11 +42,6 @@ class IBBSViewController: IBBSBaseViewController {
     
     
     
-    @IBAction func toggleSideMenu(sender: AnyObject) {
-        //        self.navigationController?.setNavigationBarHidden(true , animated: true)
-        
-    }
-    
     
     func sendRequest() {
         if let node = self.nodeJSON {
