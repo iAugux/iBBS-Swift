@@ -33,7 +33,7 @@ class IBBSContext {
         return false
     }
     
-    func login(var alertVC: UIAlertController, presentingVC: UIViewController, avatar: UIImageView){
+    func login(var alertVC: UIAlertController, presentingVC: UIViewController, completion: (() -> Void)?) {
         var username, password: UITextField!
         
         alertVC = UIAlertController(title: "login", message: "Please input your username and password.", preferredStyle: .Alert)
@@ -55,7 +55,7 @@ class IBBSContext {
                     let msg = json["msg"].stringValue
                     let alert = UIAlertController(title: "Error Message", message: msg, preferredStyle: UIAlertControllerStyle.Alert)
                     let cancelAction = UIAlertAction(title: "Try again", style: .Cancel, handler: { (_) -> Void in
-                        self.login(alertVC, presentingVC: presentingVC, avatar: avatar)
+                        self.login(alertVC, presentingVC: presentingVC, completion: nil)
                         alertVC.dismissViewControllerAnimated(true , completion: nil)
                     })
                     alert.addAction(cancelAction)
@@ -63,7 +63,7 @@ class IBBSContext {
                 }else{
                     // success , keep token and other info
                     IBBSContext.sharedInstance.saveLoginData(json.object)
-                    IBBSContext.sharedInstance.configureCurrentUserAvatar(avatar)
+
                     
                 }
                 
@@ -81,14 +81,14 @@ class IBBSContext {
         presentingVC.presentViewController(alertVC, animated: true, completion: nil)
     }
 
-    func logout(var alertController: UIAlertController, presentingVC: UIViewController){
+    func logout(var alertController: UIAlertController, presentingVC: UIViewController, avatar: UIImageView){
         
         alertController = UIAlertController(title: "", message: "Are you sure to logout ?", preferredStyle: .Alert)
         let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
         let okAction = UIAlertAction(title: "OK", style: .Default) { (_) -> Void in
             let userDefaults = NSUserDefaults.standardUserDefaults()
             userDefaults.removeObjectForKey(self.loginFeedbackJson)
-            
+            avatar.image = UIImage(named: "login")
         }
         alertController.addAction(cancelAction)
         alertController.addAction(okAction)

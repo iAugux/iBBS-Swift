@@ -14,27 +14,21 @@ class IBBSBaseViewController: UITableViewController {
     
     
     
-    var refreshing: Bool = false {
-        didSet {
-            if (self.refreshing) {
-//                self.refreshControl?.beginRefreshing()
-//                self.refreshControl?.attributedTitle = NSAttributedString(string: "正在刷新...")
-                self.gearRefreshControl.beginRefreshing()
-            }
-            else {
-//                self.refreshControl?.endRefreshing()
-//                self.refreshControl?.attributedTitle = NSAttributedString(string: "正在刷新...")
-                self.gearRefreshControl.endRefreshing()
-            }
-        }
-    }
+//    var refreshing: Bool = false {
+//        didSet {
+//            if (self.refreshing) {
+//                self.gearRefreshControl.beginRefreshing()
+//            }
+//            else {
+//                self.gearRefreshControl.endRefreshing()
+//            }
+//        }
+//    }
     
     var datasource: [JSON]! {
         didSet{
             //            print(datasource)
             self.tableView.reloadData()
-            //            IBBSViewController.sharedInstance.automaticContentOffset()
-            
         }
     }
     
@@ -43,9 +37,10 @@ class IBBSBaseViewController: UITableViewController {
 //        self.automaticPullingDownToRefresh()
         self.gearRefreshManager()
 
-//        self.refreshControl = UIRefreshControl()
-//        self.refreshControl?.addTarget(self, action: "onPullToFresh", forControlEvents: UIControlEvents.ValueChanged)
-
+        // theme
+        if kShouldCustomizeTheme {
+            self.view.backgroundColor = kThemeColor
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -64,7 +59,7 @@ class IBBSBaseViewController: UITableViewController {
         gearRefreshControl.scrollViewDidScroll(scrollView)
     }
     
-    func gearRefreshManager(){
+    private func gearRefreshManager(){
         gearRefreshControl = GearRefreshControl(frame: self.view.bounds)
         gearRefreshControl.addTarget(self, action: "refreshData", forControlEvents: UIControlEvents.ValueChanged)
         refreshControl = gearRefreshControl

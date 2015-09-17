@@ -9,6 +9,10 @@
 import UIKit
 import SwiftyJSON
 
+protocol IBBSPostViewControllerDelegate {
+    func loadDataAfterPosting()
+}
+
 class IBBSPostViewController: ZSSRichTextEditor {
 
     private let nodeID = "board"
@@ -16,7 +20,8 @@ class IBBSPostViewController: ZSSRichTextEditor {
     private let articleTitle = "title"
     private let token = "token"
     private let content = "content"
-   
+    private var delegate: IBBSPostViewControllerDelegate!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 //        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Preview", style: .Plain, target: self, action: "exportHTML")
@@ -90,17 +95,11 @@ class IBBSPostViewController: ZSSRichTextEditor {
         
         APIClient.sharedInstance.post(articleArray[uid]!, nodeID: articleArray[nodeID]!, content: articleArray[content]!, title: articleArray[articleTitle]!, token: articleArray[token]!, success: { (json) -> Void in
             print(json)
+            self.delegate?.loadDataAfterPosting()
+            self.dismissViewControllerAnimated(true , completion: nil)
             }) { (error ) -> Void in
                 print(error)
         }
-        
-//        let param = [nodeID: articleArray[nodeID]!, uid: articleArray[uid]!, articleTitle: articleArray[articleTitle]!, token: articleArray[token]!, content: articleArray[content]!]
-//        print(param)
-//        APIClient.sharedInstance.post(param, success: { (json) -> Void in
-//            print(json)
-//            }) { (error ) -> Void in
-//            print(error)
-//        }
         print(articleArray)
 
     }

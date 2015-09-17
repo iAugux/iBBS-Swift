@@ -10,7 +10,7 @@ import UIKit
 import SwiftyJSON
 
 
-class IBBSViewController: IBBSBaseViewController {
+class IBBSViewController: IBBSBaseViewController, IBBSPostViewControllerDelegate {
     
     var nodeJSON: JSON?
     
@@ -26,16 +26,16 @@ class IBBSViewController: IBBSBaseViewController {
         }
     }
     
-   
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-//        self.automaticPullingDownToRefresh()
+        self.automaticPullingDownToRefresh()
         self.configureTableView()
         self.configureView()
         
-        self.refreshing = true
+        //        self.refreshing = true
         self.sendRequest()
-    
+        
         IBBSNodeCatalogueViewController.sharedInstance.sendRequest()
         
     }
@@ -45,25 +45,19 @@ class IBBSViewController: IBBSBaseViewController {
     
     func sendRequest() {
         if let node = self.nodeJSON {
-            self.refreshing = true
             APIClient.sharedInstance.getLatestTopics(node["id"].stringValue, success: { (json) -> Void in
-                self.refreshing = false
                 if json.type == Type.Array {
                     self.datasource = json.arrayValue
                     
                 }
                 }, failure: { (error) -> Void in
-                    self.refreshing = false
             })
         } else {
-            self.refreshing = true
             APIClient.sharedInstance.getLatestTopics({ (json) -> Void in
-                self.refreshing = false
                 if json.type == Type.Array {
-                    self.datasource = json.arrayValue                    
+                    self.datasource = json.arrayValue
                 }
                 }, failure: { (error) -> Void in
-                    self.refreshing = false
             })
         }
     }
@@ -76,18 +70,19 @@ class IBBSViewController: IBBSBaseViewController {
         important: if present NavigationController's property of interactivePopGestureRecognizer is enable, we must set it to disable,
         otherwise if we call UIScreenEdgePanGestureRecognizer on present ViewController it will crash.
         */
-//        self.navigationController?.interactivePopGestureRecognizer?.delegate = nil
-                self.navigationController?.interactivePopGestureRecognizer?.enabled = false
+        //        self.navigationController?.interactivePopGestureRecognizer?.delegate = nil
+        self.navigationController?.interactivePopGestureRecognizer?.enabled = false
     }
     
     func configureView(){
         self.navigationController?.navigationBarHidden = false
         //        self.navigationController?.hidesBarsOnSwipe = true
-        
-        if let node = self.nodeJSON {
-            self.title = node["title"].stringValue
-        }else {
-            self.title = "iBBS"
+        self.navigationItem.title = "iBBS"
+        if IBBSContext.sharedInstance.isLogin() {
+            if let data = IBBSContext.sharedInstance.getLoginData() {
+                let username = data["username"].stringValue
+                self.navigationItem.title = username
+            }
         }
     }
     
@@ -98,7 +93,9 @@ class IBBSViewController: IBBSBaseViewController {
         tableView.rowHeight = UITableViewAutomaticDimension
     }
     
-    
+    func loadDataAfterPosting() {
+        tableView.reloadData()
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -146,15 +143,15 @@ class IBBSViewController: IBBSBaseViewController {
     // MARK: - refresh
     func refreshData(){
         
-                self.sendRequest()
-//         be sure to stop refreshing while there is an error with network or something else
-//        let refreshInSeconds = 5.0
-//        let popTime = dispatch_time(DISPATCH_TIME_NOW, Int64(refreshInSeconds * Double(NSEC_PER_SEC)));
-//        dispatch_after(popTime, dispatch_get_main_queue()) { () -> Void in
-//            //            self.tableView.reloadData()
-//            
-//            self.gearRefreshControl.endRefreshing()
-//        }
+        self.sendRequest()
+        //         be sure to stop refreshing while there is an error with network or something else
+        let refreshInSeconds = 1.3
+        let popTime = dispatch_time(DISPATCH_TIME_NOW, Int64(refreshInSeconds * Double(NSEC_PER_SEC)));
+        dispatch_after(popTime, dispatch_get_main_queue()) { () -> Void in
+            //            self.tableView.reloadData()
+            
+            self.gearRefreshControl.endRefreshing()
+        }
         
     }
     

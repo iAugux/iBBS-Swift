@@ -15,6 +15,17 @@
 		B113B04A1BA196BF004ECFA0 /* RefreshFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B113B0451BA196BF004ECFA0 /* RefreshFooterView.swift */; };
 		B113B04B1BA196BF004ECFA0 /* UIScrollView+Refresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = B113B0461BA196BF004ECFA0 /* UIScrollView+Refresh.swift */; };
 		B1209C611BA3477B00F75673 /* IBBSTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B1209C601BA3477B00F75673 /* IBBSTableViewCell.xib */; };
+		B124B9F31BA9BB92000034CC /* IBBSMessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B124B9F11BA9BB92000034CC /* IBBSMessageTableViewCell.swift */; };
+		B124B9F41BA9BB92000034CC /* IBBSMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B124B9F21BA9BB92000034CC /* IBBSMessageTableViewCell.xib */; };
+		B124B9FB1BA9FBEC000034CC /* DraggableCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B124B9F81BA9FBEC000034CC /* DraggableCardView.swift */; };
+		B124B9FC1BA9FBEC000034CC /* KolodaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B124B9F91BA9FBEC000034CC /* KolodaView.swift */; };
+		B124B9FD1BA9FBEC000034CC /* OverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B124B9FA1BA9FBEC000034CC /* OverlayView.swift */; };
+		B124B9FF1BA9FC17000034CC /* CustomKolodaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B124B9FE1BA9FC17000034CC /* CustomKolodaView.swift */; };
+		B124BA011BA9FC3D000034CC /* CustomOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B124BA001BA9FC3D000034CC /* CustomOverlayView.xib */; };
+		B124BA031BA9FC69000034CC /* CustomOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B124BA021BA9FC69000034CC /* CustomOverlayView.swift */; };
+		B124BA051BA9FE2F000034CC /* OverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B124BA041BA9FE2F000034CC /* OverlayView.xib */; };
+		B124BA071BA9FE41000034CC /* ExampleOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B124BA061BA9FE41000034CC /* ExampleOverlayView.swift */; };
+		B124BA091BAA0156000034CC /* BackgroundAnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B124BA081BAA0156000034CC /* BackgroundAnimationViewController.swift */; };
 		B1455C151B994F230025B517 /* UIView+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1455C141B994F230025B517 /* UIView+Additions.swift */; };
 		B1455C171B9AB5640025B517 /* NSString+Addtions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1455C161B9AB5640025B517 /* NSString+Addtions.swift */; };
 		B148AF181B98572900D00524 /* IBBSDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B148AF171B98572900D00524 /* IBBSDetailViewController.swift */; };
@@ -30,6 +41,7 @@
 		B1658FC11B9ED48D00BF01EB /* UILabel+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1658FC01B9ED48D00BF01EB /* UILabel+Additions.swift */; };
 		B1658FC31B9ED98300BF01EB /* UITextView+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1658FC21B9ED98300BF01EB /* UITextView+Additions.swift */; };
 		B165BCEA1BA940DC00036477 /* IBBSCommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B165BCE91BA940DC00036477 /* IBBSCommentViewController.swift */; };
+		B165BCEC1BA9662B00036477 /* IBBSContents.swift in Sources */ = {isa = PBXBuildFile; fileRef = B165BCEB1BA9662B00036477 /* IBBSContents.swift */; };
 		B17939321B96DDD3002E1B21 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17939311B96DDD3002E1B21 /* AppDelegate.swift */; };
 		B17939391B96DDD3002E1B21 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B17939381B96DDD3002E1B21 /* Assets.xcassets */; };
 		B179393C1B96DDD3002E1B21 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B179393A1B96DDD3002E1B21 /* LaunchScreen.storyboard */; };
@@ -127,6 +139,7 @@
 		B197C82A1BA730FC00DE0678 /* ZSSTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = B197C7D31BA730FC00DE0678 /* ZSSTextView.m */; };
 		B197C82C1BA73D1D00DE0678 /* IBBSPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B197C82B1BA73D1D00DE0678 /* IBBSPostViewController.swift */; };
 		B197C8331BA74C0200DE0678 /* IBBSPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B197C8321BA74C0200DE0678 /* IBBSPickerViewController.swift */; };
+		B199E3201BA9B1250088DFC5 /* IBBSMessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B199E31F1BA9B1250088DFC5 /* IBBSMessagesViewController.swift */; };
 		B1B097CB1BA42F1E009B02E2 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B097CA1BA42F1E009B02E2 /* TabBarController.swift */; };
 		B1B097CD1BA43A86009B02E2 /* IBBSNodeCatalogueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B097CC1BA43A86009B02E2 /* IBBSNodeCatalogueViewController.swift */; };
 		B1C105D31BA1D4730088DBCB /* NodesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1C105D21BA1D4730088DBCB /* NodesCell.swift */; };
@@ -148,6 +161,17 @@
 		B113B0451BA196BF004ECFA0 /* RefreshFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RefreshFooterView.swift; sourceTree = "<group>"; };
 		B113B0461BA196BF004ECFA0 /* UIScrollView+Refresh.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Refresh.swift"; sourceTree = "<group>"; };
 		B1209C601BA3477B00F75673 /* IBBSTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IBBSTableViewCell.xib; sourceTree = "<group>"; };
+		B124B9F11BA9BB92000034CC /* IBBSMessageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSMessageTableViewCell.swift; sourceTree = "<group>"; };
+		B124B9F21BA9BB92000034CC /* IBBSMessageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IBBSMessageTableViewCell.xib; sourceTree = "<group>"; };
+		B124B9F81BA9FBEC000034CC /* DraggableCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DraggableCardView.swift; sourceTree = "<group>"; };
+		B124B9F91BA9FBEC000034CC /* KolodaView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KolodaView.swift; sourceTree = "<group>"; };
+		B124B9FA1BA9FBEC000034CC /* OverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayView.swift; sourceTree = "<group>"; };
+		B124B9FE1BA9FC17000034CC /* CustomKolodaView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomKolodaView.swift; sourceTree = "<group>"; };
+		B124BA001BA9FC3D000034CC /* CustomOverlayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomOverlayView.xib; sourceTree = "<group>"; };
+		B124BA021BA9FC69000034CC /* CustomOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomOverlayView.swift; sourceTree = "<group>"; };
+		B124BA041BA9FE2F000034CC /* OverlayView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OverlayView.xib; sourceTree = "<group>"; };
+		B124BA061BA9FE41000034CC /* ExampleOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExampleOverlayView.swift; sourceTree = "<group>"; };
+		B124BA081BAA0156000034CC /* BackgroundAnimationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackgroundAnimationViewController.swift; sourceTree = "<group>"; };
 		B1455C141B994F230025B517 /* UIView+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Additions.swift"; sourceTree = "<group>"; };
 		B1455C161B9AB5640025B517 /* NSString+Addtions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSString+Addtions.swift"; sourceTree = "<group>"; };
 		B148AF171B98572900D00524 /* IBBSDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSDetailViewController.swift; sourceTree = "<group>"; };
@@ -163,6 +187,7 @@
 		B1658FC01B9ED48D00BF01EB /* UILabel+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+Additions.swift"; sourceTree = "<group>"; };
 		B1658FC21B9ED98300BF01EB /* UITextView+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextView+Additions.swift"; sourceTree = "<group>"; };
 		B165BCE91BA940DC00036477 /* IBBSCommentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSCommentViewController.swift; sourceTree = "<group>"; };
+		B165BCEB1BA9662B00036477 /* IBBSContents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSContents.swift; sourceTree = "<group>"; };
 		B179392E1B96DDD3002E1B21 /* iBBS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iBBS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B17939311B96DDD3002E1B21 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B17939381B96DDD3002E1B21 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -276,6 +301,7 @@
 		B197C7D31BA730FC00DE0678 /* ZSSTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZSSTextView.m; sourceTree = "<group>"; };
 		B197C82B1BA73D1D00DE0678 /* IBBSPostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSPostViewController.swift; sourceTree = "<group>"; };
 		B197C8321BA74C0200DE0678 /* IBBSPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSPickerViewController.swift; sourceTree = "<group>"; };
+		B199E31F1BA9B1250088DFC5 /* IBBSMessagesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSMessagesViewController.swift; sourceTree = "<group>"; };
 		B1B097CA1BA42F1E009B02E2 /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		B1B097CC1BA43A86009B02E2 /* IBBSNodeCatalogueViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSNodeCatalogueViewController.swift; sourceTree = "<group>"; };
 		B1C105D21BA1D4730088DBCB /* NodesCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NodesCell.swift; sourceTree = "<group>"; };
@@ -332,11 +358,22 @@
 			path = loadmore;
 			sourceTree = "<group>";
 		};
+		B124B9F71BA9FBEC000034CC /* KolodaView */ = {
+			isa = PBXGroup;
+			children = (
+				B124B9F81BA9FBEC000034CC /* DraggableCardView.swift */,
+				B124B9F91BA9FBEC000034CC /* KolodaView.swift */,
+				B124B9FA1BA9FBEC000034CC /* OverlayView.swift */,
+			);
+			path = KolodaView;
+			sourceTree = "<group>";
+		};
 		B148AF141B982E1C00D00524 /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				B1CA72071B96DE74006823B3 /* APIClient.swift */,
 				B1C5F5F91BA8338400CAF514 /* IBBSContext.swift */,
+				B165BCEB1BA9662B00036477 /* IBBSContents.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -502,6 +539,7 @@
 		B1CA72041B96DE55006823B3 /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				B124B9F71BA9FBEC000034CC /* KolodaView */,
 				B197C76C1BA730FC00DE0678 /* ZSSRichTextEditor */,
 				B113B0411BA196BF004ECFA0 /* loadmore */,
 				B1CA72101B9709ED006823B3 /* GearRefreshControl */,
@@ -540,9 +578,11 @@
 				B15BD5B81BA54C8100969D36 /* IBBSNodeViewController.swift */,
 				B1C5F5F71BA80B2400CAF514 /* IBBSEditingViewController.swift */,
 				B197C82B1BA73D1D00DE0678 /* IBBSPostViewController.swift */,
+				B199E31F1BA9B1250088DFC5 /* IBBSMessagesViewController.swift */,
 				B197C8321BA74C0200DE0678 /* IBBSPickerViewController.swift */,
 				B17939491B96DE08002E1B21 /* SlidePanelViewController.swift */,
 				B17939481B96DE08002E1B21 /* ContainerViewController.swift */,
+				B124BA081BAA0156000034CC /* BackgroundAnimationViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -550,12 +590,19 @@
 		B1CA72151B9722A4006823B3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				B124BA041BA9FE2F000034CC /* OverlayView.xib */,
+				B124BA061BA9FE41000034CC /* ExampleOverlayView.swift */,
+				B124B9FE1BA9FC17000034CC /* CustomKolodaView.swift */,
+				B124BA021BA9FC69000034CC /* CustomOverlayView.swift */,
+				B124BA001BA9FC3D000034CC /* CustomOverlayView.xib */,
 				B17939461B96DE08002E1B21 /* IBBSTableViewCell.swift */,
 				B1209C601BA3477B00F75673 /* IBBSTableViewCell.xib */,
 				B15BD5B41BA54BBC00969D36 /* IBBSNodeTableViewCell.swift */,
 				B15BD5B51BA54BBC00969D36 /* IBBSNodeTableViewCell.xib */,
 				B148AF231B98C52300D00524 /* IBBSDetailHeaderView.swift */,
 				B148AF211B98C3B100D00524 /* IBBSDetailHeaderView.xib */,
+				B124B9F11BA9BB92000034CC /* IBBSMessageTableViewCell.swift */,
+				B124B9F21BA9BB92000034CC /* IBBSMessageTableViewCell.xib */,
 				B148AF1B1B98B1D800D00524 /* IBBSReplyCell.swift */,
 				B148AF1C1B98B1D800D00524 /* IBBSReplyCell.xib */,
 				B1C105D21BA1D4730088DBCB /* NodesCell.swift */,
@@ -641,6 +688,7 @@
 			files = (
 				B197C8141BA730FC00DE0678 /* ZSSunderline@2x.png in Resources */,
 				B197C7EC1BA730FC00DE0678 /* ZSShorizontalrule@2x.png in Resources */,
+				B124BA051BA9FE2F000034CC /* OverlayView.xib in Resources */,
 				B197C7FA1BA730FC00DE0678 /* ZSSlink@2x.png in Resources */,
 				B197C7E51BA730FC00DE0678 /* ZSSh4.png in Resources */,
 				B197C7EF1BA730FC00DE0678 /* ZSSindent.png in Resources */,
@@ -653,6 +701,7 @@
 				B197C8091BA730FC00DE0678 /* ZSSstrikethrough.png in Resources */,
 				B197C8061BA730FC00DE0678 /* ZSSredo@2x.png in Resources */,
 				B197C7FF1BA730FC00DE0678 /* ZSSparagraph.png in Resources */,
+				B124BA011BA9FC3D000034CC /* CustomOverlayView.xib in Resources */,
 				B197C81C1BA730FC00DE0678 /* ZSSviewsource@2x.png in Resources */,
 				B17939441B96DDF3002E1B21 /* Main.storyboard in Resources */,
 				B197C7F41BA730FC00DE0678 /* ZSSitalic@2x.png in Resources */,
@@ -676,6 +725,7 @@
 				B197C7ED1BA730FC00DE0678 /* ZSSimage.png in Resources */,
 				B197C8051BA730FC00DE0678 /* ZSSredo.png in Resources */,
 				B197C7FC1BA730FC00DE0678 /* ZSSorderedlist@2x.png in Resources */,
+				B124B9F41BA9BB92000034CC /* IBBSMessageTableViewCell.xib in Resources */,
 				B197C8281BA730FC00DE0678 /* ZSSRichTextEditor.js in Resources */,
 				B197C7DD1BA730FC00DE0678 /* ZSSforcejustify.png in Resources */,
 				B197C80B1BA730FC00DE0678 /* ZSSsubscript.png in Resources */,
@@ -780,7 +830,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				B179394A1B96DE08002E1B21 /* IBBSViewController.swift in Sources */,
+				B199E3201BA9B1250088DFC5 /* IBBSMessagesViewController.swift in Sources */,
+				B124BA031BA9FC69000034CC /* CustomOverlayView.swift in Sources */,
 				B197C8231BA730FC00DE0678 /* HRColorCursor.m in Sources */,
+				B124B9F31BA9BB92000034CC /* IBBSMessageTableViewCell.swift in Sources */,
+				B124B9FB1BA9FBEC000034CC /* DraggableCardView.swift in Sources */,
 				B197C81E1BA730FC00DE0678 /* CYRTextStorage.m in Sources */,
 				B1455C171B9AB5640025B517 /* NSString+Addtions.swift in Sources */,
 				B179394E1B96DE08002E1B21 /* SlidePanelViewController.swift in Sources */,
@@ -792,13 +846,16 @@
 				B1C105D31BA1D4730088DBCB /* NodesCell.swift in Sources */,
 				B113B0481BA196BF004ECFA0 /* RefreshBaseView.swift in Sources */,
 				B1455C151B994F230025B517 /* UIView+Additions.swift in Sources */,
+				B124BA071BA9FE41000034CC /* ExampleOverlayView.swift in Sources */,
 				B1C5F5F81BA80B2400CAF514 /* IBBSEditingViewController.swift in Sources */,
 				B113B0491BA196BF004ECFA0 /* RefreshConst.swift in Sources */,
 				B113B04A1BA196BF004ECFA0 /* RefreshFooterView.swift in Sources */,
+				B124BA091BAA0156000034CC /* BackgroundAnimationViewController.swift in Sources */,
 				B197C81F1BA730FC00DE0678 /* CYRTextView.m in Sources */,
 				B148AF241B98C52300D00524 /* IBBSDetailHeaderView.swift in Sources */,
 				B148AF1A1B98A94800D00524 /* UIColor+Additions.swift in Sources */,
 				B10CA7CA1B9F0BCD0065AF07 /* UIScreen+Additions.swift in Sources */,
+				B124B9FC1BA9FBEC000034CC /* KolodaView.swift in Sources */,
 				B1CA72121B9709ED006823B3 /* GearRefreshControl.swift in Sources */,
 				B148AF181B98572900D00524 /* IBBSDetailViewController.swift in Sources */,
 				B1CA721F1B9734DA006823B3 /* IBBSBaseViewController.swift in Sources */,
@@ -808,6 +865,7 @@
 				B197C81D1BA730FC00DE0678 /* CYRLayoutManager.m in Sources */,
 				B1658FC31B9ED98300BF01EB /* UITextView+Additions.swift in Sources */,
 				B179394B1B96DE08002E1B21 /* IBBSTableViewCell.swift in Sources */,
+				B124B9FF1BA9FC17000034CC /* CustomKolodaView.swift in Sources */,
 				B197C82C1BA73D1D00DE0678 /* IBBSPostViewController.swift in Sources */,
 				B15BD5B91BA54C8100969D36 /* IBBSNodeViewController.swift in Sources */,
 				B197C8221BA730FC00DE0678 /* HRCgUtil.m in Sources */,
@@ -819,9 +877,11 @@
 				B1B097CB1BA42F1E009B02E2 /* TabBarController.swift in Sources */,
 				B197C8211BA730FC00DE0678 /* HRBrightnessCursor.m in Sources */,
 				B15AF5B51BA5763700810969 /* RootNavigationController.swift in Sources */,
+				B124B9FD1BA9FBEC000034CC /* OverlayView.swift in Sources */,
 				B1658FC11B9ED48D00BF01EB /* UILabel+Additions.swift in Sources */,
 				B15BD5B61BA54BBC00969D36 /* IBBSNodeTableViewCell.swift in Sources */,
 				B113B04B1BA196BF004ECFA0 /* UIScrollView+Refresh.swift in Sources */,
+				B165BCEC1BA9662B00036477 /* IBBSContents.swift in Sources */,
 				B148AF1D1B98B1D800D00524 /* IBBSReplyCell.swift in Sources */,
 				B17939321B96DDD3002E1B21 /* AppDelegate.swift in Sources */,
 				B197C8241BA730FC00DE0678 /* HRColorPickerView.m in Sources */,

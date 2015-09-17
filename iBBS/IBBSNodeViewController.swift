@@ -42,7 +42,7 @@ class IBBSNodeViewController: IBBSBaseViewController, UIGestureRecognizerDelegat
         self.configureView()
         self.configureGestureRecognizer()
         
-        self.refreshing = true
+//        self.refreshing = true
         self.sendRequest()
     }
     
@@ -59,9 +59,9 @@ class IBBSNodeViewController: IBBSBaseViewController, UIGestureRecognizerDelegat
     
     func sendRequest() {
         if let node = self.nodeJSON {
-            self.refreshing = true
+//            self.refreshing = true
             APIClient.sharedInstance.getLatestTopics(node["id"].stringValue, success: { (json) -> Void in
-                self.refreshing = false
+//                self.refreshing = false
                 if json.type == Type.Array {
                     self.datasource = json.arrayValue
                     //                    self.tableView?.reloadData()
@@ -69,12 +69,12 @@ class IBBSNodeViewController: IBBSBaseViewController, UIGestureRecognizerDelegat
                     
                 }
                 }, failure: { (error) -> Void in
-                    self.refreshing = false
+//                    self.refreshing = false
             })
         } else {
-            self.refreshing = true
+//            self.refreshing = true
             APIClient.sharedInstance.getLatestTopics({ (json) -> Void in
-                self.refreshing = false
+//                self.refreshing = false
                 if json.type == Type.Array {
                     self.datasource = json.arrayValue
                     //                    self.tableView?.reloadData()
@@ -82,7 +82,7 @@ class IBBSNodeViewController: IBBSBaseViewController, UIGestureRecognizerDelegat
                     
                 }
                 }, failure: { (error) -> Void in
-                    self.refreshing = false
+//                    self.refreshing = false
             })
         }
     }

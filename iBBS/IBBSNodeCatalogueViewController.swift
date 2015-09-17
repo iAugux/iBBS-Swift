@@ -42,15 +42,10 @@ class IBBSNodeCatalogueViewController: UITableViewController {
     func configureTableView(){
         tableView.tableFooterView = UIView(frame: CGRectZero)
         tableView.registerClass(NodesCell.classForCoder() , forCellReuseIdentifier: MainStoryboard.nodeCellIdentifier)
-        
-        tableView.contentInset = UIEdgeInsetsMake(64.0, 0, 0, 0)
+        tableView.separatorInset = UIEdgeInsetsZero
+        tableView.layoutMargins = UIEdgeInsetsZero
+//        tableView.contentInset = UIEdgeInsetsMake(64.0, 0, 0, 0)
         //        tableView.scrollsToTop = false
-        
-        // Preserve selection between presentations
-        //        self.clearsSelectionOnViewWillAppear = false
-        
-        //        tableView.selectRowAtIndexPath(NSIndexPath(forRow: selectedMenuItem, inSection: 0), animated: false, scrollPosition: .Middle)
-        
         
     }
     
@@ -100,8 +95,6 @@ class IBBSNodeCatalogueViewController: UITableViewController {
                 let json = array[indexPath.row]
                 cell.textLabel?.text = json["name"].stringValue
             }
-            //            cell.nav = self.navigationController
-            cell.backgroundColor = UIColor.redColor()
             
             return cell
         }

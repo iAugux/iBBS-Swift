@@ -10,8 +10,8 @@ import Foundation
 import Alamofire
 import SwiftyJSON
 
-let APIRootURL = "http://yabbs.sinaapp.com/index.php/Home/Api/"
-//let APIRootURL = "http://127.0.0.1/YABBS/index.php/Home/Api/"
+//let APIRootURL = "http://yabbs.sinaapp.com/index.php/Home/Api/"
+let APIRootURL = "http://127.0.0.1/YABBS/index.php/Home/Api/"
 
 class APIClient {
     
@@ -28,6 +28,11 @@ class APIClient {
         }
     }
 
+    func getMessages(userID: AnyObject, token: AnyObject, success: (JSON) -> Void, failure: (NSError) -> Void) {
+        let dict = ["uid": userID, "token": token]
+        self.getJSONData("messages", parameters: dict, success: success, failure: failure)
+    }
+    
     func post(userID: AnyObject, nodeID: AnyObject, content: AnyObject, title: AnyObject, token: AnyObject, success: (JSON) -> Void, failure: (NSError) -> Void) {
         let dict = ["uid": userID, "board": nodeID, "content": content, "title": title, "token": token]
         self.getJSONData("create_post", parameters: dict, success: success, failure: failure)

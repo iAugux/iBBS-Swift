@@ -27,6 +27,7 @@ class IBBSReplyCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         selectionStyle = .None
+        self.separatorInset = UIEdgeInsetsZero
         self.layoutMargins = UIEdgeInsetsZero
     }
     
@@ -44,8 +45,6 @@ class IBBSReplyCell: UITableViewCell {
         let data = json["comment_content"].stringValue
         print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
         print(data)
-        print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
-        print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
         print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
 
         replyContent.ausAttributedText(data)

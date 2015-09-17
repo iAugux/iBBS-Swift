@@ -17,7 +17,7 @@ class IBBSCommentViewController: ZSSRichTextEditor {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "send"), style: .Plain, target: self, action: "sendAction")
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "Send"), style: .Plain, target: self, action: "sendAction")
 
     }
 
@@ -29,6 +29,7 @@ class IBBSCommentViewController: ZSSRichTextEditor {
         print(content)
         APIClient.sharedInstance.comment(uid , postID: post_id, content: content, token: token, success: { (json ) -> Void in
             print(json)
+            self.navigationController?.popViewControllerAnimated(true)
             }) { (error ) -> Void in
                 print(error)
         }

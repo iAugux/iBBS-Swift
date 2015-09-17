@@ -28,12 +28,17 @@ class IBBSTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-
+        
         // Initialization code
 //        self.backgroundColor = UIColor.clearColor()
         self.preservesSuperviewLayoutMargins = false
         self.separatorInset                  = UIEdgeInsetsZero
         self.layoutMargins                   = UIEdgeInsetsZero
+        
+        // theme
+        if kShouldCustomizeTheme {
+            self.backgroundColor = kThemeColor
+        }
     }
 
 

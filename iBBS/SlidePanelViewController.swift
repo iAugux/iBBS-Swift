@@ -26,6 +26,7 @@ class SlidePanelViewController: UIViewController, UITableViewDataSource, UITable
         }
     }
     
+    private var blurView: UIView!
     @IBOutlet weak var tableView: UITableView!
     private var loginAlertController: UIAlertController!
     private var logoutAlertController: UIAlertController!
@@ -33,11 +34,17 @@ class SlidePanelViewController: UIViewController, UITableViewDataSource, UITable
     
     override func loadView() {
         super.loadView()
+        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "bg_image_1")!)
+        blurView = UIVisualEffectView(effect: UIBlurEffect(style: .Light))
+        blurView.frame = self.view.bounds
+        self.view.insertSubview(blurView, atIndex: 0)
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.backgroundColor = UIColor.grayColor()
+        tableView.backgroundColor = UIColor.clearColor()
         tableView.tableFooterView = UIView(frame: CGRectZero)
+        tableView.scrollEnabled = false
         IBBSContext.sharedInstance.configureCurrentUserAvatar(self.userProfileImage)
     }
    
@@ -57,11 +64,14 @@ class SlidePanelViewController: UIViewController, UITableViewDataSource, UITable
             if IBBSContext.sharedInstance.isLogin() {
                 // do logout
                 self.logoutAlertController = UIAlertController()
-                IBBSContext.sharedInstance.logout(logoutAlertController, presentingVC: self)
+                IBBSContext.sharedInstance.logout(logoutAlertController, presentingVC: self, avatar: userProfileImage)
             }else{
                 // do login
                 self.loginAlertController = UIAlertController()
-                IBBSContext.sharedInstance.login(loginAlertController, presentingVC: self, avatar: userProfileImage)
+                IBBSContext.sharedInstance.login(loginAlertController, presentingVC: self, completion: { () -> Void in
+                    IBBSContext.sharedInstance.configureCurrentUserAvatar(self.userProfileImage)
+                })
+
             }
         }
         
@@ -92,8 +102,12 @@ class SlidePanelViewController: UIViewController, UITableViewDataSource, UITable
         return cell!
     }
     
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 50
+    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UIView(frame: CGRectMake(0, 0, kScreenWidth, 50))
+        headerView.backgroundColor = UIColor.grayColor()
+        headerView.alpha = 0.3
+        
+        return headerView
     }
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 70
