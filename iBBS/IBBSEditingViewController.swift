@@ -9,6 +9,8 @@
 import UIKit
 import SwiftyJSON
 
+var articleArray: NSMutableDictionary!
+
 class IBBSEditingViewController: UIViewController, UITextViewDelegate {
     
     @IBOutlet var avatarImageView: UIImageView!{
@@ -34,13 +36,12 @@ class IBBSEditingViewController: UIViewController, UITextViewDelegate {
     
     private let node: JSON? = IBBSContext.sharedInstance.getNodes()
     private let nodeID = "board"
-    private let uid = "uid"
     private let articleTitle = "title"
-    private let token = "token"
     private let postControllerID = "iBBSPostViewController"
     private var loginAlertController: UIAlertController!
     private let defaultSelectedRow = 2
-    
+    private var blurView: UIView!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.prepareForPosting()
@@ -56,6 +57,12 @@ class IBBSEditingViewController: UIViewController, UITextViewDelegate {
         articleArray = NSMutableDictionary()
         // set default node ID
         articleArray.setValue(defaultSelectedRow + 1, forKey: nodeID)
+        
+        self.navigationController?.view.backgroundColor = UIColor.clearColor()
+        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "bg_image")!)
+        blurView = UIVisualEffectView(effect: UIBlurEffect(style: .Light))
+        blurView.frame = self.view.bounds
+        self.view.insertSubview(blurView, atIndex: 0)
     }
     
     func cancelAction(){
@@ -63,15 +70,9 @@ class IBBSEditingViewController: UIViewController, UITextViewDelegate {
     }
     
     @IBAction func okAction(sender: AnyObject) {
-        if let userInfo = IBBSContext.sharedInstance.getLoginData() {
-            let userID = userInfo["uid"].stringValue
-            let token = userInfo["token"].stringValue
-            articleArray.setValue(userID, forKey: self.uid)
-            articleArray.setValue(token, forKey: self.token)
-        }
+       
         let title = self.contentTextView.text
         articleArray.setValue(title, forKey: self.articleTitle)
-//        print(articleArray)
         
         if let title = articleArray.valueForKey(self.articleTitle) as? String {
             let str = title.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()) as NSString
@@ -90,7 +91,7 @@ class IBBSEditingViewController: UIViewController, UITextViewDelegate {
     func prepareForPosting(){
         if !IBBSContext.sharedInstance.isLogin() {
             self.loginAlertController = UIAlertController()
-            IBBSContext.sharedInstance.login(loginAlertController, presentingVC: self, completion: { () -> Void in
+            IBBSContext.sharedInstance.login(loginAlertController, presentingVC: self, completion: {
                 IBBSContext.sharedInstance.configureCurrentUserAvatar(self.avatarImageView)
             })
         }

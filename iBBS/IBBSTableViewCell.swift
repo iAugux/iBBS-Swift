@@ -28,7 +28,8 @@ class IBBSTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+//        self.selectionStyle = UITableViewCellSelectionStyle.None
+
         // Initialization code
 //        self.backgroundColor = UIColor.clearColor()
         self.preservesSuperviewLayoutMargins = false

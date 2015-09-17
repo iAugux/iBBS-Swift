@@ -12,11 +12,7 @@ import SwiftyJSON
 
 
 class SlidePanelViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate {
-    struct MainStoryBoard {
-        struct TableViewCellIdentifiers {
-            static let slidePanelCell = "slidePanelCell"
-        }
-    }
+
     @IBOutlet weak var userProfileImage: UIImageView!{
         didSet{
             userProfileImage.layer.cornerRadius = 35.0
@@ -25,7 +21,7 @@ class SlidePanelViewController: UIViewController, UITableViewDataSource, UITable
             
         }
     }
-    
+    private let cellTitleArray = ["Notification", "Favorite", "Profile", "Setting"]
     private var blurView: UIView!
     @IBOutlet weak var tableView: UITableView!
     private var loginAlertController: UIAlertController!
@@ -64,14 +60,16 @@ class SlidePanelViewController: UIViewController, UITableViewDataSource, UITable
             if IBBSContext.sharedInstance.isLogin() {
                 // do logout
                 self.logoutAlertController = UIAlertController()
-                IBBSContext.sharedInstance.logout(logoutAlertController, presentingVC: self, avatar: userProfileImage)
+                IBBSContext.sharedInstance.logout(logoutAlertController, presentingVC: self , completion: {
+                    self.userProfileImage.image = UIImage(named: "login")
+                })
             }else{
                 // do login
                 self.loginAlertController = UIAlertController()
-                IBBSContext.sharedInstance.login(loginAlertController, presentingVC: self, completion: { () -> Void in
+                IBBSContext.sharedInstance.login(loginAlertController, presentingVC: self, completion: {  
                     IBBSContext.sharedInstance.configureCurrentUserAvatar(self.userProfileImage)
+                    self.tableView.reloadData()
                 })
-
             }
         }
         
@@ -87,20 +85,18 @@ class SlidePanelViewController: UIViewController, UITableViewDataSource, UITable
         return 4
     }
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCellWithIdentifier(MainStoryBoard.TableViewCellIdentifiers.slidePanelCell)
-        if cell == nil {
-            cell = UITableViewCell()
-            cell?.frame = CGRectZero
-        }
-        
-        cell?.textLabel?.text = "@"
-        cell?.backgroundColor = UIColor.clearColor()
-        cell?.preservesSuperviewLayoutMargins = false
-        cell?.layoutMargins = UIEdgeInsetsZero
-        cell?.separatorInset = UIEdgeInsetsZero
-        
-        return cell!
+
+        let cell = UITableViewCell()
+        cell.backgroundColor = UIColor.clearColor()
+        cell.preservesSuperviewLayoutMargins = false
+        cell.layoutMargins = UIEdgeInsetsZero
+        cell.separatorInset = UIEdgeInsetsZero
+        cell.selectionStyle = UITableViewCellSelectionStyle.None
+        cell.textLabel?.text = cellTitleArray[indexPath.row]
+        return cell
+    
     }
+    
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = UIView(frame: CGRectMake(0, 0, kScreenWidth, 50))

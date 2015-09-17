@@ -41,7 +41,7 @@ class IBBSNodeCatalogueViewController: UITableViewController {
     
     func configureTableView(){
         tableView.tableFooterView = UIView(frame: CGRectZero)
-        tableView.registerClass(NodesCell.classForCoder() , forCellReuseIdentifier: MainStoryboard.nodeCellIdentifier)
+        tableView.registerClass(IBBSNodesCell.classForCoder() , forCellReuseIdentifier: MainStoryboard.nodeCellIdentifier)
         tableView.separatorInset = UIEdgeInsetsZero
         tableView.layoutMargins = UIEdgeInsetsZero
 //        tableView.contentInset = UIEdgeInsetsMake(64.0, 0, 0, 0)
@@ -90,7 +90,7 @@ class IBBSNodeCatalogueViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCellWithIdentifier(MainStoryboard.nodeCellIdentifier) as? NodesCell {
+        if let cell = tableView.dequeueReusableCellWithIdentifier(MainStoryboard.nodeCellIdentifier) as? IBBSNodesCell {
             if let array = self.nodesArray {
                 let json = array[indexPath.row]
                 cell.textLabel?.text = json["name"].stringValue

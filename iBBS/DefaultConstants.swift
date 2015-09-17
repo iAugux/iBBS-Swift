@@ -13,7 +13,7 @@ let storyboard = UIStoryboard(name: "Main", bundle: nil)
 
 let kScreenWidth = UIScreen.mainScreen().bounds.width
 let kScreenHeight = UIScreen.mainScreen().bounds.height
-let kExpandedOffSet: CGFloat = 160.0
+let kExpandedOffSet: CGFloat = 130.0
 
 let HEADER_TITLE_FONT_SIZE: CGFloat = 17
 let HEADER_CONTENT_FONT_SIZE: CGFloat = 15.0

@@ -45,13 +45,9 @@ class IBBSDetailViewController: IBBSBaseViewController, UIGestureRecognizerDeleg
     
     
     func commentAction() {
-        if let userInfo = IBBSContext.sharedInstance.getLoginData() {
-            let uid = userInfo["uid"].stringValue
-            let token = userInfo["token"].stringValue
+        if IBBSContext.sharedInstance.isLogin() {
             let post_id = json["id"].stringValue
             if let vc = IBBSCommentViewController() ?? nil {
-                vc.uid = uid
-                vc.token = token
                 vc.post_id = post_id
                 self.navigationController?.pushViewController(vc , animated: true)
             }

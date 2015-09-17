@@ -10,10 +10,6 @@ import UIKit
 import SwiftyJSON
 
 
-
-var articleArray: NSMutableDictionary!
-
-
 class IBBSContext {
     static let sharedInstance = IBBSContext()
     
@@ -23,12 +19,12 @@ class IBBSContext {
     
     func isLogin() -> Bool {
         if let data = IBBSContext.sharedInstance.getLoginData() {
-            let token = data["token"].stringValue as NSString
-            if token.length == 0 {
-                return false
+            if let token = data["token"].stringValue ?? nil  {
+                if (token as NSString).length == 0{
+                    return false
+                }
             }
             return true
-            
         }
         return false
     }
@@ -63,8 +59,9 @@ class IBBSContext {
                 }else{
                     // success , keep token and other info
                     IBBSContext.sharedInstance.saveLoginData(json.object)
-
-                    
+                    if let completionHandler = completion {
+                        completionHandler()
+                    }
                 }
                 
                 
@@ -81,14 +78,17 @@ class IBBSContext {
         presentingVC.presentViewController(alertVC, animated: true, completion: nil)
     }
 
-    func logout(var alertController: UIAlertController, presentingVC: UIViewController, avatar: UIImageView){
+    func logout(var alertController: UIAlertController, presentingVC: UIViewController, completion: (() -> Void)?){
         
         alertController = UIAlertController(title: "", message: "Are you sure to logout ?", preferredStyle: .Alert)
         let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
         let okAction = UIAlertAction(title: "OK", style: .Default) { (_) -> Void in
             let userDefaults = NSUserDefaults.standardUserDefaults()
             userDefaults.removeObjectForKey(self.loginFeedbackJson)
-            avatar.image = UIImage(named: "login")
+            
+            if let completionHandler = completion {
+                completionHandler()
+            }
         }
         alertController.addAction(cancelAction)
         alertController.addAction(okAction)
@@ -105,11 +105,11 @@ class IBBSContext {
     
     func getLoginData() -> JSON? {
         let userDefaults = NSUserDefaults.standardUserDefaults()
-        let data = userDefaults.objectForKey(loginFeedbackJson)
-        if let obj = data {
-            let json = NSKeyedUnarchiver.unarchiveObjectWithData(obj as! NSData)
+        if let data = userDefaults.objectForKey(loginFeedbackJson) {
+            let json = NSKeyedUnarchiver.unarchiveObjectWithData(data as! NSData)
             return JSON(json!)
         }
+        
         return nil
     }
     

@@ -16,9 +16,7 @@ protocol IBBSPostViewControllerDelegate {
 class IBBSPostViewController: ZSSRichTextEditor {
 
     private let nodeID = "board"
-    private let uid = "uid"
     private let articleTitle = "title"
-    private let token = "token"
     private let content = "content"
     private var delegate: IBBSPostViewControllerDelegate!
     
@@ -39,10 +37,10 @@ class IBBSPostViewController: ZSSRichTextEditor {
         
         
         // Set the toolbar item color
-        self.toolbarItemTintColor = UIColor.redColor()
+        self.toolbarItemTintColor = UIColor.blackColor()
         
         // Set the toolbar selected color
-        self.toolbarItemSelectedTintColor = UIColor.blackColor()
+        self.toolbarItemSelectedTintColor = UIColor.redColor()
 
         // Choose which toolbar items to show
         //        self.enabledToolbarItems = [ZSSRichTextEditorToolbarBold, ZSSRichTextEditorToolbarH1, ZSSRichTextEditorToolbarParagraph]
@@ -92,8 +90,11 @@ class IBBSPostViewController: ZSSRichTextEditor {
     @IBAction func sendAction(sender: AnyObject) {
 
         articleArray.setValue(getHTML(), forKey: content)
+        let loginData = IBBSContext.sharedInstance.getLoginData()
+        let userID = loginData?["uid"].stringValue
+        let token = loginData?["token"].stringValue
         
-        APIClient.sharedInstance.post(articleArray[uid]!, nodeID: articleArray[nodeID]!, content: articleArray[content]!, title: articleArray[articleTitle]!, token: articleArray[token]!, success: { (json) -> Void in
+        APIClient.sharedInstance.post(userID!, nodeID: articleArray[nodeID]!, content: articleArray[content]!, title: articleArray[articleTitle]!, token: token!, success: { (json) -> Void in
             print(json)
             self.delegate?.loadDataAfterPosting()
             self.dismissViewControllerAnimated(true , completion: nil)

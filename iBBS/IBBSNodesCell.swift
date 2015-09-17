@@ -1,5 +1,5 @@
 //
-//  NodesCell.swift
+//  IBBSNodesCell.swift
 //  iBBS
 //
 //  Created by Augus on 9/10/15.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class NodesCell: UITableViewCell {
+class IBBSNodesCell: UITableViewCell {
     
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {

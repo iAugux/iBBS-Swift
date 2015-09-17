@@ -18,6 +18,8 @@ class IBBSMessageTableViewCell: UITableViewCell {
             avatarImageView.layer.borderColor   = UIColor.blackColor().CGColor
             avatarImageView.layer.cornerRadius  = 18.0
             avatarImageView.backgroundColor     = UIColor.randomColor()
+            avatarImageView.contentMode = UIViewContentMode.ScaleAspectFill
+
         }
     }
     @IBOutlet var isMessageRead: UIImageView!
@@ -30,6 +32,7 @@ class IBBSMessageTableViewCell: UITableViewCell {
         super.awakeFromNib()
         self.layoutMargins = UIEdgeInsetsZero
         self.separatorInset = UIEdgeInsetsZero
+        self.selectionStyle = UITableViewCellSelectionStyle.None
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
@@ -45,7 +48,6 @@ class IBBSMessageTableViewCell: UITableViewCell {
         avatarImageView.sd_setImageWithURL(imageUrl)
         timeLabel.text = json["send_time"].stringValue
         contentLabel.text = json["title"].stringValue
-        usernameLabel.text = json["sender"].stringValue
         
         if let isRead = json["is_read"].intValue ?? nil {
             if isRead == 0 {
@@ -55,10 +57,15 @@ class IBBSMessageTableViewCell: UITableViewCell {
             }
         }
         
-        if let isAdministrator = json["type"].intValue ?? nil {
-            if isAdministrator == 1 {
+        if let isAdministrator = json["type"].boolValue ?? nil{
+            if !isAdministrator {
                 self.avatarImageView.backgroundColor = UIColor.blackColor()
                 self.avatarImageView.image = UIImage(named: "Administrator")
+//                usernameLabel.text = json["username"].stringValue
+                usernameLabel.text = "Admin"
+            }else{
+                usernameLabel.text = json["sender"].stringValue
+
             }
         }
         

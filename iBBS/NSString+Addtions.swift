@@ -18,17 +18,5 @@ extension NSString{
         return CGSizeMake(ceil(expectedLabelSize.width), ceil(expectedLabelSize.height))
     }
     
-    
-    
-    /**
-    *  delete trailing "<br>" for string
-    */
-    class func ausStringByTrimmingCharactersDeleteTrailingBlank(string: String) -> NSString {
-        var str = string
-        str = str.stringByTrimmingCharactersInSet(NSCharacterSet(charactersInString: "<br>"))
-        return str
-    }
-
-    
 }
 

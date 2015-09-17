@@ -10,8 +10,6 @@ import UIKit
 
 class IBBSCommentViewController: ZSSRichTextEditor {
 
-    var uid = String()
-    var token = String()
     var post_id = String()
     
     
@@ -23,11 +21,11 @@ class IBBSCommentViewController: ZSSRichTextEditor {
 
     func sendAction(){
         let content = getHTML()
-        print(uid)
-        print(token)
-        print(post_id)
-        print(content)
-        APIClient.sharedInstance.comment(uid , postID: post_id, content: content, token: token, success: { (json ) -> Void in
+        let loginData = IBBSContext.sharedInstance.getLoginData()
+        let userID = loginData?["uid"].stringValue
+        let token = loginData?["token"].stringValue
+
+        APIClient.sharedInstance.comment(userID! , postID: post_id, content: content, token: token!, success: { (json ) -> Void in
             print(json)
             self.navigationController?.popViewControllerAnimated(true)
             }) { (error ) -> Void in
