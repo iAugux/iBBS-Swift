@@ -19,8 +19,8 @@ class IBBSMessagesViewController: IBBSBaseViewController {
     private var alertController: UIAlertController!
     private var messageArray: [JSON]!
     private var messageContent: JSON!
-    private var draggableBackground: DraggableViewBackground!
-    private var insertBlurView: UIVisualEffectView!
+    var draggableBackground: DraggableViewBackground!
+    var insertBlurView: UIVisualEffectView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -145,7 +145,7 @@ class IBBSMessagesViewController: IBBSBaseViewController {
             messageCard.avatar.image = UIImage(named: "Administrator")
         }
     }
-       
+    
     // MARK: - table view data source
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if messageArray != nil {
@@ -198,6 +198,16 @@ class IBBSMessagesViewController: IBBSBaseViewController {
         }
         
     }
-
-    
 }
+
+
+extension IBBSMessagesViewController: DraggableViewDelegate {
+    func cardSwipedLeft(card: UIView) {
+        print("llllll")
+    }
+    
+    func cardSwipedRight(card: UIView) {
+        print("rrrrrr")
+    }
+}
+

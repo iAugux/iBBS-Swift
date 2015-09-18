@@ -28,6 +28,17 @@ class APIClient {
         }
     }
 
+    func postJSONData(path: String, parameters: [String : AnyObject]?, success: (JSON) -> Void, failure: (NSError) -> Void) {
+        Alamofire.request(.POST, APIRootURL + path, parameters: parameters)
+            .responseSwiftyJSON { (request, response, json, error) in
+                if let err = error {
+                    failure(err)
+                } else {
+                    success(json)
+                }
+        }
+    }
+
     func readMessage(uid: AnyObject, token: AnyObject, msgID: AnyObject, success: (JSON) -> Void, failure: (NSError) -> Void) {
         let dict = ["uid": uid, "token": token, "msg_id": msgID]
         self.getJSONData("read_message", parameters: dict , success: success, failure: failure)
@@ -40,12 +51,12 @@ class APIClient {
     
     func post(userID: AnyObject, nodeID: AnyObject, content: AnyObject, title: AnyObject, token: AnyObject, success: (JSON) -> Void, failure: (NSError) -> Void) {
         let dict = ["uid": userID, "board": nodeID, "content": content, "title": title, "token": token]
-        self.getJSONData("create_post", parameters: dict, success: success, failure: failure)
+        self.postJSONData("create_post", parameters: dict, success: success, failure: failure)
     }
     
     func comment(userID: AnyObject, postID: AnyObject, content: AnyObject, token: AnyObject, success: (JSON) -> Void, failure: (NSError) -> Void) {
         let dict = ["uid": userID, "post_id": postID, "content": content, "token": token]
-        self.getJSONData("create_comment", parameters: dict, success: success, failure: failure)
+        self.postJSONData("create_comment", parameters: dict, success: success, failure: failure)
     }
     
     func userLogin(userID: String, passwd: String, success: (JSON) -> Void, failure: (NSError) -> Void) {

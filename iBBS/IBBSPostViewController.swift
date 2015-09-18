@@ -88,21 +88,22 @@ class IBBSPostViewController: ZSSRichTextEditor {
 
 
     @IBAction func sendAction(sender: AnyObject) {
-
+        let userID: String, token: String
         articleArray.setValue(getHTML(), forKey: content)
-        let loginData = IBBSContext.sharedInstance.getLoginData()
-        let userID = loginData?["uid"].stringValue
-        let token = loginData?["token"].stringValue
-        
-        APIClient.sharedInstance.post(userID!, nodeID: articleArray[nodeID]!, content: articleArray[content]!, title: articleArray[articleTitle]!, token: token!, success: { (json) -> Void in
-            print(json)
-            self.delegate?.loadDataAfterPosting()
-            self.dismissViewControllerAnimated(true , completion: nil)
-            }) { (error ) -> Void in
-                print(error)
+        if let loginData = IBBSContext.sharedInstance.getLoginData() {
+            userID = loginData["uid"].stringValue
+            token = loginData["token"].stringValue
+            print(userID)
+            print(token)
+            APIClient.sharedInstance.post(userID, nodeID: articleArray[nodeID]!, content: articleArray[content]!, title: articleArray[articleTitle]!, token: token, success: { (json) -> Void in
+                print(json)
+                self.delegate?.loadDataAfterPosting()
+                self.dismissViewControllerAnimated(true , completion: nil)
+                }) { (error ) -> Void in
+                    print(error)
+            }
+            print(articleArray)
         }
-        print(articleArray)
-
     }
     
     func cancelAction(){

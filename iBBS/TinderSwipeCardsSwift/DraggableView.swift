@@ -121,8 +121,10 @@ class DraggableView: UIView {
         let floatXFromCenter = Float(xFromCenter)
         if floatXFromCenter > ACTION_MARGIN {
             self.rightAction()
+            
         } else if floatXFromCenter < -ACTION_MARGIN {
             self.leftAction()
+
         } else {
             UIView.animateWithDuration(0.3, animations: {() -> Void in
                 self.center = self.originPoint

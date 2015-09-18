@@ -93,7 +93,6 @@ class DraggableViewBackground: UIView, DraggableViewDelegate {
             cardsLoadedIndex = cardsLoadedIndex + 1
             self.insertSubview(loadedCards[MAX_BUFFER_SIZE - 1], belowSubview: loadedCards[MAX_BUFFER_SIZE - 2])
         }
-        self.removeFromSuperview()
     }
     
     func cardSwipedRight(card: UIView) -> Void {
