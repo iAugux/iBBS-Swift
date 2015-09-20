@@ -3,6 +3,10 @@
 //  iBBS
 //
 //  Created by Augus on 9/2/15.
+//
+//  http://iAugus.com
+//  https://github.com/iAugux
+//
 //  Copyright © 2015 iAugus. All rights reserved.
 //
 
@@ -11,19 +15,20 @@ import SwiftyJSON
 
 class IBBSBaseViewController: UITableViewController {
     var gearRefreshControl: GearRefreshControl!
+    var page: Int = 1
     
     
     
-//    var refreshing: Bool = false {
-//        didSet {
-//            if (self.refreshing) {
-//                self.gearRefreshControl.beginRefreshing()
-//            }
-//            else {
-//                self.gearRefreshControl.endRefreshing()
-//            }
-//        }
-//    }
+    //    var refreshing: Bool = false {
+    //        didSet {
+    //            if (self.refreshing) {
+    //                self.gearRefreshControl.beginRefreshing()
+    //            }
+    //            else {
+    //                self.gearRefreshControl.endRefreshing()
+    //            }
+    //        }
+    //    }
     
     var datasource: [JSON]! {
         didSet{
@@ -34,9 +39,9 @@ class IBBSBaseViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        self.automaticPullingDownToRefresh()
+        //        self.automaticPullingDownToRefresh()
         self.gearRefreshManager()
-
+        
         // theme
         if kShouldCustomizeTheme {
             self.view.backgroundColor = kThemeColor
@@ -50,10 +55,8 @@ class IBBSBaseViewController: UITableViewController {
     
     
     
-    
-    
     // MARK: - part of GearRefreshControl
-   
+    
     
     override func scrollViewDidScroll(scrollView: UIScrollView) {
         gearRefreshControl.scrollViewDidScroll(scrollView)
@@ -66,7 +69,7 @@ class IBBSBaseViewController: UITableViewController {
         tableView?.addSubview(refreshControl!)
     }
     
-
+    
     // MARK: - Automatic pulling down to refresh
     func automaticPullingDownToRefresh(){
         
@@ -87,26 +90,7 @@ class IBBSBaseViewController: UITableViewController {
             self.gearRefreshControl.endRefreshing()
             
         })
-
+        
     }
     
-    
-    func setupLoadmore(){
-        self.tableView.addFooterWithCallback({
-            //                for var i = 0; i < 90; i++ {
-            //    //                self.numberOfRows?.addObject(0)
-            //                }
-            //                        let delayInSeconds: Double = 0.3
-            //                        let delta = Int64(Double(NSEC_PER_SEC) * delayInSeconds)
-            //                        let popTime:dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW,delta)
-            //                        dispatch_after(popTime, dispatch_get_main_queue(), {
-            //                            self.tableView.reloadData()
-            //                            self.tableView.footerEndRefreshing()
-            //            //                self.tableView.setFooterHidden(true)
-            //                        })
-            self.tableView.reloadData()
-            self.tableView.footerEndRefreshing()
-        })
-    }
-
 }

@@ -3,11 +3,16 @@
 //  SlideMenu
 //
 //  Created by Augus on 4/27/15.
+//
+//  http://iAugus.com
+//  https://github.com/iAugux
+//
 //  Copyright (c) 2015 Augus. All rights reserved.
 //
 
 
 import UIKit
+
 
 enum SlideOutState {
     case collapsed
@@ -15,7 +20,7 @@ enum SlideOutState {
 }
 
 
-class ContainerViewController: UIViewController, UIGestureRecognizerDelegate{
+class ContainerViewController: UIViewController, UIGestureRecognizerDelegate {
     
     // 0 ~ 320
     let centerPanelExpandedOffset: CGFloat = kScreenWidth - kExpandedOffSet
@@ -60,7 +65,7 @@ class ContainerViewController: UIViewController, UIGestureRecognizerDelegate{
         centerNavigationController.view.addGestureRecognizer(panGestureRecognizer)
 //        panGestureRecognizer.delegate = self
         
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: "handleTapGesture:")
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: "handleTapGesture")
         centerVCFrontBlurView.addGestureRecognizer(tapGestureRecognizer)
     }
     
@@ -197,12 +202,13 @@ class ContainerViewController: UIViewController, UIGestureRecognizerDelegate{
         
     }
     
-    func handleTapGesture(recognizer: UITapGestureRecognizer){
+    func handleTapGesture(){
         if leftViewController != nil {
             animateLeftPanel(false)
             self.centerVCFrontBlurView.removeFromSuperview()
         }
     }
+    
     // close left panel
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         if leftViewController != nil{

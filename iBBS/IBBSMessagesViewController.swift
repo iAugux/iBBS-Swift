@@ -3,6 +3,10 @@
 //  iBBS
 //
 //  Created by Augus on 9/16/15.
+//
+//  http://iAugus.com
+//  https://github.com/iAugux
+//
 //  Copyright © 2015 iAugus. All rights reserved.
 //
 
@@ -139,7 +143,7 @@ class IBBSMessagesViewController: IBBSBaseViewController {
 //        let username = messageContent["msg"]["username"].stringValue
         let messageCard = self.draggableBackground.allCards[0]
         messageCard.information.text = content
-        messageCard.avatar.sd_setImageWithURL(avatarUrl)
+        messageCard.avatar.kf_setImageWithURL(avatarUrl)
         if !isAdmin {
             messageCard.avatar.backgroundColor = UIColor.blackColor()
             messageCard.avatar.image = UIImage(named: "Administrator")

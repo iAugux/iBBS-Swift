@@ -3,11 +3,16 @@
 //  iBBS
 //
 //  Created by Augus on 9/2/15.
+//
+//  http://iAugus.com
+//  https://github.com/iAugux
+//
 //  Copyright © 2015 iAugus. All rights reserved.
 //
 
 import UIKit
 import SwiftyJSON
+import Kingfisher
 
 class IBBSTableViewCell: UITableViewCell {
 
@@ -51,7 +56,7 @@ class IBBSTableViewCell: UITableViewCell {
 
     func loadDataToCell(json: JSON){
         let avatarUrl                        = NSURL(string: json["avatar"].stringValue)
-        self.userProfireImage?.sd_setImageWithURL(avatarUrl)
+        self.userProfireImage.kf_setImageWithURL(avatarUrl!)
         self.topicLabel?.text                = json["title"].stringValue
         self.userName.text                   = json["username"].stringValue
         self.nodeName.text                   = json["board"].stringValue

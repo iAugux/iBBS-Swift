@@ -3,6 +3,10 @@
 //  iBBS
 //
 //  Created by Augus on 9/4/15.
+//
+//  http://iAugus.com
+//  https://github.com/iAugux
+//
 //  Copyright © 2015 iAugus. All rights reserved.
 //
 
@@ -39,7 +43,7 @@ class IBBSReplyCell: UITableViewCell {
     
     func loadDataToCell(json: JSON) {
         let imageUrl = NSURL(string: json["avatar"].stringValue)
-        avatarImageView.sd_setImageWithURL(imageUrl)
+        avatarImageView.kf_setImageWithURL(imageUrl!)
         //        avatarImageView.sd_setImageWithURL(imageUrl, placeholderImage: UIImage(named: "iAugus_500k"))
         usernameLabel.text = json["username"].stringValue
         let data = json["comment_content"].stringValue

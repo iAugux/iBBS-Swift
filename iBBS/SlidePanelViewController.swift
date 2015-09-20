@@ -3,13 +3,15 @@
 //  SlideMenu
 //
 //  Created by Augus on 4/27/15.
+//
+//  http://iAugus.com
+//  https://github.com/iAugux
+//
 //  Copyright (c) 2015 Augus. All rights reserved.
 //
 
 import UIKit
 import SwiftyJSON
-
-
 
 class SlidePanelViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate {
 
@@ -74,7 +76,6 @@ class SlidePanelViewController: UIViewController, UITableViewDataSource, UITable
         }
         
     }
-
     
     // MARK: - table view delegate
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {

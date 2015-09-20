@@ -9,12 +9,12 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods.xcscheme</key>
+		<key>Kingfisher.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>SDWebImage.xcscheme</key>
+		<key>Pods.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -27,22 +27,22 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>1FA792CB544808C97BEAECC91D88C62F</key>
+		<key>35C941EDFB92A12695F3938571A6AF3A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>574D2A1CC59444ED1DC4345EF56A15AD</key>
+		<key>6D19D704439FC08CB7A837909054C0D8</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8C2CD1B652A046B2BAE210F707A0E82F</key>
+		<key>788024A2EE2D53B6E28C5B40661C30C4</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>ED021897E306DEC59773F4728FFAC837</key>
+		<key>A2BAA6FC914314ED8779BA5B03810098</key>
 		<dict>
 			<key>primary</key>
 			<true/>

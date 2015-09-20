@@ -3,6 +3,10 @@
 //  iBBS
 //
 //  Created by Augus on 9/16/15.
+//
+//  http://iAugus.com
+//  https://github.com/iAugux
+//
 //  Copyright © 2015 iAugus. All rights reserved.
 //
 
@@ -45,7 +49,7 @@ class IBBSMessageTableViewCell: UITableViewCell {
     
     func loadDataToCell(json: JSON) {
         let imageUrl = NSURL(string: json["sender_avatar"].stringValue)
-        avatarImageView.sd_setImageWithURL(imageUrl)
+        avatarImageView.kf_setImageWithURL(imageUrl!)
         timeLabel.text = json["send_time"].stringValue
         contentLabel.text = json["title"].stringValue
         

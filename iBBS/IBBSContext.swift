@@ -3,6 +3,10 @@
 //  iBBS
 //
 //  Created by Augus on 9/15/15.
+//
+//  http://iAugus.com
+//  https://github.com/iAugux
+//
 //  Copyright © 2015 iAugus. All rights reserved.
 //
 
@@ -133,7 +137,7 @@ class IBBSContext {
         let data = IBBSContext.sharedInstance.getLoginData()
         if let json = data {
             let url = NSURL(string: json["avatar"].stringValue)
-            imageView.sd_setImageWithURL(url)
+            imageView.kf_setImageWithURL(url!)
         }
     }
     

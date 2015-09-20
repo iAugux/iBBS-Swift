@@ -3,6 +3,10 @@
 //  iBBS
 //
 //  Created by Augus on 9/2/15.
+//
+//  http://iAugus.com
+//  https://github.com/iAugux
+//
 //  Copyright © 2015 iAugus. All rights reserved.
 //
 
@@ -10,8 +14,9 @@ import Foundation
 import Alamofire
 import SwiftyJSON
 
-let APIRootURL = "http://yabbs.sinaapp.com/index.php/Home/Api/"
-//let APIRootURL = "http://127.0.0.1/YABBS/index.php/Home/Api/"
+//let APIRootURL = "http://yabbs.sinaapp.com/index.php/Home/Api/"
+let APIRootURL = "http://127.0.0.1/YABBS/index.php/Home/Api/"
+//let APIRootURL = "http://ibbx.sinaapp.com/index.php/Home/Api/"
 
 class APIClient {
     
@@ -59,22 +64,23 @@ class APIClient {
         self.postJSONData("create_comment", parameters: dict, success: success, failure: failure)
     }
     
-    func userLogin(userID: String, passwd: String, success: (JSON) -> Void, failure: (NSError) -> Void) {
+    func userLogin(userID: AnyObject, passwd: AnyObject, success: (JSON) -> Void, failure: (NSError) -> Void) {
         let dict = ["user": userID, "password": passwd]
         self.getJSONData("login", parameters: dict, success: success, failure: failure)
     }
 
-    func getLatestTopics(success: (JSON) -> Void, failure: (NSError) -> Void) {
-        self.getJSONData("latest", parameters: nil, success: success, failure: failure)
+    func getLatestTopics(page: AnyObject, success: (JSON) -> Void, failure: (NSError) -> Void) {
+        let param = ["page": page]
+        self.getJSONData("latest", parameters: param, success: success, failure: failure)
     }
     
-    func getLatestTopics(nodeID: NSString, success: (JSON) -> Void, failure: (NSError) -> Void) {
-        let dict = ["boardId": nodeID]
+    func getLatestTopics(nodeID: AnyObject, page: AnyObject, success: (JSON) -> Void, failure: (NSError) -> Void) {
+        let dict = ["boardId": nodeID, "page": page]
         self.getJSONData("posts", parameters: dict, success: success, failure: failure)
     }
 
-    func getReplies(postID: NSString, success: (JSON) -> Void, failure: (NSError) -> Void) {
-        let dict = ["postId": postID]
+    func getReplies(postID: AnyObject, page: AnyObject, success: (JSON) -> Void, failure: (NSError) -> Void) {
+        let dict = ["postId": postID, "page": page]
         self.getJSONData("comments", parameters: dict, success: success, failure: failure)
     }
     

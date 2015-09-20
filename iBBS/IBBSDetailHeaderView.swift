@@ -3,6 +3,10 @@
 //  iBBS
 //
 //  Created by Augus on 9/4/15.
+//
+//  http://iAugus.com
+//  https://github.com/iAugux
+//
 //  Copyright © 2015 iAugus. All rights reserved.
 //
 
@@ -33,7 +37,7 @@ class IBBSDetailHeaderView: UIView {
     func loadData(json: JSON){
         
         let avatarUrl = NSURL(string: json["avatar"].stringValue)
-        avatarImageView?.sd_setImageWithURL(avatarUrl)
+        avatarImageView.kf_setImageWithURL(avatarUrl!)
         usernameLabel?.text = json["username"].stringValue
         headerTitleLabel?.text = json["title"].stringValue.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
         timeLabel?.text = json["post_time"].stringValue
