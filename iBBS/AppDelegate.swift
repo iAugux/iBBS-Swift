@@ -25,7 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         // SlideMenu
-        application.statusBarStyle = .LightContent
+//        application.statusBarStyle = .LightContent
         let containerViewController = ContainerViewController()
         let homeNav = storyboard.instantiateViewControllerWithIdentifier("homeNav") as! UINavigationController
         homeNav.viewControllers[0] = containerViewController

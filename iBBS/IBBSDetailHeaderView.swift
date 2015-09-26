@@ -44,9 +44,7 @@ class IBBSDetailHeaderView: UIView {
         let data = json["post_content"].stringValue.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
         self.content.ausAttributedText(data)
 //        self.content.ausAutomanticResizeTextViewFrameSize()
-        print("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
         print(json["post_content"].stringValue)
-        print("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
 
         nodeName = json["board"].stringValue
     }

@@ -42,7 +42,6 @@ class IBBSEditingViewController: UIViewController, UITextViewDelegate {
     private let nodeID = "board"
     private let articleTitle = "title"
     private let postControllerID = "iBBSPostViewController"
-    private var loginAlertController: UIAlertController!
     private let defaultSelectedRow = 2
     private var blurView: UIView!
 
@@ -93,11 +92,12 @@ class IBBSEditingViewController: UIViewController, UITextViewDelegate {
     }
     
     func prepareForPosting(){
-        if !IBBSContext.sharedInstance.isLogin() {
-            self.loginAlertController = UIAlertController()
-            IBBSContext.sharedInstance.login(loginAlertController, presentingVC: self, completion: {
-                IBBSContext.sharedInstance.configureCurrentUserAvatar(self.avatarImageView)
-            })
+        IBBSContext.sharedInstance.isLogin(presentingVC: self){ (isLogin) -> Void in
+            if !isLogin {
+                IBBSContext.sharedInstance.login(presentingVC: self, completion: {
+                    IBBSContext.sharedInstance.configureCurrentUserAvatar(self.avatarImageView)
+                })
+            }
         }
     }
     

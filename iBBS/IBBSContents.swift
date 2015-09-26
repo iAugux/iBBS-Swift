@@ -16,3 +16,8 @@ import Foundation
 
 var kShouldCustomizeTheme = false
 var kThemeColor = UIColor.grayColor()
+
+
+
+let SERVER_ERROR = "sorry, something wrong with server...\n😭😭😭"
+let TIME_OF_TOAST_OF_SERVER_ERROR: Double = 4

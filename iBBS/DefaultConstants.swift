@@ -13,6 +13,8 @@
 import UIKit
 
 
+let isIphone3_5Inch: Bool = UIScreen.mainScreen().bounds.size.height == 480 ? true : false
+
 let storyboard = UIStoryboard(name: "Main", bundle: nil)
 
 let kScreenWidth = UIScreen.mainScreen().bounds.width

@@ -52,13 +52,16 @@ class DraggableViewBackground: UIView, DraggableViewDelegate {
         checkButton.setImage(UIImage(named: "checkButton"), forState: UIControlState.Normal)
         checkButton.addTarget(self, action: "swipeRight", forControlEvents: UIControlEvents.TouchUpInside)
 
-        self.addSubview(xButton)
-        self.addSubview(checkButton)
+        if !isIphone3_5Inch {
+            self.addSubview(xButton)
+            self.addSubview(checkButton)
+
+        }
     }
 
     func createDraggableViewWithDataAtIndex(index: NSInteger) -> DraggableView {
         let draggableView = DraggableView(frame: CGRectMake((self.frame.size.width - CARD_WIDTH)/2, (self.frame.size.height - CARD_HEIGHT)/2, CARD_WIDTH, CARD_HEIGHT))
-        draggableView.information.text = exampleCardLabels[index]
+//        draggableView.information.text = exampleCardLabels[index]
         draggableView.delegate = self
         return draggableView
     }

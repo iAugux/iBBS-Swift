@@ -62,6 +62,8 @@ class IBBSNodeCatalogueViewController: UITableViewController {
                 IBBSContext.sharedInstance.saveNodes(json.object)
             }
             }) { (error) -> Void in
+                self.view.makeToast(message: SERVER_ERROR, duration: TIME_OF_TOAST_OF_SERVER_ERROR, position: HRToastPositionTop)
+
         }
     }
     

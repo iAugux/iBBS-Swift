@@ -14,9 +14,9 @@ import Foundation
 import Alamofire
 import SwiftyJSON
 
-//let APIRootURL = "http://yabbs.sinaapp.com/index.php/Home/Api/"
 let APIRootURL = "http://127.0.0.1/YABBS/index.php/Home/Api/"
-//let APIRootURL = "http://ibbx.sinaapp.com/index.php/Home/Api/"
+//let APIRootURL = "http://obbs.sinaapp.com/index.php/Home/Api/"
+
 
 class APIClient {
     
@@ -44,6 +44,11 @@ class APIClient {
         }
     }
 
+    func isLogin(uid: AnyObject, token: AnyObject, success: (JSON) -> Void, failure: (NSError) -> Void){
+        let param = ["uid": uid, "token": token]
+        self.getJSONData("isLogin", parameters: param, success: success, failure: failure)
+    }
+    
     func readMessage(uid: AnyObject, token: AnyObject, msgID: AnyObject, success: (JSON) -> Void, failure: (NSError) -> Void) {
         let dict = ["uid": uid, "token": token, "msg_id": msgID]
         self.getJSONData("read_message", parameters: dict , success: success, failure: failure)
@@ -62,6 +67,11 @@ class APIClient {
     func comment(userID: AnyObject, postID: AnyObject, content: AnyObject, token: AnyObject, success: (JSON) -> Void, failure: (NSError) -> Void) {
         let dict = ["uid": userID, "post_id": postID, "content": content, "token": token]
         self.postJSONData("create_comment", parameters: dict, success: success, failure: failure)
+    }
+    
+    func userRegister(email: AnyObject, username: AnyObject, passwd: AnyObject, success: (JSON) -> Void, failure: (NSError) -> Void) {
+        let dict = ["email": email, "username": username, "password": passwd]
+        self.postJSONData("register", parameters: dict, success: success, failure: failure)
     }
     
     func userLogin(userID: AnyObject, passwd: AnyObject, success: (JSON) -> Void, failure: (NSError) -> Void) {

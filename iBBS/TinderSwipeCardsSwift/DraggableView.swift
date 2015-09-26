@@ -26,10 +26,11 @@ class DraggableView: UIView {
     var panGestureRecognizer: UIPanGestureRecognizer!
     var originPoint: CGPoint!
     var overlayView: OverlayView!
-    var information: UILabel!
+//    var information: UILabel!
     var xFromCenter: Float!
     var yFromCenter: Float!
     var avatar: UIImageView!
+    var content: UITextView!
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -37,22 +38,30 @@ class DraggableView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-
         self.setupView()
-
-        information = UILabel(frame: CGRectMake(8, 60, self.frame.size.width - 16, self.frame.size.height - 75))
-        information.numberOfLines = 0
-//        information.backgroundColor = UIColor.grayColor()
-        information.text = "no info given"
-        information.textAlignment = NSTextAlignment.Center
-        information.textColor = UIColor.blackColor()
-
         self.backgroundColor = UIColor.randomColor()
 
-        panGestureRecognizer = UIPanGestureRecognizer(target: self, action: "beingDragged:")
+//        information = UILabel(frame: CGRectMake(8, 60, self.frame.size.width - 16, self.frame.size.height - 75))
+//        information.numberOfLines = 0
+////        information.backgroundColor = UIColor.grayColor()
+//        information.text = "no info given"
+//        information.textAlignment = NSTextAlignment.Center
+//        information.textColor = UIColor.blackColor()
+//        self.addSubview(information)
+
+        content = UITextView(frame: CGRectMake(8, 78, self.frame.size.width - 16, self.frame.size.height - 86))
+        content.textAlignment = NSTextAlignment.Center
+        content.font = UIFont.systemFontOfSize(17.0)
+        content.editable = false
+        content.backgroundColor = UIColor.clearColor()
+        content.textColor = UIColor.blackColor()
+        self.addSubview(content)
+        
+
+//        panGestureRecognizer = UIPanGestureRecognizer(target: self, action: "beingDragged:")
+        panGestureRecognizer = PanDirectionGestureRecognizer(direction: .Horizontal, target: self, action: "beingDragged:")
 
         self.addGestureRecognizer(panGestureRecognizer)
-        self.addSubview(information)
 
         avatar = UIImageView(frame: CGRectMake(self.frame.size.width / 2 - 30, 10 , 60, 60))
         avatar.backgroundColor = UIColor.randomColor()

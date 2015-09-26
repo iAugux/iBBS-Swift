@@ -18,25 +18,78 @@ class IBBSContext {
     static let sharedInstance = IBBSContext()
     
     private let nodesId = "nodes"
-    private let loginFeedbackJson = "loginFeedbackJson"
+    let loginFeedbackJson = "loginFeedbackJson"
     
     
-    func isLogin() -> Bool {
-        if let data = IBBSContext.sharedInstance.getLoginData() {
-            if let token = data["token"].stringValue ?? nil  {
-                if (token as NSString).length == 0{
-                    return false
+    func isLogin(presentingVC vc: UIViewController, completionHandler: ((isLogin: Bool) -> Void)) {
+        
+        if let json = IBBSContext.sharedInstance.getLoginData() {
+            let uid = json["uid"].stringValue
+            let token = json["token"].stringValue
+            APIClient.sharedInstance.isLogin(uid, token: token, success: { (json) -> Void in
+                print(json)
+                if json["code"].intValue == 1 {
+                    completionHandler(isLogin: true)
+                    
+                }else{
+                    let msg = json["msg"].stringValue
+                    vc.view.makeToast(message: msg, duration: 4, position: HRToastPositionTop)
+                    completionHandler(isLogin: false)
+                    
                 }
-            }
-            return true
+                }, failure: { (error) -> Void in
+                    print(error)
+                    completionHandler(isLogin: false)
+            })
+        }else{
+            completionHandler(isLogin: false)
         }
-        return false
     }
     
-    func login(var alertVC: UIAlertController, presentingVC: UIViewController, completion: (() -> Void)?) {
+//    /**
+//    if you don't want to get a alert view of login when it didn't login , you should leave the prentingVC nil.
+//    
+//    - parameter vc: presenting view controller
+//    
+//    - returns: Bool
+//    */
+//    func isLogin(presentingVC vc: UIViewController?) -> Bool {
+//        var isLogin = false
+//        if let data = IBBSContext.sharedInstance.getLoginData() {
+//            let token = data["token"].stringValue
+//            let uid = data["uid"].stringValue
+//            APIClient.sharedInstance.getMessages(uid, token: token, success: { (json) -> Void in
+//                print(json)
+//                if json["code"].intValue == 1{
+//                    isLogin = true
+//                }
+//                else {
+//                    // failed to verify, login again
+//                    if vc != nil {
+//                        let msg = json["msg"].stringValue
+//                        vc?.view.makeToast(message: msg, duration: 6, position: HRToastPositionTop)
+//                        // logout first
+//                        let userDefaults = NSUserDefaults.standardUserDefaults()
+//                        userDefaults.removeObjectForKey(self.loginFeedbackJson)
+//                        // then login
+//                        self.login(presentingVC: vc!, completion: {
+//                            isLogin = true
+//                            
+//                        })
+//                    }
+//                }
+//                }, failure: { (error) -> Void in
+//                    print(error)
+//            })
+//        }
+//        return isLogin
+//    }
+
+    
+    func login(presentingVC presentingVC: UIViewController, completion: (() -> Void)?) {
         var username, password: UITextField!
+        let alertVC = UIAlertController(title: "login", message: "Please input your username and password.", preferredStyle: .Alert)
         
-        alertVC = UIAlertController(title: "login", message: "Please input your username and password.", preferredStyle: .Alert)
         alertVC.addTextFieldWithConfigurationHandler { (textField: UITextField) -> Void in
             textField.placeholder = "username"
             username = textField
@@ -51,11 +104,11 @@ class IBBSContext {
             APIClient.sharedInstance.userLogin(username.text!, passwd: password.text!, success: { (json) -> Void in
                 print(json)
                 // something wrong , alert!!
-                if Int(json["code"].stringValue) == 0 {
+                if json["code"].intValue == 0 {
                     let msg = json["msg"].stringValue
                     let alert = UIAlertController(title: "Error Message", message: msg, preferredStyle: UIAlertControllerStyle.Alert)
                     let cancelAction = UIAlertAction(title: "Try again", style: .Cancel, handler: { (_) -> Void in
-                        self.login(alertVC, presentingVC: presentingVC, completion: nil)
+                        self.login(presentingVC: presentingVC, completion: nil)
                         alertVC.dismissViewControllerAnimated(true , completion: nil)
                     })
                     alert.addAction(cancelAction)
@@ -82,9 +135,9 @@ class IBBSContext {
         presentingVC.presentViewController(alertVC, animated: true, completion: nil)
     }
 
-    func logout(var alertController: UIAlertController, presentingVC: UIViewController, completion: (() -> Void)?){
+    func logout(presentingVC presentingVC: UIViewController, completion: (() -> Void)?){
         
-        alertController = UIAlertController(title: "", message: "Are you sure to logout ?", preferredStyle: .Alert)
+        let alertController = UIAlertController(title: "", message: "Are you sure to logout ?", preferredStyle: .Alert)
         let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
         let okAction = UIAlertAction(title: "OK", style: .Default) { (_) -> Void in
             let userDefaults = NSUserDefaults.standardUserDefaults()
@@ -136,8 +189,15 @@ class IBBSContext {
     func configureCurrentUserAvatar(imageView: UIImageView){
         let data = IBBSContext.sharedInstance.getLoginData()
         if let json = data {
-            let url = NSURL(string: json["avatar"].stringValue)
-            imageView.kf_setImageWithURL(url!)
+            let avatar = json["avatar"].stringValue as NSString
+            if avatar.length == 0 {
+                print("there is no avatar, set a image holder")
+                imageView.image = UIImage(named: "avatar_holder")
+            }else{
+                if let url = NSURL(string: avatar as String) {
+                    imageView.kf_setImageWithURL(url)
+                }
+            }
         }
     }
     

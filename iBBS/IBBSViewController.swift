@@ -14,7 +14,7 @@ import UIKit
 import SwiftyJSON
 
 
-class IBBSViewController: IBBSBaseViewController, IBBSPostViewControllerDelegate {
+class IBBSViewController: IBBSBaseViewController {
         
     struct MainStoryboard {
         struct CellIdentifiers {
@@ -25,6 +25,10 @@ class IBBSViewController: IBBSBaseViewController, IBBSPostViewControllerDelegate
         }
         struct VCIdentifiers {
             static let mainDetailVC = "mainDetailViewController"
+            static let postVC = "iBBSPostViewController"
+        }
+        struct SegueIdentifiers {
+            static let postSegue = "postNewArticle"
         }
     }
     
@@ -42,7 +46,7 @@ class IBBSViewController: IBBSBaseViewController, IBBSPostViewControllerDelegate
         
     }
     
-    
+ 
     func sendRequest(page: Int) {
         
         APIClient.sharedInstance.getLatestTopics(page, success: { (json) -> Void in
@@ -59,6 +63,8 @@ class IBBSViewController: IBBSBaseViewController, IBBSPostViewControllerDelegate
                 
             }
             }, failure: { (error) -> Void in
+                print(error)
+                self.view.makeToast(message: SERVER_ERROR, duration: TIME_OF_TOAST_OF_SERVER_ERROR, position: HRToastPositionTop)
         })
     }
     
@@ -78,10 +84,12 @@ class IBBSViewController: IBBSBaseViewController, IBBSPostViewControllerDelegate
         self.navigationController?.navigationBarHidden = false
         //        self.navigationController?.hidesBarsOnSwipe = true
         self.navigationItem.title = "iBBS"
-        if IBBSContext.sharedInstance.isLogin() {
-            if let data = IBBSContext.sharedInstance.getLoginData() {
-                let username = data["username"].stringValue
-                self.navigationItem.title = username
+        IBBSContext.sharedInstance.isLogin(presentingVC: self){ (isLogin) -> Void in
+            if isLogin {
+                if let data = IBBSContext.sharedInstance.getLoginData() {
+                    let username = data["username"].stringValue
+                    self.navigationItem.title = username
+                }
             }
         }
     }
@@ -91,10 +99,6 @@ class IBBSViewController: IBBSBaseViewController, IBBSPostViewControllerDelegate
         tableView.tableFooterView = UIView(frame: CGRectZero)
         tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableViewAutomaticDimension
-    }
-    
-    func loadDataAfterPosting() {
-        tableView.reloadData()
     }
     
     override func didReceiveMemoryWarning() {
@@ -177,4 +181,27 @@ extension IBBSViewController {
         })
     }
     
+}
+
+extension IBBSViewController: PostViewDelegate {
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+//        if segue.identifier == MainStoryboard.SegueIdentifiers.postSegue {
+//            if let nav = segue.destinationViewController as? UINavigationController {
+//                if let destinationVC = nav.viewControllers[0] as? IBBSPostViewController{
+//                    destinationVC.delegate = self
+//                }
+//            }
+//        }
+//        if let vc = storyboard?.instantiateViewControllerWithIdentifier(MainStoryboard.VCIdentifiers.postVC) as? IBBSPostViewController {
+//            vc.delegate = self
+//        }
+        let vc = IBBSPostViewController()
+        vc.delegate = self
+    }
+    func reloadDataAfterPosting() {
+        print("reloading")
+        self.tableView.reloadData()
+        self.automaticPullingDownToRefresh()
+    }
 }

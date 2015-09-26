@@ -13,22 +13,23 @@
 import UIKit
 import SwiftyJSON
 
+
 class SlidePanelViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate {
 
     @IBOutlet weak var userProfileImage: UIImageView!{
         didSet{
             userProfileImage.layer.cornerRadius = 35.0
             userProfileImage.clipsToBounds = true
+            userProfileImage.layer.borderColor = UIColor.lightGrayColor().CGColor
+            userProfileImage.layer.borderWidth = 0.3
             self.configureLoginAndLogoutView(userProfileImage)
             
         }
     }
+    
     private let cellTitleArray = ["Notification", "Favorite", "Profile", "Setting"]
     private var blurView: UIView!
     @IBOutlet weak var tableView: UITableView!
-    private var loginAlertController: UIAlertController!
-    private var logoutAlertController: UIAlertController!
-    private let loginFeedbackJson = "loginFeedbackJson"
     
     override func loadView() {
         super.loadView()
@@ -59,23 +60,47 @@ class SlidePanelViewController: UIViewController, UITableViewDataSource, UITable
     
     func loginOrLogout(gesture: UIGestureRecognizer){
         if gesture.state == .Began {
-            if IBBSContext.sharedInstance.isLogin() {
-                // do logout
-                self.logoutAlertController = UIAlertController()
-                IBBSContext.sharedInstance.logout(logoutAlertController, presentingVC: self , completion: {
-                    self.userProfileImage.image = UIImage(named: "login")
-                })
-            }else{
-                // do login
-                self.loginAlertController = UIAlertController()
-                IBBSContext.sharedInstance.login(loginAlertController, presentingVC: self, completion: {  
-                    IBBSContext.sharedInstance.configureCurrentUserAvatar(self.userProfileImage)
-                    self.tableView.reloadData()
-                })
+            IBBSContext.sharedInstance.isLogin(presentingVC: self){ (isLogin) -> Void in
+                if isLogin {
+                    // do logout
+                    IBBSContext.sharedInstance.logout(presentingVC: self , completion: {
+                        self.userProfileImage.image = UIImage(named: "login")
+                    })
+                }else{
+                    // login or register
+                    
+                    self.alertToChooseLoginOrRegister()
+                }
             }
         }
         
     }
+    
+    func alertToChooseLoginOrRegister(){
+        let alertCtrl = UIAlertController(title: "", message: "Register or Login ? ", preferredStyle: .Alert)
+        let loginAction = UIAlertAction(title: "Login", style: .Default) { (_) -> Void in
+            // login
+            IBBSContext.sharedInstance.login(presentingVC: self, completion: {
+                IBBSContext.sharedInstance.configureCurrentUserAvatar(self.userProfileImage)
+                self.tableView.reloadData()
+            })
+        }
+        let registerAction = UIAlertAction(title: "Register", style: .Default) { (_) -> Void in
+            let vc = self.storyboard?.instantiateViewControllerWithIdentifier("iBBSRegisterViewController") as! IBBSRegisterViewController
+            
+//            UIView.animateWithDuration(0.75, animations: { () -> Void in
+//                UIView.setAnimationCurve(UIViewAnimationCurve.EaseInOut)
+//                self.navigationController?.pushViewController(vc, animated: true)
+//                UIView.setAnimationTransition(UIViewAnimationTransition.FlipFromRight, forView: self.navigationController!.view, cache: false)
+//            })
+            self.navigationController?.pushViewController(vc, animated: true)
+        
+        }
+        alertCtrl.addAction(loginAction)
+        alertCtrl.addAction(registerAction)
+        self.presentViewController(alertCtrl, animated: true, completion: nil)
+    }
+    
     
     // MARK: - table view delegate
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -113,14 +138,6 @@ class SlidePanelViewController: UIViewController, UITableViewDataSource, UITable
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         print("ok")
     }
-    /*
-    // MARK: - Navigation
-    
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    // Get the new view controller using segue.destinationViewController.
-    // Pass the selected object to the new view controller.
-    }
-    */
-    
+   
 }
+

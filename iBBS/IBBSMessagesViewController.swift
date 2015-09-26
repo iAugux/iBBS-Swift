@@ -20,7 +20,6 @@ class IBBSMessagesViewController: IBBSBaseViewController {
         static let cellIdentifier = "iBBSMessageTableViewCell"
     }
     
-    private var alertController: UIAlertController!
     private var messageArray: [JSON]!
     private var messageContent: JSON!
     var draggableBackground: DraggableViewBackground!
@@ -46,39 +45,44 @@ class IBBSMessagesViewController: IBBSBaseViewController {
     
     
     func sendRequest(){
-        if IBBSContext.sharedInstance.isLogin() {
-            let loginData = IBBSContext.sharedInstance.getLoginData()
-            let userID = loginData?["uid"].stringValue
-            let token = loginData?["token"].stringValue
-
-            APIClient.sharedInstance.getMessages(userID!, token: token!, success: { (json ) -> Void in
-                print(json)
-                self.messageArray = json.arrayValue
-                self.tableView.reloadData()
+        IBBSContext.sharedInstance.isLogin(presentingVC: self){ (isLogin) -> Void in
+            if isLogin {
+                let loginData = IBBSContext.sharedInstance.getLoginData()
+                let userID = loginData?["uid"].stringValue
+                let token = loginData?["token"].stringValue
                 
-                }, failure: { (error ) -> Void in
-                    print(error)
-            })
+                APIClient.sharedInstance.getMessages(userID!, token: token!, success: { (json ) -> Void in
+                    print(json)
+                    self.messageArray = json.arrayValue
+                    self.tableView.reloadData()
+                    
+                    }, failure: { (error ) -> Void in
+                        print(error)
+                        self.view.makeToast(message: SERVER_ERROR, duration: TIME_OF_TOAST_OF_SERVER_ERROR, position: HRToastPositionTop)
+                })
+            }else{
+                IBBSContext.sharedInstance.login(presentingVC: self, completion: {
+                    self.automaticPullingDownToRefresh()
+                    self.sendRequest()
+                    //                self.tableView.reloadData()
+                    
+                })
+            }
             
-        }else{
-            self.alertController = UIAlertController()
-            IBBSContext.sharedInstance.login(alertController, presentingVC: self, completion: {
-                self.automaticPullingDownToRefresh()
-                self.sendRequest()
-                //                self.tableView.reloadData()
-                
-            })
+            
         }
+      
     }
     
     func removeViews(){
-        draggableBackground.removeFromSuperview()
-        insertBlurView.removeFromSuperview()
+        self.draggableBackground.removeFromSuperview()
+        self.insertBlurView.removeFromSuperview()
     }
     
     private func configureDraggableViews(){
         
         draggableBackground = DraggableViewBackground(frame: self.view.frame)
+        draggableBackground.allCards[0].delegate = self
         draggableBackground.backgroundColor = UIColor.clearColor()
         insertBlurView = UIVisualEffectView(effect: UIBlurEffect(style: .Light))
         insertBlurView.frame = draggableBackground.bounds
@@ -96,53 +100,55 @@ class IBBSMessagesViewController: IBBSBaseViewController {
         tableView.tableFooterView = UIView(frame: CGRectZero)
         
     }
-
     
-    func addDraggableViewWithAnimation(){
-//        let rootView = self.parentViewController?.parentViewController?.view
-//        UIView.transitionWithView(rootView!, duration: 0.5, options: UIViewAnimationOptions.CurveEaseOut, animations: { () -> Void in
-//            rootView?.addSubview(self.draggableBackground)
-//            
-//            }, completion: nil)
-//        self.parentViewController?.parentViewController?.view.addSubview(self.draggableBackground)
+    
+    private func addDraggableViewWithAnimation(){
+        //        let rootView = self.parentViewController?.parentViewController?.view
+        //        UIView.transitionWithView(rootView!, duration: 0.5, options: UIViewAnimationOptions.CurveEaseOut, animations: { () -> Void in
+        //            rootView?.addSubview(self.draggableBackground)
+        //
+        //            }, completion: nil)
+        //        self.parentViewController?.parentViewController?.view.addSubview(self.draggableBackground)
         draggableBackground.transform = CGAffineTransformMakeScale(0.01, 0.01)
         UIView.animateWithDuration(0.1, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: { () -> Void in
             self.parentViewController?.parentViewController?.view.addSubview(self.draggableBackground)
             self.draggableBackground.transform = CGAffineTransformIdentity
-
+            
             }) { (_) -> Void in
         }
     }
     
-    func getMessageContent(messageID: AnyObject, indexPath: NSIndexPath, completion: (() -> Void)?){
-        let loginData = IBBSContext.sharedInstance.getLoginData()
-        let userID = loginData?["uid"].stringValue
-        let token = loginData?["token"].stringValue
-
-        APIClient.sharedInstance.readMessage(userID!, token: token!, msgID: messageID, success: { (json ) -> Void in
-            print(json)
-            self.messageContent = json
-            print(self.messageContent)
-            if json["code"].intValue == 1 {
-                // read successfully
-                if let cell = self.tableView.cellForRowAtIndexPath(indexPath) as? IBBSMessageTableViewCell {
-                    cell.isMessageRead.image = UIImage(named: "message_read_1")
+    private func getMessageContent(messageID: AnyObject, indexPath: NSIndexPath, completion: (() -> Void)?){
+        if let loginData = IBBSContext.sharedInstance.getLoginData() {
+            let userID = loginData["uid"].stringValue
+            let token = loginData["token"].stringValue
+            
+            APIClient.sharedInstance.readMessage(userID, token: token, msgID: messageID, success: { (json ) -> Void in
+                print(json)
+                self.messageContent = json
+                print(self.messageContent)
+                if json["code"].intValue == 1 {
+                    // read successfully
+                    if let cell = self.tableView.cellForRowAtIndexPath(indexPath) as? IBBSMessageTableViewCell {
+                        cell.isMessageRead.image = UIImage(named: "message_read_1")
+                    }
+                    if let completionHandler = completion {
+                        completionHandler()
+                    }
                 }
-                if let completionHandler = completion {
-                    completionHandler()
-                }
+                }) { (error ) -> Void in
+                    print(error)
             }
-            }) { (error ) -> Void in
-                print(error)
+            
         }
     }
     
-    func setMessageContent(avatarUrl: NSURL,isAdmin: Bool){
+    private func setMessageContent(avatarUrl: NSURL,isAdmin: Bool){
         let content = messageContent["msg"]["content"].stringValue
-//        let title = messageContent["title"].stringValue
-//        let username = messageContent["msg"]["username"].stringValue
+        //        let title = messageContent["title"].stringValue
+        //        let username = messageContent["msg"]["username"].stringValue
         let messageCard = self.draggableBackground.allCards[0]
-        messageCard.information.text = content
+        messageCard.content.text = content
         messageCard.avatar.kf_setImageWithURL(avatarUrl)
         if !isAdmin {
             messageCard.avatar.backgroundColor = UIColor.blackColor()
@@ -180,9 +186,9 @@ class IBBSMessagesViewController: IBBSBaseViewController {
             self.getMessageContent(messageID, indexPath: indexPath, completion: {
                 print(json)
                 self.setMessageContent(avatarUrl!, isAdmin: isAdministrator)
-                self.addDraggableViewWithAnimation()
                 
             })
+            self.addDraggableViewWithAnimation()
             
         }
         
@@ -207,11 +213,13 @@ class IBBSMessagesViewController: IBBSBaseViewController {
 
 extension IBBSMessagesViewController: DraggableViewDelegate {
     func cardSwipedLeft(card: UIView) {
-        print("llllll")
+        print("swiped left")
+        self.removeViews()
     }
     
     func cardSwipedRight(card: UIView) {
-        print("rrrrrr")
+        print("swiped right")
+        self.removeViews()
     }
 }
 

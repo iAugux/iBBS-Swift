@@ -49,14 +49,16 @@ class IBBSDetailViewController: IBBSBaseViewController, UIGestureRecognizerDeleg
     
     
     func commentAction() {
-        if IBBSContext.sharedInstance.isLogin() {
-            let post_id = json["id"].stringValue
-            if let vc = IBBSCommentViewController() ?? nil {
-                vc.post_id = post_id
-                self.navigationController?.pushViewController(vc , animated: true)
+            IBBSContext.sharedInstance.isLogin(presentingVC: self){ (isLogin) -> Void in
+            if isLogin{
+                let post_id = self.json["id"].stringValue
+                if let vc = IBBSCommentViewController() ?? nil {
+                    vc.post_id = post_id
+                    self.navigationController?.pushViewController(vc , animated: true)
+                }
             }
-            
         }
+        
     }
     
     func configureTableView(){
@@ -110,6 +112,8 @@ class IBBSDetailViewController: IBBSBaseViewController, UIGestureRecognizerDeleg
             }
             }) { (error) -> Void in
                 print(error)
+                self.view.makeToast(message: SERVER_ERROR, duration: TIME_OF_TOAST_OF_SERVER_ERROR, position: HRToastPositionTop)
+
         }
     }
     
