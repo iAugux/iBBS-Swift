@@ -45,7 +45,7 @@ class IBBSMessagesViewController: IBBSBaseViewController {
     
     
     func sendRequest(){
-        IBBSContext.sharedInstance.isLogin(presentingVC: self){ (isLogin) -> Void in
+        IBBSContext.sharedInstance.isLogin(target: self){ (isLogin) -> Void in
             if isLogin {
                 let loginData = IBBSContext.sharedInstance.getLoginData()
                 let userID = loginData?["uid"].stringValue
@@ -61,7 +61,7 @@ class IBBSMessagesViewController: IBBSBaseViewController {
                         self.view.makeToast(message: SERVER_ERROR, duration: TIME_OF_TOAST_OF_SERVER_ERROR, position: HRToastPositionTop)
                 })
             }else{
-                IBBSContext.sharedInstance.login(presentingVC: self, completion: {
+                IBBSContext.sharedInstance.login(completion: {
                     self.automaticPullingDownToRefresh()
                     self.sendRequest()
                     //                self.tableView.reloadData()

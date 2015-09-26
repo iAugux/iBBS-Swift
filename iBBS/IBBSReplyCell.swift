@@ -31,6 +31,7 @@ class IBBSReplyCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         selectionStyle = .None
+        self.preservesSuperviewLayoutMargins = false
         self.separatorInset = UIEdgeInsetsZero
         self.layoutMargins = UIEdgeInsetsZero
     }

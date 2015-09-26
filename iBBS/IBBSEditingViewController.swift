@@ -92,9 +92,9 @@ class IBBSEditingViewController: UIViewController, UITextViewDelegate {
     }
     
     func prepareForPosting(){
-        IBBSContext.sharedInstance.isLogin(presentingVC: self){ (isLogin) -> Void in
+        IBBSContext.sharedInstance.isLogin(target: self){ (isLogin) -> Void in
             if !isLogin {
-                IBBSContext.sharedInstance.login(presentingVC: self, completion: {
+                IBBSContext.sharedInstance.login(completion: {
                     IBBSContext.sharedInstance.configureCurrentUserAvatar(self.avatarImageView)
                 })
             }

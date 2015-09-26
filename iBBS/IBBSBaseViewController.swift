@@ -67,6 +67,7 @@ class IBBSBaseViewController: UITableViewController {
         gearRefreshControl.addTarget(self, action: "refreshData", forControlEvents: UIControlEvents.ValueChanged)
         refreshControl = gearRefreshControl
         tableView?.addSubview(refreshControl!)
+        
     }
     
     

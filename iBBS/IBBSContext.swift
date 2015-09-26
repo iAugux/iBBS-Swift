@@ -21,7 +21,7 @@ class IBBSContext {
     let loginFeedbackJson = "loginFeedbackJson"
     
     
-    func isLogin(presentingVC vc: UIViewController, completionHandler: ((isLogin: Bool) -> Void)) {
+    func isLogin(target vc: UIViewController, completionHandler: ((isLogin: Bool) -> Void)) {
         
         if let json = IBBSContext.sharedInstance.getLoginData() {
             let uid = json["uid"].stringValue
@@ -47,13 +47,13 @@ class IBBSContext {
     }
     
 //    /**
-//    if you don't want to get a alert view of login when it didn't login , you should leave the prentingVC nil.
+//    if you don't want to get a alert view of login when it didn't login , you should leave the target nil.
 //    
 //    - parameter vc: presenting view controller
 //    
 //    - returns: Bool
 //    */
-//    func isLogin(presentingVC vc: UIViewController?) -> Bool {
+//    func isLogin(target vc: UIViewController?) -> Bool {
 //        var isLogin = false
 //        if let data = IBBSContext.sharedInstance.getLoginData() {
 //            let token = data["token"].stringValue
@@ -72,7 +72,7 @@ class IBBSContext {
 //                        let userDefaults = NSUserDefaults.standardUserDefaults()
 //                        userDefaults.removeObjectForKey(self.loginFeedbackJson)
 //                        // then login
-//                        self.login(presentingVC: vc!, completion: {
+//                        self.login(target: vc!, completion: {
 //                            isLogin = true
 //                            
 //                        })
@@ -86,7 +86,7 @@ class IBBSContext {
 //    }
 
     
-    func login(presentingVC presentingVC: UIViewController, completion: (() -> Void)?) {
+    func login(completion completion: (() -> Void)?) {
         var username, password: UITextField!
         let alertVC = UIAlertController(title: "login", message: "Please input your username and password.", preferredStyle: .Alert)
         
@@ -108,11 +108,11 @@ class IBBSContext {
                     let msg = json["msg"].stringValue
                     let alert = UIAlertController(title: "Error Message", message: msg, preferredStyle: UIAlertControllerStyle.Alert)
                     let cancelAction = UIAlertAction(title: "Try again", style: .Cancel, handler: { (_) -> Void in
-                        self.login(presentingVC: presentingVC, completion: nil)
+                        self.login(completion: nil)
                         alertVC.dismissViewControllerAnimated(true , completion: nil)
                     })
                     alert.addAction(cancelAction)
-                    presentingVC.presentViewController(alert , animated: true, completion: nil)
+                    UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(alert , animated: true, completion: nil)
                 }else{
                     // success , keep token and other info
                     IBBSContext.sharedInstance.saveLoginData(json.object)
@@ -132,10 +132,10 @@ class IBBSContext {
         alertVC.addAction(okAction)
         alertVC.addAction(cancelAction)
         
-        presentingVC.presentViewController(alertVC, animated: true, completion: nil)
+        UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(alertVC, animated: true, completion: nil)
     }
 
-    func logout(presentingVC presentingVC: UIViewController, completion: (() -> Void)?){
+    func logout(completion completion: (() -> Void)?){
         
         let alertController = UIAlertController(title: "", message: "Are you sure to logout ?", preferredStyle: .Alert)
         let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
@@ -149,7 +149,7 @@ class IBBSContext {
         }
         alertController.addAction(cancelAction)
         alertController.addAction(okAction)
-        presentingVC.presentViewController(alertController, animated: true, completion: nil)
+        UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(alertController, animated: true, completion: nil)
     }
     
     

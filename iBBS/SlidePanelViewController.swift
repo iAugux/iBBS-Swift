@@ -60,10 +60,10 @@ class SlidePanelViewController: UIViewController, UITableViewDataSource, UITable
     
     func loginOrLogout(gesture: UIGestureRecognizer){
         if gesture.state == .Began {
-            IBBSContext.sharedInstance.isLogin(presentingVC: self){ (isLogin) -> Void in
+            IBBSContext.sharedInstance.isLogin(target: self){ (isLogin) -> Void in
                 if isLogin {
                     // do logout
-                    IBBSContext.sharedInstance.logout(presentingVC: self , completion: {
+                    IBBSContext.sharedInstance.logout(completion: {
                         self.userProfileImage.image = UIImage(named: "login")
                     })
                 }else{
@@ -80,7 +80,7 @@ class SlidePanelViewController: UIViewController, UITableViewDataSource, UITable
         let alertCtrl = UIAlertController(title: "", message: "Register or Login ? ", preferredStyle: .Alert)
         let loginAction = UIAlertAction(title: "Login", style: .Default) { (_) -> Void in
             // login
-            IBBSContext.sharedInstance.login(presentingVC: self, completion: {
+            IBBSContext.sharedInstance.login(completion: {
                 IBBSContext.sharedInstance.configureCurrentUserAvatar(self.userProfileImage)
                 self.tableView.reloadData()
             })

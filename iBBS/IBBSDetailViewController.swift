@@ -49,7 +49,7 @@ class IBBSDetailViewController: IBBSBaseViewController, UIGestureRecognizerDeleg
     
     
     func commentAction() {
-            IBBSContext.sharedInstance.isLogin(presentingVC: self){ (isLogin) -> Void in
+            IBBSContext.sharedInstance.isLogin(target: self){ (isLogin) -> Void in
             if isLogin{
                 let post_id = self.json["id"].stringValue
                 if let vc = IBBSCommentViewController() ?? nil {
@@ -69,6 +69,7 @@ class IBBSDetailViewController: IBBSBaseViewController, UIGestureRecognizerDeleg
         tableView.tableFooterView = UIView(frame: CGRectZero)
         tableView.estimatedRowHeight = 90
         tableView.rowHeight = UITableViewAutomaticDimension
+
     }
     
     func configureHeaderView(){
@@ -90,12 +91,12 @@ class IBBSDetailViewController: IBBSBaseViewController, UIGestureRecognizerDeleg
         
     }
     
-    func customizeNavBar(color: UIColor, titleFont: UIFont, buttonFont: UIFont) {
-        
-        UINavigationBar.appearance().tintColor = color
-        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: color, NSFontAttributeName: titleFont]
-        UIBarButtonItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: color, NSFontAttributeName: buttonFont], forState: UIControlState.Normal)
-    }
+//    func customizeNavBar(color: UIColor, titleFont: UIFont, buttonFont: UIFont) {
+//        
+//        UINavigationBar.appearance().tintColor = color
+//        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: color, NSFontAttributeName: titleFont]
+//        UIBarButtonItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: color, NSFontAttributeName: buttonFont], forState: UIControlState.Normal)
+//    }
     
     func sendRequest(page: Int) {
         APIClient.sharedInstance.getReplies(self.json["id"].stringValue, page: self.page, success: { (json) -> Void in
@@ -170,6 +171,16 @@ class IBBSDetailViewController: IBBSBaseViewController, UIGestureRecognizerDeleg
         
     }
     
+    // customize title for header in section
+    override func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+
+        if let header = view as? UITableViewHeaderFooterView {
+//           header.textLabel?.backgroundColor = UIColor.redColor()
+            header.textLabel?.font = UIFont.systemFontOfSize(14)
+        }
+        
+        
+    }
     
     //    // customize title for header in section
     //    func titleForHeaderInSection() -> NSString? {

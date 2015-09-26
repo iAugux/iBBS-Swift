@@ -50,15 +50,20 @@ class IBBSViewController: IBBSBaseViewController {
     func sendRequest(page: Int) {
         
         APIClient.sharedInstance.getLatestTopics(page, success: { (json) -> Void in
+            if json == nil {
+                print("there is no more data")
+                UIApplication.sharedApplication().keyWindow?.rootViewController?.view?.makeToast(message: "There is no more data!", duration: 3, position: HRToastPositionCenter)
+            }
             if json.type == Type.Array {
                 if page == 1{
                     self.datasource = json.arrayValue
                     
                 }else {
                     let appendArray = json.arrayValue
+
                     self.datasource? += appendArray
                     self.tableView.reloadData()
-                    print(self.datasource)
+//                    print(self.datasource)
                 }
                 
             }
@@ -84,7 +89,7 @@ class IBBSViewController: IBBSBaseViewController {
         self.navigationController?.navigationBarHidden = false
         //        self.navigationController?.hidesBarsOnSwipe = true
         self.navigationItem.title = "iBBS"
-        IBBSContext.sharedInstance.isLogin(presentingVC: self){ (isLogin) -> Void in
+        IBBSContext.sharedInstance.isLogin(target: self){ (isLogin) -> Void in
             if isLogin {
                 if let data = IBBSContext.sharedInstance.getLoginData() {
                     let username = data["username"].stringValue
@@ -167,7 +172,7 @@ extension IBBSViewController {
         self.tableView.addFooterWithCallback({
             print("pulling up")
             self.page += 1
-            print(self.page)
+            print("page: \(self.page)")
             
             self.sendRequest(self.page)
             let delayInSeconds: Double = 1.0
