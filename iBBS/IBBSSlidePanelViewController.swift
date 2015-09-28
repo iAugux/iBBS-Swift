@@ -13,9 +13,13 @@
 import UIKit
 import SwiftyJSON
 
+protocol ToggleLeftPanelDelegate{
+    func toggleLeftPanel()
+    func removeFrontBlurView()
+}
 
 class SlidePanelViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate {
-
+    
     @IBOutlet weak var userProfileImage: UIImageView!{
         didSet{
             userProfileImage.layer.cornerRadius = 35.0
@@ -26,7 +30,7 @@ class SlidePanelViewController: UIViewController, UITableViewDataSource, UITable
             
         }
     }
-    
+    var delegate: ToggleLeftPanelDelegate!
     private let cellTitleArray = ["Notification", "Favorite", "Profile", "Setting"]
     private var blurView: UIView!
     @IBOutlet weak var tableView: UITableView!
@@ -46,7 +50,7 @@ class SlidePanelViewController: UIViewController, UITableViewDataSource, UITable
         tableView.scrollEnabled = false
         IBBSContext.sharedInstance.configureCurrentUserAvatar(self.userProfileImage)
     }
-   
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -60,7 +64,7 @@ class SlidePanelViewController: UIViewController, UITableViewDataSource, UITable
     
     func loginOrLogout(gesture: UIGestureRecognizer){
         if gesture.state == .Began {
-            IBBSContext.sharedInstance.isLogin(target: self){ (isLogin) -> Void in
+            IBBSContext.sharedInstance.isLogin(){ (isLogin) -> Void in
                 if isLogin {
                     // do logout
                     IBBSContext.sharedInstance.logout(completion: {
@@ -77,24 +81,41 @@ class SlidePanelViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     func alertToChooseLoginOrRegister(){
-        let alertCtrl = UIAlertController(title: "", message: "Register or Login ? ", preferredStyle: .Alert)
-        let loginAction = UIAlertAction(title: "Login", style: .Default) { (_) -> Void in
+        let alertCtrl = UIAlertController(title: "", message: REGISTER_OR_LOGIN, preferredStyle: .Alert)
+        let loginAction = UIAlertAction(title: BUTTON_LOGIN, style: .Default) { (_) -> Void in
             // login
-            IBBSContext.sharedInstance.login(completion: {
+            
+            self.delegate?.toggleLeftPanel()
+            IBBSContext.sharedInstance.login(cancelled: {
+                self.delegate?.removeFrontBlurView()
+                }, completion: {
                 IBBSContext.sharedInstance.configureCurrentUserAvatar(self.userProfileImage)
+                self.delegate?.removeFrontBlurView()
                 self.tableView.reloadData()
             })
+            
         }
-        let registerAction = UIAlertAction(title: "Register", style: .Default) { (_) -> Void in
+        let registerAction = UIAlertAction(title: BUTTON_REGISTER, style: .Default) { (_) -> Void in
             let vc = self.storyboard?.instantiateViewControllerWithIdentifier("iBBSRegisterViewController") as! IBBSRegisterViewController
             
-//            UIView.animateWithDuration(0.75, animations: { () -> Void in
-//                UIView.setAnimationCurve(UIViewAnimationCurve.EaseInOut)
-//                self.navigationController?.pushViewController(vc, animated: true)
-//                UIView.setAnimationTransition(UIViewAnimationTransition.FlipFromRight, forView: self.navigationController!.view, cache: false)
-//            })
+            //            UIView.animateWithDuration(0.75, animations: { () -> Void in
+            //                UIView.setAnimationCurve(UIViewAnimationCurve.EaseInOut)
+            //                self.navigationController?.pushViewController(vc, animated: true)
+            //                UIView.setAnimationTransition(UIViewAnimationTransition.FlipFromRight, forView: self.navigationController!.view, cache: false)
+            //            })
             self.navigationController?.pushViewController(vc, animated: true)
-        
+            self.delegate?.toggleLeftPanel()
+            
+            // after pushing view controller, remove the blur view
+            let delayInSeconds: Double = 1
+            let delta = Int64(Double(NSEC_PER_SEC) * delayInSeconds)
+            let popTime = dispatch_time(DISPATCH_TIME_NOW,delta)
+            dispatch_after(popTime, dispatch_get_main_queue(), {
+                // do something
+                self.delegate?.removeFrontBlurView()
+            })
+            
+            
         }
         alertCtrl.addAction(loginAction)
         alertCtrl.addAction(registerAction)
@@ -111,7 +132,7 @@ class SlidePanelViewController: UIViewController, UITableViewDataSource, UITable
         return 4
     }
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-
+        
         let cell = UITableViewCell()
         cell.backgroundColor = UIColor.clearColor()
         cell.preservesSuperviewLayoutMargins = false
@@ -120,7 +141,7 @@ class SlidePanelViewController: UIViewController, UITableViewDataSource, UITable
         cell.selectionStyle = UITableViewCellSelectionStyle.None
         cell.textLabel?.text = cellTitleArray[indexPath.row]
         return cell
-    
+        
     }
     
     
@@ -138,6 +159,6 @@ class SlidePanelViewController: UIViewController, UITableViewDataSource, UITable
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         print("ok")
     }
-   
+    
 }
 

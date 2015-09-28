@@ -1,0 +1,36 @@
+{
+	Home = Home;
+	Node = Node;
+	Message = Message;
+	"There is no more data!" = "There is no more data!";
+	"No reply yet" = "No reply yet";
+	Reply = Reply;
+	Replies = Replies;
+	"You haven't wrote anything!" = "You haven't wrote anything!";
+	"Got it" = "Got it";
+	Messages = Messages;
+	"No message yet..." = "No message yet...";
+	"You should fill in all the form" = "You should fill in all the form";
+	"please check it again" = "please check it again";
+	"Digits of username must be more than 4 and less than 16." = "Digits of username must be more than 3 and less than 16.";
+	"Invalid email address !" = "Invalid email address !";
+	"Try again" = "Try again";
+	"I'll check" = "I'll check";
+	"Digits of password should more than 6 ." = "Digits of password should more than 6 .";
+	"Passwords must be the same" = "Passwords must be the same";
+	"I know" = "I know";
+	"Register sucessfully and logging in..." = "Register sucessfully and logging in...";
+	"Register failed!" = "Register failed!";
+	"sorry, something wrong with server...\\n\Ud83d\Ude2d\Ud83d\Ude2d\Ud83d\Ude2d" = "sorry, something wrong with server...\\n\Ud83d\Ude2d\Ud83d\Ude2d\Ud83d\Ude2d";
+	Login = Login;
+	"Please input your username and password." = "Please input your username and password.";
+	username = username;
+	password = password;
+	OK = OK;
+	Cancel = Cancel;
+	"Error Message" = "Error Message";
+	"Are you sure to logout ?" = "Are you sure to logout ?";
+	Register = Register;
+	"Login or Register ?" = "Login or Register ?";
+	"\"Need to login, are you sure to login?\"" = "\"Need to login, are you sure to login?\"";
+}

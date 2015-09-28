@@ -13,15 +13,14 @@
 import UIKit
 import SwiftyJSON
 
-
 class IBBSContext {
     static let sharedInstance = IBBSContext()
     
     private let nodesId = "nodes"
     let loginFeedbackJson = "loginFeedbackJson"
+
     
-    
-    func isLogin(target vc: UIViewController, completionHandler: ((isLogin: Bool) -> Void)) {
+    func isLogin(completionHandler: ((isLogin: Bool) -> Void)) {
         
         if let json = IBBSContext.sharedInstance.getLoginData() {
             let uid = json["uid"].stringValue
@@ -33,7 +32,7 @@ class IBBSContext {
                     
                 }else{
                     let msg = json["msg"].stringValue
-                    vc.view.makeToast(message: msg, duration: 4, position: HRToastPositionTop)
+                   UIApplication.topMostViewController()?.view.makeToast(message: msg, duration: 4, position: HRToastPositionTop)
                     completionHandler(isLogin: false)
                     
                 }
@@ -86,33 +85,34 @@ class IBBSContext {
 //    }
 
     
-    func login(completion completion: (() -> Void)?) {
+    func login(cancelled cancelled: (() -> Void)?, completion: (() -> Void)?) {
         var username, password: UITextField!
-        let alertVC = UIAlertController(title: "login", message: "Please input your username and password.", preferredStyle: .Alert)
+        
+        let alertVC = UIAlertController(title: BUTTON_LOGIN, message: INSERT_UID_AND_PASSWD, preferredStyle: .Alert)
         
         alertVC.addTextFieldWithConfigurationHandler { (textField: UITextField) -> Void in
-            textField.placeholder = "username"
+            textField.placeholder = HOLDER_USERNAME
             username = textField
         }
         alertVC.addTextFieldWithConfigurationHandler { (textField: UITextField) -> Void in
-            textField.placeholder = "password"
+            textField.placeholder = HOLDER_PASSWORD
             textField.secureTextEntry = true
             password = textField
         }
         
-        let okAction = UIAlertAction(title: "OK", style: .Default) { (action: UIAlertAction) -> Void in
+        let okAction = UIAlertAction(title: BUTTON_OK, style: .Default) { (action: UIAlertAction) -> Void in
             APIClient.sharedInstance.userLogin(username.text!, passwd: password.text!, success: { (json) -> Void in
                 print(json)
                 // something wrong , alert!!
                 if json["code"].intValue == 0 {
                     let msg = json["msg"].stringValue
-                    let alert = UIAlertController(title: "Error Message", message: msg, preferredStyle: UIAlertControllerStyle.Alert)
-                    let cancelAction = UIAlertAction(title: "Try again", style: .Cancel, handler: { (_) -> Void in
-                        self.login(completion: nil)
+                    let alert = UIAlertController(title: ERROR_MESSAGE, message: msg, preferredStyle: UIAlertControllerStyle.Alert)
+                    let cancelAction = UIAlertAction(title: TRY_AGAIN, style: .Cancel, handler: { (_) -> Void in
+                        self.login(cancelled: nil, completion: nil)
                         alertVC.dismissViewControllerAnimated(true , completion: nil)
                     })
                     alert.addAction(cancelAction)
-                    UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(alert , animated: true, completion: nil)
+                    UIApplication.topMostViewController()?.presentViewController(alert, animated: true, completion: nil)
                 }else{
                     // success , keep token and other info
                     IBBSContext.sharedInstance.saveLoginData(json.object)
@@ -126,20 +126,25 @@ class IBBSContext {
                     print(error)
             }
         }
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { (_) -> Void in
+        let cancelAction = UIAlertAction(title: BUTTON_CANCEL, style: .Cancel) { (_) -> Void in
             alertVC.dismissViewControllerAnimated(true , completion: nil)
+            if let cancelHandler = cancelled {
+                cancelHandler()
+            }
         }
+        
         alertVC.addAction(okAction)
         alertVC.addAction(cancelAction)
+        UIApplication.topMostViewController()?.presentViewController(alertVC, animated: true, completion: nil)
         
-        UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(alertVC, animated: true, completion: nil)
+        
     }
-
+    
     func logout(completion completion: (() -> Void)?){
         
-        let alertController = UIAlertController(title: "", message: "Are you sure to logout ?", preferredStyle: .Alert)
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
-        let okAction = UIAlertAction(title: "OK", style: .Default) { (_) -> Void in
+        let alertController = UIAlertController(title: "", message: SURE_TO_LOGOUT, preferredStyle: .Alert)
+        let cancelAction = UIAlertAction(title: BUTTON_CANCEL, style: .Cancel, handler: nil)
+        let okAction = UIAlertAction(title: BUTTON_OK, style: .Default) { (_) -> Void in
             let userDefaults = NSUserDefaults.standardUserDefaults()
             userDefaults.removeObjectForKey(self.loginFeedbackJson)
             
@@ -149,7 +154,7 @@ class IBBSContext {
         }
         alertController.addAction(cancelAction)
         alertController.addAction(okAction)
-        UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(alertController, animated: true, completion: nil)
+        UIApplication.topMostViewController()?.presentViewController(alertController, animated: true, completion: nil)
     }
     
     
@@ -189,8 +194,8 @@ class IBBSContext {
     func configureCurrentUserAvatar(imageView: UIImageView){
         let data = IBBSContext.sharedInstance.getLoginData()
         if let json = data {
-            let avatar = json["avatar"].stringValue as NSString
-            if avatar.length == 0 {
+            let avatar = json["avatar"].stringValue
+            if avatar.utf16.count == 0 {
                 print("there is no avatar, set a image holder")
                 imageView.image = UIImage(named: "avatar_holder")
             }else{

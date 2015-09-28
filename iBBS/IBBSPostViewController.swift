@@ -26,6 +26,8 @@ class IBBSPostViewController: ZSSRichTextEditor {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.shouldShowKeyboard = false
+        
 //        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Preview", style: .Plain, target: self, action: "exportHTML")
 //      self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: "cancelAction")
         
@@ -90,8 +92,25 @@ class IBBSPostViewController: ZSSRichTextEditor {
 
     }
 
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        self.navigationController?.navigationBar.translucent = false
+        self.focusTextEditor()
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+//        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
+//        self.navigationController?.navigationBar.shadowImage = UIImage()
+//        self.navigationController?.navigationBar.translucent = true
+    }
 
     @IBAction func sendAction(sender: AnyObject) {
+        if getHTML().isEmpty {
+            self.view?.makeToast(message: YOU_HAVENOT_WROTE_ANYTHING, duration: 0.5, position: HRToastPositionTop)
+            return
+        }
+        self.shouldShowKeyboard = false
         let userID: String, token: String
         articleArray.setValue(getHTML(), forKey: content)
         if let loginData = IBBSContext.sharedInstance.getLoginData() {
@@ -100,9 +119,34 @@ class IBBSPostViewController: ZSSRichTextEditor {
             print(userID)
             print(token)
             APIClient.sharedInstance.post(userID, nodeID: articleArray[nodeID]!, content: articleArray[content]!, title: articleArray[articleTitle]!, token: token, success: { (json) -> Void in
+                print("$$$$$$$$$$")
                 print(json)
-                self.delegate?.reloadDataAfterPosting()
-                self.dismissViewControllerAnimated(true , completion: nil)
+                print("$$$$$$$$$$")
+
+                let msg = json["msg"].stringValue
+                if json["code"].intValue == 1 { //post successfully
+                    self.view?.makeToast(message: msg, duration: 3, position: HRToastPositionTop)
+                    self.delegate?.reloadDataAfterPosting()
+                    
+                    let delayInSeconds: Double = 1.0
+                    let delta = Int64(Double(NSEC_PER_SEC) * delayInSeconds)
+                    let popTime = dispatch_time(DISPATCH_TIME_NOW,delta)
+                    dispatch_after(popTime, dispatch_get_main_queue(), {
+                        self.dismissViewControllerAnimated(true , completion: nil)
+                    })
+
+                }else{
+                    self.view?.makeToast(message: msg, duration: 3, position: HRToastPositionTop)
+                    let delayInSeconds: Double = 1.5
+                    let delta = Int64(Double(NSEC_PER_SEC) * delayInSeconds)
+                    let popTime = dispatch_time(DISPATCH_TIME_NOW,delta)
+                    dispatch_after(popTime, dispatch_get_main_queue(), {
+                        self.navigationController?.popViewControllerAnimated(true)
+                        
+                    })
+
+                }
+                
                 }) { (error ) -> Void in
                     print(error)
                     self.view.makeToast(message: SERVER_ERROR, duration: TIME_OF_TOAST_OF_SERVER_ERROR, position: HRToastPositionTop)
@@ -113,6 +157,7 @@ class IBBSPostViewController: ZSSRichTextEditor {
     
     func cancelAction(){
         self.dismissViewControllerAnimated(true , completion: nil)
+        
     }
 
     

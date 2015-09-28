@@ -29,7 +29,7 @@ Alamofire is an HTTP networking library written in Swift.
 
 ## Migration Guides
 
-- [Alamofire 2.0 Migration Guide](https://github.com/Alamofire/Alamofire/blob/swift-2.0/Documentation/Alamofire%202.0%20Migration%20Guide.md)
+- [Alamofire 2.0 Migration Guide](https://github.com/Alamofire/Alamofire/blob/master/Documentation/Alamofire%202.0%20Migration%20Guide.md)
 
 ## Communication
 
@@ -62,7 +62,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '8.0'
 use_frameworks!
 
-pod 'Alamofire', :git => 'https://github.com/Alamofire/Alamofire.git', :branch => 'swift-2.0'
+pod 'Alamofire', '~> 2.0'
 ```
 
 Then, run the following command:
@@ -85,7 +85,7 @@ $ brew install carthage
 To integrate Alamofire into your Xcode project using Carthage, specify it in your `Cartfile`:
 
 ```ogdl
-github "Alamofire/Alamofire" "swift-2.0"
+github "Alamofire/Alamofire" ~> 2.0
 ```
 
 ### Manually
@@ -94,7 +94,13 @@ If you prefer not to use either of the aforementioned dependency managers, you c
 
 #### Embedded Framework
 
-- Add Alamofire as a [submodule](http://git-scm.com/docs/git-submodule) by opening the Terminal, `cd`-ing into your top-level project directory, and entering the following command:
+- Open up Terminal, `cd` into your top-level project directory, and run the following command "if" your project is not initialized as a git repository:
+
+```bash
+$ git init
+```
+
+- Add Alamofire as a git [submodule](http://git-scm.com/docs/git-submodule) by running the following command:
 
 ```bash
 $ git submodule add https://github.com/Alamofire/Alamofire.git
@@ -118,7 +124,7 @@ $ git submodule add https://github.com/Alamofire/Alamofire.git
 
 - And that's it!
 
-> The `Alamofire.framework` is automagically added as a target dependency, linked framework and embedded framework in a copy files build phase which is all you need to build on the simulator and a device.> > 
+> The `Alamofire.framework` is automagically added as a target dependency, linked framework and embedded framework in a copy files build phase which is all you need to build on the simulator and a device.
 
 ---
 

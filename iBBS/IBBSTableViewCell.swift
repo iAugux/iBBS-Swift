@@ -37,7 +37,7 @@ class IBBSTableViewCell: UITableViewCell {
 
         // Initialization code
 //        self.backgroundColor = UIColor.clearColor()
-        self.preservesSuperviewLayoutMargins = false
+
         self.separatorInset                  = UIEdgeInsetsZero
         self.layoutMargins                   = UIEdgeInsetsZero
         
@@ -45,9 +45,9 @@ class IBBSTableViewCell: UITableViewCell {
         if kShouldCustomizeTheme {
             self.backgroundColor = kThemeColor
         }
+
     }
-
-
+    
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 

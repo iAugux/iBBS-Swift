@@ -47,28 +47,46 @@ class IBBSEditingViewController: UIViewController, UITextViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self , action: "cancelAction")
+//        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "cancel_button"), style: UIBarButtonItemStyle.Plain, target: self, action: "cancelAction")
+        
+        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "bg_image")!)
+        self.blurView = UIVisualEffectView(effect: UIBlurEffect(style: .Light))
+        self.blurView.frame = self.view.frame
+        self.view.insertSubview(blurView, atIndex: 0)
+  
         self.prepareForPosting()
         self.nodesPickerView.delegate = self
         self.nodesPickerView.dataSource = self
         self.nodesPickerView.selectRow(defaultSelectedRow, inComponent: 0, animated: true)
         self.contentTextView.delegate = self
-        print("$$$$$$$$$$$$$$")
-
-        print(IBBSContext.sharedInstance.getLoginData())
-        print("$$$$$$$$$$$$$$")
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self , action: "cancelAction")
+       
         articleArray = NSMutableDictionary()
         // set default node ID
         articleArray.setValue(defaultSelectedRow + 1, forKey: nodeID)
-        
-        self.navigationController?.view.backgroundColor = UIColor.clearColor()
-        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "bg_image")!)
-        blurView = UIVisualEffectView(effect: UIBlurEffect(style: .Light))
-        blurView.frame = self.view.bounds
-        self.view.insertSubview(blurView, atIndex: 0)
+ 
+        let delayInSeconds: Double = 0.7
+        let delta = Int64(Double(NSEC_PER_SEC) * delayInSeconds)
+        let popTime = dispatch_time(DISPATCH_TIME_NOW,delta)
+        dispatch_after(popTime, dispatch_get_main_queue(), {
+            self.contentTextView.becomeFirstResponder()
+        })
+
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.translucent = true
+
     }
     
     func cancelAction(){
+        // close keyboard first
+        self.contentTextView.resignFirstResponder()
+        
         self.dismissViewControllerAnimated(true , completion: nil)
     }
     
@@ -92,9 +110,9 @@ class IBBSEditingViewController: UIViewController, UITextViewDelegate {
     }
     
     func prepareForPosting(){
-        IBBSContext.sharedInstance.isLogin(target: self){ (isLogin) -> Void in
+        IBBSContext.sharedInstance.isLogin(){ (isLogin) -> Void in
             if !isLogin {
-                IBBSContext.sharedInstance.login(completion: {
+                IBBSContext.sharedInstance.login(cancelled: nil, completion: {
                     IBBSContext.sharedInstance.configureCurrentUserAvatar(self.avatarImageView)
                 })
             }
@@ -102,8 +120,8 @@ class IBBSEditingViewController: UIViewController, UITextViewDelegate {
     }
     
     func configureAlertController() {
-        let alertController = UIAlertController(title: "", message: "You haven't wrote anything!", preferredStyle: .Alert)
-        let action = UIAlertAction(title: "Got it", style: .Cancel) { (_) -> Void in
+        let alertController = UIAlertController(title: "", message: YOU_HAVENOT_WROTE_ANYTHING, preferredStyle: .Alert)
+        let action = UIAlertAction(title: GOT_IT, style: .Cancel) { (_) -> Void in
             self.contentTextView.becomeFirstResponder()
         }
         alertController.addAction(action)

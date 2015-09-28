@@ -49,7 +49,8 @@ class IBBSDetailViewController: IBBSBaseViewController, UIGestureRecognizerDeleg
     
     
     func commentAction() {
-            IBBSContext.sharedInstance.isLogin(target: self){ (isLogin) -> Void in
+        
+            IBBSContext.sharedInstance.isLogin(){ (isLogin) -> Void in
             if isLogin{
                 let post_id = self.json["id"].stringValue
                 if let vc = IBBSCommentViewController() ?? nil {
@@ -100,6 +101,9 @@ class IBBSDetailViewController: IBBSBaseViewController, UIGestureRecognizerDeleg
     
     func sendRequest(page: Int) {
         APIClient.sharedInstance.getReplies(self.json["id"].stringValue, page: self.page, success: { (json) -> Void in
+            if json == nil && page != 1 {
+                UIApplication.topMostViewController()?.view?.makeToast(message: NO_MORE_DATA, duration: TIME_OF_TOAST_OF_NO_MORE_DATA, position: HRToastPositionCenter)
+            }
             if json.type == Type.Array {
                 if self.page == 1{
                     self.datasource = json.arrayValue
@@ -162,12 +166,12 @@ class IBBSDetailViewController: IBBSBaseViewController, UIGestureRecognizerDeleg
     
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if datasource == nil || datasource.count == 0 {
-            return "No reply yet"
+            return NO_REPLY_YET
         }
         else if datasource.count == 1 {
-            return "Reply : 1"
+            return "\(REPLY_COUNT) : 1"
         }
-        return "Replies : \(datasource.count)"
+        return "\(REPLY_COUNTS) : \(datasource.count)"
         
     }
     

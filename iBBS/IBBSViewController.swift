@@ -41,18 +41,15 @@ class IBBSViewController: IBBSBaseViewController {
         self.pullUpToLoadmore()
         //        self.refreshing = true
         self.sendRequest(page)
-        
         IBBSNodeCatalogueViewController.sharedInstance.sendRequest()
         
     }
-    
  
     func sendRequest(page: Int) {
         
         APIClient.sharedInstance.getLatestTopics(page, success: { (json) -> Void in
-            if json == nil {
-                print("there is no more data")
-                UIApplication.sharedApplication().keyWindow?.rootViewController?.view?.makeToast(message: "There is no more data!", duration: 3, position: HRToastPositionCenter)
+            if json == nil && page != 1 {
+                UIApplication.topMostViewController()?.view?.makeToast(message: NO_MORE_DATA, duration: TIME_OF_TOAST_OF_NO_MORE_DATA, position: HRToastPositionCenter)
             }
             if json.type == Type.Array {
                 if page == 1{
@@ -89,7 +86,7 @@ class IBBSViewController: IBBSBaseViewController {
         self.navigationController?.navigationBarHidden = false
         //        self.navigationController?.hidesBarsOnSwipe = true
         self.navigationItem.title = "iBBS"
-        IBBSContext.sharedInstance.isLogin(target: self){ (isLogin) -> Void in
+        IBBSContext.sharedInstance.isLogin(){ (isLogin) -> Void in
             if isLogin {
                 if let data = IBBSContext.sharedInstance.getLoginData() {
                     let username = data["username"].stringValue

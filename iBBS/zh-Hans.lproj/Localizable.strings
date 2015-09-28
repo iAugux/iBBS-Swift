@@ -1,0 +1,36 @@
+{
+	Home = "\U4e3b\U9875";
+	Node = "\U8282\U70b9";
+	Message = "\U6d88\U606f";
+	"There is no more data!" = "\U6ca1\U6709\U66f4\U591a\U7684\U6570\U636e\U4e86";
+	"No reply yet" = "\U8fd8\U6ca1\U6709\U56de\U590d";
+	Reply = "\U56de\U590d\U6570";
+	Replies = "\U56de\U590d\U6570";
+	"You haven't wrote anything!" = "\U4f60\U8fd8\U6ca1\U6709\U5199\U4efb\U4f55\U4e1c\U897f\U54e6";
+	"Got it" = "\U77e5\U9053\U4e86";
+	Messages = "\U6d88\U606f";
+	"No message yet..." = "\U8fd8\U6ca1\U6709\U6d88\U606f";
+	"You should fill in all the form" = "\U6240\U6709\U7684\U4fe1\U606f\U90fd\U8981\U586b\U5199";
+	"please check it again" = "\U8bf7\U518d\U68c0\U67e5\U4e00\U904d";
+	"Digits of username must be more than 4 and less than 16." = "\U7528\U6237\U540d\U5fc5\U987b\U5927\U4e8e3\U4f4d\U5c0f\U4e8e16\U4f4d";
+	"Invalid email address !" = "\U90ae\U4ef6\U5730\U5740\U683c\U5f0f\U9519\U8bef";
+	"Try again" = "\U518d\U8bd5\U4e00\U6b21";
+	"I'll check" = "\U597d";
+	"Digits of password should more than 6 ." = "\U5bc6\U7801\U4e0d\U5f97\U5c0f\U4e8e6\U4f4d\U6570";
+	"Passwords must be the same" = "\U4e24\U6b21\U5bc6\U7801\U5fc5\U987b\U76f8\U540c";
+	"I know" = "\U77e5\U9053\U4e86";
+	"Register sucessfully and logging in..." = "\U6ce8\U518c\U6210\U529f\Uff0c\U6b63\U5728\U767b\U5f55...";
+	"Register failed!" = "\U6ce8\U518c\U5931\U8d25";
+	"sorry, something wrong with server...\\n\Ud83d\Ude2d\Ud83d\Ude2d\Ud83d\Ude2d" = "\U5bf9\U4e0d\U8d77\Uff0c\U670d\U52a1\U5668\U51fa\U9519\\n\Ud83d\Ude2d\Ud83d\Ude2d\Ud83d\Ude2d";
+	Login = "\U767b\U5f55";
+	"Please input your username and password." = "\U8bf7\U8f93\U5165\U7528\U6237\U540d\U548c\U5bc6\U7801";
+	username = "\U7528\U6237\U540d";
+	password = "\U5bc6\U7801";
+	OK = "\U597d";
+	Cancel = "\U53d6\U6d88";
+	"Error Message" = "\U9519\U8bef\U4fe1\U606f";
+	"Are you sure to logout ?" = "\U786e\U5b9a\U9000\U51fa\U767b\U5f55\U5417\Uff1f";
+	Register = "\U6ce8\U518c";
+	"Login or Register ?" = "\U767b\U5f55\U8fd8\U662f\U6ce8\U518c\Uff1f";
+	"\"Need to login, are you sure to login?\"" = "\U9700\U8981\U767b\U5f55\U624d\U80fd\U67e5\U770b\U6d88\U606f\Uff0c\U786e\U5b9a\U767b\U9646\Uff1f";
+}

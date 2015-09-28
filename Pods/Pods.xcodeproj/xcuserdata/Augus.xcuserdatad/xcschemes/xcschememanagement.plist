@@ -9,6 +9,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>GearRefreshControl.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Kingfisher.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -27,22 +32,27 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>35C941EDFB92A12695F3938571A6AF3A</key>
+		<key>28656E42DAE8D758EFC5E3209EDD2B7A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>6D19D704439FC08CB7A837909054C0D8</key>
+		<key>65E5B555DB853C757B7AA190256821FF</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>788024A2EE2D53B6E28C5B40661C30C4</key>
+		<key>774CD09D893800FBCF9BA10F6908EDD7</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A2BAA6FC914314ED8779BA5B03810098</key>
+		<key>C5698DB5BD77D65CBE7CD07835FFB6A8</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>EFAC3B64B12DD6F722841BFB12524AC1</key>
 		<dict>
 			<key>primary</key>
 			<true/>

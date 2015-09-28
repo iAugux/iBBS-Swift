@@ -38,7 +38,7 @@ class IBBSRegisterViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        usernameTextField.becomeFirstResponder()
         // Do any additional setup after loading the view.
     }
     
@@ -67,32 +67,32 @@ class IBBSRegisterViewController: UIViewController {
         
         if username?.length == 0 || email?.length == 0 || passwd?.length == 0 || passwdAgain?.length == 0 {
             // not all the form are filled in
-            let alertView = UIAlertView(title: "You should fill in all the form", message: "please check it again", delegate: nil, cancelButtonTitle: "I'll check")
+            let alertView = UIAlertView(title: FILL_IN_ALL_THE_FORM, message: CHECK_IT_AGAIN, delegate: nil, cancelButtonTitle: I_WILL_CHECK)
             alertView.show()
             return
         }
         
         if username?.length > 15 || username?.length < 4 {
-            let alertView = UIAlertView(title: "", message: "Charactes of username must be more than 4 and less than 16.", delegate: nil, cancelButtonTitle: "Try again")
+            let alertView = UIAlertView(title: "", message: CHECK_DIGITS_OF_USERNAME, delegate: nil, cancelButtonTitle: TRY_AGAIN)
             alertView.show()
             return
         }
         
         if !email!.isValidEmail(){
             // invalid email address
-            let alertView = UIAlertView(title: "", message: "Invalid email address !", delegate: nil, cancelButtonTitle: "Try again")
+            let alertView = UIAlertView(title: "", message: INVALID_EMAIL, delegate: nil, cancelButtonTitle: TRY_AGAIN)
             alertView.show()
             return
         }
         
         if passwd?.length < 6 {
-            let alertView = UIAlertView(title: "", message: "Characters of password should more than 6 .", delegate: nil, cancelButtonTitle: "I know")
+            let alertView = UIAlertView(title: "", message: CHECK_DIGITS_OF_PASSWORD, delegate: nil, cancelButtonTitle: I_KNOW)
             alertView.show()
             return
         }
         
         if passwd != passwdAgain {
-            let alertView = UIAlertView(title: "Passwords must be the same ", message: "please try again.", delegate: nil, cancelButtonTitle: "Try again")
+            let alertView = UIAlertView(title: PASSWD_MUST_BE_THE_SAME, message: TRY_AGAIN, delegate: nil, cancelButtonTitle: TRY_AGAIN)
             alertView.show()
             return
         }
@@ -106,7 +106,7 @@ class IBBSRegisterViewController: UIViewController {
                     print(json)
                     IBBSContext.sharedInstance.saveLoginData(json.object)
                     
-                    self.view.makeToast(message: "Register sucessfully and logging in...", duration: 3, position: HRToastPositionTop)
+                    self.view.makeToast(message: REGISTER_SUCESSFULLY, duration: 3, position: HRToastPositionTop)
                     
                     let delayInSeconds: Double = 1
                     let delta = Int64(Double(NSEC_PER_SEC) * delayInSeconds)
@@ -126,7 +126,7 @@ class IBBSRegisterViewController: UIViewController {
             }else{
                 // failed
                 if let errorInfo = json["msg"].stringValue ?? nil{
-                    let alertView = UIAlertView(title: "Register failed", message: errorInfo, delegate: nil, cancelButtonTitle: "Try again")
+                    let alertView = UIAlertView(title: REGISTER_FAILED, message: errorInfo, delegate: nil, cancelButtonTitle: TRY_AGAIN)
                     alertView.show()
                 }
             }
@@ -135,73 +135,6 @@ class IBBSRegisterViewController: UIViewController {
                 self.view.makeToast(message: SERVER_ERROR, duration: TIME_OF_TOAST_OF_SERVER_ERROR, position: HRToastPositionTop)
                 
         })
-        
-        
-        
-        //        if (username?.length > 0 && email?.length > 0 && passwd?.length > 0 && passwdAgain?.length > 0) {
-        //            if username?.length < 16 && username?.length >= 4 {
-        //                if email!.isValidEmail() {
-        //                    if passwd?.length >= 6 {
-        //                        if passwd == passwdAgain {
-        //                            // everything is fine, ready to go
-        //                            APIClient.sharedInstance.userRegister(email!, username: username!, passwd: passwd!, success: { (json) -> Void in
-        //                                print(json)
-        //                                if json["code"].intValue == 1 {
-        //                                    // register successfully!
-        //                                    APIClient.sharedInstance.userLogin(username!, passwd: passwd!, success: { (json) -> Void in
-        //                                        print(json)
-        //                                        IBBSContext.sharedInstance.saveLoginData(json.object)
-        //
-        //                                        self.view.makeToast(message: "Register sucessfully and logging in...", duration: 3, position: HRToastPositionTop)
-        //
-        //                                        let delayInSeconds: Double = 1
-        //                                        let delta = Int64(Double(NSEC_PER_SEC) * delayInSeconds)
-        //                                        let popTime = dispatch_time(DISPATCH_TIME_NOW,delta)
-        //                                        dispatch_after(popTime, dispatch_get_main_queue(), {
-        //                                            // do something
-        //                                            self.navigationController?.popViewControllerAnimated(true)
-        //
-        //                                        })
-        //
-        //                                        }, failure: { (error) -> Void in
-        //                                            print(error)
-        //                                    })
-        //
-        //                                }else{
-        //                                    // failed
-        //                                    if let errorInfo = json["msg"].stringValue ?? nil{
-        //                                        let alertView = UIAlertView(title: "Register failed", message: errorInfo, delegate: nil, cancelButtonTitle: "Try again")
-        //                                        alertView.show()
-        //                                    }
-        //                                }
-        //                                }, failure: { (error) -> Void in
-        //                                    print(error)
-        //                            })
-        //                        }else{
-        //                            let alertView = UIAlertView(title: "Passwords must be the same ", message: "please try again.", delegate: nil, cancelButtonTitle: "Try again")
-        //                            alertView.show()
-        //                        }
-        //                    }else{
-        //                        let alertView = UIAlertView(title: "", message: "Characters of password should more than 6 .", delegate: nil, cancelButtonTitle: "I know")
-        //                        alertView.show()
-        //                    }
-        //                }else{ // invalid email address
-        //                    let alertView = UIAlertView(title: "", message: "Invalid email address !", delegate: nil, cancelButtonTitle: "Try again")
-        //                    alertView.show()
-        //                }
-        //            }else{
-        //                let alertView = UIAlertView(title: "", message: "Charactes of username must be more than 4 and less than 16.", delegate: nil, cancelButtonTitle: "Try again")
-        //                alertView.show()
-        //            }
-        //            
-        //        }else{ // not all the form are filled in
-        //            let alertView = UIAlertView(title: "You should fill in all the form", message: "please check it again", delegate: nil, cancelButtonTitle: "I'll check")
-        //            alertView.show()
-        //        }
-        //        
-        //   
-        
-        
         
     }
     

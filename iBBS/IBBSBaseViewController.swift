@@ -11,6 +11,7 @@
 //
 
 import UIKit
+import GearRefreshControl
 import SwiftyJSON
 
 class IBBSBaseViewController: UITableViewController {
@@ -39,7 +40,6 @@ class IBBSBaseViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //        self.automaticPullingDownToRefresh()
         self.gearRefreshManager()
         
         // theme
@@ -66,7 +66,6 @@ class IBBSBaseViewController: UITableViewController {
         gearRefreshControl = GearRefreshControl(frame: self.view.bounds)
         gearRefreshControl.addTarget(self, action: "refreshData", forControlEvents: UIControlEvents.ValueChanged)
         refreshControl = gearRefreshControl
-        tableView?.addSubview(refreshControl!)
         
     }
     

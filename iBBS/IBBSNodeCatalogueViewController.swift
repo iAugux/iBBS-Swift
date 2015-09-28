@@ -30,7 +30,6 @@ class IBBSNodeCatalogueViewController: UITableViewController {
         super.viewDidLoad()
         self.configureTableView()
         self.configureNodesInfo()
-        
     }
     
     override func viewDidAppear(animated: Bool) {

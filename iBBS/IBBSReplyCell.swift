@@ -48,9 +48,7 @@ class IBBSReplyCell: UITableViewCell {
         //        avatarImageView.sd_setImageWithURL(imageUrl, placeholderImage: UIImage(named: "iAugus_500k"))
         usernameLabel.text = json["username"].stringValue
         let data = json["comment_content"].stringValue
-        print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
         print(data)
-        print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
 
         replyContent.ausAttributedText(data)
         replyContent.ausReturnFrameSizeAfterResizingTextView()

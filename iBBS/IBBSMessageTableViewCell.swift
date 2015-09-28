@@ -55,16 +55,16 @@ class IBBSMessageTableViewCell: UITableViewCell {
         
         if let isRead = json["is_read"].intValue ?? nil {
             if isRead == 0 {
-                self.isMessageRead.image = UIImage(named: "message_read_0")
+                self.isMessageRead.image = UIImage(named: "message_not_read")
             }else if isRead == 1{
-                self.isMessageRead.image = UIImage(named: "message_read_1")
+                self.isMessageRead.image = UIImage(named: "message_have_read")
             }
         }
         
         if let isAdministrator = json["type"].boolValue ?? nil{
             if !isAdministrator {
                 self.avatarImageView.backgroundColor = UIColor.blackColor()
-                self.avatarImageView.image = UIImage(named: "Administrator")
+                self.avatarImageView.image = UIImage(named: "administrator")
 //                usernameLabel.text = json["username"].stringValue
                 usernameLabel.text = "Admin"
             }else{

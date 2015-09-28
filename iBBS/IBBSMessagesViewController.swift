@@ -24,12 +24,13 @@ class IBBSMessagesViewController: IBBSBaseViewController {
     private var messageContent: JSON!
     var draggableBackground: DraggableViewBackground!
     var insertBlurView: UIVisualEffectView!
+    var infoLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureTableView()
-        //        self.automaticPullingDownToRefresh()
-        self.navigationItem.title = "Messages"
+        self.navigationItem.title = MESSAGES
+        self.configureInfoLabel()
     }
     
     
@@ -45,7 +46,7 @@ class IBBSMessagesViewController: IBBSBaseViewController {
     
     
     func sendRequest(){
-        IBBSContext.sharedInstance.isLogin(target: self){ (isLogin) -> Void in
+        IBBSContext.sharedInstance.isLogin(){ (isLogin) -> Void in
             if isLogin {
                 let loginData = IBBSContext.sharedInstance.getLoginData()
                 let userID = loginData?["uid"].stringValue
@@ -53,6 +54,13 @@ class IBBSMessagesViewController: IBBSBaseViewController {
                 
                 APIClient.sharedInstance.getMessages(userID!, token: token!, success: { (json ) -> Void in
                     print(json)
+                    if json == nil {
+                        self.infoLabel.hidden = false
+                        //                        UIApplication.topMostViewController()?.view.makeToast(message: "There is no message yet...", duration: 3, position: HRToastPositionCenter)
+                    }else{
+                        self.infoLabel.hidden = true
+                        
+                    }
                     self.messageArray = json.arrayValue
                     self.tableView.reloadData()
                     
@@ -61,22 +69,45 @@ class IBBSMessagesViewController: IBBSBaseViewController {
                         self.view.makeToast(message: SERVER_ERROR, duration: TIME_OF_TOAST_OF_SERVER_ERROR, position: HRToastPositionTop)
                 })
             }else{
-                IBBSContext.sharedInstance.login(completion: {
-                    self.automaticPullingDownToRefresh()
-                    self.sendRequest()
-                    //                self.tableView.reloadData()
+                
+                let loginAlertController = UIAlertController(title: "", message: LOGIN_TO_READ_MESSAGE, preferredStyle: .Alert)
+                let okAction = UIAlertAction(title: BUTTON_OK, style: .Default, handler: { (_) -> Void in
+                    let vc = IBBSEffectViewController()
+                    vc.modalTransitionStyle = UIModalTransitionStyle.FlipHorizontal
+                    self.presentViewController(vc, animated: true, completion: nil)
                     
+                    IBBSContext.sharedInstance.login(cancelled: {
+                        vc.dismissViewControllerAnimated(true , completion: nil)
+                        }, completion: {
+                            vc.dismissViewControllerAnimated(true, completion: nil)
+                            
+                            self.automaticPullingDownToRefresh()
+                            self.sendRequest()
+                            //                self.tableView.reloadData()
+                    })
                 })
+                let cancelAction = UIAlertAction(title: BUTTON_CANCEL, style: .Cancel , handler: nil)
+                loginAlertController.addAction(cancelAction)
+                loginAlertController.addAction(okAction)
+                self.presentViewController(loginAlertController, animated: true, completion: nil)
             }
             
             
         }
-      
+        
     }
     
     func removeViews(){
         self.draggableBackground.removeFromSuperview()
         self.insertBlurView.removeFromSuperview()
+    }
+    
+    func configureInfoLabel(){
+        infoLabel = UILabel(frame: CGRectMake(0, kScreenHeight / 3, kScreenWidth, 20))
+        infoLabel.text = NO_MESSAGE_YET
+        infoLabel.textAlignment = NSTextAlignment.Center
+        self.view.addSubview(infoLabel)
+        infoLabel.hidden = true
     }
     
     private func configureDraggableViews(){
@@ -130,7 +161,7 @@ class IBBSMessagesViewController: IBBSBaseViewController {
                 if json["code"].intValue == 1 {
                     // read successfully
                     if let cell = self.tableView.cellForRowAtIndexPath(indexPath) as? IBBSMessageTableViewCell {
-                        cell.isMessageRead.image = UIImage(named: "message_read_1")
+                        cell.isMessageRead.image = UIImage(named: "message_have_read")
                     }
                     if let completionHandler = completion {
                         completionHandler()
@@ -152,7 +183,7 @@ class IBBSMessagesViewController: IBBSBaseViewController {
         messageCard.avatar.kf_setImageWithURL(avatarUrl)
         if !isAdmin {
             messageCard.avatar.backgroundColor = UIColor.blackColor()
-            messageCard.avatar.image = UIImage(named: "Administrator")
+            messageCard.avatar.image = UIImage(named: "administrator")
         }
     }
     

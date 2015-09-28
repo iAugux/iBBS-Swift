@@ -20,7 +20,7 @@ enum SlideOutState {
 }
 
 
-class ContainerViewController: UIViewController, UIGestureRecognizerDelegate {
+class ContainerViewController: UIViewController, UIGestureRecognizerDelegate, ToggleLeftPanelDelegate {
     
     // 0 ~ 320
     let centerPanelExpandedOffset: CGFloat = kScreenWidth - kExpandedOffSet
@@ -106,6 +106,7 @@ class ContainerViewController: UIViewController, UIGestureRecognizerDelegate {
     func addLeftPanelViewController() {
         if (leftViewController == nil) {
             leftViewController = UIStoryboard.leftViewController()
+            leftViewController?.delegate = self
             
             addChildSidePanelController(leftViewController!)
         }
@@ -171,6 +172,7 @@ class ContainerViewController: UIViewController, UIGestureRecognizerDelegate {
         let gestureIsDraggingFromLeftToRight = (recognizer.velocityInView(view).x > 0)
         switch(recognizer.state) {
         case .Began:
+            
             mainViewController.view.addSubview(centerVCFrontBlurView)
             mainViewController.navigationController?.setNavigationBarHidden(true , animated: false)
             if (currentState == .collapsed) {
@@ -203,10 +205,10 @@ class ContainerViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     func handleTapGesture(){
-        if leftViewController != nil {
+//        if leftViewController != nil {
             animateLeftPanel(false)
             self.centerVCFrontBlurView.removeFromSuperview()
-        }
+//        }
     }
     
     // close left panel
@@ -216,8 +218,10 @@ class ContainerViewController: UIViewController, UIGestureRecognizerDelegate {
             self.centerVCFrontBlurView.removeFromSuperview()
         }
     }
-    
-    
+    // ToggleLeftPanelDelegate
+    func removeFrontBlurView(){
+        self.centerVCFrontBlurView.removeFromSuperview()
+    }
     
 }
 

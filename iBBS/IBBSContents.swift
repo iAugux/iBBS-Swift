@@ -10,8 +10,21 @@
 //  Copyright © 2015 iAugus. All rights reserved.
 //
 
-import Foundation
 
+let isIphone3_5Inch: Bool = UIScreen.mainScreen().bounds.size.height == 480 ? true : false
+
+let storyboard = UIStoryboard(name: "Main", bundle: nil)
+
+let kScreenWidth = UIScreen.mainScreen().bounds.width
+let kScreenHeight = UIScreen.mainScreen().bounds.height
+let kExpandedOffSet: CGFloat = 130.0
+
+let HEADER_TITLE_FONT_SIZE: CGFloat = 17
+let HEADER_CONTENT_FONT_SIZE: CGFloat = 15.0
+//let HEADER_TITLE_LABEL_WIDTH: CGFloat = 296.0
+//let HEADER_CONTENT_LABEL_WIDTH: CGFloat = 295.0
+
+let TITLE_FOR_HEADER_IN_SECTION_FONT_SIZE: CGFloat = 15.0
 
 
 var kShouldCustomizeTheme = false
@@ -19,5 +32,5 @@ var kThemeColor = UIColor.grayColor()
 
 
 
-let SERVER_ERROR = "sorry, something wrong with server...\n😭😭😭"
 let TIME_OF_TOAST_OF_SERVER_ERROR: Double = 4
+let TIME_OF_TOAST_OF_NO_MORE_DATA: Double = 0.8

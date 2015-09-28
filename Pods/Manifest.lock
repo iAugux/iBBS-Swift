@@ -1,10 +1,12 @@
 PODS:
-  - Alamofire (2.0.0)
-  - Kingfisher (1.5.0)
+  - Alamofire (2.0.2)
+  - GearRefreshControl (0.2.1)
+  - Kingfisher (1.6.0)
   - SwiftyJSON (2.2.1)
 
 DEPENDENCIES:
   - Alamofire (~> 2.0)
+  - GearRefreshControl (~> 0.1)
   - Kingfisher (~> 1.5)
   - SwiftyJSON (from `https://github.com/SwiftyJSON/SwiftyJSON.git`, branch `xcode7`)
 
@@ -15,12 +17,13 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   SwiftyJSON:
-    :commit: d4df13c66146a8e9c8d96c852746a08363003d36
+    :commit: 6eb4cda062fa09c4658e4184f92d822058f226e3
     :git: https://github.com/SwiftyJSON/SwiftyJSON.git
 
 SPEC CHECKSUMS:
-  Alamofire: 2f13548b29d25a58ecd91c9225fb51493e2b782b
-  Kingfisher: cbb280faba0e9ae0a73d2c51072f7dd94ccfe640
+  Alamofire: 8edbab00802a752bb5240cc2abe70e7e881488ad
+  GearRefreshControl: 57e228199e14a4c2c7fe0ab00b673277fdef8653
+  Kingfisher: 3308d487e5c2a0fba9c1054fc3b8c45923e03c40
   SwiftyJSON: ae2d0a3d68025d136602a33c4ee215091ced3e33
 
 COCOAPODS: 0.39.0.beta.4

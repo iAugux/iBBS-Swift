@@ -23,6 +23,7 @@ let HRToastFadeDuration     =   0.2
 let HRToastHorizontalMargin : CGFloat  =   10.0
 let HRToastVerticalMargin   : CGFloat  =   10.0
 
+
 let HRToastPositionDefault  =   "bottom"
 let HRToastPositionTop      =   "top"
 let HRToastPositionCenter   =   "center"

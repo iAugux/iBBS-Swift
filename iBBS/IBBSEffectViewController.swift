@@ -1,38 +1,37 @@
 //
-//  TabBarController.swift
+//  IBBSEffectViewController.swift
 //  iBBS
 //
-//  Created by Augus on 9/12/15.
-//
-//  http://iAugus.com
-//  https://github.com/iAugux
-//
+//  Created by Augus on 9/26/15.
 //  Copyright © 2015 iAugus. All rights reserved.
 //
 
 import UIKit
 
-class TabBarController: UITabBarController {
+class IBBSEffectViewController: UIViewController {
+    
+    var blurView: UIVisualEffectView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.changeStatusBarColorOnSwipe()
-        // Do any additional setup after loading the view.
+        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "bg_image_yellow")!)
+        
+        blurView = UIVisualEffectView(effect: UIBlurEffect(style: .Light))
+        blurView.frame = self.view.frame
+        let gesture = UITapGestureRecognizer(target: self, action: "blurViewDidTap")
+        blurView.addGestureRecognizer(gesture)
+        self.view.addSubview(blurView)
+        
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-    func changeStatusBarColorOnSwipe(){
-        let statusBarView: UIToolbar = UIToolbar(frame: CGRectMake(0, 0, kScreenWidth, 22))
-        statusBarView.barStyle = UIBarStyle.Default
-        //        statusBarView.barTintColor = UIColor.redColor()
-        
-        self.view.addSubview(statusBarView)
+    func blurViewDidTap(){
+        self.dismissViewControllerAnimated(true , completion: nil)
     }
-    
 
     /*
     // MARK: - Navigation

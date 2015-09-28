@@ -53,6 +53,9 @@ class IBBSNodeViewController: IBBSBaseViewController, UIGestureRecognizerDelegat
     func sendRequest(page: Int) {
         if let node = self.nodeJSON {
             APIClient.sharedInstance.getLatestTopics(node["id"].stringValue, page: self.page, success: { (json) -> Void in
+                if json == nil && page != 1 {
+                    UIApplication.topMostViewController()?.view?.makeToast(message: NO_MORE_DATA, duration: TIME_OF_TOAST_OF_NO_MORE_DATA, position: HRToastPositionCenter)
+                }
                 
                 if json.type == Type.Array {
                     if page == 1{
