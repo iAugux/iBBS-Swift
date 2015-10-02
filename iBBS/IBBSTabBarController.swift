@@ -15,22 +15,17 @@ import UIKit
 var statusBarView: UIToolbar!
 
 class TabBarController: UITabBarController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.changeStatusBarColorOnSwipe()
+//        self.changeStatusBarColorOnSwipe()
         // Do any additional setup after loading the view.
         self.tabBar.items?[0].title = TITLE_HOME
         self.tabBar.items?[1].title = TITLE_NODE
         self.tabBar.items?[2].title = TITLE_MESSAGE
-
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
+
     func changeStatusBarColorOnSwipe(){
         statusBarView = UIToolbar(frame:  UIApplication.sharedApplication().statusBarFrame)
         statusBarView.barStyle = UIBarStyle.Default
@@ -39,6 +34,7 @@ class TabBarController: UITabBarController {
         self.view.addSubview(statusBarView)
     }
     
+
 
     /*
     // MARK: - Navigation

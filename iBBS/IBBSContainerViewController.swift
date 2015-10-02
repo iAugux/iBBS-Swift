@@ -54,7 +54,7 @@ class ContainerViewController: UIViewController, UIGestureRecognizerDelegate, To
         //        centerVCFrontBlurView = UIButton.buttonWithType(UIButtonType.Custom) as! UIButton
         let viewEffect = UIBlurEffect(style: .Light)
         centerVCFrontBlurView = UIVisualEffectView(effect: viewEffect)
-        centerVCFrontBlurView.alpha = 0.9
+        centerVCFrontBlurView.alpha = 0.96
         centerVCFrontBlurView.frame = self.view.bounds
 
     }

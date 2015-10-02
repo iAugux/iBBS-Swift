@@ -32,5 +32,6 @@
 	"Are you sure to logout ?" = "Are you sure to logout ?";
 	Register = Register;
 	"Login or Register ?" = "Login or Register ?";
-	"\"Need to login, are you sure to login?\"" = "\"Need to login, are you sure to login?\"";
+	"Need to login, are you sure to login?" = "Need to login, are you sure to login?";
+    "Send" = "Send";
 }

@@ -23,14 +23,28 @@ class IBBSMessagesViewController: IBBSBaseViewController {
     private var messageArray: [JSON]!
     private var messageContent: JSON!
     var draggableBackground: DraggableViewBackground!
+    var messageCard: DraggableView!
+    var replyCard: DraggableView!
     var insertBlurView: UIVisualEffectView!
     var infoLabel: UILabel!
+    var currentSenderUserID: String!
+    var currentSenderUsername: String!
+    var currentSenderUserAvatarUrl: NSURL!
+    
+    var keyboardHeight = CGFloat() {
+        didSet{
+            
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureTableView()
         self.navigationItem.title = MESSAGES
         self.configureInfoLabel()
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
     }
     
     
@@ -44,6 +58,9 @@ class IBBSMessagesViewController: IBBSBaseViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
     
     func sendRequest(){
         IBBSContext.sharedInstance.isLogin(){ (isLogin) -> Void in
@@ -117,10 +134,10 @@ class IBBSMessagesViewController: IBBSBaseViewController {
         draggableBackground.backgroundColor = UIColor.clearColor()
         insertBlurView = UIVisualEffectView(effect: UIBlurEffect(style: .Light))
         insertBlurView.frame = draggableBackground.bounds
-        insertBlurView.alpha = 0.9
+        insertBlurView.alpha = 0.96
         let gesture = UITapGestureRecognizer(target: self, action: "removeViews")
         draggableBackground.addGestureRecognizer(gesture)
-        self.parentViewController?.parentViewController?.view.addSubview(insertBlurView)
+        UIApplication.topMostViewController()?.view.addSubview(insertBlurView)
         
     }
     
@@ -142,7 +159,7 @@ class IBBSMessagesViewController: IBBSBaseViewController {
         //        self.parentViewController?.parentViewController?.view.addSubview(self.draggableBackground)
         draggableBackground.transform = CGAffineTransformMakeScale(0.01, 0.01)
         UIView.animateWithDuration(0.1, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: { () -> Void in
-            self.parentViewController?.parentViewController?.view.addSubview(self.draggableBackground)
+            UIApplication.topMostViewController()?.view.addSubview(self.draggableBackground)
             self.draggableBackground.transform = CGAffineTransformIdentity
             
             }) { (_) -> Void in
@@ -178,7 +195,7 @@ class IBBSMessagesViewController: IBBSBaseViewController {
         let content = messageContent["msg"]["content"].stringValue
         //        let title = messageContent["title"].stringValue
         //        let username = messageContent["msg"]["username"].stringValue
-        let messageCard = self.draggableBackground.allCards[0]
+        messageCard = self.draggableBackground.allCards[0]
         messageCard.content.text = content
         messageCard.avatar.kf_setImageWithURL(avatarUrl)
         if !isAdmin {
@@ -212,11 +229,13 @@ class IBBSMessagesViewController: IBBSBaseViewController {
         if let array = self.messageArray {
             let json = array[indexPath.row]
             let messageID = json["id"].stringValue
-            let avatarUrl = NSURL(string: json["sender_avatar"].stringValue)
+            self.currentSenderUsername = json["sender"].stringValue
+            self.currentSenderUserID = json["sender_uid"].stringValue
+            self.currentSenderUserAvatarUrl = NSURL(string: json["sender_avatar"].stringValue)
             let isAdministrator = json["type"].boolValue
             self.getMessageContent(messageID, indexPath: indexPath, completion: {
                 print(json)
-                self.setMessageContent(avatarUrl!, isAdmin: isAdministrator)
+                self.setMessageContent(self.currentSenderUserAvatarUrl, isAdmin: isAdministrator)
                 
             })
             self.addDraggableViewWithAnimation()
@@ -243,14 +262,112 @@ class IBBSMessagesViewController: IBBSBaseViewController {
 
 
 extension IBBSMessagesViewController: DraggableViewDelegate {
+    private func removeViewsWithDelay(){
+        let delayInSeconds: Double = 0.5
+        let delta = Int64(Double(NSEC_PER_SEC) * delayInSeconds)
+        let popTime = dispatch_time(DISPATCH_TIME_NOW,delta)
+        dispatch_after(popTime, dispatch_get_main_queue(), {
+            self.removeViews()
+        })
+        
+    }
+    
+    private func performAfterSwiping(card card: UIView, left: Bool) {
+        if SWIPE_LEFT_TO_CANCEL_RIGHT_TO_CONTINUE == left {
+            print("swiped left")
+            self.removeViewsWithDelay()
+        }else{
+            print("swiped right")
+            if card == messageCard {
+                self.draggableBackground.loadCards()
+                self.configureReplyCard()
+            }
+            print("##############################")
+            print(card)
+            print("##############################")
+
+            if card == replyCard {
+                print("reply card swiping right")
+                self.removeViewsWithDelay()
+            }
+            
+            
+        }
+    }
+    
+    private func configureReplyCard(){
+        replyCard = self.draggableBackground?.allCards.last
+        replyCard.delegate = self
+        let cardWidth = replyCard.frame.size.width
+        let cardHeight = replyCard.frame.size.height
+        
+        //            replyCard.avatar.frame = CGRectMake(cardWidth - 28, 4, 24, 24)
+        replyCard.avatar.frame = CGRectMake(cardWidth / 2 - 12, 4, 24, 24)
+        replyCard.avatar.layer.cornerRadius = 12.0
+        replyCard.avatar.kf_setImageWithURL(self.currentSenderUserAvatarUrl)
+        
+        
+        replyCard.content.frame = CGRectMake(16, 35, cardWidth - 32, cardHeight - 45)
+        replyCard.content.font = UIFont.systemFontOfSize(15)
+        //            replyCard.content.layer.cornerRadius = 3
+        //            replyCard.content.layer.borderWidth = 0.5
+        //            replyCard.content.layer.borderColor = UIColor(red:0.69, green:0.73, blue:0.77, alpha:1).CGColor
+        replyCard.content.textAlignment = NSTextAlignment.Left
+        replyCard.content.editable = true
+        
+        let separator = UIView(frame: CGRectMake(16, 34, cardWidth - 32, 0.5))
+        separator.backgroundColor = UIColor(red:0.874, green:0.913, blue:0.956, alpha:1)
+        separator.layer.shadowRadius = 5
+        separator.layer.shadowOpacity = 0.2
+        separator.layer.shadowOffset = CGSizeMake(1, 1)
+        replyCard.addSubview(separator)
+        
+        let delayInSeconds: Double = 0.5
+        let delta = Int64(Double(NSEC_PER_SEC) * delayInSeconds)
+        let popTime = dispatch_time(DISPATCH_TIME_NOW,delta)
+        dispatch_after(popTime, dispatch_get_main_queue(), {
+            
+            UIView.animateWithDuration(0.5, animations: { () -> Void in
+                self.replyCard.content.becomeFirstResponder()
+                
+                self.replyCard.frame = CGRectMake(16, 50, kScreenWidth - 32, kScreenHeight - 50 - 8 - self.keyboardHeight)
+                self.replyCard.content.frame = CGRectMake(16, 35, cardWidth - 32, kScreenHeight - 50 - 45 - 8 - self.keyboardHeight)
+                
+            })
+        })
+        
+        
+    }
+    
+    // MARK: - draggable view delegate
     func cardSwipedLeft(card: UIView) {
-        print("swiped left")
-        self.removeViews()
+        self.performAfterSwiping(card: card, left: true)
+        print(card)
     }
     
     func cardSwipedRight(card: UIView) {
-        print("swiped right")
-        self.removeViews()
+        self.performAfterSwiping(card: card, left: false)
+        print(card)
     }
+    
+    // MARK: - keyboard notification
+    func keyboardWillShow(notification: NSNotification) {
+        guard let kbSizeValue = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue else { return }
+        guard let kbDurationNumber = notification.userInfo?[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber else { return }
+        animateToKeyboardHeight(kbSizeValue.CGRectValue().height, duration: kbDurationNumber.doubleValue)
+    }
+    
+    func keyboardWillHide(notification: NSNotification) {
+        guard let kbDurationNumber = notification.userInfo?[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber else { return }
+        animateToKeyboardHeight(0, duration: kbDurationNumber.doubleValue)
+    }
+    
+    func animateToKeyboardHeight(kbHeight: CGFloat, duration: Double) {
+        print("keyboardHeight: \(kbHeight), duration: \(duration)")
+        self.keyboardHeight = kbHeight
+        replyCard.frame = CGRectMake(16, 50, kScreenWidth - 32, kScreenHeight - 50 - 8 - kbHeight)
+        replyCard.content.frame = CGRectMake(16, 35, replyCard.frame.width - 32, kScreenHeight - 50 - 45 - 8 - kbHeight)
+    }
+    
 }
 

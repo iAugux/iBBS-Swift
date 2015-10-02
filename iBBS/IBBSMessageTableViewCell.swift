@@ -23,7 +23,7 @@ class IBBSMessageTableViewCell: UITableViewCell {
             avatarImageView.layer.cornerRadius  = 18.0
             avatarImageView.backgroundColor     = UIColor.randomColor()
             avatarImageView.contentMode = UIViewContentMode.ScaleAspectFill
-
+            
         }
     }
     @IBOutlet var isMessageRead: UIImageView!
@@ -38,10 +38,10 @@ class IBBSMessageTableViewCell: UITableViewCell {
         self.separatorInset = UIEdgeInsetsZero
         self.selectionStyle = UITableViewCellSelectionStyle.None
     }
-
+    
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        
         // Configure the view for the selected state
     }
     
@@ -53,25 +53,22 @@ class IBBSMessageTableViewCell: UITableViewCell {
         timeLabel.text = json["send_time"].stringValue
         contentLabel.text = json["title"].stringValue
         
-        if let isRead = json["is_read"].intValue ?? nil {
-            if isRead == 0 {
-                self.isMessageRead.image = UIImage(named: "message_not_read")
-            }else if isRead == 1{
-                self.isMessageRead.image = UIImage(named: "message_have_read")
-            }
+        let isRead = json["is_read"].intValue
+        if isRead == 0 {
+            self.isMessageRead.image = UIImage(named: "message_not_read")
+        }else if isRead == 1{
+            self.isMessageRead.image = UIImage(named: "message_have_read")
         }
         
-        if let isAdministrator = json["type"].boolValue ?? nil{
-            if !isAdministrator {
-                self.avatarImageView.backgroundColor = UIColor.blackColor()
-                self.avatarImageView.image = UIImage(named: "administrator")
-//                usernameLabel.text = json["username"].stringValue
-                usernameLabel.text = "Admin"
-            }else{
-                usernameLabel.text = json["sender"].stringValue
-
-            }
+        let isAdministrator = json["type"].boolValue
+        if !isAdministrator {
+            self.avatarImageView.backgroundColor = UIColor.blackColor()
+            self.avatarImageView.image = UIImage(named: "administrator")
+            //                usernameLabel.text = json["username"].stringValue
+            usernameLabel.text = "Admin"
+        }else{
+            usernameLabel.text = json["sender"].stringValue
+            
         }
-        
     }
 }

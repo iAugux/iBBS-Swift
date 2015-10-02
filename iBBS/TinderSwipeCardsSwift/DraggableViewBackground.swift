@@ -25,7 +25,8 @@ class DraggableViewBackground: UIView, DraggableViewDelegate {
     var messageButton: UIButton!
     var checkButton: UIButton!
     var xButton: UIButton!
-
+    
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
@@ -34,7 +35,7 @@ class DraggableViewBackground: UIView, DraggableViewDelegate {
         super.init(frame: frame)
         super.layoutSubviews()
         self.setupView()
-        exampleCardLabels = [""]
+        exampleCardLabels = ["first"]
         allCards = []
         loadedCards = []
         cardsLoadedIndex = 0
@@ -44,19 +45,19 @@ class DraggableViewBackground: UIView, DraggableViewDelegate {
     func setupView() -> Void {
         self.backgroundColor = UIColor(red: 0.92, green: 0.93, blue: 0.95, alpha: 1)
 
-        xButton = UIButton(frame: CGRectMake((self.frame.size.width - CARD_WIDTH)/2 + 35, self.frame.size.height/2 + CARD_HEIGHT/2 + 10, 59, 59))
-        xButton.setImage(UIImage(named: "xButton"), forState: UIControlState.Normal)
-        xButton.addTarget(self, action: "swipeLeft", forControlEvents: UIControlEvents.TouchUpInside)
-
-        checkButton = UIButton(frame: CGRectMake(self.frame.size.width/2 + CARD_WIDTH/2 - 85, self.frame.size.height/2 + CARD_HEIGHT/2 + 10, 59, 59))
-        checkButton.setImage(UIImage(named: "checkButton"), forState: UIControlState.Normal)
-        checkButton.addTarget(self, action: "swipeRight", forControlEvents: UIControlEvents.TouchUpInside)
-
-        if !isIphone3_5Inch {
-            self.addSubview(xButton)
-            self.addSubview(checkButton)
-
-        }
+//        xButton = UIButton(frame: CGRectMake((self.frame.size.width - CARD_WIDTH)/2 + 35, self.frame.size.height/2 + CARD_HEIGHT/2 + 10, 59, 59))
+//        xButton.setImage(UIImage(named: "xButton"), forState: UIControlState.Normal)
+//        xButton.addTarget(self, action: "swipeLeft", forControlEvents: UIControlEvents.TouchUpInside)
+//
+//        checkButton = UIButton(frame: CGRectMake(self.frame.size.width/2 + CARD_WIDTH/2 - 85, self.frame.size.height/2 + CARD_HEIGHT/2 + 10, 59, 59))
+//        checkButton.setImage(UIImage(named: "checkButton"), forState: UIControlState.Normal)
+//        checkButton.addTarget(self, action: "swipeRight", forControlEvents: UIControlEvents.TouchUpInside)
+//
+//        if !isIphone3_5Inch {
+//            self.addSubview(xButton)
+//            self.addSubview(checkButton)
+//        }
+        
     }
 
     func createDraggableViewWithDataAtIndex(index: NSInteger) -> DraggableView {

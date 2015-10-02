@@ -22,12 +22,12 @@ class IBBSDetailViewController: IBBSBaseViewController, UIGestureRecognizerDeleg
             static let cellNibName = "IBBSReplyCell"
             static let headerViewNibName = "IBBSDetailHeaderView"
         }
-        static let commentViewController = "iBBSCommentViewController"
     }
     
     var json: JSON!
     var headerView: IBBSDetailHeaderView!
     var prototypeCell: IBBSReplyCell!
+    var cornerCommentButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,10 +36,30 @@ class IBBSDetailViewController: IBBSBaseViewController, UIGestureRecognizerDeleg
         self.configureHeaderView()
         self.configureTableView()
         self.configureGesture()
+        self.configureCornerCommentButton()
         
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Comment", style: .Plain, target: self, action: "commentAction")
+//        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Comment", style: .Plain, target: self, action: "commentAction")
     }
     
+//    override func viewDidAppear(animated: Bool) {
+//        super.viewDidAppear(animated)
+//        
+//        // TODO: - There is a bug! App will crash sometimes when set hidesBarsOnSwipe to true, but I don't know why
+//        self.navigationController?.navigationBar.hidden = false
+//        self.navigationController?.hidesBarsOnSwipe = true
+//    }
+    
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        self.cornerCommentButton.hidden = false
+        
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.cornerCommentButton.hidden = true
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -50,17 +70,26 @@ class IBBSDetailViewController: IBBSBaseViewController, UIGestureRecognizerDeleg
     
     func commentAction() {
         
-            IBBSContext.sharedInstance.isLogin(){ (isLogin) -> Void in
+        IBBSContext.sharedInstance.isLogin(){ (isLogin) -> Void in
             if isLogin{
                 let post_id = self.json["id"].stringValue
-                if let vc = IBBSCommentViewController() ?? nil {
+                let sb = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+                if let vc = sb.instantiateViewControllerWithIdentifier("iBBSCommentViewController") as? IBBSCommentViewController{
                     vc.post_id = post_id
-                    self.navigationController?.pushViewController(vc , animated: true)
+                    let nav = UINavigationController(rootViewController: vc)
+                    self.presentViewController(nav, animated: true, completion: nil)
                 }
+                
+            }else {
+                IBBSContext.sharedInstance.login(cancelled: nil, completion: {
+                    self.commentAction()
+                })
             }
+
         }
         
     }
+    
     
     func configureTableView(){
         
@@ -70,7 +99,18 @@ class IBBSDetailViewController: IBBSBaseViewController, UIGestureRecognizerDeleg
         tableView.tableFooterView = UIView(frame: CGRectZero)
         tableView.estimatedRowHeight = 90
         tableView.rowHeight = UITableViewAutomaticDimension
-
+        
+    }
+    
+    func configureCornerCommentButton(){
+        cornerCommentButton = UIButton(frame: CGRectMake(kScreenWidth - 66, kScreenHeight - 110, 40, 40))
+        cornerCommentButton.layer.cornerRadius = 20.0
+        cornerCommentButton.clipsToBounds = true
+        cornerCommentButton.backgroundColor = UIColor(red:0.854, green:0.113, blue:0.223, alpha:1)
+        cornerCommentButton.setImage(UIImage(named: "plus_button"), forState: .Normal)
+        cornerCommentButton.addTarget(self, action: "commentAction", forControlEvents: .TouchUpInside)
+        UIApplication.topMostViewController()?.view.addSubview(cornerCommentButton)
+        
     }
     
     func configureHeaderView(){
@@ -92,12 +132,12 @@ class IBBSDetailViewController: IBBSBaseViewController, UIGestureRecognizerDeleg
         
     }
     
-//    func customizeNavBar(color: UIColor, titleFont: UIFont, buttonFont: UIFont) {
-//        
-//        UINavigationBar.appearance().tintColor = color
-//        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: color, NSFontAttributeName: titleFont]
-//        UIBarButtonItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: color, NSFontAttributeName: buttonFont], forState: UIControlState.Normal)
-//    }
+    //    func customizeNavBar(color: UIColor, titleFont: UIFont, buttonFont: UIFont) {
+    //
+    //        UINavigationBar.appearance().tintColor = color
+    //        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: color, NSFontAttributeName: titleFont]
+    //        UIBarButtonItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: color, NSFontAttributeName: buttonFont], forState: UIControlState.Normal)
+    //    }
     
     func sendRequest(page: Int) {
         APIClient.sharedInstance.getReplies(self.json["id"].stringValue, page: self.page, success: { (json) -> Void in
@@ -118,7 +158,7 @@ class IBBSDetailViewController: IBBSBaseViewController, UIGestureRecognizerDeleg
             }) { (error) -> Void in
                 print(error)
                 self.view.makeToast(message: SERVER_ERROR, duration: TIME_OF_TOAST_OF_SERVER_ERROR, position: HRToastPositionTop)
-
+                
         }
     }
     
@@ -177,9 +217,8 @@ class IBBSDetailViewController: IBBSBaseViewController, UIGestureRecognizerDeleg
     
     // customize title for header in section
     override func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-
         if let header = view as? UITableViewHeaderFooterView {
-//           header.textLabel?.backgroundColor = UIColor.redColor()
+            //           header.textLabel?.backgroundColor = UIColor.redColor()
             header.textLabel?.font = UIFont.systemFontOfSize(14)
         }
         
@@ -219,7 +258,7 @@ class IBBSDetailViewController: IBBSBaseViewController, UIGestureRecognizerDeleg
         return 90
     }
     
-   
+    
     
 }
 

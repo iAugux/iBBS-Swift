@@ -28,9 +28,8 @@ class IBBSPostViewController: ZSSRichTextEditor {
         super.viewDidLoad()
         self.shouldShowKeyboard = false
         
-//        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Preview", style: .Plain, target: self, action: "exportHTML")
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: BUTTON_SEND, style: .Plain, target: self, action: "sendAction")
 //      self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: "cancelAction")
-        
         // Set the HTML contents of the editor
 //        self.setHTML(html)
         
@@ -105,9 +104,10 @@ class IBBSPostViewController: ZSSRichTextEditor {
 //        self.navigationController?.navigationBar.translucent = true
     }
 
-    @IBAction func sendAction(sender: AnyObject) {
-        if getHTML().isEmpty {
-            self.view?.makeToast(message: YOU_HAVENOT_WROTE_ANYTHING, duration: 0.5, position: HRToastPositionTop)
+    func sendAction() {
+        self.blurTextEditor()
+        if getHTML().ausTrimHtmlInWhitespaceAndNewlineCharacterSet().isEmpty {
+            self.configureAlertController()
             return
         }
         self.shouldShowKeyboard = false
@@ -119,9 +119,7 @@ class IBBSPostViewController: ZSSRichTextEditor {
             print(userID)
             print(token)
             APIClient.sharedInstance.post(userID, nodeID: articleArray[nodeID]!, content: articleArray[content]!, title: articleArray[articleTitle]!, token: token, success: { (json) -> Void in
-                print("$$$$$$$$$$")
                 print(json)
-                print("$$$$$$$$$$")
 
                 let msg = json["msg"].stringValue
                 if json["code"].intValue == 1 { //post successfully
@@ -156,10 +154,19 @@ class IBBSPostViewController: ZSSRichTextEditor {
     }
     
     func cancelAction(){
+        self.blurTextEditor()
         self.dismissViewControllerAnimated(true , completion: nil)
         
     }
 
+    func configureAlertController() {
+        let alertController = UIAlertController(title: "", message: YOU_HAVENOT_WROTE_ANYTHING, preferredStyle: .Alert)
+        let action = UIAlertAction(title: GOT_IT, style: .Cancel) { (_) -> Void in
+            self.focusTextEditor()
+        }
+        alertController.addAction(action)
+        self.presentViewController(alertController, animated: true, completion: nil)
+    }
     
     override func showInsertURLAlternatePicker(){
         self.dismissAlertView()

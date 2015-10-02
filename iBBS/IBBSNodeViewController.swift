@@ -79,7 +79,7 @@ class IBBSNodeViewController: IBBSBaseViewController, UIGestureRecognizerDelegat
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        self.navigationController?.hidesBarsOnSwipe = true
+//        self.navigationController?.hidesBarsOnSwipe = true
         
         self.navigationController?.interactivePopGestureRecognizer?.delegate = self
         self.navigationController?.interactivePopGestureRecognizer?.enabled = true
@@ -87,7 +87,6 @@ class IBBSNodeViewController: IBBSBaseViewController, UIGestureRecognizerDelegat
     
     func configureView(){
         self.navigationController?.navigationBarHidden = false
-        //        self.navigationController?.hidesBarsOnSwipe = true
         
         if let node = self.nodeJSON {
             self.title = node["title"].stringValue
@@ -145,10 +144,15 @@ class IBBSNodeViewController: IBBSBaseViewController, UIGestureRecognizerDelegat
     // MARK: - table view delegate
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let json = self.datasource[indexPath.row]
-        if let destinationVC = storyboard?.instantiateViewControllerWithIdentifier(MainStoryboard.VCIdentifiers.iBBSDetailVC) as? IBBSDetailViewController {
-            destinationVC.json = json
-            self.navigationController?.pushViewController(destinationVC, animated: true)
-        }
+//        if let destinationVC = storyboard?.instantiateViewControllerWithIdentifier(MainStoryboard.VCIdentifiers.iBBSDetailVC) as? IBBSDetailViewController {
+//            destinationVC.json = json
+//            self.navigationController?.pushViewController(destinationVC, animated: true)
+//        }
+        let destinationVC = IBBSDetailViewController()
+        destinationVC.json = json
+        self.navigationController?.pushViewController(destinationVC, animated: true)
+            
+        
     }
     
    

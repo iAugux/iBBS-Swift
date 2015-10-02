@@ -125,10 +125,9 @@ class IBBSRegisterViewController: UIViewController {
                 
             }else{
                 // failed
-                if let errorInfo = json["msg"].stringValue ?? nil{
-                    let alertView = UIAlertView(title: REGISTER_FAILED, message: errorInfo, delegate: nil, cancelButtonTitle: TRY_AGAIN)
-                    alertView.show()
-                }
+                let errorInfo = json["msg"].stringValue
+                let alertView = UIAlertView(title: REGISTER_FAILED, message: errorInfo, delegate: nil, cancelButtonTitle: TRY_AGAIN)
+                alertView.show()
             }
             }, failure: { (error) -> Void in
                 print(error)

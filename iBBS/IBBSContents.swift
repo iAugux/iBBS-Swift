@@ -34,3 +34,5 @@ var kThemeColor = UIColor.grayColor()
 
 let TIME_OF_TOAST_OF_SERVER_ERROR: Double = 4
 let TIME_OF_TOAST_OF_NO_MORE_DATA: Double = 0.8
+
+let SWIPE_LEFT_TO_CANCEL_RIGHT_TO_CONTINUE = true

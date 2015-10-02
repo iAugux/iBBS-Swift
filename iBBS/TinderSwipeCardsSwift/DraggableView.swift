@@ -39,6 +39,7 @@ class DraggableView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.setupView()
+        self.frame = CGRectMake(16, 50, kScreenWidth - 32, kScreenHeight - 80)
         self.backgroundColor = UIColor.randomColor()
 
 //        information = UILabel(frame: CGRectMake(8, 60, self.frame.size.width - 16, self.frame.size.height - 75))
@@ -49,28 +50,27 @@ class DraggableView: UIView {
 //        information.textColor = UIColor.blackColor()
 //        self.addSubview(information)
 
-        content = UITextView(frame: CGRectMake(8, 78, self.frame.size.width - 16, self.frame.size.height - 86))
+//        panGestureRecognizer = UIPanGestureRecognizer(target: self, action: "beingDragged:")
+        panGestureRecognizer = PanDirectionGestureRecognizer(direction: .Horizontal, target: self, action: "beingDragged:")
+
+        self.addGestureRecognizer(panGestureRecognizer)
+
+        avatar = UIImageView(frame: CGRectMake(self.frame.size.width / 2 - 25, 8 , 50, 50))
+        avatar.backgroundColor = UIColor.randomColor()
+        avatar.clipsToBounds = true
+        avatar.layer.cornerRadius = 25.0
+        avatar.layer.borderWidth = 0.1
+        avatar.layer.borderColor = UIColor.blackColor().CGColor
+        avatar.contentMode = UIViewContentMode.ScaleToFill
+        self.addSubview(avatar)
+        
+        content = UITextView(frame: CGRectMake(8, 63, self.frame.size.width - 16, self.frame.size.height - 71))
         content.textAlignment = NSTextAlignment.Center
         content.font = UIFont.systemFontOfSize(17.0)
         content.editable = false
         content.backgroundColor = UIColor.clearColor()
         content.textColor = UIColor.blackColor()
         self.addSubview(content)
-        
-
-//        panGestureRecognizer = UIPanGestureRecognizer(target: self, action: "beingDragged:")
-        panGestureRecognizer = PanDirectionGestureRecognizer(direction: .Horizontal, target: self, action: "beingDragged:")
-
-        self.addGestureRecognizer(panGestureRecognizer)
-
-        avatar = UIImageView(frame: CGRectMake(self.frame.size.width / 2 - 30, 10 , 60, 60))
-        avatar.backgroundColor = UIColor.randomColor()
-        avatar.clipsToBounds = true
-        avatar.layer.cornerRadius = 30.0
-        avatar.layer.borderWidth = 0.1
-        avatar.layer.borderColor = UIColor.blackColor().CGColor
-        avatar.contentMode = UIViewContentMode.ScaleToFill
-        self.addSubview(avatar)
         
         overlayView = OverlayView(frame: CGRectMake(self.frame.size.width/2-100, 0, 100, 100))
         overlayView.alpha = 0
@@ -80,7 +80,7 @@ class DraggableView: UIView {
     }
 
     func setupView() -> Void {
-        self.layer.cornerRadius = 4;
+        self.layer.cornerRadius = 5;
         self.layer.shadowRadius = 3;
         self.layer.shadowOpacity = 0.2;
         self.layer.shadowOffset = CGSizeMake(1, 1);

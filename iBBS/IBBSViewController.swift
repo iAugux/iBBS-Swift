@@ -15,7 +15,7 @@ import SwiftyJSON
 
 
 class IBBSViewController: IBBSBaseViewController {
-        
+    
     struct MainStoryboard {
         struct CellIdentifiers {
             static let iBBSTableViewCell = "iBBSTableViewCell"
@@ -24,8 +24,8 @@ class IBBSViewController: IBBSBaseViewController {
             static let iBBSTableViewCellNibName = "IBBSTableViewCell"
         }
         struct VCIdentifiers {
-            static let mainDetailVC = "mainDetailViewController"
-            static let postVC = "iBBSPostViewController"
+            static let editVC = "iBBSEditingViewController"
+            static let detailVC = "iBBSDetailViewController"
         }
         struct SegueIdentifiers {
             static let postSegue = "postNewArticle"
@@ -39,12 +39,11 @@ class IBBSViewController: IBBSBaseViewController {
         self.configureTableView()
         self.configureView()
         self.pullUpToLoadmore()
-        //        self.refreshing = true
         self.sendRequest(page)
-        IBBSNodeCatalogueViewController.sharedInstance.sendRequest()
         
+        IBBSNodeCatalogueViewController.sharedInstance.sendRequest()
     }
- 
+    
     func sendRequest(page: Int) {
         
         APIClient.sharedInstance.getLatestTopics(page, success: { (json) -> Void in
@@ -57,10 +56,9 @@ class IBBSViewController: IBBSBaseViewController {
                     
                 }else {
                     let appendArray = json.arrayValue
-
+                    
                     self.datasource? += appendArray
                     self.tableView.reloadData()
-//                    print(self.datasource)
                 }
                 
             }
@@ -72,7 +70,7 @@ class IBBSViewController: IBBSBaseViewController {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        self.navigationController?.hidesBarsOnSwipe = true
+        //        self.navigationController?.hidesBarsOnSwipe = true
         
         /**
         important: if present NavigationController's property of interactivePopGestureRecognizer is enable, we must set it to disable,
@@ -84,7 +82,7 @@ class IBBSViewController: IBBSBaseViewController {
     
     func configureView(){
         self.navigationController?.navigationBarHidden = false
-        //        self.navigationController?.hidesBarsOnSwipe = true
+        
         self.navigationItem.title = "iBBS"
         IBBSContext.sharedInstance.isLogin(){ (isLogin) -> Void in
             if isLogin {
@@ -108,11 +106,15 @@ class IBBSViewController: IBBSBaseViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    
+    
+}
+
+extension IBBSViewController {
     // MARK: - Table view data source
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if datasource != nil {
-            //            print(datasource)
             print(datasource.count)
             return datasource.count
             
@@ -137,15 +139,17 @@ class IBBSViewController: IBBSBaseViewController {
     // MARK: - table view delegate
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let json = self.datasource[indexPath.row]
+        //        if let vc = storyboard?.instantiateViewControllerWithIdentifier(MainStoryboard.VCIdentifiers.detailVC) as? IBBSDetailViewController{
+        //            vc.json = json
+        //            self.navigationController?.pushViewController(vc, animated: true)
+        //        }
         let vc = IBBSDetailViewController()
         vc.json = json
+        vc.navigationController?.navigationBar.hidden = true
         self.navigationController?.pushViewController(vc, animated: true)
-        
     }
     
-    
 }
-
 
 extension IBBSViewController {
     // MARK: - refresh
@@ -188,22 +192,30 @@ extension IBBSViewController {
 extension IBBSViewController: PostViewDelegate {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-//        if segue.identifier == MainStoryboard.SegueIdentifiers.postSegue {
-//            if let nav = segue.destinationViewController as? UINavigationController {
-//                if let destinationVC = nav.viewControllers[0] as? IBBSPostViewController{
-//                    destinationVC.delegate = self
-//                }
-//            }
-//        }
-//        if let vc = storyboard?.instantiateViewControllerWithIdentifier(MainStoryboard.VCIdentifiers.postVC) as? IBBSPostViewController {
-//            vc.delegate = self
-//        }
-        let vc = IBBSPostViewController()
-        vc.delegate = self
+                if segue.identifier == MainStoryboard.SegueIdentifiers.postSegue {
+                    if let nav = segue.destinationViewController as? UINavigationController {
+                        if let destinationVC = nav.viewControllers[0] as? IBBSPostViewController{
+                            destinationVC.delegate = self
+                        }
+                    }
+                }
+//
     }
     func reloadDataAfterPosting() {
         print("reloading")
         self.tableView.reloadData()
         self.automaticPullingDownToRefresh()
     }
+    
+
 }
+
+
+
+
+
+
+
+
+
+

@@ -36,6 +36,7 @@ let LOGIN_TO_READ_MESSAGE      = NSLocalizedString("Need to login, are you sure 
 
 let BUTTON_LOGIN               = NSLocalizedString("Login", comment: "")
 let BUTTON_REGISTER            = NSLocalizedString("Register", comment: "")
+let BUTTON_SEND                = NSLocalizedString("Send", comment: "")
 let INSERT_UID_AND_PASSWD      = NSLocalizedString("Please input your username and password.", comment: "")
 let HOLDER_USERNAME            = NSLocalizedString("username", comment: "")
 let HOLDER_PASSWORD            = NSLocalizedString("password", comment: "")

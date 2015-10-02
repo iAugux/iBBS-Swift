@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		AE8856DA6428C9A9883E641C /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1C292620E723BF3ACB11187 /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		B100A5691BB6D240002092E4 /* UIViewController+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B100A5681BB6D240002092E4 /* UIViewController+Additions.swift */; };
+		B100A5691BB6D240002092E4 /* UIApplication+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B100A5681BB6D240002092E4 /* UIApplication+Additions.swift */; };
 		B1017FF71BAA827200533D61 /* DraggableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1017FF41BAA827200533D61 /* DraggableView.swift */; };
 		B1017FF81BAA827200533D61 /* DraggableViewBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1017FF51BAA827200533D61 /* DraggableViewBackground.swift */; };
 		B1017FF91BAA827200533D61 /* OverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1017FF61BAA827200533D61 /* OverlayView.swift */; };
@@ -147,6 +147,7 @@
 		B1CA72081B96DE74006823B3 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1CA72071B96DE74006823B3 /* APIClient.swift */; };
 		B1CA720A1B96DE96006823B3 /* Alamofire-SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1CA72091B96DE96006823B3 /* Alamofire-SwiftyJSON.swift */; };
 		B1CA721F1B9734DA006823B3 /* IBBSBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1CA721E1B9734DA006823B3 /* IBBSBaseViewController.swift */; };
+		B1CB60961BBC392400FDAE68 /* UIViewController+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1CB60951BBC392400FDAE68 /* UIViewController+Additions.swift */; settings = {ASSET_TAGS = (); }; };
 		B1CF2D331BB31E4100E60B5A /* Encrypt+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1CF2D321BB31E4100E60B5A /* Encrypt+Additions.swift */; };
 		B1F711A11BB83AC900128E26 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B1F711A31BB83AC900128E26 /* Localizable.strings */; };
 		B1F711A61BB83C8300128E26 /* IBBSLocalizableStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F711A51BB83C8300128E26 /* IBBSLocalizableStrings.swift */; };
@@ -154,7 +155,7 @@
 
 /* Begin PBXFileReference section */
 		7125851B10244A76AE990DF6 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
-		B100A5681BB6D240002092E4 /* UIViewController+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Additions.swift"; sourceTree = "<group>"; };
+		B100A5681BB6D240002092E4 /* UIApplication+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIApplication+Additions.swift"; sourceTree = "<group>"; };
 		B1017FF41BAA827200533D61 /* DraggableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DraggableView.swift; sourceTree = "<group>"; };
 		B1017FF51BAA827200533D61 /* DraggableViewBackground.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DraggableViewBackground.swift; sourceTree = "<group>"; };
 		B1017FF61BAA827200533D61 /* OverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayView.swift; sourceTree = "<group>"; };
@@ -311,6 +312,7 @@
 		B1CA72091B96DE96006823B3 /* Alamofire-SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Alamofire-SwiftyJSON.swift"; sourceTree = "<group>"; };
 		B1CA72191B972434006823B3 /* iBBS-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iBBS-Bridging-Header.h"; sourceTree = "<group>"; };
 		B1CA721E1B9734DA006823B3 /* IBBSBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSBaseViewController.swift; sourceTree = "<group>"; };
+		B1CB60951BBC392400FDAE68 /* UIViewController+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Additions.swift"; sourceTree = "<group>"; };
 		B1CF2D321BB31E4100E60B5A /* Encrypt+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Encrypt+Additions.swift"; sourceTree = "<group>"; };
 		B1F711A21BB83AC900128E26 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		B1F711A41BB83ACB00128E26 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -347,14 +349,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		B1017FF31BAA827200533D61 /* ReadMessageView */ = {
+		B1017FF31BAA827200533D61 /* Read&ReplyMessageView */ = {
 			isa = PBXGroup;
 			children = (
 				B1017FF41BAA827200533D61 /* DraggableView.swift */,
 				B1017FF51BAA827200533D61 /* DraggableViewBackground.swift */,
 				B1017FF61BAA827200533D61 /* OverlayView.swift */,
 			);
-			name = ReadMessageView;
+			name = "Read&ReplyMessageView";
 			path = TinderSwipeCardsSwift;
 			sourceTree = "<group>";
 		};
@@ -586,7 +588,7 @@
 		B1CA72151B9722A4006823B3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				B1017FF31BAA827200533D61 /* ReadMessageView */,
+				B1017FF31BAA827200533D61 /* Read&ReplyMessageView */,
 				B17939461B96DE08002E1B21 /* IBBSTableViewCell.swift */,
 				B1209C601BA3477B00F75673 /* IBBSTableViewCell.xib */,
 				B15BD5B41BA54BBC00969D36 /* IBBSNodeTableViewCell.swift */,
@@ -615,7 +617,8 @@
 				B1658FC01B9ED48D00BF01EB /* UILabel+Additions.swift */,
 				B148AF191B98A94800D00524 /* UIColor+Additions.swift */,
 				B1CA72091B96DE96006823B3 /* Alamofire-SwiftyJSON.swift */,
-				B100A5681BB6D240002092E4 /* UIViewController+Additions.swift */,
+				B100A5681BB6D240002092E4 /* UIApplication+Additions.swift */,
+				B1CB60951BBC392400FDAE68 /* UIViewController+Additions.swift */,
 			);
 			name = Additions;
 			sourceTree = "<group>";
@@ -882,7 +885,8 @@
 				B197C8211BA730FC00DE0678 /* HRBrightnessCursor.m in Sources */,
 				B15AF5B51BA5763700810969 /* RootNavigationController.swift in Sources */,
 				B11373DB1BB6E32C00DB9D1F /* IBBSEffectViewController.swift in Sources */,
-				B100A5691BB6D240002092E4 /* UIViewController+Additions.swift in Sources */,
+				B1CB60961BBC392400FDAE68 /* UIViewController+Additions.swift in Sources */,
+				B100A5691BB6D240002092E4 /* UIApplication+Additions.swift in Sources */,
 				B1658FC11B9ED48D00BF01EB /* UILabel+Additions.swift in Sources */,
 				B19CDC3E1BB31323000D9AC6 /* HRToast+UIView.swift in Sources */,
 				B15BD5B61BA54BBC00969D36 /* IBBSNodeTableViewCell.swift in Sources */,
