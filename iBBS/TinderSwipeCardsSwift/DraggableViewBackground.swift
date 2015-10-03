@@ -62,7 +62,6 @@ class DraggableViewBackground: UIView, DraggableViewDelegate {
 
     func createDraggableViewWithDataAtIndex(index: NSInteger) -> DraggableView {
         let draggableView = DraggableView(frame: CGRectMake((self.frame.size.width - CARD_WIDTH)/2, (self.frame.size.height - CARD_HEIGHT)/2, CARD_WIDTH, CARD_HEIGHT))
-//        draggableView.information.text = exampleCardLabels[index]
         draggableView.delegate = self
         return draggableView
     }
@@ -109,30 +108,4 @@ class DraggableViewBackground: UIView, DraggableViewDelegate {
         }
     }
 
-    func swipeRight() -> Void {
-        if loadedCards.count <= 0 {
-            return
-        }
-        let dragView: DraggableView = loadedCards[0]
-        dragView.overlayView.setMode(GGOverlayViewMode.GGOverlayViewModeRight)
-        UIView.animateWithDuration(0.2, animations: {
-            () -> Void in
-            dragView.overlayView.alpha = 1
-        })
-        dragView.rightClickAction()
-    }
-
-    func swipeLeft() -> Void {
-        if loadedCards.count <= 0 {
-            return
-        }
-        let dragView: DraggableView = loadedCards[0]
-        dragView.overlayView.setMode(GGOverlayViewMode.GGOverlayViewModeLeft)
-        UIView.animateWithDuration(0.2, animations: {
-            () -> Void in
-            dragView.overlayView.alpha = 1
-        })
-        dragView.leftClickAction()
-
-    }
 }

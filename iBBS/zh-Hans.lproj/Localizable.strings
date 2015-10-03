@@ -33,5 +33,10 @@
 	Register = "\U6ce8\U518c";
 	"Login or Register ?" = "\U767b\U5f55\U8fd8\U662f\U6ce8\U518c\Uff1f";
 	"Need to login, are you sure to login?" = "\U9700\U8981\U767b\U5f55\U624d\U80fd\U67e5\U770b\U6d88\U606f\Uff0c\U786e\U5b9a\U767b\U9646\Uff1f";
-	"Send" = "\U53d1\U9001";
+	Send = "\U53d1\U9001";
+	"Reply failed!" = "\U56de\U590d\U5931\U8d25\Uff01";
+	"Reply successfully!" = "\U56de\U590d\U6210\U529f\Uff01";
+	"Are you sure to give up ?" = "\U786e\U5b9a\U53d6\U6d88\U56de\U590d\U5417\Uff1f";
+	Continue = "\U7ee7\U7eed\U7f16\U8f91";
+	"Give up" = "\U653e\U5f03";
 }

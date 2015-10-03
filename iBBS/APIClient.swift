@@ -14,8 +14,8 @@ import Foundation
 import Alamofire
 import SwiftyJSON
 
-let APIRootURL = "http://127.0.0.1/YABBS/index.php/Home/Api/"
-//let APIRootURL = "http://obbs.sinaapp.com/index.php/Home/Api/"
+//let APIRootURL = "http://127.0.0.1/YABBS/index.php/Home/Api/"
+let APIRootURL = "http://obbs.sinaapp.com/index.php/Home/Api/"
 
 
 class APIClient {
@@ -59,13 +59,24 @@ class APIClient {
         self.getJSONData("messages", parameters: dict, success: success, failure: failure)
     }
     
-    func replyMessage(uid: AnyObject, token: AnyObject, receiver_uid: AnyObject, content: AnyObject, success: (JSON) -> Void, failure: (NSError) -> Void) {
-        let dict = ["uid": uid, "send_to": receiver_uid, "content": content, "token": token]
-        self.postJSONData("reply_message", parameters: dict, success: success, failure: failure)
-    }
+//    func replyMessage(uid: AnyObject, token: AnyObject, receiver_uid: AnyObject, content: AnyObject, success: (JSON) -> Void, failure: (NSError) -> Void) {
+//        let dict = ["uid": uid, "send_to": receiver_uid, "content": content, "token": token]
+//        self.postJSONData("reply_message", parameters: dict, success: success, failure: failure)
+//    }
     
-    func sendMessage(uid: AnyObject, token: AnyObject, receiver_uid: AnyObject, title: AnyObject, content: AnyObject, success: (JSON) -> Void, failure: (NSError) -> Void) {
-        let dict = ["uid": uid, "send_to": receiver_uid, "title": title, "content": content, "token": token]
+    
+    
+    /**
+    - parameter title:        when it's 'ReplyMessage', title can be nil
+
+    */
+    func sendOrReplyMessage(uid: AnyObject, token: AnyObject, receiver_uid: AnyObject, title: AnyObject?, content: AnyObject, success: (JSON) -> Void, failure: (NSError) -> Void) {
+        var dict = [String: AnyObject]()
+        if title == nil {
+            dict = ["uid": uid, "send_to": receiver_uid, "content": content, "token": token]
+        }else{
+            dict = ["uid": uid, "send_to": receiver_uid, "title": title!, "content": content, "token": token]
+        }
         self.postJSONData("send_message", parameters: dict, success: success, failure: failure)
     }
     

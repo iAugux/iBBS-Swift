@@ -42,10 +42,7 @@ class IBBSBaseViewController: UITableViewController {
         super.viewDidLoad()
         self.gearRefreshManager()
         
-        // theme
-        if kShouldCustomizeTheme {
-            self.view.backgroundColor = kThemeColor
-        }
+       
     }
     
     override func didReceiveMemoryWarning() {
@@ -64,6 +61,8 @@ class IBBSBaseViewController: UITableViewController {
     
     private func gearRefreshManager(){
         gearRefreshControl = GearRefreshControl(frame: self.view.bounds)
+        gearRefreshControl.gearTintColor = UIColor.yellowColor()
+        
         gearRefreshControl.addTarget(self, action: "refreshData", forControlEvents: UIControlEvents.ValueChanged)
         refreshControl = gearRefreshControl
         

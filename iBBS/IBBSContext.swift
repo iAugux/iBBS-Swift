@@ -197,10 +197,10 @@ class IBBSContext {
             let avatar = json["avatar"].stringValue
             if avatar.utf16.count == 0 {
                 print("there is no avatar, set a image holder")
-                imageView.image = UIImage(named: "avatar_holder")
+                imageView.image = UIImage(named: "avatar_placeholder")
             }else{
                 if let url = NSURL(string: avatar as String) {
-                    imageView.kf_setImageWithURL(url)
+                    imageView.kf_setImageWithURL(url, placeholderImage: AVATAR_PLACEHOLDER_IMAGE)
                 }
             }
         }

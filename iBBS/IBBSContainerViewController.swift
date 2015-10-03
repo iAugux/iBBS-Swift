@@ -23,7 +23,7 @@ enum SlideOutState {
 class ContainerViewController: UIViewController, UIGestureRecognizerDelegate, ToggleLeftPanelDelegate {
     
     // 0 ~ 320
-    let centerPanelExpandedOffset: CGFloat = kScreenWidth - kExpandedOffSet
+    let centerPanelExpandedOffset: CGFloat = UIScreen.screenWidth() - kExpandedOffSet
     var centerVCFrontBlurView: UIVisualEffectView!
     var centerNavigationController: UINavigationController!
     var mainViewController: UIViewController!
@@ -123,7 +123,7 @@ class ContainerViewController: UIViewController, UIGestureRecognizerDelegate, To
     func animateLeftPanel(shouldExpand: Bool) {
         if (shouldExpand) {
             currentState = .LeftPanelExpanded
-            animateCenterPanelXPosition(kScreenWidth - centerPanelExpandedOffset)
+            animateCenterPanelXPosition(UIScreen.screenWidth() - centerPanelExpandedOffset)
         } else {
             animateCenterPanelXPosition(0) { finished in
                 self.currentState = .collapsed

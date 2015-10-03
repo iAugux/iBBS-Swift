@@ -41,7 +41,7 @@ class IBBSViewController: IBBSBaseViewController {
         self.pullUpToLoadmore()
         self.sendRequest(page)
         
-        IBBSNodeCatalogueViewController.sharedInstance.sendRequest()
+//        IBBSNodeCatalogueViewController.sharedInstance.sendRequest()
     }
     
     func sendRequest(page: Int) {

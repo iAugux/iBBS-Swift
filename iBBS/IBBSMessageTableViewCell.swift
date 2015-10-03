@@ -49,7 +49,7 @@ class IBBSMessageTableViewCell: UITableViewCell {
     
     func loadDataToCell(json: JSON) {
         let imageUrl = NSURL(string: json["sender_avatar"].stringValue)
-        avatarImageView.kf_setImageWithURL(imageUrl!)
+        avatarImageView.kf_setImageWithURL(imageUrl!, placeholderImage: AVATAR_PLACEHOLDER_IMAGE)
         timeLabel.text = json["send_time"].stringValue
         contentLabel.text = json["title"].stringValue
         

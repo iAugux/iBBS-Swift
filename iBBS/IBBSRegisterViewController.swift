@@ -20,7 +20,7 @@ class IBBSRegisterViewController: UIViewController {
             avatarImageView.layer.borderWidth = 0.3
             avatarImageView.layer.borderColor = UIColor.blackColor().CGColor
             avatarImageView.backgroundColor = UIColor(red:0.887, green:0.945, blue:0.331, alpha:0.854)
-            avatarImageView.image = UIImage(named: "avatar_holder")
+            avatarImageView.image = UIImage(named: "avatar_placeholder")
         }
     }
     @IBOutlet var usernameTextField: UITextField!

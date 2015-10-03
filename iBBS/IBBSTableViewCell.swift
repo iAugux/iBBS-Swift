@@ -40,12 +40,7 @@ class IBBSTableViewCell: UITableViewCell {
 
         self.separatorInset                  = UIEdgeInsetsZero
         self.layoutMargins                   = UIEdgeInsetsZero
-        
-        // theme
-        if kShouldCustomizeTheme {
-            self.backgroundColor = kThemeColor
-        }
-
+ 
     }
     
     override func setSelected(selected: Bool, animated: Bool) {
@@ -56,7 +51,7 @@ class IBBSTableViewCell: UITableViewCell {
 
     func loadDataToCell(json: JSON){
         let avatarUrl                        = NSURL(string: json["avatar"].stringValue)
-        self.userProfireImage.kf_setImageWithURL(avatarUrl!)
+        self.userProfireImage.kf_setImageWithURL(avatarUrl!, placeholderImage: AVATAR_PLACEHOLDER_IMAGE)
         self.topicLabel?.text                = json["title"].stringValue
         self.userName.text                   = json["username"].stringValue
         self.nodeName.text                   = json["board"].stringValue

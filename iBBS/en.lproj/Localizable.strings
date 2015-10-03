@@ -33,5 +33,10 @@
 	Register = Register;
 	"Login or Register ?" = "Login or Register ?";
 	"Need to login, are you sure to login?" = "Need to login, are you sure to login?";
-    "Send" = "Send";
+	Send = Send;
+	"Reply failed!" = "Reply failed!";
+	"Reply successfully!" = "Reply successfully!";
+	"Are you sure to give up ?" = "Are you sure to give up ?";
+    "Continue" = "Continue";
+    "Give up" = "Give up";
 }

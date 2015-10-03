@@ -13,6 +13,7 @@
 import Foundation
 
 extension NSString {
+    
     func ausCalculateSize(size: CGSize, font: UIFont) -> CGSize {
         var expectedLabelSize: CGSize = CGSizeZero
         let paragraphStyle = NSMutableParagraphStyle()

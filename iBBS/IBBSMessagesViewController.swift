@@ -26,10 +26,10 @@ class IBBSMessagesViewController: IBBSBaseViewController {
     var messageCard: DraggableView!
     var replyCard: DraggableView!
     var insertBlurView: UIVisualEffectView!
-    var infoLabel: UILabel!
     var currentSenderUserID: String!
     var currentSenderUsername: String!
     var currentSenderUserAvatarUrl: NSURL!
+    var replyCardTextViewPlaceholder: String!
     
     var keyboardHeight = CGFloat() {
         didSet{
@@ -41,7 +41,6 @@ class IBBSMessagesViewController: IBBSBaseViewController {
         super.viewDidLoad()
         self.configureTableView()
         self.navigationItem.title = MESSAGES
-        self.configureInfoLabel()
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
@@ -72,10 +71,8 @@ class IBBSMessagesViewController: IBBSBaseViewController {
                 APIClient.sharedInstance.getMessages(userID!, token: token!, success: { (json ) -> Void in
                     print(json)
                     if json == nil {
-                        self.infoLabel.hidden = false
                         //                        UIApplication.topMostViewController()?.view.makeToast(message: "There is no message yet...", duration: 3, position: HRToastPositionCenter)
                     }else{
-                        self.infoLabel.hidden = true
                         
                     }
                     self.messageArray = json.arrayValue
@@ -115,16 +112,8 @@ class IBBSMessagesViewController: IBBSBaseViewController {
     }
     
     func removeViews(){
-        self.draggableBackground.removeFromSuperview()
-        self.insertBlurView.removeFromSuperview()
-    }
-    
-    func configureInfoLabel(){
-        infoLabel = UILabel(frame: CGRectMake(0, kScreenHeight / 3, kScreenWidth, 20))
-        infoLabel.text = NO_MESSAGE_YET
-        infoLabel.textAlignment = NSTextAlignment.Center
-        self.view.addSubview(infoLabel)
-        infoLabel.hidden = true
+        self.draggableBackground?.removeFromSuperview()
+        self.insertBlurView?.removeFromSuperview()
     }
     
     private func configureDraggableViews(){
@@ -151,18 +140,14 @@ class IBBSMessagesViewController: IBBSBaseViewController {
     
     
     private func addDraggableViewWithAnimation(){
-        //        let rootView = self.parentViewController?.parentViewController?.view
-        //        UIView.transitionWithView(rootView!, duration: 0.5, options: UIViewAnimationOptions.CurveEaseOut, animations: { () -> Void in
-        //            rootView?.addSubview(self.draggableBackground)
-        //
-        //            }, completion: nil)
-        //        self.parentViewController?.parentViewController?.view.addSubview(self.draggableBackground)
+        
         draggableBackground.transform = CGAffineTransformMakeScale(0.01, 0.01)
         UIView.animateWithDuration(0.1, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: { () -> Void in
             UIApplication.topMostViewController()?.view.addSubview(self.draggableBackground)
             self.draggableBackground.transform = CGAffineTransformIdentity
             
             }) { (_) -> Void in
+                
         }
     }
     
@@ -197,7 +182,7 @@ class IBBSMessagesViewController: IBBSBaseViewController {
         //        let username = messageContent["msg"]["username"].stringValue
         messageCard = self.draggableBackground.allCards[0]
         messageCard.content.text = content
-        messageCard.avatar.kf_setImageWithURL(avatarUrl)
+        messageCard.avatar.kf_setImageWithURL(avatarUrl, placeholderImage: AVATAR_PLACEHOLDER_IMAGE)
         if !isAdmin {
             messageCard.avatar.backgroundColor = UIColor.blackColor()
             messageCard.avatar.image = UIImage(named: "administrator")
@@ -262,6 +247,65 @@ class IBBSMessagesViewController: IBBSBaseViewController {
 
 
 extension IBBSMessagesViewController: DraggableViewDelegate {
+    
+    // MARK: - reply message
+    private func readyToReplyMessage() {
+        if let info = IBBSContext.sharedInstance.getLoginData() {
+            let uid = info["uid"].stringValue
+            let token = info["token"].stringValue
+            let receiver_uid = self.currentSenderUserID
+            let title = "@\(self.currentSenderUsername)"
+            let content = (self.replyCard.content.text).stringByTrimmingCharactersInSet(NSCharacterSet(charactersInString: self.replyCardTextViewPlaceholder))
+            if content.utf8.count == 0 {
+                let alert = UIAlertController(title: "", message: YOU_HAVENOT_WROTE_ANYTHING, preferredStyle: .Alert)
+                let okAction = UIAlertAction(title: GOT_IT, style: .Cancel, handler: { (_) -> Void in
+                    self.showReplyCardAgainIfSomethingWrong()
+                })
+                alert.addAction(okAction)
+                let delayInSeconds: Double = 1
+                let delta = Int64(Double(NSEC_PER_SEC) * delayInSeconds)
+                let popTime = dispatch_time(DISPATCH_TIME_NOW,delta)
+                dispatch_after(popTime, dispatch_get_main_queue(), {
+                    self.presentViewController(alert, animated: true, completion: nil)
+                })
+
+                return
+            }
+            
+            APIClient.sharedInstance.sendOrReplyMessage(uid, token: token, receiver_uid: receiver_uid, title: title, content: content, success: { (json) -> Void in
+                print(json)
+                // send successfully
+                if json["code"].intValue == 1 {
+                    UIApplication.topMostViewController()?.view.makeToast(message: REPLY_SUCCESSFULLY, duration: 1, position: HRToastPositionTop)
+                    
+                }else { // failed
+                    let msg = json["msg"].stringValue
+                    let alert = UIAlertController(title: REPLY_FAILED, message: msg, preferredStyle: .Alert)
+                    let cancelAction = UIAlertAction(title: BUTTON_CANCEL, style: .Cancel, handler: nil)
+                    let continueAction = UIAlertAction(title: TRY_AGAIN, style: .Default, handler: { (_ ) -> Void in
+                        print("try again")
+                        self.showReplyCardAgainIfSomethingWrong()
+                    })
+                    
+                    alert.addAction(cancelAction)
+                    alert.addAction(continueAction)
+                    let delayInSeconds: Double = 1
+                    let delta = Int64(Double(NSEC_PER_SEC) * delayInSeconds)
+                    let popTime = dispatch_time(DISPATCH_TIME_NOW,delta)
+                    dispatch_after(popTime, dispatch_get_main_queue(), {
+                        self.presentViewController(alert, animated: true, completion: nil)
+                    })
+
+                }
+                }, failure: { (error ) -> Void in
+                    print(error)
+            })
+            
+        }
+        
+    }
+    
+    // MARK: - configure reply card
     private func removeViewsWithDelay(){
         let delayInSeconds: Double = 0.5
         let delta = Int64(Double(NSEC_PER_SEC) * delayInSeconds)
@@ -272,31 +316,61 @@ extension IBBSMessagesViewController: DraggableViewDelegate {
         
     }
     
+    private func showReplyCardAgainIfSomethingWrong() {
+        self.configureDraggableViews()
+        self.replyCard = self.draggableBackground?.allCards.first
+        self.configureReplyCard()
+        self.addDraggableViewWithAnimation()
+    }
+    
     private func performAfterSwiping(card card: UIView, left: Bool) {
+        
         if SWIPE_LEFT_TO_CANCEL_RIGHT_TO_CONTINUE == left {
             print("swiped left")
-            self.removeViewsWithDelay()
+            if card == messageCard {
+                self.removeViewsWithDelay()
+            }
+            else if card == replyCard {
+                let replyContentTempText = self.replyCard?.content?.text
+
+                let alert = UIAlertController(title: "", message: ARE_YOU_SURE_TO_GIVE_UP, preferredStyle: .Alert)
+                let continueAction = UIAlertAction(title: BUTTON_CONTINUE, style: .Default, handler: { (_) -> Void in
+                    self.removeViews()
+                    self.showReplyCardAgainIfSomethingWrong()
+                    self.replyCard.content?.text = replyContentTempText
+                })
+                let cancelAction = UIAlertAction(title: BUTTON_GIVE_UP, style: .Cancel, handler: { _ in
+                    self.removeViews()
+                })
+                
+                alert.addAction(continueAction)
+                alert.addAction(cancelAction)
+                let delayInSeconds: Double = 0.5
+                let delta = Int64(Double(NSEC_PER_SEC) * delayInSeconds)
+                let popTime = dispatch_time(DISPATCH_TIME_NOW,delta)
+                dispatch_after(popTime, dispatch_get_main_queue(), {
+                    self.presentViewController(alert, animated: true, completion: nil)
+                })
+
+            }
         }else{
             print("swiped right")
             if card == messageCard {
                 self.draggableBackground.loadCards()
+                replyCard = self.draggableBackground?.allCards.last
+
                 self.configureReplyCard()
             }
-            print("##############################")
-            print(card)
-            print("##############################")
-
-            if card == replyCard {
+            else if card == replyCard {
                 print("reply card swiping right")
                 self.removeViewsWithDelay()
+                self.readyToReplyMessage()
             }
-            
             
         }
     }
     
     private func configureReplyCard(){
-        replyCard = self.draggableBackground?.allCards.last
         replyCard.delegate = self
         let cardWidth = replyCard.frame.size.width
         let cardHeight = replyCard.frame.size.height
@@ -304,7 +378,7 @@ extension IBBSMessagesViewController: DraggableViewDelegate {
         //            replyCard.avatar.frame = CGRectMake(cardWidth - 28, 4, 24, 24)
         replyCard.avatar.frame = CGRectMake(cardWidth / 2 - 12, 4, 24, 24)
         replyCard.avatar.layer.cornerRadius = 12.0
-        replyCard.avatar.kf_setImageWithURL(self.currentSenderUserAvatarUrl)
+        replyCard.avatar.kf_setImageWithURL(self.currentSenderUserAvatarUrl, placeholderImage: AVATAR_PLACEHOLDER_IMAGE)
         
         
         replyCard.content.frame = CGRectMake(16, 35, cardWidth - 32, cardHeight - 45)
@@ -314,6 +388,8 @@ extension IBBSMessagesViewController: DraggableViewDelegate {
         //            replyCard.content.layer.borderColor = UIColor(red:0.69, green:0.73, blue:0.77, alpha:1).CGColor
         replyCard.content.textAlignment = NSTextAlignment.Left
         replyCard.content.editable = true
+        replyCardTextViewPlaceholder = " @\(self.currentSenderUsername):  "
+        replyCard.content.text = replyCardTextViewPlaceholder
         
         let separator = UIView(frame: CGRectMake(16, 34, cardWidth - 32, 0.5))
         separator.backgroundColor = UIColor(red:0.874, green:0.913, blue:0.956, alpha:1)
@@ -327,11 +403,11 @@ extension IBBSMessagesViewController: DraggableViewDelegate {
         let popTime = dispatch_time(DISPATCH_TIME_NOW,delta)
         dispatch_after(popTime, dispatch_get_main_queue(), {
             
-            UIView.animateWithDuration(0.5, animations: { () -> Void in
+            UIView.animateWithDuration(0.2, animations: { () -> Void in
                 self.replyCard.content.becomeFirstResponder()
                 
-                self.replyCard.frame = CGRectMake(16, 50, kScreenWidth - 32, kScreenHeight - 50 - 8 - self.keyboardHeight)
-                self.replyCard.content.frame = CGRectMake(16, 35, cardWidth - 32, kScreenHeight - 50 - 45 - 8 - self.keyboardHeight)
+                self.replyCard.frame = CGRectMake(16, 50, UIScreen.screenWidth() - 32, UIScreen.screenHeight() - 50 - 8 - self.keyboardHeight)
+                self.replyCard.content.frame = CGRectMake(16, 35, cardWidth - 32, UIScreen.screenHeight() - 50 - 45 - 8 - self.keyboardHeight)
                 
             })
         })
@@ -342,12 +418,10 @@ extension IBBSMessagesViewController: DraggableViewDelegate {
     // MARK: - draggable view delegate
     func cardSwipedLeft(card: UIView) {
         self.performAfterSwiping(card: card, left: true)
-        print(card)
     }
     
     func cardSwipedRight(card: UIView) {
         self.performAfterSwiping(card: card, left: false)
-        print(card)
     }
     
     // MARK: - keyboard notification
@@ -365,8 +439,8 @@ extension IBBSMessagesViewController: DraggableViewDelegate {
     func animateToKeyboardHeight(kbHeight: CGFloat, duration: Double) {
         print("keyboardHeight: \(kbHeight), duration: \(duration)")
         self.keyboardHeight = kbHeight
-        replyCard.frame = CGRectMake(16, 50, kScreenWidth - 32, kScreenHeight - 50 - 8 - kbHeight)
-        replyCard.content.frame = CGRectMake(16, 35, replyCard.frame.width - 32, kScreenHeight - 50 - 45 - 8 - kbHeight)
+        replyCard?.frame = CGRectMake(16, 50, UIScreen.screenWidth() - 32, UIScreen.screenHeight() - 50 - 8 - kbHeight)
+        replyCard?.content.frame = CGRectMake(16, 35, replyCard.frame.width - 32, UIScreen.screenHeight() - 50 - 45 - 8 - kbHeight)
     }
     
 }

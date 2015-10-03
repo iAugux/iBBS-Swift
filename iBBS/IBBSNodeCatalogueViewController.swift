@@ -36,7 +36,9 @@ class IBBSNodeCatalogueViewController: UITableViewController {
         super.viewDidAppear(animated)
         self.navigationController?.interactivePopGestureRecognizer?.enabled = false
         
+        self.sendRequest()
     }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -111,6 +113,7 @@ class IBBSNodeCatalogueViewController: UITableViewController {
         
     }
     
+    // MARK: - table view delegate
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         

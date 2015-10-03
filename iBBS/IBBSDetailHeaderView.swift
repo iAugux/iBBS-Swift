@@ -25,6 +25,7 @@ class IBBSDetailHeaderView: UIView {
             avatarImageView.clipsToBounds      = true
             avatarImageView.layer.borderWidth  = 0.3
             avatarImageView.layer.borderColor  = UIColor.blackColor().CGColor
+            avatarImageView.backgroundColor    = UIColor.randomColor()
         }
     }
     
@@ -37,7 +38,7 @@ class IBBSDetailHeaderView: UIView {
     func loadData(json: JSON){
         
         let avatarUrl = NSURL(string: json["avatar"].stringValue)
-        avatarImageView.kf_setImageWithURL(avatarUrl!)
+        avatarImageView.kf_setImageWithURL(avatarUrl!, placeholderImage: AVATAR_PLACEHOLDER_IMAGE)
         usernameLabel?.text = json["username"].stringValue
         headerTitleLabel?.text = json["title"].stringValue.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
         timeLabel?.text = json["post_time"].stringValue

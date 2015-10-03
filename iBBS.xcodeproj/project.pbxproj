@@ -11,7 +11,6 @@
 		B100A5691BB6D240002092E4 /* UIApplication+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B100A5681BB6D240002092E4 /* UIApplication+Additions.swift */; };
 		B1017FF71BAA827200533D61 /* DraggableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1017FF41BAA827200533D61 /* DraggableView.swift */; };
 		B1017FF81BAA827200533D61 /* DraggableViewBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1017FF51BAA827200533D61 /* DraggableViewBackground.swift */; };
-		B1017FF91BAA827200533D61 /* OverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1017FF61BAA827200533D61 /* OverlayView.swift */; };
 		B10CA7CA1B9F0BCD0065AF07 /* UIScreen+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10CA7C91B9F0BCD0065AF07 /* UIScreen+Additions.swift */; };
 		B11373DB1BB6E32C00DB9D1F /* IBBSEffectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B11373DA1BB6E32C00DB9D1F /* IBBSEffectViewController.swift */; };
 		B113B0471BA196BF004ECFA0 /* arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B113B0421BA196BF004ECFA0 /* arrow@2x.png */; };
@@ -158,7 +157,6 @@
 		B100A5681BB6D240002092E4 /* UIApplication+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIApplication+Additions.swift"; sourceTree = "<group>"; };
 		B1017FF41BAA827200533D61 /* DraggableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DraggableView.swift; sourceTree = "<group>"; };
 		B1017FF51BAA827200533D61 /* DraggableViewBackground.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DraggableViewBackground.swift; sourceTree = "<group>"; };
-		B1017FF61BAA827200533D61 /* OverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayView.swift; sourceTree = "<group>"; };
 		B10CA7C91B9F0BCD0065AF07 /* UIScreen+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScreen+Additions.swift"; sourceTree = "<group>"; };
 		B11373DA1BB6E32C00DB9D1F /* IBBSEffectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSEffectViewController.swift; sourceTree = "<group>"; };
 		B113B0421BA196BF004ECFA0 /* arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow@2x.png"; sourceTree = "<group>"; };
@@ -354,7 +352,6 @@
 			children = (
 				B1017FF41BAA827200533D61 /* DraggableView.swift */,
 				B1017FF51BAA827200533D61 /* DraggableViewBackground.swift */,
-				B1017FF61BAA827200533D61 /* OverlayView.swift */,
 			);
 			name = "Read&ReplyMessageView";
 			path = TinderSwipeCardsSwift;
@@ -844,7 +841,6 @@
 				B1017FF81BAA827200533D61 /* DraggableViewBackground.swift in Sources */,
 				B124B9F31BA9BB92000034CC /* IBBSMessageTableViewCell.swift in Sources */,
 				B1CF2D331BB31E4100E60B5A /* Encrypt+Additions.swift in Sources */,
-				B1017FF91BAA827200533D61 /* OverlayView.swift in Sources */,
 				B197C81E1BA730FC00DE0678 /* CYRTextStorage.m in Sources */,
 				B1455C171B9AB5640025B517 /* NSString+Addtions.swift in Sources */,
 				B179394E1B96DE08002E1B21 /* IBBSSlidePanelViewController.swift in Sources */,

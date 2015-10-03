@@ -103,7 +103,7 @@ class IBBSDetailViewController: IBBSBaseViewController, UIGestureRecognizerDeleg
     }
     
     func configureCornerCommentButton(){
-        cornerCommentButton = UIButton(frame: CGRectMake(kScreenWidth - 66, kScreenHeight - 110, 40, 40))
+        cornerCommentButton = UIButton(frame: CGRectMake(UIScreen.screenWidth() - 66, UIScreen.screenHeight() - 110, 40, 40))
         cornerCommentButton.layer.cornerRadius = 20.0
         cornerCommentButton.clipsToBounds = true
         cornerCommentButton.backgroundColor = UIColor(red:0.854, green:0.113, blue:0.223, alpha:1)
@@ -240,7 +240,7 @@ class IBBSDetailViewController: IBBSBaseViewController, UIGestureRecognizerDeleg
     //        let text = titleForHeaderInSection()
     //        let labelSize = text!.sizeWithAttributes([NSFontAttributeName: UIFont.systemFontOfSize(TITLE_FOR_HEADER_IN_SECTION_FONT_SIZE)])
     //        let titleLabel = UILabel(frame: CGRectMake(0, 0, labelSize.width , labelSize.height))
-    //        let headerViewForSection = UITableViewHeaderFooterView(frame: CGRectMake(0, 0, kScreenWidth, 22))
+    //        let headerViewForSection = UITableViewHeaderFooterView(frame: CGRectMake(0, 0, UIScreen.screenWidth(), 22))
     //        titleLabel.text = text as? String
     //        titleLabel.font = UIFont.systemFontOfSize(TITLE_FOR_HEADER_IN_SECTION_FONT_SIZE)
     //

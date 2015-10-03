@@ -37,6 +37,8 @@ let LOGIN_TO_READ_MESSAGE      = NSLocalizedString("Need to login, are you sure 
 let BUTTON_LOGIN               = NSLocalizedString("Login", comment: "")
 let BUTTON_REGISTER            = NSLocalizedString("Register", comment: "")
 let BUTTON_SEND                = NSLocalizedString("Send", comment: "")
+let BUTTON_CONTINUE            = NSLocalizedString("Continue", comment: "")
+let BUTTON_GIVE_UP             = NSLocalizedString("Give up", comment: "")
 let INSERT_UID_AND_PASSWD      = NSLocalizedString("Please input your username and password.", comment: "")
 let HOLDER_USERNAME            = NSLocalizedString("username", comment: "")
 let HOLDER_PASSWORD            = NSLocalizedString("password", comment: "")
@@ -46,4 +48,6 @@ let ERROR_MESSAGE              = NSLocalizedString("Error Message", comment: "")
 let SURE_TO_LOGOUT             = NSLocalizedString("Are you sure to logout ?", comment: "")
 let REGISTER_OR_LOGIN          = NSLocalizedString("Login or Register ?", comment: "")
 
-
+let REPLY_FAILED               = NSLocalizedString("Reply failed!", comment: "")
+let REPLY_SUCCESSFULLY         = NSLocalizedString("Reply successfully!", comment: "")
+let ARE_YOU_SURE_TO_GIVE_UP    = NSLocalizedString("Are you sure to give up ?", comment: "Are you sure to cancel replying ?")

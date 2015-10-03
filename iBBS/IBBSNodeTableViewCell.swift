@@ -49,7 +49,7 @@ class IBBSNodeTableViewCell: UITableViewCell {
     func loadDataToCell(json: JSON){
         let avatarUrl                        = NSURL(string: json["avatar"].stringValue)
         print(avatarUrl)
-        self.userProfireImage.kf_setImageWithURL(avatarUrl!)
+        self.userProfireImage.kf_setImageWithURL(avatarUrl!, placeholderImage: AVATAR_PLACEHOLDER_IMAGE)
         self.topicLabel?.text                = json["title"].stringValue
         self.userName.text                   = json["username"].stringValue
         self.postTime.text                   = json["post_time"].stringValue

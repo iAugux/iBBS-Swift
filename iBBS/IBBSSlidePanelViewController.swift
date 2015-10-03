@@ -123,7 +123,7 @@ class SlidePanelViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     
-    // MARK: - table view delegate
+    // MARK: - table view data source
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
@@ -146,7 +146,7 @@ class SlidePanelViewController: UIViewController, UITableViewDataSource, UITable
     
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = UIView(frame: CGRectMake(0, 0, kScreenWidth, 50))
+        let headerView = UIView(frame: CGRectMake(0, 0, UIScreen.screenWidth(), 50))
         headerView.backgroundColor = UIColor.grayColor()
         headerView.alpha = 0.3
         
@@ -156,8 +156,11 @@ class SlidePanelViewController: UIViewController, UITableViewDataSource, UITable
         return 70
     }
     
+    
+    // MARK: - table view delegate
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        print("ok")
+        let alertView = UIAlertView(title: "Coming soon...", message: "", delegate: nil, cancelButtonTitle: "OK")
+        alertView.show()
     }
     
 }

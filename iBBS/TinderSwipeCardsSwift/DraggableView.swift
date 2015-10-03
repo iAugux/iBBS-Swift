@@ -25,8 +25,6 @@ class DraggableView: UIView {
     var delegate: DraggableViewDelegate!
     var panGestureRecognizer: UIPanGestureRecognizer!
     var originPoint: CGPoint!
-    var overlayView: OverlayView!
-//    var information: UILabel!
     var xFromCenter: Float!
     var yFromCenter: Float!
     var avatar: UIImageView!
@@ -39,18 +37,9 @@ class DraggableView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.setupView()
-        self.frame = CGRectMake(16, 50, kScreenWidth - 32, kScreenHeight - 80)
+        self.frame = CGRectMake(16, 50, UIScreen.screenWidth() - 32, UIScreen.screenHeight() - 80)
         self.backgroundColor = UIColor.randomColor()
 
-//        information = UILabel(frame: CGRectMake(8, 60, self.frame.size.width - 16, self.frame.size.height - 75))
-//        information.numberOfLines = 0
-////        information.backgroundColor = UIColor.grayColor()
-//        information.text = "no info given"
-//        information.textAlignment = NSTextAlignment.Center
-//        information.textColor = UIColor.blackColor()
-//        self.addSubview(information)
-
-//        panGestureRecognizer = UIPanGestureRecognizer(target: self, action: "beingDragged:")
         panGestureRecognizer = PanDirectionGestureRecognizer(direction: .Horizontal, target: self, action: "beingDragged:")
 
         self.addGestureRecognizer(panGestureRecognizer)
@@ -72,9 +61,6 @@ class DraggableView: UIView {
         content.textColor = UIColor.blackColor()
         self.addSubview(content)
         
-        overlayView = OverlayView(frame: CGRectMake(self.frame.size.width/2-100, 0, 100, 100))
-        overlayView.alpha = 0
-        self.addSubview(overlayView)
         xFromCenter = 0
         yFromCenter = 0
     }
@@ -103,7 +89,6 @@ class DraggableView: UIView {
             let transform = CGAffineTransformMakeRotation(CGFloat(rotationAngle))
             let scaleTransform = CGAffineTransformScale(transform, CGFloat(scale), CGFloat(scale))
             self.transform = scaleTransform
-            self.updateOverlay(CGFloat(xFromCenter))
         case UIGestureRecognizerState.Ended:
             self.afterSwipeAction()
         case UIGestureRecognizerState.Possible:
@@ -115,15 +100,6 @@ class DraggableView: UIView {
         default:
             break
         }
-    }
-
-    func updateOverlay(distance: CGFloat) -> Void {
-        if distance > 0 {
-            overlayView.setMode(GGOverlayViewMode.GGOverlayViewModeRight)
-        } else {
-            overlayView.setMode(GGOverlayViewMode.GGOverlayViewModeLeft)
-        }
-        overlayView.alpha = CGFloat(min(fabsf(Float(distance))/100, 0.4))
     }
 
     func afterSwipeAction() -> Void {
@@ -138,7 +114,6 @@ class DraggableView: UIView {
             UIView.animateWithDuration(0.3, animations: {() -> Void in
                 self.center = self.originPoint
                 self.transform = CGAffineTransformMakeRotation(0)
-                self.overlayView.alpha = 0
             })
         }
     }
@@ -168,29 +143,5 @@ class DraggableView: UIView {
         delegate.cardSwipedLeft(self)
     }
 
-    func rightClickAction() -> Void {
-        let finishPoint = CGPointMake(600, self.center.y)
-        UIView.animateWithDuration(0.3,
-            animations: {
-                self.center = finishPoint
-                self.transform = CGAffineTransformMakeRotation(1)
-            }, completion: {
-                (value: Bool) in
-                self.removeFromSuperview()
-        })
-        delegate.cardSwipedRight(self)
-    }
 
-    func leftClickAction() -> Void {
-        let finishPoint: CGPoint = CGPointMake(-600, self.center.y)
-        UIView.animateWithDuration(0.3,
-            animations: {
-                self.center = finishPoint
-                self.transform = CGAffineTransformMakeRotation(1)
-            }, completion: {
-                (value: Bool) in
-                self.removeFromSuperview()
-        })
-        delegate.cardSwipedLeft(self)
-    }
 }
