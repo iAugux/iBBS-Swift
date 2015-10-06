@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="15B17c" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Kxb-TR-yzk">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9052" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Kxb-TR-yzk">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9040"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -22,6 +22,69 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zmZ-JV-fcz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-200.625" y="-706.69014084507035"/>
+        </scene>
+        <!--Nodes Collection View Controller-->
+        <scene sceneID="j1x-5G-arI">
+            <objects>
+                <collectionViewController storyboardIdentifier="iBBSNodesCollectionViewController" id="VIq-t0-wMI" customClass="IBBSNodesCollectionViewController" customModule="iBBS" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="43V-fM-VFm">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <animations/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="tIn-46-guO">
+                            <size key="itemSize" width="100" height="100"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="10" minY="10" maxX="10" maxY="10"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="iBBSNodesCollectionViewCell" id="mVa-SJ-6nV" customClass="IBBSNodesCollectionViewCell" customModule="iBBS" customModuleProvider="target">
+                                <rect key="frame" x="10" y="74" width="100" height="100"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6ye-A2-BAS">
+                                            <rect key="frame" x="5" y="5" width="90" height="90"/>
+                                            <animations/>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6UE-2A-B8X">
+                                            <rect key="frame" x="29" y="39.5" width="42" height="20.5"/>
+                                            <animations/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <animations/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="trailingMargin" secondItem="6ye-A2-BAS" secondAttribute="trailing" constant="-3" id="0tq-39-c4a"/>
+                                    <constraint firstItem="6ye-A2-BAS" firstAttribute="leading" secondItem="mVa-SJ-6nV" secondAttribute="leadingMargin" constant="-3" id="3rh-QY-EnH"/>
+                                    <constraint firstItem="6ye-A2-BAS" firstAttribute="top" secondItem="mVa-SJ-6nV" secondAttribute="topMargin" constant="-3" id="K5u-69-WIg"/>
+                                    <constraint firstItem="6UE-2A-B8X" firstAttribute="centerX" secondItem="mVa-SJ-6nV" secondAttribute="centerX" id="S9C-ZN-J4D"/>
+                                    <constraint firstItem="6UE-2A-B8X" firstAttribute="centerY" secondItem="mVa-SJ-6nV" secondAttribute="centerY" id="pc7-PK-clC"/>
+                                    <constraint firstItem="6ye-A2-BAS" firstAttribute="bottom" secondItem="mVa-SJ-6nV" secondAttribute="bottomMargin" constant="3" id="yOt-PO-jEC"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="imageView" destination="6ye-A2-BAS" id="m2Y-du-bpS"/>
+                                    <outlet property="infoLabel" destination="6UE-2A-B8X" id="Apt-ev-skK"/>
+                                </connections>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="VIq-t0-wMI" id="0fH-Py-quf"/>
+                            <outlet property="delegate" destination="VIq-t0-wMI" id="NBA-mq-Seh"/>
+                        </connections>
+                    </collectionView>
+                    <navigationItem key="navigationItem" id="yXh-Bq-Ooe"/>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Jtu-BL-AkH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-201" y="8"/>
         </scene>
         <!--Detail View Controller-->
         <scene sceneID="HuC-Lc-mC7">
@@ -63,16 +126,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dwu-IB-DuB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1434" y="-707"/>
-        </scene>
-        <!--Node Catalogue View Controller-->
-        <scene sceneID="JJk-fE-nHI">
-            <objects>
-                <tableViewController storyboardIdentifier="iBBSNodeCatalogueViewController" id="lbF-HR-uRW" customClass="IBBSNodeCatalogueViewController" customModule="iBBS" customModuleProvider="target" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="7r0-Wf-tV0"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="jSa-tl-aTL" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-185.625" y="8.4507042253521121"/>
         </scene>
         <!--Node View Controller-->
         <scene sceneID="83w-xd-DKK">
@@ -217,7 +270,6 @@
                             </textField>
                         </subviews>
                         <animations/>
-                        <color key="backgroundColor" red="1" green="0.87988919019699097" blue="0.16853547096252441" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="c2O-pE-rDM" firstAttribute="centerX" secondItem="D2B-Q8-hEN" secondAttribute="centerX" id="1NQ-jW-MYT"/>
                             <constraint firstItem="i9Q-pI-oc4" firstAttribute="top" secondItem="gl7-7M-nnN" secondAttribute="top" constant="6" id="6lZ-2A-6Ml"/>
@@ -272,7 +324,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Okh-bE-T3D">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="135"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login" translatesAutoresizingMaskIntoConstraints="NO" id="ljr-27-UBM">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ljr-27-UBM">
                                         <rect key="frame" x="26" y="33" width="70" height="70"/>
                                         <animations/>
                                         <color key="backgroundColor" red="0.47847002744674683" green="0.73548442125320435" blue="0.98495453596115112" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
@@ -312,7 +364,6 @@
                             </tableView>
                         </subviews>
                         <animations/>
-                        <color key="backgroundColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="WhN-Ml-bqX" firstAttribute="top" secondItem="Okh-bE-T3D" secondAttribute="bottom" id="8Cw-Ua-iNs"/>
                             <constraint firstItem="Okh-bE-T3D" firstAttribute="top" secondItem="sGU-et-oCD" secondAttribute="top" id="Yq3-sK-baJ"/>
@@ -384,7 +435,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="lbF-HR-uRW" kind="relationship" relationship="rootViewController" id="Pa0-hJ-oa0"/>
+                        <segue destination="VIq-t0-wMI" kind="relationship" relationship="rootViewController" id="a7n-eW-xgf"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jVj-Uj-Zd3" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -435,7 +486,7 @@
         <!--Navigation Controller-->
         <scene sceneID="oAS-oA-qNR">
             <objects>
-                <navigationController id="KeS-cg-uVx" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="iBBSEditingNavigationController" id="KeS-cg-uVx" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="7Fp-8q-Xol"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
@@ -640,7 +691,6 @@
         <image name="cancel_button" width="50" height="50"/>
         <image name="continue" width="50" height="50"/>
         <image name="home" width="50" height="50"/>
-        <image name="login" width="140" height="140"/>
         <image name="node" width="50" height="50"/>
     </resources>
 </document>

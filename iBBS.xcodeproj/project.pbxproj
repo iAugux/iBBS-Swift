@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		AE8856DA6428C9A9883E641C /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1C292620E723BF3ACB11187 /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		B100A5691BB6D240002092E4 /* UIApplication+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B100A5681BB6D240002092E4 /* UIApplication+Additions.swift */; };
+		B100A5691BB6D240002092E4 /* TopMostViewController+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B100A5681BB6D240002092E4 /* TopMostViewController+Additions.swift */; };
 		B1017FF71BAA827200533D61 /* DraggableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1017FF41BAA827200533D61 /* DraggableView.swift */; };
 		B1017FF81BAA827200533D61 /* DraggableViewBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1017FF51BAA827200533D61 /* DraggableViewBackground.swift */; };
 		B10CA7CA1B9F0BCD0065AF07 /* UIScreen+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10CA7C91B9F0BCD0065AF07 /* UIScreen+Additions.swift */; };
@@ -18,6 +18,7 @@
 		B113B0491BA196BF004ECFA0 /* RefreshConst.swift in Sources */ = {isa = PBXBuildFile; fileRef = B113B0441BA196BF004ECFA0 /* RefreshConst.swift */; };
 		B113B04A1BA196BF004ECFA0 /* RefreshFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B113B0451BA196BF004ECFA0 /* RefreshFooterView.swift */; };
 		B113B04B1BA196BF004ECFA0 /* UIScrollView+Refresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = B113B0461BA196BF004ECFA0 /* UIScrollView+Refresh.swift */; };
+		B11722AF1BC1A4A500EFFBC5 /* IBBSIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B11722AE1BC1A4A500EFFBC5 /* IBBSIdentifiers.swift */; };
 		B1209C611BA3477B00F75673 /* IBBSTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B1209C601BA3477B00F75673 /* IBBSTableViewCell.xib */; };
 		B124B9F31BA9BB92000034CC /* IBBSMessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B124B9F11BA9BB92000034CC /* IBBSMessageTableViewCell.swift */; };
 		B124B9F41BA9BB92000034CC /* IBBSMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B124B9F21BA9BB92000034CC /* IBBSMessageTableViewCell.xib */; };
@@ -37,7 +38,7 @@
 		B1658FC11B9ED48D00BF01EB /* UILabel+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1658FC01B9ED48D00BF01EB /* UILabel+Additions.swift */; };
 		B1658FC31B9ED98300BF01EB /* UITextView+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1658FC21B9ED98300BF01EB /* UITextView+Additions.swift */; };
 		B165BCEA1BA940DC00036477 /* IBBSCommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B165BCE91BA940DC00036477 /* IBBSCommentViewController.swift */; };
-		B165BCEC1BA9662B00036477 /* IBBSContents.swift in Sources */ = {isa = PBXBuildFile; fileRef = B165BCEB1BA9662B00036477 /* IBBSContents.swift */; };
+		B165BCEC1BA9662B00036477 /* IBBSConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B165BCEB1BA9662B00036477 /* IBBSConstants.swift */; };
 		B17939321B96DDD3002E1B21 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17939311B96DDD3002E1B21 /* AppDelegate.swift */; };
 		B17939391B96DDD3002E1B21 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B17939381B96DDD3002E1B21 /* Assets.xcassets */; };
 		B179393C1B96DDD3002E1B21 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B179393A1B96DDD3002E1B21 /* LaunchScreen.storyboard */; };
@@ -46,6 +47,7 @@
 		B179394B1B96DE08002E1B21 /* IBBSTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17939461B96DE08002E1B21 /* IBBSTableViewCell.swift */; };
 		B179394D1B96DE08002E1B21 /* IBBSContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17939481B96DE08002E1B21 /* IBBSContainerViewController.swift */; };
 		B179394E1B96DE08002E1B21 /* IBBSSlidePanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17939491B96DE08002E1B21 /* IBBSSlidePanelViewController.swift */; };
+		B17A17ED1BC0071B003EE184 /* CheckEmailAddress+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17A17EC1BC0071B003EE184 /* CheckEmailAddress+Additions.swift */; };
 		B1848CD11BB06AE500EEFA85 /* PanDirectionGestureRecognizer+Addtions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1848CD01BB06AE500EEFA85 /* PanDirectionGestureRecognizer+Addtions.swift */; };
 		B197C7D41BA730FC00DE0678 /* editor.html in Resources */ = {isa = PBXBuildFile; fileRef = B197C76D1BA730FC00DE0678 /* editor.html */; };
 		B197C7D51BA730FC00DE0678 /* ZSSbgcolor.png in Resources */ = {isa = PBXBuildFile; fileRef = B197C76F1BA730FC00DE0678 /* ZSSbgcolor.png */; };
@@ -139,22 +141,24 @@
 		B199E3201BA9B1250088DFC5 /* IBBSMessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B199E31F1BA9B1250088DFC5 /* IBBSMessagesViewController.swift */; };
 		B19CDC3E1BB31323000D9AC6 /* HRToast+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19CDC3D1BB31323000D9AC6 /* HRToast+UIView.swift */; };
 		B1B097CB1BA42F1E009B02E2 /* IBBSTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B097CA1BA42F1E009B02E2 /* IBBSTabBarController.swift */; };
-		B1B097CD1BA43A86009B02E2 /* IBBSNodeCatalogueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B097CC1BA43A86009B02E2 /* IBBSNodeCatalogueViewController.swift */; };
+		B1B097CD1BA43A86009B02E2 /* IBBSNodesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B097CC1BA43A86009B02E2 /* IBBSNodesCollectionViewController.swift */; };
 		B1C105D31BA1D4730088DBCB /* IBBSNodesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1C105D21BA1D4730088DBCB /* IBBSNodesCell.swift */; };
 		B1C5F5F81BA80B2400CAF514 /* IBBSEditingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1C5F5F71BA80B2400CAF514 /* IBBSEditingViewController.swift */; };
 		B1C5F5FA1BA8338400CAF514 /* IBBSContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1C5F5F91BA8338400CAF514 /* IBBSContext.swift */; };
 		B1CA72081B96DE74006823B3 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1CA72071B96DE74006823B3 /* APIClient.swift */; };
 		B1CA720A1B96DE96006823B3 /* Alamofire-SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1CA72091B96DE96006823B3 /* Alamofire-SwiftyJSON.swift */; };
 		B1CA721F1B9734DA006823B3 /* IBBSBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1CA721E1B9734DA006823B3 /* IBBSBaseViewController.swift */; };
-		B1CB60961BBC392400FDAE68 /* UIViewController+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1CB60951BBC392400FDAE68 /* UIViewController+Additions.swift */; settings = {ASSET_TAGS = (); }; };
+		B1CB60961BBC392400FDAE68 /* UIViewController+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1CB60951BBC392400FDAE68 /* UIViewController+Additions.swift */; };
 		B1CF2D331BB31E4100E60B5A /* Encrypt+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1CF2D321BB31E4100E60B5A /* Encrypt+Additions.swift */; };
+		B1D27C551BC3B002006153BB /* IBBSNodesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D27C541BC3B002006153BB /* IBBSNodesCollectionViewCell.swift */; };
+		B1D27C571BC4109F006153BB /* IBBSCustomSelectedBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D27C561BC4109F006153BB /* IBBSCustomSelectedBackgroundView.swift */; };
 		B1F711A11BB83AC900128E26 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B1F711A31BB83AC900128E26 /* Localizable.strings */; };
 		B1F711A61BB83C8300128E26 /* IBBSLocalizableStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F711A51BB83C8300128E26 /* IBBSLocalizableStrings.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		7125851B10244A76AE990DF6 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
-		B100A5681BB6D240002092E4 /* UIApplication+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIApplication+Additions.swift"; sourceTree = "<group>"; };
+		B100A5681BB6D240002092E4 /* TopMostViewController+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TopMostViewController+Additions.swift"; sourceTree = "<group>"; };
 		B1017FF41BAA827200533D61 /* DraggableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DraggableView.swift; sourceTree = "<group>"; };
 		B1017FF51BAA827200533D61 /* DraggableViewBackground.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DraggableViewBackground.swift; sourceTree = "<group>"; };
 		B10CA7C91B9F0BCD0065AF07 /* UIScreen+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScreen+Additions.swift"; sourceTree = "<group>"; };
@@ -164,6 +168,7 @@
 		B113B0441BA196BF004ECFA0 /* RefreshConst.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RefreshConst.swift; sourceTree = "<group>"; };
 		B113B0451BA196BF004ECFA0 /* RefreshFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RefreshFooterView.swift; sourceTree = "<group>"; };
 		B113B0461BA196BF004ECFA0 /* UIScrollView+Refresh.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Refresh.swift"; sourceTree = "<group>"; };
+		B11722AE1BC1A4A500EFFBC5 /* IBBSIdentifiers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSIdentifiers.swift; sourceTree = "<group>"; };
 		B1209C601BA3477B00F75673 /* IBBSTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IBBSTableViewCell.xib; sourceTree = "<group>"; };
 		B124B9F11BA9BB92000034CC /* IBBSMessageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSMessageTableViewCell.swift; sourceTree = "<group>"; };
 		B124B9F21BA9BB92000034CC /* IBBSMessageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IBBSMessageTableViewCell.xib; sourceTree = "<group>"; };
@@ -183,7 +188,7 @@
 		B1658FC01B9ED48D00BF01EB /* UILabel+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+Additions.swift"; sourceTree = "<group>"; };
 		B1658FC21B9ED98300BF01EB /* UITextView+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextView+Additions.swift"; sourceTree = "<group>"; };
 		B165BCE91BA940DC00036477 /* IBBSCommentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSCommentViewController.swift; sourceTree = "<group>"; };
-		B165BCEB1BA9662B00036477 /* IBBSContents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSContents.swift; sourceTree = "<group>"; };
+		B165BCEB1BA9662B00036477 /* IBBSConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSConstants.swift; sourceTree = "<group>"; };
 		B179392E1B96DDD3002E1B21 /* iBBS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iBBS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B17939311B96DDD3002E1B21 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B17939381B96DDD3002E1B21 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -194,6 +199,7 @@
 		B17939461B96DE08002E1B21 /* IBBSTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSTableViewCell.swift; sourceTree = "<group>"; };
 		B17939481B96DE08002E1B21 /* IBBSContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSContainerViewController.swift; sourceTree = "<group>"; };
 		B17939491B96DE08002E1B21 /* IBBSSlidePanelViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSSlidePanelViewController.swift; sourceTree = "<group>"; };
+		B17A17EC1BC0071B003EE184 /* CheckEmailAddress+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CheckEmailAddress+Additions.swift"; sourceTree = "<group>"; };
 		B1848CD01BB06AE500EEFA85 /* PanDirectionGestureRecognizer+Addtions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PanDirectionGestureRecognizer+Addtions.swift"; sourceTree = "<group>"; };
 		B197C76D1BA730FC00DE0678 /* editor.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = editor.html; sourceTree = "<group>"; };
 		B197C76F1BA730FC00DE0678 /* ZSSbgcolor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ZSSbgcolor.png; sourceTree = "<group>"; };
@@ -301,7 +307,7 @@
 		B199E31F1BA9B1250088DFC5 /* IBBSMessagesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSMessagesViewController.swift; sourceTree = "<group>"; };
 		B19CDC3D1BB31323000D9AC6 /* HRToast+UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HRToast+UIView.swift"; sourceTree = "<group>"; };
 		B1B097CA1BA42F1E009B02E2 /* IBBSTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSTabBarController.swift; sourceTree = "<group>"; };
-		B1B097CC1BA43A86009B02E2 /* IBBSNodeCatalogueViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSNodeCatalogueViewController.swift; sourceTree = "<group>"; };
+		B1B097CC1BA43A86009B02E2 /* IBBSNodesCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSNodesCollectionViewController.swift; sourceTree = "<group>"; };
 		B1C105D21BA1D4730088DBCB /* IBBSNodesCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSNodesCell.swift; sourceTree = "<group>"; };
 		B1C292620E723BF3ACB11187 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1C5F5F71BA80B2400CAF514 /* IBBSEditingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSEditingViewController.swift; sourceTree = "<group>"; };
@@ -312,6 +318,8 @@
 		B1CA721E1B9734DA006823B3 /* IBBSBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSBaseViewController.swift; sourceTree = "<group>"; };
 		B1CB60951BBC392400FDAE68 /* UIViewController+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Additions.swift"; sourceTree = "<group>"; };
 		B1CF2D321BB31E4100E60B5A /* Encrypt+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Encrypt+Additions.swift"; sourceTree = "<group>"; };
+		B1D27C541BC3B002006153BB /* IBBSNodesCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSNodesCollectionViewCell.swift; sourceTree = "<group>"; };
+		B1D27C561BC4109F006153BB /* IBBSCustomSelectedBackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSCustomSelectedBackgroundView.swift; sourceTree = "<group>"; };
 		B1F711A21BB83AC900128E26 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		B1F711A41BB83ACB00128E26 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		B1F711A51BB83C8300128E26 /* IBBSLocalizableStrings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSLocalizableStrings.swift; sourceTree = "<group>"; };
@@ -373,8 +381,9 @@
 			isa = PBXGroup;
 			children = (
 				B1CA72071B96DE74006823B3 /* APIClient.swift */,
+				B11722AE1BC1A4A500EFFBC5 /* IBBSIdentifiers.swift */,
 				B1C5F5F91BA8338400CAF514 /* IBBSContext.swift */,
-				B165BCEB1BA9662B00036477 /* IBBSContents.swift */,
+				B165BCEB1BA9662B00036477 /* IBBSConstants.swift */,
 				B1F711A51BB83C8300128E26 /* IBBSLocalizableStrings.swift */,
 			);
 			name = Models;
@@ -406,8 +415,8 @@
 				B1CA72141B972299006823B3 /* Controllers */,
 				B1CA72151B9722A4006823B3 /* Views */,
 				B148AF141B982E1C00D00524 /* Models */,
-				B1CA72041B96DE55006823B3 /* ThirdParty */,
 				B1CA72161B9722CE006823B3 /* Additions */,
+				B1CA72041B96DE55006823B3 /* ThirdParty */,
 				B1CA72131B97220F006823B3 /* Supporting Files */,
 				B17939431B96DDF3002E1B21 /* Main.storyboard */,
 				B179393D1B96DDD3002E1B21 /* Info.plist */,
@@ -551,10 +560,10 @@
 		B1CA72131B97220F006823B3 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				B1F711A31BB83AC900128E26 /* Localizable.strings */,
 				B1CA72191B972434006823B3 /* iBBS-Bridging-Header.h */,
 				B17939381B96DDD3002E1B21 /* Assets.xcassets */,
 				B179393A1B96DDD3002E1B21 /* LaunchScreen.storyboard */,
-				B1F711A31BB83AC900128E26 /* Localizable.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -568,7 +577,7 @@
 				B17939451B96DE08002E1B21 /* IBBSViewController.swift */,
 				B148AF171B98572900D00524 /* IBBSDetailViewController.swift */,
 				B165BCE91BA940DC00036477 /* IBBSCommentViewController.swift */,
-				B1B097CC1BA43A86009B02E2 /* IBBSNodeCatalogueViewController.swift */,
+				B1B097CC1BA43A86009B02E2 /* IBBSNodesCollectionViewController.swift */,
 				B15BD5B81BA54C8100969D36 /* IBBSNodeViewController.swift */,
 				B1C5F5F71BA80B2400CAF514 /* IBBSEditingViewController.swift */,
 				B197C82B1BA73D1D00DE0678 /* IBBSPostViewController.swift */,
@@ -597,6 +606,8 @@
 				B148AF1B1B98B1D800D00524 /* IBBSReplyCell.swift */,
 				B148AF1C1B98B1D800D00524 /* IBBSReplyCell.xib */,
 				B1C105D21BA1D4730088DBCB /* IBBSNodesCell.swift */,
+				B1D27C541BC3B002006153BB /* IBBSNodesCollectionViewCell.swift */,
+				B1D27C561BC4109F006153BB /* IBBSCustomSelectedBackgroundView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -614,7 +625,8 @@
 				B1658FC01B9ED48D00BF01EB /* UILabel+Additions.swift */,
 				B148AF191B98A94800D00524 /* UIColor+Additions.swift */,
 				B1CA72091B96DE96006823B3 /* Alamofire-SwiftyJSON.swift */,
-				B100A5681BB6D240002092E4 /* UIApplication+Additions.swift */,
+				B100A5681BB6D240002092E4 /* TopMostViewController+Additions.swift */,
+				B17A17EC1BC0071B003EE184 /* CheckEmailAddress+Additions.swift */,
 				B1CB60951BBC392400FDAE68 /* UIViewController+Additions.swift */,
 			);
 			name = Additions;
@@ -840,6 +852,7 @@
 				B197C8231BA730FC00DE0678 /* HRColorCursor.m in Sources */,
 				B1017FF81BAA827200533D61 /* DraggableViewBackground.swift in Sources */,
 				B124B9F31BA9BB92000034CC /* IBBSMessageTableViewCell.swift in Sources */,
+				B1D27C571BC4109F006153BB /* IBBSCustomSelectedBackgroundView.swift in Sources */,
 				B1CF2D331BB31E4100E60B5A /* Encrypt+Additions.swift in Sources */,
 				B197C81E1BA730FC00DE0678 /* CYRTextStorage.m in Sources */,
 				B1455C171B9AB5640025B517 /* NSString+Addtions.swift in Sources */,
@@ -865,7 +878,7 @@
 				B148AF181B98572900D00524 /* IBBSDetailViewController.swift in Sources */,
 				B1CA721F1B9734DA006823B3 /* IBBSBaseViewController.swift in Sources */,
 				B197C8201BA730FC00DE0678 /* CYRToken.m in Sources */,
-				B1B097CD1BA43A86009B02E2 /* IBBSNodeCatalogueViewController.swift in Sources */,
+				B1B097CD1BA43A86009B02E2 /* IBBSNodesCollectionViewController.swift in Sources */,
 				B197C8251BA730FC00DE0678 /* HRColorPickerViewController.m in Sources */,
 				B197C81D1BA730FC00DE0678 /* CYRLayoutManager.m in Sources */,
 				B1658FC31B9ED98300BF01EB /* UITextView+Additions.swift in Sources */,
@@ -874,23 +887,26 @@
 				B15BD5B91BA54C8100969D36 /* IBBSNodeViewController.swift in Sources */,
 				B197C8221BA730FC00DE0678 /* HRCgUtil.m in Sources */,
 				B1C5F5FA1BA8338400CAF514 /* IBBSContext.swift in Sources */,
+				B1D27C551BC3B002006153BB /* IBBSNodesCollectionViewCell.swift in Sources */,
 				B197C8261BA730FC00DE0678 /* HRColorUtil.m in Sources */,
 				B179394D1B96DE08002E1B21 /* IBBSContainerViewController.swift in Sources */,
 				B197C8271BA730FC00DE0678 /* ZSSBarButtonItem.m in Sources */,
+				B17A17ED1BC0071B003EE184 /* CheckEmailAddress+Additions.swift in Sources */,
 				B1B097CB1BA42F1E009B02E2 /* IBBSTabBarController.swift in Sources */,
 				B197C8211BA730FC00DE0678 /* HRBrightnessCursor.m in Sources */,
 				B15AF5B51BA5763700810969 /* RootNavigationController.swift in Sources */,
 				B11373DB1BB6E32C00DB9D1F /* IBBSEffectViewController.swift in Sources */,
 				B1CB60961BBC392400FDAE68 /* UIViewController+Additions.swift in Sources */,
-				B100A5691BB6D240002092E4 /* UIApplication+Additions.swift in Sources */,
+				B100A5691BB6D240002092E4 /* TopMostViewController+Additions.swift in Sources */,
 				B1658FC11B9ED48D00BF01EB /* UILabel+Additions.swift in Sources */,
 				B19CDC3E1BB31323000D9AC6 /* HRToast+UIView.swift in Sources */,
 				B15BD5B61BA54BBC00969D36 /* IBBSNodeTableViewCell.swift in Sources */,
 				B113B04B1BA196BF004ECFA0 /* UIScrollView+Refresh.swift in Sources */,
-				B165BCEC1BA9662B00036477 /* IBBSContents.swift in Sources */,
+				B165BCEC1BA9662B00036477 /* IBBSConstants.swift in Sources */,
 				B148AF1D1B98B1D800D00524 /* IBBSReplyCell.swift in Sources */,
 				B17939321B96DDD3002E1B21 /* AppDelegate.swift in Sources */,
 				B197C8241BA730FC00DE0678 /* HRColorPickerView.m in Sources */,
+				B11722AF1BC1A4A500EFFBC5 /* IBBSIdentifiers.swift in Sources */,
 				B197C8291BA730FC00DE0678 /* ZSSRichTextEditor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

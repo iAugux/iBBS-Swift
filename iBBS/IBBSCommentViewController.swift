@@ -34,9 +34,18 @@ class IBBSCommentViewController: ZSSRichTextEditor {
         self.toolbarItemTintColor = UIColor.blackColor()
         
         // Set the toolbar selected color
-        self.toolbarItemSelectedTintColor = UIColor.redColor()
+        self.toolbarItemSelectedTintColor = CUSTOM_THEME_COLOR
         
     }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.tintColor = CUSTOM_THEME_COLOR
+        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : CUSTOM_THEME_COLOR]
+        
+    }
+    
+
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
@@ -68,7 +77,7 @@ class IBBSCommentViewController: ZSSRichTextEditor {
                 if json["code"].intValue == 1 { //comment successfully
                     self.view?.makeToast(message: msg, duration: 3, position: HRToastPositionTop)
                     
-                    let delayInSeconds: Double = 0.5
+                    let delayInSeconds: Double = 0.3
                     let delta = Int64(Double(NSEC_PER_SEC) * delayInSeconds)
                     let popTime = dispatch_time(DISPATCH_TIME_NOW,delta)
                     dispatch_after(popTime, dispatch_get_main_queue(), {
@@ -101,13 +110,14 @@ class IBBSCommentViewController: ZSSRichTextEditor {
                self.focusTextEditor()
         }
         alertController.addAction(action)
+        alertController.view.tintColor = CUSTOM_THEME_COLOR
         self.presentViewController(alertController, animated: true, completion: nil)
     }
     
     override func showInsertURLAlternatePicker(){
         self.dismissAlertView()
         let picker = IBBSPickerViewController()
-        picker.demoViewForCommenting = self
+//        picker.demoViewForCommenting = self
         let nav = UINavigationController()
         nav.navigationBar.translucent = false
         self.presentViewController(nav, animated: true, completion: nil)
@@ -117,7 +127,7 @@ class IBBSCommentViewController: ZSSRichTextEditor {
     override func showInsertImageAlternatePicker() {
         self.dismissAlertView()
         let picker = IBBSPickerViewController()
-        picker.demoViewForCommenting = self
+//        picker.demoViewForCommenting = self
         picker.isInsertImagePicker = true
         let nav = UINavigationController()
         nav.navigationBar.translucent = false

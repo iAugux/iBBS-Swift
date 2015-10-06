@@ -13,25 +13,7 @@
 import UIKit
 import SwiftyJSON
 
-
 class IBBSViewController: IBBSBaseViewController {
-    
-    struct MainStoryboard {
-        struct CellIdentifiers {
-            static let iBBSTableViewCell = "iBBSTableViewCell"
-        }
-        struct NibNames {
-            static let iBBSTableViewCellNibName = "IBBSTableViewCell"
-        }
-        struct VCIdentifiers {
-            static let editVC = "iBBSEditingViewController"
-            static let detailVC = "iBBSDetailViewController"
-        }
-        struct SegueIdentifiers {
-            static let postSegue = "postNewArticle"
-        }
-    }
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,14 +22,27 @@ class IBBSViewController: IBBSBaseViewController {
         self.configureView()
         self.pullUpToLoadmore()
         self.sendRequest(page)
+        IBBSConfigureNodesInfo.sharedInstance.configureNodesInfo()
+    }
+    
+       
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        //        self.navigationController?.hidesBarsOnSwipe = true
         
-//        IBBSNodeCatalogueViewController.sharedInstance.sendRequest()
+        /**
+        important: if present NavigationController's property of interactivePopGestureRecognizer is enable, we must set it to disable,
+        otherwise if we call UIScreenEdgePanGestureRecognizer on present ViewController it will crash.
+        */
+        //        self.navigationController?.interactivePopGestureRecognizer?.delegate = nil
+        self.navigationController?.interactivePopGestureRecognizer?.enabled = false
     }
     
     func sendRequest(page: Int) {
         
         APIClient.sharedInstance.getLatestTopics(page, success: { (json) -> Void in
             if json == nil && page != 1 {
+                
                 UIApplication.topMostViewController()?.view?.makeToast(message: NO_MORE_DATA, duration: TIME_OF_TOAST_OF_NO_MORE_DATA, position: HRToastPositionCenter)
             }
             if json.type == Type.Array {
@@ -68,24 +63,12 @@ class IBBSViewController: IBBSBaseViewController {
         })
     }
     
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        //        self.navigationController?.hidesBarsOnSwipe = true
-        
-        /**
-        important: if present NavigationController's property of interactivePopGestureRecognizer is enable, we must set it to disable,
-        otherwise if we call UIScreenEdgePanGestureRecognizer on present ViewController it will crash.
-        */
-        //        self.navigationController?.interactivePopGestureRecognizer?.delegate = nil
-        self.navigationController?.interactivePopGestureRecognizer?.enabled = false
-    }
-    
     func configureView(){
         self.navigationController?.navigationBarHidden = false
         
         self.navigationItem.title = "iBBS"
-        IBBSContext.sharedInstance.isLogin(){ (isLogin) -> Void in
-            if isLogin {
+        IBBSContext.sharedInstance.isTokenLegal(){ (isTokenLegal) -> Void in
+            if isTokenLegal {
                 if let data = IBBSContext.sharedInstance.getLoginData() {
                     let username = data["username"].stringValue
                     self.navigationItem.title = username
@@ -95,7 +78,7 @@ class IBBSViewController: IBBSBaseViewController {
     }
     
     func configureTableView(){
-        tableView.registerNib(UINib(nibName: MainStoryboard.NibNames.iBBSTableViewCellNibName, bundle: nil ), forCellReuseIdentifier: MainStoryboard.CellIdentifiers.iBBSTableViewCell)
+        tableView.registerNib(UINib(nibName: MainStoryboard.NibIdentifiers.iBBSTableViewCell, bundle: nil ), forCellReuseIdentifier: MainStoryboard.CellIdentifiers.iBBSTableViewCell)
         tableView.tableFooterView = UIView(frame: CGRectZero)
         tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -106,6 +89,20 @@ class IBBSViewController: IBBSBaseViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    
+    func cornerActionButtonDidTap() {
+        print("editing...")
+        IBBSContext.sharedInstance.isTokenLegal(){ (isTokenLegal) -> Void in
+            if isTokenLegal{
+                self.performSegueWithIdentifier(MainStoryboard.SegueIdentifiers.postSegue, sender: self)
+            }else {
+                self.presentLoginViewControllerIfNotLogin(alertMessage: LOGIN_TO_POST, completion: {self.cornerActionButtonDidTap() })
+                
+            }
+            
+        }
+        
+    }
     
     
 }
@@ -192,30 +189,55 @@ extension IBBSViewController {
 extension IBBSViewController: PostViewDelegate {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-                if segue.identifier == MainStoryboard.SegueIdentifiers.postSegue {
-                    if let nav = segue.destinationViewController as? UINavigationController {
-                        if let destinationVC = nav.viewControllers[0] as? IBBSPostViewController{
-                            destinationVC.delegate = self
-                        }
-                    }
-                }
-//
+        
+        if segue.identifier == MainStoryboard.SegueIdentifiers.postSegue {
+            if let destinationVC = segue.destinationViewController as? UINavigationController {
+
+                self.presentLoginViewControllerIfNotLogin(alertMessage: LOGIN_TO_POST, completion: {
+                    self.presentViewController(destinationVC, animated: true, completion: nil)
+                })
+            }
+        }
     }
+   
+    
+    // MARK: - post delegate
     func reloadDataAfterPosting() {
         print("reloading")
         self.tableView.reloadData()
         self.automaticPullingDownToRefresh()
     }
     
-
+    
 }
 
-
-
-
-
-
-
-
-
-
+extension UIViewController {
+    public func presentLoginViewControllerIfNotLogin(alertMessage message: String, completion: (() -> Void)?){
+        IBBSContext.sharedInstance.isTokenLegal(){ (isTokenLegal) -> Void in
+            if !isTokenLegal {
+                let loginAlertController = UIAlertController(title: "", message: message, preferredStyle: .Alert)
+                let okAction = UIAlertAction(title: BUTTON_OK, style: .Default, handler: { (_) -> Void in
+                    let vc = IBBSEffectViewController()
+                    vc.modalTransitionStyle = UIModalTransitionStyle.FlipHorizontal
+                    self.presentViewController(vc, animated: true, completion: nil)
+                    
+                    IBBSContext.sharedInstance.login(cancelled: {
+                        vc.dismissViewControllerAnimated(true , completion: nil)
+                        }, completion: {
+                            vc.dismissViewControllerAnimated(true, completion: nil)
+                            
+                            if let completionHandler = completion {
+                                completionHandler()
+                            }
+                    })
+                })
+                let cancelAction = UIAlertAction(title: BUTTON_CANCEL, style: .Cancel , handler: nil)
+                loginAlertController.view.tintColor = CUSTOM_THEME_COLOR
+                loginAlertController.addAction(cancelAction)
+                loginAlertController.addAction(okAction)
+                self.presentViewController(loginAlertController, animated: true, completion: nil)
+                
+            }
+        }
+    }
+}

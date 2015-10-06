@@ -15,10 +15,6 @@ import SwiftyJSON
 
 
 class IBBSMessagesViewController: IBBSBaseViewController {
-    struct Mainstoryboard {
-        static let cellNibName = "IBBSMessageTableViewCell"
-        static let cellIdentifier = "iBBSMessageTableViewCell"
-    }
     
     private var messageArray: [JSON]!
     private var messageContent: JSON!
@@ -50,6 +46,14 @@ class IBBSMessagesViewController: IBBSBaseViewController {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         self.sendRequest()
+
+        // force device to portrait mode
+        if UIInterfaceOrientation.Portrait.isPortrait {
+            let value = UIInterfaceOrientation.Portrait.rawValue
+            UIDevice.currentDevice().setValue(value, forKey: "orientation")
+        }
+       
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -61,9 +65,17 @@ class IBBSMessagesViewController: IBBSBaseViewController {
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.Portrait
+    }
+    
+    override func preferredInterfaceOrientationForPresentation() -> UIInterfaceOrientation {
+        return UIInterfaceOrientation.LandscapeRight
+    }
+    
     func sendRequest(){
-        IBBSContext.sharedInstance.isLogin(){ (isLogin) -> Void in
-            if isLogin {
+        IBBSContext.sharedInstance.isTokenLegal(){ (isTokenLegal) -> Void in
+            if isTokenLegal {
                 let loginData = IBBSContext.sharedInstance.getLoginData()
                 let userID = loginData?["uid"].stringValue
                 let token = loginData?["token"].stringValue
@@ -84,26 +96,10 @@ class IBBSMessagesViewController: IBBSBaseViewController {
                 })
             }else{
                 
-                let loginAlertController = UIAlertController(title: "", message: LOGIN_TO_READ_MESSAGE, preferredStyle: .Alert)
-                let okAction = UIAlertAction(title: BUTTON_OK, style: .Default, handler: { (_) -> Void in
-                    let vc = IBBSEffectViewController()
-                    vc.modalTransitionStyle = UIModalTransitionStyle.FlipHorizontal
-                    self.presentViewController(vc, animated: true, completion: nil)
-                    
-                    IBBSContext.sharedInstance.login(cancelled: {
-                        vc.dismissViewControllerAnimated(true , completion: nil)
-                        }, completion: {
-                            vc.dismissViewControllerAnimated(true, completion: nil)
-                            
-                            self.automaticPullingDownToRefresh()
-                            self.sendRequest()
-                            //                self.tableView.reloadData()
-                    })
+                self.presentLoginViewControllerIfNotLogin(alertMessage: LOGIN_TO_READ_MESSAGE, completion: { () -> Void in
+                    self.automaticPullingDownToRefresh()
+                    self.sendRequest()
                 })
-                let cancelAction = UIAlertAction(title: BUTTON_CANCEL, style: .Cancel , handler: nil)
-                loginAlertController.addAction(cancelAction)
-                loginAlertController.addAction(okAction)
-                self.presentViewController(loginAlertController, animated: true, completion: nil)
             }
             
             
@@ -131,7 +127,7 @@ class IBBSMessagesViewController: IBBSBaseViewController {
     }
     
     private func configureTableView(){
-        tableView.registerNib(UINib(nibName: Mainstoryboard.cellNibName, bundle: nil), forCellReuseIdentifier: Mainstoryboard.cellIdentifier)
+        tableView.registerNib(UINib(nibName: MainStoryboard.NibIdentifiers.messageCell, bundle: nil), forCellReuseIdentifier: MainStoryboard.CellIdentifiers.messageCell)
         tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.tableFooterView = UIView(frame: CGRectZero)
@@ -149,6 +145,12 @@ class IBBSMessagesViewController: IBBSBaseViewController {
             }) { (_) -> Void in
                 
         }
+    }
+    
+    func cornerActionButtonDidTap(){
+        print("editing message...")
+        // TODO: - send message
+        
     }
     
     private func getMessageContent(messageID: AnyObject, indexPath: NSIndexPath, completion: (() -> Void)?){
@@ -198,7 +200,7 @@ class IBBSMessagesViewController: IBBSBaseViewController {
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCellWithIdentifier(Mainstoryboard.cellIdentifier) as? IBBSMessageTableViewCell {
+        if let cell = tableView.dequeueReusableCellWithIdentifier(MainStoryboard.CellIdentifiers.messageCell) as? IBBSMessageTableViewCell {
             if let array = self.messageArray {
                 let json = array[indexPath.row]
                 cell.loadDataToCell(json)
@@ -261,6 +263,7 @@ extension IBBSMessagesViewController: DraggableViewDelegate {
                 let okAction = UIAlertAction(title: GOT_IT, style: .Cancel, handler: { (_) -> Void in
                     self.showReplyCardAgainIfSomethingWrong()
                 })
+                alert.view.tintColor = CUSTOM_THEME_COLOR
                 alert.addAction(okAction)
                 let delayInSeconds: Double = 1
                 let delta = Int64(Double(NSEC_PER_SEC) * delayInSeconds)
@@ -272,7 +275,7 @@ extension IBBSMessagesViewController: DraggableViewDelegate {
                 return
             }
             
-            APIClient.sharedInstance.sendOrReplyMessage(uid, token: token, receiver_uid: receiver_uid, title: title, content: content, success: { (json) -> Void in
+            APIClient.sharedInstance.replyMessage(uid, token: token, receiver_uid: receiver_uid, title: title, content: content, success: { (json) -> Void in
                 print(json)
                 // send successfully
                 if json["code"].intValue == 1 {
@@ -286,7 +289,7 @@ extension IBBSMessagesViewController: DraggableViewDelegate {
                         print("try again")
                         self.showReplyCardAgainIfSomethingWrong()
                     })
-                    
+                    alert.view.tintColor = CUSTOM_THEME_COLOR
                     alert.addAction(cancelAction)
                     alert.addAction(continueAction)
                     let delayInSeconds: Double = 1
@@ -342,7 +345,7 @@ extension IBBSMessagesViewController: DraggableViewDelegate {
                 let cancelAction = UIAlertAction(title: BUTTON_GIVE_UP, style: .Cancel, handler: { _ in
                     self.removeViews()
                 })
-                
+                alert.view.tintColor = CUSTOM_THEME_COLOR
                 alert.addAction(continueAction)
                 alert.addAction(cancelAction)
                 let delayInSeconds: Double = 0.5
@@ -408,7 +411,6 @@ extension IBBSMessagesViewController: DraggableViewDelegate {
                 
                 self.replyCard.frame = CGRectMake(16, 50, UIScreen.screenWidth() - 32, UIScreen.screenHeight() - 50 - 8 - self.keyboardHeight)
                 self.replyCard.content.frame = CGRectMake(16, 35, cardWidth - 32, UIScreen.screenHeight() - 50 - 45 - 8 - self.keyboardHeight)
-                
             })
         })
         

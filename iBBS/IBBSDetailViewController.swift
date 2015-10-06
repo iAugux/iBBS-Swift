@@ -14,20 +14,10 @@ import UIKit
 import SwiftyJSON
 
 class IBBSDetailViewController: IBBSBaseViewController, UIGestureRecognizerDelegate {
-    struct MainStoryboard {
-        struct CellIdentifiers {
-            static let replyCellIdentifier = "iBBSReplyCell"
-        }
-        struct NibNames {
-            static let cellNibName = "IBBSReplyCell"
-            static let headerViewNibName = "IBBSDetailHeaderView"
-        }
-    }
     
     var json: JSON!
     var headerView: IBBSDetailHeaderView!
     var prototypeCell: IBBSReplyCell!
-    var cornerCommentButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,7 +26,7 @@ class IBBSDetailViewController: IBBSBaseViewController, UIGestureRecognizerDeleg
         self.configureHeaderView()
         self.configureTableView()
         self.configureGesture()
-        self.configureCornerCommentButton()
+//        self.configureCornerCommentButton()
         
 //        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Comment", style: .Plain, target: self, action: "commentAction")
     }
@@ -50,31 +40,18 @@ class IBBSDetailViewController: IBBSBaseViewController, UIGestureRecognizerDeleg
 //    }
     
     
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        self.cornerCommentButton.hidden = false
-        
-    }
-    
-    override func viewWillDisappear(animated: Bool) {
-        super.viewWillDisappear(animated)
-        self.cornerCommentButton.hidden = true
-    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-    
-    
-    func commentAction() {
-        
-        IBBSContext.sharedInstance.isLogin(){ (isLogin) -> Void in
-            if isLogin{
+    func cornerActionButtonDidTap() {
+        print("commenting...")
+        IBBSContext.sharedInstance.isTokenLegal(){ (isTokenLegal) -> Void in
+            if isTokenLegal{
                 let post_id = self.json["id"].stringValue
-                let sb = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
-                if let vc = sb.instantiateViewControllerWithIdentifier("iBBSCommentViewController") as? IBBSCommentViewController{
+                if let vc = mainStoryboard.instantiateViewControllerWithIdentifier("iBBSCommentViewController") as? IBBSCommentViewController{
                     vc.post_id = post_id
                     let nav = UINavigationController(rootViewController: vc)
                     self.presentViewController(nav, animated: true, completion: nil)
@@ -82,7 +59,7 @@ class IBBSDetailViewController: IBBSBaseViewController, UIGestureRecognizerDeleg
                 
             }else {
                 IBBSContext.sharedInstance.login(cancelled: nil, completion: {
-                    self.commentAction()
+                    self.cornerActionButtonDidTap()
                 })
             }
 
@@ -90,31 +67,20 @@ class IBBSDetailViewController: IBBSBaseViewController, UIGestureRecognizerDeleg
         
     }
     
-    
     func configureTableView(){
         
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.registerNib(UINib(nibName: MainStoryboard.NibNames.cellNibName, bundle: nil), forCellReuseIdentifier: MainStoryboard.CellIdentifiers.replyCellIdentifier)
+        tableView.registerNib(UINib(nibName: MainStoryboard.NibIdentifiers.replyCell, bundle: nil), forCellReuseIdentifier: MainStoryboard.CellIdentifiers.replyCell)
         tableView.tableFooterView = UIView(frame: CGRectZero)
         tableView.estimatedRowHeight = 90
         tableView.rowHeight = UITableViewAutomaticDimension
         
     }
     
-    func configureCornerCommentButton(){
-        cornerCommentButton = UIButton(frame: CGRectMake(UIScreen.screenWidth() - 66, UIScreen.screenHeight() - 110, 40, 40))
-        cornerCommentButton.layer.cornerRadius = 20.0
-        cornerCommentButton.clipsToBounds = true
-        cornerCommentButton.backgroundColor = UIColor(red:0.854, green:0.113, blue:0.223, alpha:1)
-        cornerCommentButton.setImage(UIImage(named: "plus_button"), forState: .Normal)
-        cornerCommentButton.addTarget(self, action: "commentAction", forControlEvents: .TouchUpInside)
-        UIApplication.topMostViewController()?.view.addSubview(cornerCommentButton)
-        
-    }
     
     func configureHeaderView(){
-        let headerViewNib = NSBundle.mainBundle().loadNibNamed(MainStoryboard.NibNames.headerViewNibName, owner: self, options: nil)
+        let headerViewNib = NSBundle.mainBundle().loadNibNamed(MainStoryboard.NibIdentifiers.headerView, owner: self, options: nil)
         headerView = headerViewNib.first as! IBBSDetailHeaderView
         
         headerView.loadData(json)
@@ -193,7 +159,7 @@ class IBBSDetailViewController: IBBSBaseViewController, UIGestureRecognizerDeleg
     
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCellWithIdentifier(MainStoryboard.CellIdentifiers.replyCellIdentifier) as? IBBSReplyCell {
+        if let cell = tableView.dequeueReusableCellWithIdentifier(MainStoryboard.CellIdentifiers.replyCell) as? IBBSReplyCell {
             let json = datasource[indexPath.row]
             cell.loadDataToCell(json)
             

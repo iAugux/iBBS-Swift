@@ -17,18 +17,7 @@ import SwiftyJSON
 class IBBSNodeViewController: IBBSBaseViewController, UIGestureRecognizerDelegate {
     
     var nodeJSON: JSON?
-    
-    struct MainStoryboard {
-        struct CellIdentifiers {
-            static let iBBSNodeTableViewCell = "iBBSNodeTableViewCell"
-        }
-        struct NibNames {
-            static let iBBSNodeTableViewCellName = "IBBSNodeTableViewCell"
-        }
-        struct VCIdentifiers {
-            static let iBBSDetailVC = "iBBSDetailViewController"
-        }
-    }
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,6 +30,19 @@ class IBBSNodeViewController: IBBSBaseViewController, UIGestureRecognizerDelegat
         self.sendRequest(page)
     }
     
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        //        self.navigationController?.hidesBarsOnSwipe = true
+        
+        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
+        self.navigationController?.interactivePopGestureRecognizer?.enabled = true
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
     
     
     @IBAction func toggleSideMenu(sender: AnyObject) {
@@ -77,14 +79,6 @@ class IBBSNodeViewController: IBBSBaseViewController, UIGestureRecognizerDelegat
         }
     }
     
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-//        self.navigationController?.hidesBarsOnSwipe = true
-        
-        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
-        self.navigationController?.interactivePopGestureRecognizer?.enabled = true
-    }
-    
     func configureView(){
         self.navigationController?.navigationBarHidden = false
         
@@ -96,7 +90,7 @@ class IBBSNodeViewController: IBBSBaseViewController, UIGestureRecognizerDelegat
     }
     
     func configureTableView(){
-        tableView.registerNib(UINib(nibName: MainStoryboard.NibNames.iBBSNodeTableViewCellName, bundle: nil ), forCellReuseIdentifier: MainStoryboard.CellIdentifiers.iBBSNodeTableViewCell)
+        tableView.registerNib(UINib(nibName: MainStoryboard.NibIdentifiers.iBBSNodeTableViewCellName, bundle: nil ), forCellReuseIdentifier: MainStoryboard.CellIdentifiers.iBBSNodeTableViewCell)
         tableView.tableFooterView = UIView(frame: CGRectZero)
         tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -108,11 +102,11 @@ class IBBSNodeViewController: IBBSBaseViewController, UIGestureRecognizerDelegat
         self.view.addGestureRecognizer(edgeGestureRecognizer)
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    func cornerActionButtonDidTap() {
+        print("editing... in node view controller")
+        // TODO: -
     }
-    
+
     // MARK: - Table view data source
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

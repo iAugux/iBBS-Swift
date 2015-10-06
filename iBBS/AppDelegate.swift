@@ -19,19 +19,36 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
-    
+
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         
         // SlideMenu
         application.statusBarStyle = .LightContent
         let containerViewController = ContainerViewController()
-        let homeNav = storyboard.instantiateViewControllerWithIdentifier("homeNav") as! UINavigationController
+        let homeNav = mainStoryboard.instantiateViewControllerWithIdentifier("homeNav") as! UINavigationController
         homeNav.viewControllers[0] = containerViewController
         homeNav.setNavigationBarHidden(true, animated: false)
         window?.rootViewController = homeNav
         
+        
+        // Settings
+        
+        if isIphone3_5Inch {
+            SHOULD_HIDE_NAVIGATIONBAR = true
+        }
+        
         return true
+    }
+    
+    // disable orientation for messages view controller
+    func application(application: UIApplication, supportedInterfaceOrientationsForWindow window: UIWindow?) -> UIInterfaceOrientationMask {
+        if let topMostVC = UIApplication.sharedApplication().keyWindow?.rootViewController?.topMostViewController(){
+            if topMostVC.isKindOfClass(IBBSMessagesViewController.classForCoder()) {
+                return UIInterfaceOrientationMask.Portrait
+            }
+        }
+        return UIInterfaceOrientationMask.All
     }
     
     func applicationWillResignActive(application: UIApplication) {

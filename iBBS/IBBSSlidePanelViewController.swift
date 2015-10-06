@@ -26,6 +26,8 @@ class SlidePanelViewController: UIViewController, UITableViewDataSource, UITable
             userProfileImage.clipsToBounds = true
             userProfileImage.layer.borderColor = UIColor.lightGrayColor().CGColor
             userProfileImage.layer.borderWidth = 0.3
+            userProfileImage.backgroundColor = CUSTOM_THEME_COLOR.darkerColor(0.75)
+            userProfileImage.image = AVATAR_PLACEHOLDER_IMAGE
             self.configureLoginAndLogoutView(userProfileImage)
             
         }
@@ -37,9 +39,10 @@ class SlidePanelViewController: UIViewController, UITableViewDataSource, UITable
     
     override func loadView() {
         super.loadView()
-        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "bg_image_1")!)
+        self.view.backgroundColor = UIColor(patternImage: BACKGROUNDER_IMAGE!)
         blurView = UIVisualEffectView(effect: UIBlurEffect(style: .Light))
-        blurView.frame = self.view.bounds
+        blurView.frame = self.view.frame
+        blurView.alpha = BLUR_VIEW_ALPHA_OF_BG_IMAGE
         self.view.insertSubview(blurView, atIndex: 0)
     }
     
@@ -51,9 +54,26 @@ class SlidePanelViewController: UIViewController, UITableViewDataSource, UITable
         IBBSContext.sharedInstance.configureCurrentUserAvatar(self.userProfileImage)
     }
     
+    override func viewWillAppear(animated: Bool) {
+//        cornerActionButton.hidden = true
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+//        cornerActionButton.hidden = false
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func willRotateToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval) {
+        self.blurView.frame = CGRectMake(0, 0, 750, 750)
+    }
+    
+    override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
+        self.blurView.frame = self.view.frame
     }
     
     func configureLoginAndLogoutView(sender: UIImageView){
@@ -64,18 +84,17 @@ class SlidePanelViewController: UIViewController, UITableViewDataSource, UITable
     
     func loginOrLogout(gesture: UIGestureRecognizer){
         if gesture.state == .Began {
-            IBBSContext.sharedInstance.isLogin(){ (isLogin) -> Void in
-                if isLogin {
-                    // do logout
-                    IBBSContext.sharedInstance.logout(completion: {
-                        self.userProfileImage.image = UIImage(named: "login")
-                    })
-                }else{
-                    // login or register
-                    
-                    self.alertToChooseLoginOrRegister()
-                }
+            
+            if IBBSContext.sharedInstance.getLoginData() == nil {
+                // login or register
+                self.alertToChooseLoginOrRegister()
+            }else{
+                // do logout
+                IBBSContext.sharedInstance.logout(completion: {
+                    self.userProfileImage.image = AVATAR_PLACEHOLDER_IMAGE
+                })
             }
+           
         }
         
     }
@@ -117,6 +136,7 @@ class SlidePanelViewController: UIViewController, UITableViewDataSource, UITable
             
             
         }
+        alertCtrl.view.tintColor = CUSTOM_THEME_COLOR
         alertCtrl.addAction(loginAction)
         alertCtrl.addAction(registerAction)
         self.presentViewController(alertCtrl, animated: true, completion: nil)
@@ -160,6 +180,7 @@ class SlidePanelViewController: UIViewController, UITableViewDataSource, UITable
     // MARK: - table view delegate
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let alertView = UIAlertView(title: "Coming soon...", message: "", delegate: nil, cancelButtonTitle: "OK")
+        alertView.tintColor = CUSTOM_THEME_COLOR
         alertView.show()
     }
     

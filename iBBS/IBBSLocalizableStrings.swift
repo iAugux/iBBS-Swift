@@ -9,6 +9,7 @@
 let TITLE_HOME                 = NSLocalizedString("Home", comment: "")
 let TITLE_NODE                 = NSLocalizedString("Node", comment: "")
 let TITLE_MESSAGE              = NSLocalizedString("Message", comment: "")
+let TITLE_ALL_NODES            = NSLocalizedString("All nodes", comment: "")
 
 
 let NO_MORE_DATA               = NSLocalizedString("There is no more data!", comment: "")
@@ -31,14 +32,15 @@ let I_KNOW                     = NSLocalizedString("I know", comment: "")
 let REGISTER_SUCESSFULLY       = NSLocalizedString("Register sucessfully and logging in...", comment: "")
 let REGISTER_FAILED            = NSLocalizedString("Register failed!", comment: "")
 let SERVER_ERROR               = NSLocalizedString("sorry, something wrong with server...\n😭😭😭", comment: "")
-let LOGIN_TO_READ_MESSAGE      = NSLocalizedString("Need to login, are you sure to login?", comment: "")
-
+let LOGIN_TO_READ_MESSAGE      = NSLocalizedString("login in to read message", comment: "")
+let LOGIN_TO_POST              = NSLocalizedString("login in to post", comment: "")
 
 let BUTTON_LOGIN               = NSLocalizedString("Login", comment: "")
 let BUTTON_REGISTER            = NSLocalizedString("Register", comment: "")
 let BUTTON_SEND                = NSLocalizedString("Send", comment: "")
 let BUTTON_CONTINUE            = NSLocalizedString("Continue", comment: "")
 let BUTTON_GIVE_UP             = NSLocalizedString("Give up", comment: "")
+let BUTTON_NEXT                = NSLocalizedString("Next", comment: "continue, carry on")
 let INSERT_UID_AND_PASSWD      = NSLocalizedString("Please input your username and password.", comment: "")
 let HOLDER_USERNAME            = NSLocalizedString("username", comment: "")
 let HOLDER_PASSWORD            = NSLocalizedString("password", comment: "")

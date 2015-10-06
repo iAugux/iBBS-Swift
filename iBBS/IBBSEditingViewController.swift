@@ -23,7 +23,7 @@ class IBBSEditingViewController: UIViewController, UITextViewDelegate {
             avatarImageView.layer.borderWidth   = 0.3
             avatarImageView.layer.borderColor   = UIColor.blackColor().CGColor
             avatarImageView.layer.cornerRadius  = 30.0
-            avatarImageView.backgroundColor     = UIColor.randomColor()
+            avatarImageView.backgroundColor     = CUSTOM_THEME_COLOR.darkerColor(0.75)
             IBBSContext.sharedInstance.configureCurrentUserAvatar(avatarImageView)
         }
     }
@@ -38,25 +38,26 @@ class IBBSEditingViewController: UIViewController, UITextViewDelegate {
         }
     }
     
-    private let node: JSON? = IBBSContext.sharedInstance.getNodes()
+    private var node: JSON?
     private let nodeID = "board"
     private let articleTitle = "title"
     private let postControllerID = "iBBSPostViewController"
     private let defaultSelectedRow = 2
     private var blurView: UIView!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        IBBSConfigureNodesInfo.sharedInstance.configureNodesInfo()
+        self.node = IBBSContext.sharedInstance.getNodes()
         
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self , action: "cancelAction")
-//        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "cancel_button"), style: UIBarButtonItemStyle.Plain, target: self, action: "cancelAction")
-        
-        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "bg_image")!)
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: BUTTON_NEXT, style: .Plain, target: self, action: "okAction:")
+        self.view.backgroundColor = UIColor(patternImage: BACKGROUNDER_IMAGE!)
         self.blurView = UIVisualEffectView(effect: UIBlurEffect(style: .Light))
         self.blurView.frame = self.view.frame
+        self.blurView.alpha = BLUR_VIEW_ALPHA_OF_BG_IMAGE
         self.view.insertSubview(blurView, atIndex: 0)
   
-        self.prepareForPosting()
         self.nodesPickerView.delegate = self
         self.nodesPickerView.dataSource = self
         self.nodesPickerView.selectRow(defaultSelectedRow, inComponent: 0, animated: true)
@@ -73,14 +74,30 @@ class IBBSEditingViewController: UIViewController, UITextViewDelegate {
             self.contentTextView.becomeFirstResponder()
         })
 
+        
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
-        self.navigationController?.navigationBar.shadowImage = UIImage()
+//        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
+//        self.navigationController?.navigationBar.shadowImage = UIImage()
+//        self.navigationController?.navigationBar.translucent = true
+        
+//        self.navigationController?.navigationBar.backgroundColor = UIColor.redColor()
+        self.navigationController?.navigationBar.tintColor = CUSTOM_THEME_COLOR
+        //        self.navigationController?.navigationBar.barTintColor = UIColor.clearColor()
+        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: CUSTOM_THEME_COLOR]
+
         self.navigationController?.navigationBar.translucent = true
 
+    }
+    
+    override func willRotateToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval) {
+        self.blurView.frame = CGRectMake(0, 0, 750, 750)
+    }
+    
+    override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
+        self.blurView.frame = self.view.frame
     }
     
     func cancelAction(){
@@ -96,9 +113,17 @@ class IBBSEditingViewController: UIViewController, UITextViewDelegate {
         articleArray.setValue(title, forKey: self.articleTitle)
         
         if let title = articleArray.valueForKey(self.articleTitle) as? String {
-            let str = title.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()) as NSString
-            if str.length == 0 {
-                self.configureAlertController()
+            let str = title.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+            if str.utf8.count == 0 {
+                
+                let alertController = UIAlertController(title: "", message: YOU_HAVENOT_WROTE_ANYTHING, preferredStyle: .Alert)
+                let action = UIAlertAction(title: GOT_IT, style: .Cancel) { (_) -> Void in
+                    self.contentTextView.becomeFirstResponder()
+                }
+                alertController.view.tintColor = CUSTOM_THEME_COLOR
+                alertController.addAction(action)
+                self.presentViewController(alertController, animated: true, completion: nil)
+                
                 return
             }
             
@@ -107,25 +132,6 @@ class IBBSEditingViewController: UIViewController, UITextViewDelegate {
         if let vc = storyboard?.instantiateViewControllerWithIdentifier(self.postControllerID) as? IBBSPostViewController {
             self.navigationController?.pushViewController(vc , animated: true)
         }
-    }
-    
-    func prepareForPosting(){
-        IBBSContext.sharedInstance.isLogin(){ (isLogin) -> Void in
-            if !isLogin {
-                IBBSContext.sharedInstance.login(cancelled: nil, completion: {
-                    IBBSContext.sharedInstance.configureCurrentUserAvatar(self.avatarImageView)
-                })
-            }
-        }
-    }
-    
-    func configureAlertController() {
-        let alertController = UIAlertController(title: "", message: YOU_HAVENOT_WROTE_ANYTHING, preferredStyle: .Alert)
-        let action = UIAlertAction(title: GOT_IT, style: .Cancel) { (_) -> Void in
-            self.contentTextView.becomeFirstResponder()
-        }
-        alertController.addAction(action)
-        self.presentViewController(alertController, animated: true, completion: nil)
     }
     
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {

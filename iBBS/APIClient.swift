@@ -22,6 +22,8 @@ class APIClient {
     
     static let sharedInstance = APIClient()
     
+    private init(){}
+    
     func getJSONData(path: String, parameters: [String : AnyObject]?, success: (JSON) -> Void, failure: (NSError) -> Void) {
         Alamofire.request(.GET, APIRootURL + path, parameters: parameters)
             .responseSwiftyJSON { (request, response, json, error) in
@@ -44,9 +46,9 @@ class APIClient {
         }
     }
 
-    func isLogin(uid: AnyObject, token: AnyObject, success: (JSON) -> Void, failure: (NSError) -> Void){
+    func isTokenLegal(uid: AnyObject, token: AnyObject, success: (JSON) -> Void, failure: (NSError) -> Void){
         let param = ["uid": uid, "token": token]
-        self.getJSONData("isLogin", parameters: param, success: success, failure: failure)
+        self.getJSONData("isTokenLegal", parameters: param, success: success, failure: failure)
     }
     
     func readMessage(uid: AnyObject, token: AnyObject, msgID: AnyObject, success: (JSON) -> Void, failure: (NSError) -> Void) {
@@ -59,18 +61,17 @@ class APIClient {
         self.getJSONData("messages", parameters: dict, success: success, failure: failure)
     }
     
-//    func replyMessage(uid: AnyObject, token: AnyObject, receiver_uid: AnyObject, content: AnyObject, success: (JSON) -> Void, failure: (NSError) -> Void) {
-//        let dict = ["uid": uid, "send_to": receiver_uid, "content": content, "token": token]
-//        self.postJSONData("reply_message", parameters: dict, success: success, failure: failure)
-//    }
-    
+    func sendMessage(uid: AnyObject, token: AnyObject, receiver_uid: AnyObject,title: AnyObject, content: AnyObject, success: (JSON) -> Void, failure: (NSError) -> Void) {
+        let dict = ["uid": uid, "send_to": receiver_uid,"title": title, "content": content, "token": token]
+        self.postJSONData("send_message", parameters: dict, success: success, failure: failure)
+    }
     
     
     /**
-    - parameter title:        when it's 'ReplyMessage', title can be nil
+    - parameter title:  title can be nil
 
     */
-    func sendOrReplyMessage(uid: AnyObject, token: AnyObject, receiver_uid: AnyObject, title: AnyObject?, content: AnyObject, success: (JSON) -> Void, failure: (NSError) -> Void) {
+    func replyMessage(uid: AnyObject, token: AnyObject, receiver_uid: AnyObject, title: AnyObject?, content: AnyObject, success: (JSON) -> Void, failure: (NSError) -> Void) {
         var dict = [String: AnyObject]()
         if title == nil {
             dict = ["uid": uid, "send_to": receiver_uid, "content": content, "token": token]

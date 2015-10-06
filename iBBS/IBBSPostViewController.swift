@@ -45,7 +45,7 @@ class IBBSPostViewController: ZSSRichTextEditor {
         self.toolbarItemTintColor = UIColor.blackColor()
         
         // Set the toolbar selected color
-        self.toolbarItemSelectedTintColor = UIColor.redColor()
+        self.toolbarItemSelectedTintColor = CUSTOM_THEME_COLOR
 
         // Choose which toolbar items to show
         //        self.enabledToolbarItems = [ZSSRichTextEditorToolbarBold, ZSSRichTextEditorToolbarH1, ZSSRichTextEditorToolbarParagraph]
@@ -126,7 +126,7 @@ class IBBSPostViewController: ZSSRichTextEditor {
                     self.view?.makeToast(message: msg, duration: 3, position: HRToastPositionTop)
                     self.delegate?.reloadDataAfterPosting()
                     
-                    let delayInSeconds: Double = 1.0
+                    let delayInSeconds: Double = 0.3
                     let delta = Int64(Double(NSEC_PER_SEC) * delayInSeconds)
                     let popTime = dispatch_time(DISPATCH_TIME_NOW,delta)
                     dispatch_after(popTime, dispatch_get_main_queue(), {
@@ -164,11 +164,13 @@ class IBBSPostViewController: ZSSRichTextEditor {
         let action = UIAlertAction(title: GOT_IT, style: .Cancel) { (_) -> Void in
             self.focusTextEditor()
         }
+        alertController.view.tintColor = CUSTOM_THEME_COLOR
         alertController.addAction(action)
         self.presentViewController(alertController, animated: true, completion: nil)
     }
     
     override func showInsertURLAlternatePicker(){
+        print("insert url")
         self.dismissAlertView()
         let picker = IBBSPickerViewController()
         picker.demoView = self
@@ -179,6 +181,7 @@ class IBBSPostViewController: ZSSRichTextEditor {
     }
     
     override func showInsertImageAlternatePicker() {
+        print("insert image url")
         self.dismissAlertView()
         let picker = IBBSPickerViewController()
         picker.demoView = self

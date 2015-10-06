@@ -17,7 +17,6 @@ class IBBSPickerViewController: UIViewController {
     var textField: UITextField!
     var isInsertImagePicker: Bool!
     var demoView: IBBSPostViewController!
-    var demoViewForCommenting : IBBSCommentViewController!
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -29,14 +28,14 @@ class IBBSPickerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Picker"
-        self.view.backgroundColor = UIColor.whiteColor()
+        self.view.backgroundColor = UIColor.redColor()
         let saveButton = UIBarButtonItem(barButtonSystemItem: .Save, target: self, action: "saveURL")
         self.navigationItem.rightBarButtonItem = saveButton
         
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: "cancel")
         
         self.textField = UITextField(frame: CGRectMake(20, 20, self.view.frame.size.width - 40, 40))
-        self.textField.text = !self.isInsertImagePicker ? "http://www.apple.com" : "http://fineprintnyc.com/images/blog/history-of-apple-logo/apple-logo-2.jpg"
+//        self.textField.text = !self.isInsertImagePicker ? "http://www.apple.com" : "http://fineprintnyc.com/images/blog/history-of-apple-logo/apple-logo-2.jpg"
         self.textField.layer.borderColor = UIColor.grayColor().CGColor
         self.textField.layer.borderWidth = 0.5
         self.textField.clearButtonMode = UITextFieldViewMode.Always
@@ -57,17 +56,7 @@ class IBBSPickerViewController: UIViewController {
             vc.showInsertLinkDialogWithLink(self.textField.text, title: nil)
         }
         
-        
-        let commentVC = self.demoViewForCommenting
-        if !self.isInsertImagePicker {
-            commentVC.showInsertLinkDialogWithLink(self.textField.text, title: nil)
-        }else{
-            commentVC.showInsertLinkDialogWithLink(self.textField.text, title: nil)
-        }
-        
-        
     }
-    
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

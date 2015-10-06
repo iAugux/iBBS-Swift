@@ -13,17 +13,21 @@
 
 import UIKit
 
+let kExpandedOffSet: CGFloat = 130.0
 
 enum SlideOutState {
     case collapsed
     case LeftPanelExpanded
 }
 
+protocol ContainerViewControllerDelegate {
+    func hideCornerActionButton()
+    func showCornerActionButton()
+}
 
 class ContainerViewController: UIViewController, UIGestureRecognizerDelegate, ToggleLeftPanelDelegate {
     
-    // 0 ~ 320
-    let centerPanelExpandedOffset: CGFloat = UIScreen.screenWidth() - kExpandedOffSet
+    var delegate: ContainerViewControllerDelegate!
     var centerVCFrontBlurView: UIVisualEffectView!
     var centerNavigationController: UINavigationController!
     var mainViewController: UIViewController!
@@ -44,18 +48,27 @@ class ContainerViewController: UIViewController, UIGestureRecognizerDelegate, To
         view.addSubview(centerNavigationController.view)
         addChildViewController(centerNavigationController)
         centerNavigationController.didMoveToParentViewController(self)
-
+        
         self.configureGestureRecognizer()
+        
+        self.delegate?.hideCornerActionButton()
        
     }
     
-
+    override func willRotateToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval) {
+        self.centerVCFrontBlurView.frame = CGRectMake(0, 0, 750, 750)
+    }
+    
+    override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
+        self.centerVCFrontBlurView.frame = self.view.frame
+    }
+    
     func configureBlurView(){
         //        centerVCFrontBlurView = UIButton.buttonWithType(UIButtonType.Custom) as! UIButton
         let viewEffect = UIBlurEffect(style: .Light)
         centerVCFrontBlurView = UIVisualEffectView(effect: viewEffect)
         centerVCFrontBlurView.alpha = 0.96
-        centerVCFrontBlurView.frame = self.view.bounds
+        centerVCFrontBlurView.frame = self.view.frame
 
     }
     
@@ -122,9 +135,11 @@ class ContainerViewController: UIViewController, UIGestureRecognizerDelegate, To
     
     func animateLeftPanel(shouldExpand: Bool) {
         if (shouldExpand) {
+            self.delegate?.hideCornerActionButton()
             currentState = .LeftPanelExpanded
-            animateCenterPanelXPosition(UIScreen.screenWidth() - centerPanelExpandedOffset)
+            animateCenterPanelXPosition(kExpandedOffSet)
         } else {
+            self.delegate?.showCornerActionButton()
             animateCenterPanelXPosition(0) { finished in
                 self.currentState = .collapsed
                 

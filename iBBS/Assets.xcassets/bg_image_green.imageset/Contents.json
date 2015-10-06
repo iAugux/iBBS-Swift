@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "yesButton.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "bg_image_green.jpg",
       "scale" : "2x"
     },
     {

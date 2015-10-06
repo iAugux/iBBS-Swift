@@ -19,4 +19,15 @@ extension UIColor {
         let randomBlue = CGFloat(drand48())        
         return UIColor(red: randomRed, green: randomGreen, blue: randomBlue, alpha: 1.0)        
     }
+    
+    func darkerColor(delta: CGFloat) -> UIColor {
+        var h = CGFloat(0)
+        var s = CGFloat(0)
+        var b = CGFloat(0)
+        var a = CGFloat(0)
+        self.getHue(&h, saturation: &s, brightness: &b, alpha: &a)
+        return UIColor(hue: h, saturation: s, brightness: b * delta, alpha: a)
+    }
+    
+    
 }

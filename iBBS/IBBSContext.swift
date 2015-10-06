@@ -16,79 +16,43 @@ import SwiftyJSON
 class IBBSContext {
     static let sharedInstance = IBBSContext()
     
-    private let nodesId = "nodes"
-    let loginFeedbackJson = "loginFeedbackJson"
+    private init(){}
+    
+    private let kNodesId = "kNodes"
+    private let kLoginFeedbackJson = "kLoginFeedbackJson"
 
     
-    func isLogin(completionHandler: ((isLogin: Bool) -> Void)) {
+    func isTokenLegal(completionHandler: ((isTokenLegal: Bool) -> Void)) {
         
         if let json = IBBSContext.sharedInstance.getLoginData() {
             let uid = json["uid"].stringValue
             let token = json["token"].stringValue
-            APIClient.sharedInstance.isLogin(uid, token: token, success: { (json) -> Void in
+            APIClient.sharedInstance.isTokenLegal(uid, token: token, success: { (json) -> Void in
                 print(json)
                 if json["code"].intValue == 1 {
-                    completionHandler(isLogin: true)
+                    completionHandler(isTokenLegal: true)
                     
                 }else{
                     let msg = json["msg"].stringValue
                    UIApplication.topMostViewController()?.view.makeToast(message: msg, duration: 4, position: HRToastPositionTop)
-                    completionHandler(isLogin: false)
+                    completionHandler(isTokenLegal: false)
                     
                 }
                 }, failure: { (error) -> Void in
                     print(error)
-                    completionHandler(isLogin: false)
+                    completionHandler(isTokenLegal: false)
             })
         }else{
-            completionHandler(isLogin: false)
+            completionHandler(isTokenLegal: false)
         }
     }
     
-//    /**
-//    if you don't want to get a alert view of login when it didn't login , you should leave the target nil.
-//    
-//    - parameter vc: presenting view controller
-//    
-//    - returns: Bool
-//    */
-//    func isLogin(target vc: UIViewController?) -> Bool {
-//        var isLogin = false
-//        if let data = IBBSContext.sharedInstance.getLoginData() {
-//            let token = data["token"].stringValue
-//            let uid = data["uid"].stringValue
-//            APIClient.sharedInstance.getMessages(uid, token: token, success: { (json) -> Void in
-//                print(json)
-//                if json["code"].intValue == 1{
-//                    isLogin = true
-//                }
-//                else {
-//                    // failed to verify, login again
-//                    if vc != nil {
-//                        let msg = json["msg"].stringValue
-//                        vc?.view.makeToast(message: msg, duration: 6, position: HRToastPositionTop)
-//                        // logout first
-//                        let userDefaults = NSUserDefaults.standardUserDefaults()
-//                        userDefaults.removeObjectForKey(self.loginFeedbackJson)
-//                        // then login
-//                        self.login(target: vc!, completion: {
-//                            isLogin = true
-//                            
-//                        })
-//                    }
-//                }
-//                }, failure: { (error) -> Void in
-//                    print(error)
-//            })
-//        }
-//        return isLogin
-//    }
-
     
     func login(cancelled cancelled: (() -> Void)?, completion: (() -> Void)?) {
         var username, password: UITextField!
         
         let alertVC = UIAlertController(title: BUTTON_LOGIN, message: INSERT_UID_AND_PASSWD, preferredStyle: .Alert)
+        alertVC.view.tintColor = CUSTOM_THEME_COLOR
         
         alertVC.addTextFieldWithConfigurationHandler { (textField: UITextField) -> Void in
             textField.placeholder = HOLDER_USERNAME
@@ -111,6 +75,7 @@ class IBBSContext {
                         self.login(cancelled: nil, completion: nil)
                         alertVC.dismissViewControllerAnimated(true , completion: nil)
                     })
+                    alert.view.tintColor = CUSTOM_THEME_COLOR
                     alert.addAction(cancelAction)
                     UIApplication.topMostViewController()?.presentViewController(alert, animated: true, completion: nil)
                 }else{
@@ -137,21 +102,22 @@ class IBBSContext {
         alertVC.addAction(cancelAction)
         UIApplication.topMostViewController()?.presentViewController(alertVC, animated: true, completion: nil)
         
-        
     }
     
     func logout(completion completion: (() -> Void)?){
         
         let alertController = UIAlertController(title: "", message: SURE_TO_LOGOUT, preferredStyle: .Alert)
-        let cancelAction = UIAlertAction(title: BUTTON_CANCEL, style: .Cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: BUTTON_CANCEL, style: .Default, handler: nil)
         let okAction = UIAlertAction(title: BUTTON_OK, style: .Default) { (_) -> Void in
+            
             let userDefaults = NSUserDefaults.standardUserDefaults()
-            userDefaults.removeObjectForKey(self.loginFeedbackJson)
+            userDefaults.removeObjectForKey(self.kLoginFeedbackJson)
             
             if let completionHandler = completion {
                 completionHandler()
             }
         }
+        alertController.view.tintColor = CUSTOM_THEME_COLOR
         alertController.addAction(cancelAction)
         alertController.addAction(okAction)
         UIApplication.topMostViewController()?.presentViewController(alertController, animated: true, completion: nil)
@@ -161,13 +127,13 @@ class IBBSContext {
     func saveLoginData(data: AnyObject) {
         print("----\(data)-----")
         let userDefaults = NSUserDefaults.standardUserDefaults()
-        userDefaults.setObject(NSKeyedArchiver.archivedDataWithRootObject(data), forKey: loginFeedbackJson)
+        userDefaults.setObject(NSKeyedArchiver.archivedDataWithRootObject(data), forKey: kLoginFeedbackJson)
         userDefaults.synchronize()
     }
     
     func getLoginData() -> JSON? {
         let userDefaults = NSUserDefaults.standardUserDefaults()
-        if let data = userDefaults.objectForKey(loginFeedbackJson) {
+        if let data = userDefaults.objectForKey(kLoginFeedbackJson) {
             let json = NSKeyedUnarchiver.unarchiveObjectWithData(data as! NSData)
             return JSON(json!)
         }
@@ -175,15 +141,15 @@ class IBBSContext {
         return nil
     }
     
-    func saveNodes(nodes:AnyObject) {
+    func saveNodes(nodes: AnyObject) {
         let userDefaults = NSUserDefaults.standardUserDefaults()
-        userDefaults.setObject(NSKeyedArchiver.archivedDataWithRootObject(nodes), forKey: nodesId)
+        userDefaults.setObject(NSKeyedArchiver.archivedDataWithRootObject(nodes), forKey: kNodesId)
         userDefaults.synchronize()
     }
     
     func getNodes() -> JSON? {
         let userDefaults = NSUserDefaults.standardUserDefaults()
-        let data: AnyObject? = userDefaults.objectForKey(nodesId)
+        let data: AnyObject? = userDefaults.objectForKey(kNodesId)
         if let obj: AnyObject = data {
             let json: AnyObject? = NSKeyedUnarchiver.unarchiveObjectWithData(obj as! NSData)
             return JSON(json!)
@@ -197,7 +163,7 @@ class IBBSContext {
             let avatar = json["avatar"].stringValue
             if avatar.utf16.count == 0 {
                 print("there is no avatar, set a image holder")
-                imageView.image = UIImage(named: "avatar_placeholder")
+                imageView.image = AVATAR_PLACEHOLDER_IMAGE
             }else{
                 if let url = NSURL(string: avatar as String) {
                     imageView.kf_setImageWithURL(url, placeholderImage: AVATAR_PLACEHOLDER_IMAGE)
@@ -205,7 +171,6 @@ class IBBSContext {
             }
         }
     }
-    
     
 }
 
