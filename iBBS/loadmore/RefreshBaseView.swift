@@ -31,7 +31,7 @@ class RefreshBaseView: UIView {
     var scrollViewOriginalInset:UIEdgeInsets!
     
     // 内部的控件
-//    var statusLabel:UILabel!
+    var statusLabel:UILabel!
     var arrowImage:UIImageView!
     var activityView:UIActivityIndicatorView!
     
@@ -89,13 +89,13 @@ class RefreshBaseView: UIView {
        
         
 //        //状态标签
-//        statusLabel = UILabel()
-//        statusLabel.autoresizingMask = UIViewAutoresizing.FlexibleWidth
-//        statusLabel.font = UIFont.boldSystemFontOfSize(13)
-//        statusLabel.textColor = RefreshLabelTextColor
-//        statusLabel.backgroundColor =  UIColor.clearColor()
-//        statusLabel.textAlignment = NSTextAlignment.Center
-//        self.addSubview(statusLabel)
+        statusLabel = UILabel()
+        statusLabel.autoresizingMask = UIViewAutoresizing.FlexibleWidth
+        statusLabel.font = UIFont.boldSystemFontOfSize(13)
+        statusLabel.textColor = RefreshLabelTextColor
+        statusLabel.backgroundColor =  UIColor.clearColor()
+        statusLabel.textAlignment = NSTextAlignment.Center
+        self.addSubview(statusLabel)
         
         
         //箭头图片

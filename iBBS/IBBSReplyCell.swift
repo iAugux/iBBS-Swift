@@ -3,6 +3,10 @@
 //  iBBS
 //
 //  Created by Augus on 9/4/15.
+//
+//  http://iAugus.com
+//  https://github.com/iAugux
+//
 //  Copyright © 2015 iAugus. All rights reserved.
 //
 
@@ -27,6 +31,9 @@ class IBBSReplyCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         selectionStyle = .None
+        self.preservesSuperviewLayoutMargins = false
+        self.separatorInset = UIEdgeInsetsZero
+        self.layoutMargins = UIEdgeInsetsZero
     }
     
     override func setSelected(selected: Bool, animated: Bool) {
@@ -37,10 +44,11 @@ class IBBSReplyCell: UITableViewCell {
     
     func loadDataToCell(json: JSON) {
         let imageUrl = NSURL(string: json["avatar"].stringValue)
-        avatarImageView.sd_setImageWithURL(imageUrl)
-        //        avatarImageView.sd_setImageWithURL(imageUrl, placeholderImage: UIImage(named: "iAugus_500k"))
+        avatarImageView.kf_setImageWithURL(imageUrl!, placeholderImage: AVATAR_PLACEHOLDER_IMAGE)
         usernameLabel.text = json["username"].stringValue
         let data = json["comment_content"].stringValue
+        print(data)
+
         replyContent.ausAttributedText(data)
         replyContent.ausReturnFrameSizeAfterResizingTextView()
     }

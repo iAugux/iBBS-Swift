@@ -9,12 +9,17 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods.xcscheme</key>
+		<key>GearRefreshControl.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>SDWebImage.xcscheme</key>
+		<key>Kingfisher.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -27,22 +32,27 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>0615E16666DBBD51F4F6CE7398E4CC6B</key>
+		<key>018C789564AC9E79F289D2A0F878F555</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8C2CD1B652A046B2BAE210F707A0E82F</key>
+		<key>8B06881E92A262B0B60027543A360E0F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>9666688CB41B38A9914616144C9C7A3E</key>
+		<key>AF27163C20A0374A97B818DECCE28A32</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>B9A04D3C9B208813656510FDA8ADAE02</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C5698DB5BD77D65CBE7CD07835FFB6A8</key>
 		<dict>
 			<key>primary</key>
 			<true/>

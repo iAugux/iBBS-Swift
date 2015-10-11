@@ -1,34 +1,29 @@
 PODS:
-  - Alamofire (2.0.0-beta.3)
-  - SDWebImage (3.7.3):
-    - SDWebImage/Core (= 3.7.3)
-  - SDWebImage/Core (3.7.3)
+  - Alamofire (2.0.2)
+  - GearRefreshControl (0.2.1)
+  - Kingfisher (1.6.0)
   - SwiftyJSON (2.2.1)
 
 DEPENDENCIES:
-  - Alamofire (from `https://github.com/Alamofire/Alamofire.git`, branch `swift-2.0`)
-  - SDWebImage (~> 3.7)
+  - Alamofire (~> 2.0)
+  - GearRefreshControl (~> 0.2)
+  - Kingfisher (~> 1.6)
   - SwiftyJSON (from `https://github.com/SwiftyJSON/SwiftyJSON.git`, branch `xcode7`)
 
 EXTERNAL SOURCES:
-  Alamofire:
-    :branch: swift-2.0
-    :git: https://github.com/Alamofire/Alamofire.git
   SwiftyJSON:
     :branch: xcode7
     :git: https://github.com/SwiftyJSON/SwiftyJSON.git
 
 CHECKOUT OPTIONS:
-  Alamofire:
-    :commit: 1bc35abfa7c167ba54af4e87158af7945cc9984e
-    :git: https://github.com/Alamofire/Alamofire.git
   SwiftyJSON:
-    :commit: f269523ac572979245baa99c8475eab73caf1e9b
+    :commit: 6eb4cda062fa09c4658e4184f92d822058f226e3
     :git: https://github.com/SwiftyJSON/SwiftyJSON.git
 
 SPEC CHECKSUMS:
-  Alamofire: 39dddb7d3725d1771b1d2f7099c8bd45bd83ffbb
-  SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
+  Alamofire: 8edbab00802a752bb5240cc2abe70e7e881488ad
+  GearRefreshControl: 57e228199e14a4c2c7fe0ab00b673277fdef8653
+  Kingfisher: 3308d487e5c2a0fba9c1054fc3b8c45923e03c40
   SwiftyJSON: ae2d0a3d68025d136602a33c4ee215091ced3e33
 
 COCOAPODS: 0.38.2

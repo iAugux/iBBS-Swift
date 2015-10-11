@@ -3,6 +3,10 @@
 //  iBBS
 //
 //  Created by Augus on 9/4/15.
+//
+//  http://iAugus.com
+//  https://github.com/iAugux
+//
 //  Copyright © 2015 iAugus. All rights reserved.
 //
 
@@ -19,10 +23,12 @@ class IBBSDetailHeaderView: UIView {
         didSet{
             avatarImageView.layer.cornerRadius = 14.0
             avatarImageView.clipsToBounds      = true
-            avatarImageView.layer.borderWidth  = 1.0
+            avatarImageView.layer.borderWidth  = 0.3
             avatarImageView.layer.borderColor  = UIColor.blackColor().CGColor
+            avatarImageView.backgroundColor    = UIColor.randomColor()
         }
     }
+    
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var content: UITextView!
@@ -32,14 +38,15 @@ class IBBSDetailHeaderView: UIView {
     func loadData(json: JSON){
         
         let avatarUrl = NSURL(string: json["avatar"].stringValue)
-        avatarImageView?.sd_setImageWithURL(avatarUrl)
+        avatarImageView.kf_setImageWithURL(avatarUrl!, placeholderImage: AVATAR_PLACEHOLDER_IMAGE)
         usernameLabel?.text = json["username"].stringValue
         headerTitleLabel?.text = json["title"].stringValue.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
         timeLabel?.text = json["post_time"].stringValue
         let data = json["post_content"].stringValue.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
         self.content.ausAttributedText(data)
 //        self.content.ausAutomanticResizeTextViewFrameSize()
-        
+        print(json["post_content"].stringValue)
+
         nodeName = json["board"].stringValue
     }
     

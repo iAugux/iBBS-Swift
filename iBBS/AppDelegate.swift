@@ -3,8 +3,14 @@
 //  iBBS
 //
 //  Created by Augus on 9/1/15.
+//
+//  http://iAugus.com
+//  https://github.com/iAugux
+//
 //  Copyright © 2015 iAugus. All rights reserved.
 //
+
+
 
 import UIKit
 
@@ -13,20 +19,60 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
-//    var storyboard = UIStoryboard(name: "Main", bundle: nil)
-    
+
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         
         // SlideMenu
         application.statusBarStyle = .LightContent
         let containerViewController = ContainerViewController()
-        let homeNav = storyboard.instantiateViewControllerWithIdentifier("homeNav") as! UINavigationController
+        let homeNav = mainStoryboard.instantiateViewControllerWithIdentifier("homeNav") as! UINavigationController
         homeNav.viewControllers[0] = containerViewController
         homeNav.setNavigationBarHidden(true, animated: false)
-        window?.rootViewController = homeNav
+        self.window?.rootViewController = homeNav
+        
+        
+        // Settings
+        
+        if isIphone3_5Inch {
+            SHOULD_HIDE_NAVIGATIONBAR = true
+        }
+        
+//        SHOULD_HIDE_NAVIGATIONBAR = true
+        
+        
+        // Set Theme
+//        self.window?.backgroundColor = UIColor.whiteColor()
+        let userDefaults = NSUserDefaults.standardUserDefaults()
+        if let theme = userDefaults.objectForKey(kCurrentTheme) {
+            IBBSThemes(rawValue: Int(theme as! NSNumber))?.setTheme()
+            self.setWindowTintColor()
+            
+        }else {
+            let theme = IBBSThemes.DefaultTheme
+            theme.setTheme()
+            self.window?.tintColor = CUSTOM_THEME_COLOR
+
+        }
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "setWindowTintColor", name: kThemeDidChangeNotification, object: nil)
         
         return true
+    }
+    
+    func setWindowTintColor(){
+        self.window?.tintColor = CUSTOM_THEME_COLOR
+        self.window?.backgroundColor = CUSTOM_THEME_COLOR.lighterColor(0.6)
+
+    }
+    
+    // disable orientation for messages view controller
+    func application(application: UIApplication, supportedInterfaceOrientationsForWindow window: UIWindow?) -> UIInterfaceOrientationMask {
+        if let topMostVC = UIApplication.sharedApplication().keyWindow?.rootViewController?.topMostViewController(){
+            if topMostVC.isKindOfClass(IBBSMessagesViewController.classForCoder()) {
+                return UIInterfaceOrientationMask.Portrait
+            }
+        }
+        return UIInterfaceOrientationMask.All
     }
     
     func applicationWillResignActive(application: UIApplication) {

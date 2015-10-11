@@ -1,0 +1,1 @@
+KINGFISHER_OTHER_LDFLAGS = -framework "CFNetwork"

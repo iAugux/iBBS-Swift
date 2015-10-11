@@ -132,9 +132,8 @@ public class Manager {
         self.session.serverTrustPolicyManager = serverTrustPolicyManager
 
         self.delegate.sessionDidFinishEventsForBackgroundURLSession = { [weak self] session in
-            if let strongSelf = self {
-                strongSelf.backgroundCompletionHandler?()
-            }
+            guard let strongSelf = self else { return }
+            dispatch_async(dispatch_get_main_queue()) { strongSelf.backgroundCompletionHandler?() }
         }
     }
 
@@ -145,7 +144,7 @@ public class Manager {
     // MARK: - Request
 
     /**
-        Creates a request for the specified method, URL string, parameters, and parameter encoding.
+        Creates a request for the specified method, URL string, parameters, parameter encoding and headers.
 
         - parameter method:     The HTTP method.
         - parameter URLString:  The URL string.
@@ -646,5 +645,24 @@ public class Manager {
         var _streamTaskWriteClosed: Any?
         var _streamTaskBetterRouteDiscovered: Any?
         var _streamTaskDidBecomeInputStream: Any?
+
+        // MARK: - NSObject
+
+        public override func respondsToSelector(selector: Selector) -> Bool {
+            switch selector {
+            case "URLSession:didBecomeInvalidWithError:":
+                return sessionDidBecomeInvalidWithError != nil
+            case "URLSession:didReceiveChallenge:completionHandler:":
+                return sessionDidReceiveChallenge != nil
+            case "URLSessionDidFinishEventsForBackgroundURLSession:":
+                return sessionDidFinishEventsForBackgroundURLSession != nil
+            case "URLSession:task:willPerformHTTPRedirection:newRequest:completionHandler:":
+                return taskWillPerformHTTPRedirection != nil
+            case "URLSession:dataTask:didReceiveResponse:completionHandler:":
+                return dataTaskDidReceiveResponse != nil
+            default:
+                return self.dynamicType.instancesRespondToSelector(selector)
+            }
+        }
     }
 }

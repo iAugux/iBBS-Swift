@@ -3,11 +3,16 @@
 //  iBBS
 //
 //  Created by Augus on 9/2/15.
+//
+//  http://iAugus.com
+//  https://github.com/iAugux
+//
 //  Copyright © 2015 iAugus. All rights reserved.
 //
 
 import UIKit
 import SwiftyJSON
+import Kingfisher
 
 class IBBSTableViewCell: UITableViewCell {
 
@@ -28,15 +33,17 @@ class IBBSTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
+//        self.selectionStyle = UITableViewCellSelectionStyle.None
 
         // Initialization code
 //        self.backgroundColor = UIColor.clearColor()
-        self.preservesSuperviewLayoutMargins = false
-        self.separatorInset                  = UIEdgeInsetsZero
-        self.layoutMargins                   = UIEdgeInsetsZero
+
+        self.separatorInset = UIEdgeInsetsZero
+        self.layoutMargins  = UIEdgeInsetsZero
+        self.selectionStyle = .None
+ 
     }
-
-
+    
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
@@ -45,7 +52,7 @@ class IBBSTableViewCell: UITableViewCell {
 
     func loadDataToCell(json: JSON){
         let avatarUrl                        = NSURL(string: json["avatar"].stringValue)
-        self.userProfireImage?.sd_setImageWithURL(avatarUrl)
+        self.userProfireImage.kf_setImageWithURL(avatarUrl!, placeholderImage: AVATAR_PLACEHOLDER_IMAGE)
         self.topicLabel?.text                = json["title"].stringValue
         self.userName.text                   = json["username"].stringValue
         self.nodeName.text                   = json["board"].stringValue
