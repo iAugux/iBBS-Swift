@@ -221,8 +221,8 @@ extension IBBSViewController {
     
     func reloadDataAfterPosting() {
         print("reloading")
-        self.tableView?.reloadData()
-        self.automaticPullingDownToRefresh()
+        self.sendRequest(1)
+//        self.automaticPullingDownToRefresh()
     }
     
     

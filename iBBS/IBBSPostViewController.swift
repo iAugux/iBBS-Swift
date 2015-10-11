@@ -14,7 +14,7 @@ import UIKit
 import SwiftyJSON
 
 
-class IBBSPostViewController: ZSSRichTextEditor {
+class IBBSPostViewController: IBBSEditorBaseViewController {
 
     private let nodeID = "board"
     private let articleTitle = "title"
@@ -22,69 +22,7 @@ class IBBSPostViewController: ZSSRichTextEditor {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.shouldShowKeyboard = false
         
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: BUTTON_SEND, style: .Plain, target: self, action: "sendAction")
-//      self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: "cancelAction")
-        // Set the HTML contents of the editor
-//        self.setHTML(html)
-        
-//        self.placeholder = "Please tap to start editing";
-        
-        self.formatHTML = false
-        
-        // Set the base URL if you would like to use relative links, such as to images.
-        self.baseURL = NSURL(string: "http://iAugus.com")
-        
-        
-        // Set the toolbar item color
-        self.toolbarItemTintColor = UIColor.blackColor()
-        
-        // Set the toolbar selected color
-        self.toolbarItemSelectedTintColor = CUSTOM_THEME_COLOR
-
-        // Choose which toolbar items to show
-        //        self.enabledToolbarItems = [ZSSRichTextEditorToolbarBold, ZSSRichTextEditorToolbarH1, ZSSRichTextEditorToolbarParagraph]
-        /**
-        
-        ZSSRichTextEditorToolbarBold
-        ZSSRichTextEditorToolbarItalic
-        ZSSRichTextEditorToolbarSubscript
-        ZSSRichTextEditorToolbarSuperscript
-        ZSSRichTextEditorToolbarStrikeThrough
-        ZSSRichTextEditorToolbarUnderline
-        ZSSRichTextEditorToolbarRemoveFormat
-        ZSSRichTextEditorToolbarJustifyLeft
-        ZSSRichTextEditorToolbarJustifyCenter
-        ZSSRichTextEditorToolbarJustifyRight
-        ZSSRichTextEditorToolbarJustifyFull
-        ZSSRichTextEditorToolbarH1
-        ZSSRichTextEditorToolbarH2
-        ZSSRichTextEditorToolbarH3
-        ZSSRichTextEditorToolbarH4
-        ZSSRichTextEditorToolbarH5
-        ZSSRichTextEditorToolbarH6
-        ZSSRichTextEditorToolbarTextColor
-        ZSSRichTextEditorToolbarBackgroundColor
-        ZSSRichTextEditorToolbarUnorderedList
-        ZSSRichTextEditorToolbarOrderedList
-        ZSSRichTextEditorToolbarHorizontalRule
-        ZSSRichTextEditorToolbarIndent
-        ZSSRichTextEditorToolbarOutdent
-        ZSSRichTextEditorToolbarInsertImage
-        ZSSRichTextEditorToolbarInsertLink
-        ZSSRichTextEditorToolbarRemoveLink
-        ZSSRichTextEditorToolbarQuickLink
-        ZSSRichTextEditorToolbarUndo
-        ZSSRichTextEditorToolbarRedo
-        ZSSRichTextEditorToolbarViewSource
-        ZSSRichTextEditorToolbarParagraph
-        ZSSRichTextEditorToolbarAll
-        ZSSRichTextEditorToolbarNone
-        
-        */
-        
-
     }
 
     override func viewDidAppear(animated: Bool) {
@@ -102,13 +40,13 @@ class IBBSPostViewController: ZSSRichTextEditor {
         
         // TODO: - There is a bug in `ZSSRichTextEditor`. If you show keyboard immediately, then the color picker won't work correctly.
         
-        let delayInSeconds: Double = 0.7
+        let delayInSeconds: Double = 1
         let popTime = dispatch_time(DISPATCH_TIME_NOW, Int64(Double(NSEC_PER_SEC) * delayInSeconds))
         dispatch_after(popTime, dispatch_get_main_queue(), {
             self.focusTextEditor()
         })
         
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(Double(NSEC_PER_SEC) * 0.8)), dispatch_get_main_queue()) { () -> Void in
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(Double(NSEC_PER_SEC) * 1.2)), dispatch_get_main_queue()) { () -> Void in
             self.toolbarHolder.hidden = false
         }
     }
@@ -187,32 +125,6 @@ class IBBSPostViewController: ZSSRichTextEditor {
         
         alertController.addAction(action)
         self.presentViewController(alertController, animated: true, completion: nil)
-    }
-    
-    override func showInsertURLAlternatePicker(){
-        print("insert url")
-        self.dismissAlertView()
-        let picker = IBBSPickerViewController()
-        picker.demoView = self
-        let nav = UINavigationController()
-        nav.navigationBar.translucent = false
-        self.presentViewController(nav, animated: true, completion: nil)
-        
-    }
-    
-    override func showInsertImageAlternatePicker() {
-        print("insert image url")
-        self.dismissAlertView()
-        let picker = IBBSPickerViewController()
-        picker.demoView = self
-        picker.isInsertImagePicker = true
-        let nav = UINavigationController()
-        nav.navigationBar.translucent = false
-        self.presentViewController(nav, animated: true, completion: nil)
-    }
-    
-    func exportHTML() {
-        NSLog("%@", self.getHTML())
     }
     
     override func didReceiveMemoryWarning() {

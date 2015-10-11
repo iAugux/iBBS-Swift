@@ -126,7 +126,7 @@ class IBBSBaseViewController: UITableViewController {
     // MARK: - Automatic pulling down to refresh
     func automaticPullingDownToRefresh(){
         
-        NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: "automaticContentOffset", userInfo: nil, repeats: false)
+        NSTimer.scheduledTimerWithTimeInterval(0.6, target: self, selector: "automaticContentOffset", userInfo: nil, repeats: false)
         //        NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: "endRefresh", userInfo: nil, repeats: false)
         //        NSTimer.performSelector("endRefresh", withObject: nil, afterDelay: 0.1)
     }

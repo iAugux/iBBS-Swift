@@ -16,7 +16,7 @@ class IBBSPickerViewController: UIViewController {
     
     var textField: UITextField!
     var isInsertImagePicker: Bool!
-    var demoView: UIViewController!
+    var demoView: IBBSEditorBaseViewController!
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -49,7 +49,7 @@ class IBBSPickerViewController: UIViewController {
     
     func saveURL(){
         self.dismissViewControllerAnimated(true , completion: nil)
-        let vc = self.demoView as! IBBSPostViewController
+        let vc = self.demoView
         if !self.isInsertImagePicker {
             vc.showInsertLinkDialogWithLink(self.textField.text, title: nil)
         }else{

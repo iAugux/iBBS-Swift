@@ -26,7 +26,6 @@ class IBBSNodeViewController: IBBSBaseViewController, UIGestureRecognizerDelegat
         self.configureView()
         self.configureGestureRecognizer()
         
-//        self.refreshing = true
         self.sendRequest(page)
     }
     

@@ -12,47 +12,25 @@
 
 import UIKit
 
-class IBBSCommentViewController: ZSSRichTextEditor {
+class IBBSCommentViewController: IBBSEditorBaseViewController {
     
     var post_id = String()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.shouldShowKeyboard = false
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: "cancelAction")
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: BUTTON_SEND, style: .Plain, target: self, action: "sendAction")
         self.navigationController?.navigationBar.translucent = false
         
-        
-        self.formatHTML = false
-        
-        // Set the base URL if you would like to use relative links, such as to images.
-        self.baseURL = NSURL(string: "http://iAugus.com")
-        
-        // Set the toolbar item color
-        self.toolbarItemTintColor = UIColor.blackColor()
-        
-        // Set the toolbar selected color
-        self.toolbarItemSelectedTintColor = CUSTOM_THEME_COLOR
-        
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        self.navigationController?.navigationBar.tintColor = CUSTOM_THEME_COLOR
-        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : CUSTOM_THEME_COLOR]
-        
-    }
-    
 
+    }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
 
         // TODO: - There is a bug in `ZSSRichTextEditor`. If you show keyboard immediately, then the color picker won't work correctly.
         
-        let delayInSeconds: Double = 0.7
+        let delayInSeconds: Double = 0.9
         let popTime = dispatch_time(DISPATCH_TIME_NOW,Int64(Double(NSEC_PER_SEC) * delayInSeconds))
         dispatch_after(popTime, dispatch_get_main_queue(), {
             self.focusTextEditor()
@@ -140,29 +118,6 @@ class IBBSCommentViewController: ZSSRichTextEditor {
         self.presentViewController(alertController, animated: true, completion: nil)
     }
     
-    override func showInsertURLAlternatePicker(){
-        self.dismissAlertView()
-        let picker = IBBSPickerViewController()
-//        picker.demoViewForCommenting = self
-        let nav = UINavigationController()
-        nav.navigationBar.translucent = false
-        self.presentViewController(nav, animated: true, completion: nil)
-        
-    }
-    
-    override func showInsertImageAlternatePicker() {
-        self.dismissAlertView()
-        let picker = IBBSPickerViewController()
-//        picker.demoViewForCommenting = self
-        picker.isInsertImagePicker = true
-        let nav = UINavigationController()
-        nav.navigationBar.translucent = false
-        self.presentViewController(nav, animated: true, completion: nil)
-    }
-    
-    func exportHTML() {
-        NSLog("%@", self.getHTML())
-    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
