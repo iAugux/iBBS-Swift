@@ -35,6 +35,7 @@ class IBBSEditingViewController: UIViewController, UITextViewDelegate {
     @IBOutlet var contentTextView: UITextView!{
         didSet{
             contentTextView.layer.cornerRadius = 8.0
+            contentTextView.backgroundColor = CUSTOM_THEME_COLOR.darkerColor(0.75).colorWithAlphaComponent(0.35)
         }
     }
     
@@ -120,7 +121,7 @@ class IBBSEditingViewController: UIViewController, UITextViewDelegate {
                 let action = UIAlertAction(title: GOT_IT, style: .Cancel) { (_) -> Void in
                     self.contentTextView.becomeFirstResponder()
                 }
-                alertController.view.tintColor = CUSTOM_THEME_COLOR
+                
                 alertController.addAction(action)
                 self.presentViewController(alertController, animated: true, completion: nil)
                 

@@ -46,7 +46,7 @@ class IBBSDetailViewController: IBBSBaseViewController, UIGestureRecognizerDeleg
         // Dispose of any resources that can be recreated.
     }
     
-    func cornerActionButtonDidTap() {
+    override func cornerActionButtonDidTap() {
         print("commenting...")
         IBBSContext.sharedInstance.isTokenLegal(){ (isTokenLegal) -> Void in
             if isTokenLegal{

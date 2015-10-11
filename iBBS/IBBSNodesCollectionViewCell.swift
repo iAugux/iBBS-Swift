@@ -10,7 +10,8 @@ import UIKit
 
 class IBBSNodesCollectionViewCell: UICollectionViewCell {
     
-    
+    var customBackgroundView: IBBSCustomSelectedBackgroundView!
+
     @IBOutlet var infoLabel: UILabel!{
         didSet{
             infoLabel.text = nil
@@ -19,8 +20,13 @@ class IBBSNodesCollectionViewCell: UICollectionViewCell {
     }
     @IBOutlet var imageView: UIImageView!{
         didSet{
-            imageView.backgroundColor = CUSTOM_THEME_COLOR
+            imageView.backgroundColor = CUSTOM_THEME_COLOR.lighterColor(0.75)
             imageView.layer.cornerRadius = 7.0
+//            imageView.layer.borderWidth = 1
+//            imageView.layer.borderColor = CUSTOM_THEME_COLOR.darkerColor(0.9).CGColor
+            imageView.layer.shadowColor = CUSTOM_THEME_COLOR.darkerColor(0.9).CGColor
+            imageView.layer.shadowOffset = CGSizeMake(1, 1)
+            imageView.layer.shadowOpacity = 0.5
             
         }
     }
@@ -32,11 +38,9 @@ class IBBSNodesCollectionViewCell: UICollectionViewCell {
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        let backgroundView = IBBSCustomSelectedBackgroundView()
-        self.selectedBackgroundView = backgroundView
-        
+        customBackgroundView = IBBSCustomSelectedBackgroundView()
+        self.selectedBackgroundView = customBackgroundView
 
     }
-    
     
 }

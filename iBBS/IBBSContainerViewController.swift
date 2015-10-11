@@ -20,14 +20,9 @@ enum SlideOutState {
     case LeftPanelExpanded
 }
 
-protocol ContainerViewControllerDelegate {
-    func hideCornerActionButton()
-    func showCornerActionButton()
-}
 
 class ContainerViewController: UIViewController, UIGestureRecognizerDelegate, ToggleLeftPanelDelegate {
     
-    var delegate: ContainerViewControllerDelegate!
     var centerVCFrontBlurView: UIVisualEffectView!
     var centerNavigationController: UINavigationController!
     var mainViewController: UIViewController!
@@ -51,17 +46,19 @@ class ContainerViewController: UIViewController, UIGestureRecognizerDelegate, To
         
         self.configureGestureRecognizer()
         
-        self.delegate?.hideCornerActionButton()
        
     }
     
-    override func willRotateToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval) {
-        self.centerVCFrontBlurView.frame = CGRectMake(0, 0, 750, 750)
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
     }
     
-    override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
         self.centerVCFrontBlurView.frame = self.view.frame
     }
+    
     
     func configureBlurView(){
         //        centerVCFrontBlurView = UIButton.buttonWithType(UIButtonType.Custom) as! UIButton
@@ -69,7 +66,6 @@ class ContainerViewController: UIViewController, UIGestureRecognizerDelegate, To
         centerVCFrontBlurView = UIVisualEffectView(effect: viewEffect)
         centerVCFrontBlurView.alpha = 0.96
         centerVCFrontBlurView.frame = self.view.frame
-
     }
     
     func configureGestureRecognizer(){
@@ -98,12 +94,6 @@ class ContainerViewController: UIViewController, UIGestureRecognizerDelegate, To
         }
         return false
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
     
     
     func toggleLeftPanel() {
@@ -135,11 +125,9 @@ class ContainerViewController: UIViewController, UIGestureRecognizerDelegate, To
     
     func animateLeftPanel(shouldExpand: Bool) {
         if (shouldExpand) {
-            self.delegate?.hideCornerActionButton()
             currentState = .LeftPanelExpanded
             animateCenterPanelXPosition(kExpandedOffSet)
         } else {
-            self.delegate?.showCornerActionButton()
             animateCenterPanelXPosition(0) { finished in
                 self.currentState = .collapsed
                 
@@ -220,10 +208,10 @@ class ContainerViewController: UIViewController, UIGestureRecognizerDelegate, To
     }
     
     func handleTapGesture(){
-//        if leftViewController != nil {
-            animateLeftPanel(false)
-            self.centerVCFrontBlurView.removeFromSuperview()
-//        }
+        animateLeftPanel(false)
+        self.centerVCFrontBlurView.removeFromSuperview()
+        NSNotificationCenter.defaultCenter().postNotificationName(kShouldShowCornerActionButton, object: nil)
+
     }
     
     // close left panel
@@ -245,7 +233,7 @@ private extension UIStoryboard {
     class func mainStoryboard() -> UIStoryboard { return UIStoryboard(name: "Main", bundle: NSBundle.mainBundle()) }
     
     class func leftViewController() -> SlidePanelViewController? {
-        return mainStoryboard().instantiateViewControllerWithIdentifier("LeftViewController") as? SlidePanelViewController
+        return mainStoryboard().instantiateViewControllerWithIdentifier("leftViewController") as? SlidePanelViewController
     }
     
     class func mainViewController() -> TabBarController? {

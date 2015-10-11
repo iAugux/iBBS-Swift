@@ -13,31 +13,72 @@
 
 import UIKit
 import SwiftyJSON
+import GearRefreshControl
 
 class IBBSNodesCollectionViewController: UICollectionViewController {
     
+    var gearRefreshControl: GearRefreshControl!
     
     var nodesArray: [JSON]?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         IBBSConfigureNodesInfo.sharedInstance.configureNodesInfo()
         self.nodesArray = IBBSConfigureNodesInfo.sharedInstance.nodesArray
+        self.gearRefreshManager()
+
+        self.collectionView?.addSubview(gearRefreshControl)
+        self.collectionView?.alwaysBounceVertical = true
         
         self.collectionView?.backgroundColor = UIColor.whiteColor()
         self.navigationController?.navigationBar.topItem?.title = TITLE_ALL_NODES
+    
+    }
+    
+    override func willAnimateRotationToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval) {
+        self.collectionView?.collectionViewLayout.invalidateLayout()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: CUSTOM_THEME_COLOR]
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateTheme", name: kThemeDidChangeNotification, object: nil)
+
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         self.navigationController?.interactivePopGestureRecognizer?.enabled = false
-        
+
+    }
+
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    // MARK: - update theme
+    func updateTheme() {
+        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : CUSTOM_THEME_COLOR]
+        if let cells = self.collectionView?.visibleCells() as? [IBBSNodesCollectionViewCell] {
+            for index in 0 ..< cells.count {
+                let cell = cells[index]
+                cell.imageView.backgroundColor = CUSTOM_THEME_COLOR.lighterColor(0.75)
+                cell.imageView.layer.shadowColor = CUSTOM_THEME_COLOR.darkerColor(0.9).CGColor
+                cell.customBackgroundView?.fillColor = CUSTOM_THEME_COLOR.lighterColor(0.8)
+                cell.customBackgroundView?.setNeedsDisplay()
+            }
+        }
+        
+        gearRefreshControl?.removeFromSuperview()
+        gearRefreshManager()
+        self.collectionView?.addSubview(gearRefreshControl)
     }
     
     // MARK: - Collection view data source
@@ -53,7 +94,7 @@ class IBBSNodesCollectionViewController: UICollectionViewController {
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCellWithReuseIdentifier(MainStoryboard.CollectionCellIdentifiers.nodeCollectionCell, forIndexPath: indexPath) as? IBBSNodesCollectionViewCell {
-            
+            self.nodesArray = IBBSConfigureNodesInfo.sharedInstance.nodesArray
             if let array = self.nodesArray {
                 let json = array[indexPath.row]
                 print(json)
@@ -91,6 +132,42 @@ class IBBSNodesCollectionViewController: UICollectionViewController {
     
 }
 
+extension IBBSNodesCollectionViewController {
+    
+    // MARK: - perform GearRefreshControl
+    override func scrollViewDidScroll(scrollView: UIScrollView) {
+        gearRefreshControl?.scrollViewDidScroll(scrollView)
+        let delayInSeconds: Double = 3
+        let popTime:dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW, Int64(Double(NSEC_PER_SEC) * delayInSeconds))
+        dispatch_after(popTime, dispatch_get_main_queue(), {
+            self.gearRefreshControl?.endRefreshing()
+            
+        })
+    
+    }
+    
+    private func gearRefreshManager(){
+        gearRefreshControl = GearRefreshControl(frame: self.view.bounds)
+        gearRefreshControl.gearTintColor = CUSTOM_THEME_COLOR.lighterColor(0.7)
+        
+        gearRefreshControl.addTarget(self, action: "refreshData", forControlEvents: UIControlEvents.ValueChanged)
+        
+    }
+       
+    func refreshData(){
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+            IBBSConfigureNodesInfo.sharedInstance.configureNodesInfo()
+            dispatch_async(dispatch_get_main_queue(), {
+                self.collectionView?.reloadData()
+
+            })
+        })
+
+    }
+    
+}
+
 public class IBBSConfigureNodesInfo {
     
     static let sharedInstance = IBBSConfigureNodesInfo()
@@ -100,12 +177,13 @@ public class IBBSConfigureNodesInfo {
     
     public func configureNodesInfo(){
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+            self.getNodesIfNeeded()
             let nodes = IBBSContext.sharedInstance.getNodes()
             dispatch_async(dispatch_get_main_queue(), {
                 if let json = nodes {
-                    IBBSConfigureNodesInfo.sharedInstance.nodesArray = json.arrayValue
+                    self.nodesArray = json.arrayValue
                 } else {
-                    IBBSConfigureNodesInfo.sharedInstance.getNodesIfNeeded()
+                    self.configureNodesInfo()
                 }
             })
         })

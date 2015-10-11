@@ -42,4 +42,7 @@
 	"Give up" = "\U653e\U5f03";
 	Next = "\U7ee7\U7eed";
 	"All nodes" = "\U5168\U90e8\U8282\U70b9";
+	"change theme" = "\U66f4\U6539\U4e3b\U9898";
+	"Token lost effectiveness" = "Token\U5931\U6548";
+	"Please login again" = "\U8bf7\U91cd\U65b0\U767b\U9646";
 }

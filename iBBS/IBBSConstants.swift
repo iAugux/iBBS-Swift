@@ -11,43 +11,37 @@
 //
 
 
+let kThemeDidChangeNotification = "kThemeDidChangeNotification"
+let kShouldHideCornerActionButton = "kShouldHideCornerActionButton"
+let kShouldShowCornerActionButton = "kShouldShowCornerActionButton"
+let kShouldReloadDataAfterPosting = "kShouldReloadDataAfterPosting"
 
-var SHOULD_HIDE_NAVIGATIONBAR = false
-let CUSTOM_THEME_COLOR =  UIColor(red:1, green:0.827, blue:0, alpha:1)
-let BACKGROUNDER_IMAGE = UIImage(named: "bg_image_yellow")
-let BLUR_VIEW_ALPHA_OF_BG_IMAGE: CGFloat = 0.70
+var SHOULD_HIDE_NAVIGATIONBAR                      = false
 
-let isIphone3_5Inch: Bool = UIScreen.mainScreen().bounds.size.height == 480 ? true : false
+let BLUR_VIEW_ALPHA_OF_BG_IMAGE: CGFloat           = 0.70
 
-let HEADER_TITLE_FONT_SIZE: CGFloat = 17
-let HEADER_CONTENT_FONT_SIZE: CGFloat = 15.0
+let isIphone3_5Inch: Bool                          = UIScreen.mainScreen().bounds.size.height == 480 ? true : false
+
+let HEADER_TITLE_FONT_SIZE: CGFloat                = 17
+let HEADER_CONTENT_FONT_SIZE: CGFloat              = 15.0
 
 let TITLE_FOR_HEADER_IN_SECTION_FONT_SIZE: CGFloat = 15.0
 
+let TIME_OF_TOAST_OF_REGISTER_SUCCESS: Double      = 3.0
+let TIME_OF_TOAST_OF_REPLY_SUCCESS: Double         = 1.0
+let TIME_OF_TOAST_OF_POST_SUCCESS: Double          = 3.5
+let TIME_OF_TOAST_OF_POST_FAILED: Double           = 3.0
+let TIME_OF_TOAST_OF_COMMENT_SUCCESS: Double       = 3.5
+let TIME_OF_TOAST_OF_COMMENT_FAILED: Double        = 3
+let TIME_OF_TOAST_OF_TOKEN_ILLEGAL: Double         = 1.0
+let TIME_OF_TOAST_OF_SERVER_ERROR: Double          = 3.0
+let TIME_OF_TOAST_OF_NO_MORE_DATA: Double          = 0.8
 
-let TIME_OF_TOAST_OF_SERVER_ERROR: Double = 4
-let TIME_OF_TOAST_OF_NO_MORE_DATA: Double = 0.8
+let SWIPE_LEFT_TO_CANCEL_RIGHT_TO_CONTINUE         = true
 
-let SWIPE_LEFT_TO_CANCEL_RIGHT_TO_CONTINUE = true
 
 
 let AVATAR_PLACEHOLDER_IMAGE = UIImage(named: "avatar_placeholder")
-
-class ThemeColorAndBackgrounderImage {
-    let dic = [
-        UIColor.redColor(): UIImage(named: "bg_image_green")
-    ]
-    
-}
-
-let d = NSMutableDictionary()
-let THEMES: NSMutableDictionary = [
-    UIColor.redColor(): UIImage(named: "bg_image_red")!,
-    UIColor.greenColor(): UIImage(named: "bg_image_green")!,
-    UIColor.yellowColor(): UIImage(named: "bg_image_yellow")!,
-//    UIColor.blueColor(): UIImage(named: "bg_image_blue")!,
-//    UIColor.purpleColor(): UIImage(named: "bg_image_purple")!
-]
 
 
 @objc class  ConstantsForObjc: NSObject {

@@ -10,17 +10,17 @@ import UIKit
 import SwiftyJSON
 
 
-class IBBSRegisterViewController: UIViewController {
+class IBBSRegisterViewController: UIViewController, UITextFieldDelegate {
     
     
     @IBOutlet var avatarImageView: UIImageView! {
         didSet{
-            avatarImageView.clipsToBounds = true
+            avatarImageView.clipsToBounds      = true
             avatarImageView.layer.cornerRadius = 30.0
-            avatarImageView.layer.borderWidth = 0.3
-            avatarImageView.layer.borderColor = UIColor.blackColor().CGColor
-            avatarImageView.backgroundColor = CUSTOM_THEME_COLOR.darkerColor(0.75)
-            avatarImageView.image = AVATAR_PLACEHOLDER_IMAGE
+            avatarImageView.layer.borderWidth  = 0.3
+            avatarImageView.layer.borderColor  = UIColor.blackColor().CGColor
+            avatarImageView.backgroundColor    = CUSTOM_THEME_COLOR.darkerColor(0.75)
+            avatarImageView.image              = AVATAR_PLACEHOLDER_IMAGE
         }
     }
     @IBOutlet var usernameTextField: UITextField!
@@ -39,10 +39,14 @@ class IBBSRegisterViewController: UIViewController {
     private var blurView: UIView!    
     override func loadView() {
         super.loadView()
-        self.view.backgroundColor = UIColor(patternImage: BACKGROUNDER_IMAGE!)
-        blurView = UIVisualEffectView(effect: UIBlurEffect(style: .Light))
-        blurView.frame = self.view.frame
-        blurView.alpha = BLUR_VIEW_ALPHA_OF_BG_IMAGE + 0.2
+        usernameTextField.delegate      = self
+        emailTextField.delegate         = self
+        passwordTextField.delegate      = self
+        passwordAgainTextField.delegate = self
+        self.view.backgroundColor       = UIColor(patternImage: BACKGROUNDER_IMAGE!)
+        blurView                        = UIVisualEffectView(effect: UIBlurEffect(style: .Light))
+        blurView.frame                  = self.view.frame
+        blurView.alpha                  = BLUR_VIEW_ALPHA_OF_BG_IMAGE + 0.2
         self.view.insertSubview(blurView, atIndex: 0)
     }
 
@@ -52,6 +56,11 @@ class IBBSRegisterViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        blurView.frame = self.view.frame
+    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -77,38 +86,48 @@ class IBBSRegisterViewController: UIViewController {
         
         if username?.length == 0 || email?.length == 0 || passwd?.length == 0 || passwdAgain?.length == 0 {
             // not all the form are filled in
-            let alertView = UIAlertView(title: FILL_IN_ALL_THE_FORM, message: CHECK_IT_AGAIN, delegate: nil, cancelButtonTitle: I_WILL_CHECK)
-            alertView.tintColor = CUSTOM_THEME_COLOR
-            alertView.show()
+            let alertCtl = UIAlertController(title: FILL_IN_ALL_THE_FORM, message: CHECK_IT_AGAIN, preferredStyle: .Alert)
+            let cancelAction = UIAlertAction(title: I_WILL_CHECK, style: .Cancel, handler: nil)
+            alertCtl.addAction(cancelAction)
+            
+            self.presentViewController(alertCtl, animated: true, completion: nil)
             return
         }
         
         if username?.length > 15 || username?.length < 4 {
-            let alertView = UIAlertView(title: "", message: CHECK_DIGITS_OF_USERNAME, delegate: nil, cancelButtonTitle: TRY_AGAIN)
-            alertView.tintColor = CUSTOM_THEME_COLOR
-            alertView.show()
+            let alertCtl = UIAlertController(title: "", message: CHECK_DIGITS_OF_USERNAME, preferredStyle: .Alert)
+            let cancelAction = UIAlertAction(title: TRY_AGAIN, style: .Cancel, handler: nil)
+            alertCtl.addAction(cancelAction)
+            
+            self.presentViewController(alertCtl, animated: true, completion: nil)
             return
         }
         
         if !email!.isValidEmail(){
             // invalid email address
-            let alertView = UIAlertView(title: "", message: INVALID_EMAIL, delegate: nil, cancelButtonTitle: TRY_AGAIN)
-            alertView.tintColor = CUSTOM_THEME_COLOR
-            alertView.show()
+            let alertCtl = UIAlertController(title: "", message: INVALID_EMAIL, preferredStyle: .Alert)
+            let cancelAction = UIAlertAction(title: TRY_AGAIN, style: .Cancel, handler: nil)
+            alertCtl.addAction(cancelAction)
+            
+            self.presentViewController(alertCtl, animated: true, completion: nil)
             return
         }
         
         if passwd?.length < 6 {
-            let alertView = UIAlertView(title: "", message: CHECK_DIGITS_OF_PASSWORD, delegate: nil, cancelButtonTitle: I_KNOW)
-            alertView.tintColor = CUSTOM_THEME_COLOR
-            alertView.show()
+            let alertCtl = UIAlertController(title: "", message: CHECK_DIGITS_OF_PASSWORD, preferredStyle: .Alert)
+            let cancelAction = UIAlertAction(title: I_KNOW, style: .Cancel, handler: nil)
+            alertCtl.addAction(cancelAction)
+            
+            self.presentViewController(alertCtl, animated: true, completion: nil)
             return
         }
         
         if passwd != passwdAgain {
-            let alertView = UIAlertView(title: PASSWD_MUST_BE_THE_SAME, message: TRY_AGAIN, delegate: nil, cancelButtonTitle: TRY_AGAIN)
-            alertView.tintColor = CUSTOM_THEME_COLOR
-            alertView.show()
+            let alertCtl = UIAlertController(title: PASSWD_MUST_BE_THE_SAME, message: TRY_AGAIN, preferredStyle: .Alert)
+            let cancelAction = UIAlertAction(title: TRY_AGAIN, style: .Cancel, handler: nil)
+            alertCtl.addAction(cancelAction)
+            
+            self.presentViewController(alertCtl, animated: true, completion: nil)
             return
         }
         
@@ -121,7 +140,7 @@ class IBBSRegisterViewController: UIViewController {
                     print(json)
                     IBBSContext.sharedInstance.saveLoginData(json.object)
                     
-                    self.view.makeToast(message: REGISTER_SUCESSFULLY, duration: 3, position: HRToastPositionTop)
+                    self.view.makeToast(message: REGISTER_SUCESSFULLY, duration: TIME_OF_TOAST_OF_REGISTER_SUCCESS, position: HRToastPositionTop)
                     
                     let delayInSeconds: Double = 1
                     let delta = Int64(Double(NSEC_PER_SEC) * delayInSeconds)
@@ -141,9 +160,12 @@ class IBBSRegisterViewController: UIViewController {
             }else{
                 // failed
                 let errorInfo = json["msg"].stringValue
-                let alertView = UIAlertView(title: REGISTER_FAILED, message: errorInfo, delegate: nil, cancelButtonTitle: TRY_AGAIN)
-                alertView.tintColor = CUSTOM_THEME_COLOR
-                alertView.show()
+                let alertCtl = UIAlertController(title: REGISTER_FAILED, message: errorInfo, preferredStyle: .Alert)
+                let cancelAction = UIAlertAction(title: TRY_AGAIN, style: .Cancel, handler: nil)
+                alertCtl.addAction(cancelAction)
+                
+                self.presentViewController(alertCtl, animated: true, completion: nil)
+
             }
             }, failure: { (error) -> Void in
                 print(error)
@@ -151,6 +173,24 @@ class IBBSRegisterViewController: UIViewController {
                 
         })
         
+    }
+    
+    // MARK: - text field delegate
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        if textField == usernameTextField {
+            textField.resignFirstResponder()
+            emailTextField.becomeFirstResponder()
+        }else if textField == emailTextField {
+            textField.resignFirstResponder()
+            passwordTextField.becomeFirstResponder()
+        }else if textField == passwordTextField {
+            textField.resignFirstResponder()
+            passwordAgainTextField.becomeFirstResponder()
+        }else{
+            textField.resignFirstResponder()
+//            performSelector("signupButton:")
+        }
+        return true
     }
     
 }

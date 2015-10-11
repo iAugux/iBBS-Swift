@@ -53,8 +53,28 @@ class IBBSCommentViewController: ZSSRichTextEditor {
     }
     
     func cancelAction(){
-        self.blurTextEditor()
-        self.dismissViewControllerAnimated(true , completion: nil)
+        if getHTML().ausTrimHtmlInWhitespaceAndNewlineCharacterSet().isEmpty {
+            self.blurTextEditor()
+            self.dismissViewControllerAnimated(true , completion: nil)
+        } else {
+            let alert = UIAlertController(title: "", message: ARE_YOU_SURE_TO_GIVE_UP, preferredStyle: .Alert)
+            let continueAction = UIAlertAction(title: BUTTON_CONTINUE, style: .Default, handler: { _ in
+                self.focusTextEditor()
+            })
+            let cancelAction = UIAlertAction(title: BUTTON_GIVE_UP, style: .Cancel, handler: { _ in
+                self.blurTextEditor()
+                self.dismissViewControllerAnimated(true , completion: nil)
+            })
+            
+            alert.addAction(continueAction)
+            alert.addAction(cancelAction)
+            let delayInSeconds: Double = 0.5
+            let popTime = dispatch_time(DISPATCH_TIME_NOW, Int64(Double(NSEC_PER_SEC) * delayInSeconds))
+            dispatch_after(popTime, dispatch_get_main_queue(), {
+                self.presentViewController(alert, animated: true, completion: nil)
+            })
+        }
+        
     }
     
     func sendAction(){
@@ -75,7 +95,7 @@ class IBBSCommentViewController: ZSSRichTextEditor {
                 print(json)
                 let msg = json["msg"].stringValue
                 if json["code"].intValue == 1 { //comment successfully
-                    self.view?.makeToast(message: msg, duration: 3, position: HRToastPositionTop)
+                    self.view?.makeToast(message: msg, duration: TIME_OF_TOAST_OF_COMMENT_SUCCESS, position: HRToastPositionTop)
                     
                     let delayInSeconds: Double = 0.3
                     let delta = Int64(Double(NSEC_PER_SEC) * delayInSeconds)
@@ -85,7 +105,7 @@ class IBBSCommentViewController: ZSSRichTextEditor {
                     })
                     
                 }else{
-                    self.view?.makeToast(message: msg, duration: 3, position: HRToastPositionTop)
+                    self.view?.makeToast(message: msg, duration: TIME_OF_TOAST_OF_COMMENT_FAILED, position: HRToastPositionTop)
                     let delayInSeconds: Double = 0.5
                     let delta = Int64(Double(NSEC_PER_SEC) * delayInSeconds)
                     let popTime = dispatch_time(DISPATCH_TIME_NOW,delta)
@@ -110,7 +130,6 @@ class IBBSCommentViewController: ZSSRichTextEditor {
                self.focusTextEditor()
         }
         alertController.addAction(action)
-        alertController.view.tintColor = CUSTOM_THEME_COLOR
         self.presentViewController(alertController, animated: true, completion: nil)
     }
     

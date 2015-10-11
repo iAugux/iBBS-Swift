@@ -23,22 +23,27 @@ extension NSString {
         return CGSizeMake(ceil(expectedLabelSize.width), ceil(expectedLabelSize.height))
     }
     
-    func ausTrimHtmlInWhitespaceAndNewlineCharacterSet() -> String {
-        var str = self.stringByTrimmingCharactersInSet(NSCharacterSet(charactersInString: "<div><br /></div>"))
+    func ausTrimHtmlInWhitespaceAndNewlineCharacterSet() -> NSString {
+        var str = self
+        str = str.stringByTrimmingCharactersInSet(NSCharacterSet(charactersInString: "<div><br /></div>"))
+        str = str.stringByTrimmingCharactersInSet(NSCharacterSet(charactersInString: "<div><br/></div>"))
         str = str.stringByTrimmingCharactersInSet(NSCharacterSet(charactersInString: "<br />"))
-        str = str.stringByTrimmingCharactersInSet(NSCharacterSet(charactersInString: "&nbsp;"))
+        str = str.stringByTrimmingCharactersInSet(NSCharacterSet(charactersInString: "<br/>"))
+        //        str = str.stringByTrimmingCharactersInSet(NSCharacterSet(charactersInString: "&nbsp;"))
         str = str.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
         return str
     }
-    
     
 }
 
 extension String {
     func ausTrimHtmlInWhitespaceAndNewlineCharacterSet() -> String {
-        var str = self.stringByTrimmingCharactersInSet(NSCharacterSet(charactersInString: "<div><br /></div>"))
+        var str = self
+        str = str.stringByTrimmingCharactersInSet(NSCharacterSet(charactersInString: "<div><br /></div>"))
+        str = str.stringByTrimmingCharactersInSet(NSCharacterSet(charactersInString: "<div><br/></div>"))
         str = str.stringByTrimmingCharactersInSet(NSCharacterSet(charactersInString: "<br />"))
-        str = str.stringByTrimmingCharactersInSet(NSCharacterSet(charactersInString: "&nbsp;"))
+        str = str.stringByTrimmingCharactersInSet(NSCharacterSet(charactersInString: "<br/>"))
+//        str = str.stringByTrimmingCharactersInSet(NSCharacterSet(charactersInString: "&nbsp;"))
         str = str.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
         return str
     }

@@ -42,4 +42,7 @@
     "Give up" = "Give up";
     "Next" = "Next";
     "All nodes" = "All Nodes";
+    "change theme" = "Change Theme";
+    "Token lost effectiveness" = "Token lost effectiveness";
+    "Please login again" = "Please login again";
 }

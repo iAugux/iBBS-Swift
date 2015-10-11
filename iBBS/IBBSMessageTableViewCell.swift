@@ -30,7 +30,7 @@ class IBBSMessageTableViewCell: UITableViewCell {
     @IBOutlet var timeLabel: UILabel!
     @IBOutlet var contentLabel: UILabel!
     @IBOutlet var usernameLabel: UILabel!
-    var imagePath: UIBezierPath!
+    var isRead: Int = 0
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -53,11 +53,12 @@ class IBBSMessageTableViewCell: UITableViewCell {
         timeLabel.text = json["send_time"].stringValue
         contentLabel.text = json["title"].stringValue
         
-        let isRead = json["is_read"].intValue
+        isRead = json["is_read"].intValue
         if isRead == 0 {
-            self.isMessageRead.image = UIImage(named: "message_not_read")
+            self.isMessageRead.image = UIImage(named: "message_is_read_marker")
+            self.isMessageRead.changeColorForImageOfImageView(CUSTOM_THEME_COLOR.lighterColor(0.7))
         }else if isRead == 1{
-            self.isMessageRead.image = UIImage(named: "message_have_read")
+            self.isMessageRead.image = UIImage(named: "message_is_read_marker")
         }
         
         let isAdministrator = json["type"].boolValue
@@ -70,5 +71,9 @@ class IBBSMessageTableViewCell: UITableViewCell {
             usernameLabel.text = json["sender"].stringValue
             
         }
+    }
+    
+    func changeColorForMessageMarker() {
+        
     }
 }

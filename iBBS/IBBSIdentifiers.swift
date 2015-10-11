@@ -14,7 +14,6 @@ struct MainStoryboard {
         static let editVC                      = "iBBSEditingViewController"
         static let detailVC                    = "iBBSDetailViewController"
         static let nodeVC                      = "iBBSNodeViewController"
-
     }
 
     struct CellIdentifiers {
@@ -34,11 +33,28 @@ struct MainStoryboard {
         static let replyCell                   = "IBBSReplyCell"
         static let headerView                  = "IBBSDetailHeaderView"
         static let messageCell                 = "IBBSMessageTableViewCell"
+        static let themePickerView             = "IBBSThemePickerView"
     }
 
     struct SegueIdentifiers {
         static let postSegue                   = "postNewArticle"
         static let nodeToMainVCSegueIdentifier = "nodeToMainVC"
 
+    }
+}
+
+
+struct SlidePanelStoryboard {
+    
+    struct VCIdentifiers {
+        static let notificationVC  = "iBBSNotificationViewController"
+        static let favoriteVC      = "iBBSFavoriteViewController"
+        static let profileVC       = "iBBSProfileViewController"
+        static let settingVC       = "iBBSSettingViewController"
+
+        static let notificationNav = "iBBSNotificationNavigationController"
+        static let favoriteNav     = "iBBSFavoriteNavigationController"
+        static let profileNav      = "iBBSProfileNavigationController"
+        static let settingNav      = "iBBSSettingNavigationController"
     }
 }

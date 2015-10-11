@@ -11,7 +11,9 @@ import Foundation
 
 
 class IBBSCustomSelectedBackgroundView: UIView {
-    
+
+    var fillColor = CUSTOM_THEME_COLOR.lighterColor(0.8)
+
     override func drawRect(rect: CGRect) {
         let aRef = UIGraphicsGetCurrentContext()
         CGContextSaveGState(aRef)
@@ -19,13 +21,10 @@ class IBBSCustomSelectedBackgroundView: UIView {
         bezierPath.lineWidth = 8.0
         UIColor.whiteColor().setStroke()
         
-        let fillColor = CUSTOM_THEME_COLOR.darkerColor(0.75)
         fillColor.setFill()
         
         bezierPath.stroke()
         bezierPath.fill()
         CGContextRestoreGState(aRef)
     }
-
-
 }

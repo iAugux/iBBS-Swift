@@ -18,23 +18,28 @@ class TabBarController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+       
         self.changeStatusBarColorOnSwipe()
-        // Do any additional setup after loading the view.
         self.tabBar.items?[0].title = TITLE_HOME
         self.tabBar.items?[1].title = TITLE_NODE
         self.tabBar.items?[2].title = TITLE_MESSAGE
         
     }
     
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
         self.tabBar.tintColor = CUSTOM_THEME_COLOR
     }
 
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        statusBarView?.frame = UIApplication.sharedApplication().statusBarFrame
+    }
+    
     func changeStatusBarColorOnSwipe(){
         if SHOULD_HIDE_NAVIGATIONBAR {
             statusBarView = UIToolbar(frame:  UIApplication.sharedApplication().statusBarFrame)
-            statusBarView.barStyle = UIBarStyle.Default            
+            statusBarView.barStyle = UIBarStyle.Default
             self.view.addSubview(statusBarView)
 
         }

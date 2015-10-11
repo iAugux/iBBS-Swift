@@ -29,7 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let homeNav = mainStoryboard.instantiateViewControllerWithIdentifier("homeNav") as! UINavigationController
         homeNav.viewControllers[0] = containerViewController
         homeNav.setNavigationBarHidden(true, animated: false)
-        window?.rootViewController = homeNav
+        self.window?.rootViewController = homeNav
         
         
         // Settings
@@ -38,7 +38,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             SHOULD_HIDE_NAVIGATIONBAR = true
         }
         
+//        SHOULD_HIDE_NAVIGATIONBAR = true
+        
+        
+        // Set Theme
+//        self.window?.backgroundColor = UIColor.whiteColor()
+        let userDefaults = NSUserDefaults.standardUserDefaults()
+        if let theme = userDefaults.objectForKey(kCurrentTheme) {
+            IBBSThemes(rawValue: Int(theme as! NSNumber))?.setTheme()
+            self.setWindowTintColor()
+            
+        }else {
+            let theme = IBBSThemes.DefaultTheme
+            theme.setTheme()
+            self.window?.tintColor = CUSTOM_THEME_COLOR
+
+        }
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "setWindowTintColor", name: kThemeDidChangeNotification, object: nil)
+        
         return true
+    }
+    
+    func setWindowTintColor(){
+        self.window?.tintColor = CUSTOM_THEME_COLOR
+        self.window?.backgroundColor = CUSTOM_THEME_COLOR.lighterColor(0.6)
+
     }
     
     // disable orientation for messages view controller

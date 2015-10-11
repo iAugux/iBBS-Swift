@@ -101,11 +101,6 @@ class IBBSNodeViewController: IBBSBaseViewController, UIGestureRecognizerDelegat
         edgeGestureRecognizer.edges = UIRectEdge.Right
         self.view.addGestureRecognizer(edgeGestureRecognizer)
     }
-    
-    func cornerActionButtonDidTap() {
-        print("editing... in node view controller")
-        // TODO: -
-    }
 
     // MARK: - Table view data source
     

@@ -38,8 +38,9 @@ class IBBSTableViewCell: UITableViewCell {
         // Initialization code
 //        self.backgroundColor = UIColor.clearColor()
 
-        self.separatorInset                  = UIEdgeInsetsZero
-        self.layoutMargins                   = UIEdgeInsetsZero
+        self.separatorInset = UIEdgeInsetsZero
+        self.layoutMargins  = UIEdgeInsetsZero
+        self.selectionStyle = .None
  
     }
     

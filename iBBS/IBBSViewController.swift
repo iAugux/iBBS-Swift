@@ -15,6 +15,8 @@ import SwiftyJSON
 
 class IBBSViewController: IBBSBaseViewController {
     
+    @IBOutlet var postNewArticleButton: UIBarButtonItem!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.automaticPullingDownToRefresh()
@@ -23,6 +25,7 @@ class IBBSViewController: IBBSBaseViewController {
         self.pullUpToLoadmore()
         self.sendRequest(page)
         IBBSConfigureNodesInfo.sharedInstance.configureNodesInfo()
+
     }
     
        
@@ -36,6 +39,12 @@ class IBBSViewController: IBBSBaseViewController {
         */
         //        self.navigationController?.interactivePopGestureRecognizer?.delegate = nil
         self.navigationController?.interactivePopGestureRecognizer?.enabled = false
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadDataAfterPosting", name: kShouldReloadDataAfterPosting, object: nil)
+    }
+    
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: kShouldReloadDataAfterPosting, object: nil)
     }
     
     func sendRequest(page: Int) {
@@ -62,6 +71,7 @@ class IBBSViewController: IBBSBaseViewController {
                 self.view.makeToast(message: SERVER_ERROR, duration: TIME_OF_TOAST_OF_SERVER_ERROR, position: HRToastPositionTop)
         })
     }
+    
     
     func configureView(){
         self.navigationController?.navigationBarHidden = false
@@ -90,7 +100,16 @@ class IBBSViewController: IBBSBaseViewController {
     }
     
     
-    func cornerActionButtonDidTap() {
+    override func cornerActionButtonDidTap() {
+        self.performPostNewArticleSegue()
+        
+    }
+    
+    @IBAction func postNewArticleButtonDidTap(sender: AnyObject) {
+        self.performPostNewArticleSegue()
+    }
+    
+    func performPostNewArticleSegue(){
         print("editing...")
         IBBSContext.sharedInstance.isTokenLegal(){ (isTokenLegal) -> Void in
             if isTokenLegal{
@@ -101,9 +120,7 @@ class IBBSViewController: IBBSBaseViewController {
             }
             
         }
-        
     }
-    
     
 }
 
@@ -186,7 +203,7 @@ extension IBBSViewController {
     
 }
 
-extension IBBSViewController: PostViewDelegate {
+extension IBBSViewController {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
@@ -194,6 +211,7 @@ extension IBBSViewController: PostViewDelegate {
             if let destinationVC = segue.destinationViewController as? UINavigationController {
 
                 self.presentLoginViewControllerIfNotLogin(alertMessage: LOGIN_TO_POST, completion: {
+                    
                     self.presentViewController(destinationVC, animated: true, completion: nil)
                 })
             }
@@ -201,10 +219,9 @@ extension IBBSViewController: PostViewDelegate {
     }
    
     
-    // MARK: - post delegate
     func reloadDataAfterPosting() {
         print("reloading")
-        self.tableView.reloadData()
+        self.tableView?.reloadData()
         self.automaticPullingDownToRefresh()
     }
     
@@ -232,7 +249,6 @@ extension UIViewController {
                     })
                 })
                 let cancelAction = UIAlertAction(title: BUTTON_CANCEL, style: .Cancel , handler: nil)
-                loginAlertController.view.tintColor = CUSTOM_THEME_COLOR
                 loginAlertController.addAction(cancelAction)
                 loginAlertController.addAction(okAction)
                 self.presentViewController(loginAlertController, animated: true, completion: nil)

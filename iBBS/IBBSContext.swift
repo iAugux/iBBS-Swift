@@ -23,18 +23,19 @@ class IBBSContext {
 
     
     func isTokenLegal(completionHandler: ((isTokenLegal: Bool) -> Void)) {
-        
+
         if let json = IBBSContext.sharedInstance.getLoginData() {
             let uid = json["uid"].stringValue
             let token = json["token"].stringValue
             APIClient.sharedInstance.isTokenLegal(uid, token: token, success: { (json) -> Void in
                 print(json)
+                
                 if json["code"].intValue == 1 {
                     completionHandler(isTokenLegal: true)
                     
                 }else{
                     let msg = json["msg"].stringValue
-                   UIApplication.topMostViewController()?.view.makeToast(message: msg, duration: 4, position: HRToastPositionTop)
+                   UIApplication.topMostViewController()?.view.makeToast(message: msg, duration: TIME_OF_TOAST_OF_TOKEN_ILLEGAL, position: HRToastPositionTop)
                     completionHandler(isTokenLegal: false)
                     
                 }
@@ -50,9 +51,8 @@ class IBBSContext {
     
     func login(cancelled cancelled: (() -> Void)?, completion: (() -> Void)?) {
         var username, password: UITextField!
-        
+      
         let alertVC = UIAlertController(title: BUTTON_LOGIN, message: INSERT_UID_AND_PASSWD, preferredStyle: .Alert)
-        alertVC.view.tintColor = CUSTOM_THEME_COLOR
         
         alertVC.addTextFieldWithConfigurationHandler { (textField: UITextField) -> Void in
             textField.placeholder = HOLDER_USERNAME
@@ -61,6 +61,7 @@ class IBBSContext {
         alertVC.addTextFieldWithConfigurationHandler { (textField: UITextField) -> Void in
             textField.placeholder = HOLDER_PASSWORD
             textField.secureTextEntry = true
+            textField.enablesReturnKeyAutomatically = true
             password = textField
         }
         
@@ -75,7 +76,7 @@ class IBBSContext {
                         self.login(cancelled: nil, completion: nil)
                         alertVC.dismissViewControllerAnimated(true , completion: nil)
                     })
-                    alert.view.tintColor = CUSTOM_THEME_COLOR
+                    
                     alert.addAction(cancelAction)
                     UIApplication.topMostViewController()?.presentViewController(alert, animated: true, completion: nil)
                 }else{
@@ -97,13 +98,13 @@ class IBBSContext {
                 cancelHandler()
             }
         }
-        
         alertVC.addAction(okAction)
         alertVC.addAction(cancelAction)
         UIApplication.topMostViewController()?.presentViewController(alertVC, animated: true, completion: nil)
         
+       
     }
-    
+
     func logout(completion completion: (() -> Void)?){
         
         let alertController = UIAlertController(title: "", message: SURE_TO_LOGOUT, preferredStyle: .Alert)
@@ -117,7 +118,7 @@ class IBBSContext {
                 completionHandler()
             }
         }
-        alertController.view.tintColor = CUSTOM_THEME_COLOR
+        
         alertController.addAction(cancelAction)
         alertController.addAction(okAction)
         UIApplication.topMostViewController()?.presentViewController(alertController, animated: true, completion: nil)

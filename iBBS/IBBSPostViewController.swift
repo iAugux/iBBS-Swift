@@ -13,16 +13,12 @@
 import UIKit
 import SwiftyJSON
 
-protocol PostViewDelegate {
-    func reloadDataAfterPosting()
-}
 
 class IBBSPostViewController: ZSSRichTextEditor {
 
     private let nodeID = "board"
     private let articleTitle = "title"
     private let content = "content"
-    var delegate: PostViewDelegate!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -95,6 +91,14 @@ class IBBSPostViewController: ZSSRichTextEditor {
         super.viewDidAppear(animated)
         self.navigationController?.navigationBar.translucent = false
         self.focusTextEditor()
+        
+        let delayInSeconds: Double = 0.4
+        let popTime = dispatch_time(DISPATCH_TIME_NOW,Int64(Double(NSEC_PER_SEC) * delayInSeconds))
+        dispatch_after(popTime, dispatch_get_main_queue(), {
+            self.toolbarHolder?.hidden = false
+            
+        })
+        
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -102,6 +106,9 @@ class IBBSPostViewController: ZSSRichTextEditor {
 //        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
 //        self.navigationController?.navigationBar.shadowImage = UIImage()
 //        self.navigationController?.navigationBar.translucent = true
+
+        self.toolbarHolder?.hidden = true
+        self.blurTextEditor()
     }
 
     func sendAction() {
@@ -123,9 +130,10 @@ class IBBSPostViewController: ZSSRichTextEditor {
 
                 let msg = json["msg"].stringValue
                 if json["code"].intValue == 1 { //post successfully
-                    self.view?.makeToast(message: msg, duration: 3, position: HRToastPositionTop)
-                    self.delegate?.reloadDataAfterPosting()
                     
+                    NSNotificationCenter.defaultCenter().postNotificationName(kShouldReloadDataAfterPosting, object: nil)
+                    
+                    self.view?.makeToast(message: msg, duration: TIME_OF_TOAST_OF_POST_SUCCESS, position: HRToastPositionTop)
                     let delayInSeconds: Double = 0.3
                     let delta = Int64(Double(NSEC_PER_SEC) * delayInSeconds)
                     let popTime = dispatch_time(DISPATCH_TIME_NOW,delta)
@@ -134,7 +142,7 @@ class IBBSPostViewController: ZSSRichTextEditor {
                     })
 
                 }else{
-                    self.view?.makeToast(message: msg, duration: 3, position: HRToastPositionTop)
+                    self.view?.makeToast(message: msg, duration: TIME_OF_TOAST_OF_POST_FAILED, position: HRToastPositionTop)
                     let delayInSeconds: Double = 1.5
                     let delta = Int64(Double(NSEC_PER_SEC) * delayInSeconds)
                     let popTime = dispatch_time(DISPATCH_TIME_NOW,delta)
@@ -164,7 +172,7 @@ class IBBSPostViewController: ZSSRichTextEditor {
         let action = UIAlertAction(title: GOT_IT, style: .Cancel) { (_) -> Void in
             self.focusTextEditor()
         }
-        alertController.view.tintColor = CUSTOM_THEME_COLOR
+        
         alertController.addAction(action)
         self.presentViewController(alertController, animated: true, completion: nil)
     }

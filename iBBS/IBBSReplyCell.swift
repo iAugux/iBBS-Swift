@@ -45,7 +45,6 @@ class IBBSReplyCell: UITableViewCell {
     func loadDataToCell(json: JSON) {
         let imageUrl = NSURL(string: json["avatar"].stringValue)
         avatarImageView.kf_setImageWithURL(imageUrl!, placeholderImage: AVATAR_PLACEHOLDER_IMAGE)
-        //        avatarImageView.sd_setImageWithURL(imageUrl, placeholderImage: UIImage(named: "iAugus_500k"))
         usernameLabel.text = json["username"].stringValue
         let data = json["comment_content"].stringValue
         print(data)

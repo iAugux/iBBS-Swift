@@ -16,7 +16,7 @@ import SwiftyJSON
 
 
 
-class IBBSBaseViewController: UITableViewController, ContainerViewControllerDelegate {
+class IBBSBaseViewController: UITableViewController {
     var gearRefreshControl: GearRefreshControl!
     var cornerActionButton: UIButton!
     var page: Int = 1
@@ -34,32 +34,40 @@ class IBBSBaseViewController: UITableViewController, ContainerViewControllerDele
         self.gearRefreshManager()
         self.configureCornerActionButton()
         self.navigationController?.navigationBar.hidden = SHOULD_HIDE_NAVIGATIONBAR
-        
-        
-        // TODO: - hide corner action button when slide left vc
-        let containerVC = ContainerViewController()
-        containerVC.delegate = self
-        print("***********************************************************")
-        print(containerVC.delegate)
-        print("***********************************************************")
+        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : CUSTOM_THEME_COLOR]
 
-        
-
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateTheme", name: kThemeDidChangeNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "hideCornerActionButton", name: kShouldHideCornerActionButton, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "showCornerActionButton", name: kShouldShowCornerActionButton, object: nil)
     }
+    
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.navigationBar.tintColor = CUSTOM_THEME_COLOR
-        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : CUSTOM_THEME_COLOR]
-        
-        cornerActionButton.hidden = false
+        cornerActionButton?.hidden = false
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "showCornerActionButton", name: kShouldShowCornerActionButton, object: nil)
     }
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
-        cornerActionButton.hidden = true
+        cornerActionButton?.hidden = true
+        
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: kShouldShowCornerActionButton, object: nil)
     }
     
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        cornerActionButton?.backgroundColor = CUSTOM_THEME_COLOR.lighterColor(0.85) //UIColor(red:0.854, green:0.113, blue:0.223, alpha:1)
+    }
+    
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -67,29 +75,51 @@ class IBBSBaseViewController: UITableViewController, ContainerViewControllerDele
     
     func configureCornerActionButton(){
         cornerActionButton = UIButton(frame: CGRectMake(UIScreen.screenWidth() - 66, UIScreen.screenHeight() - 110, 40, 40))
-        cornerActionButton.layer.cornerRadius = 20.0
-        cornerActionButton.clipsToBounds = true
-        cornerActionButton.backgroundColor = CUSTOM_THEME_COLOR //UIColor(red:0.854, green:0.113, blue:0.223, alpha:1)
-        cornerActionButton.setImage(UIImage(named: "plus_button"), forState: .Normal)
-        cornerActionButton.addTarget(self, action: "cornerActionButtonDidTap", forControlEvents: .TouchUpInside)
+        cornerActionButton?.layer.cornerRadius = 20.0
+        cornerActionButton?.clipsToBounds = true
+        cornerActionButton?.setImage(UIImage(named: "plus_button"), forState: .Normal)
+        cornerActionButton?.addTarget(self, action: "cornerActionButtonDidTap", forControlEvents: .TouchUpInside)
         UIApplication.topMostViewController()?.view.addSubview(cornerActionButton)
     }
     
+    func cornerActionButtonDidTap() {
+        print("corner action button did tap")
+        let alertCtrl = UIAlertController(title: "", message: "TODO...", preferredStyle: .Alert)
+        let cancelAction = UIAlertAction(title: "OK", style: .Cancel , handler: nil)
+        alertCtrl.addAction(cancelAction)
+        UIApplication.topMostViewController()?.presentViewController(alertCtrl, animated: true, completion: nil)
+    }
+    
+    
+    func updateTheme() {
+        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : CUSTOM_THEME_COLOR]
+        self.cornerActionButton?.backgroundColor = CUSTOM_THEME_COLOR.lighterColor(0.85)
+        
+        /**
+           I tried to set `gearTintColor` to `gearRefreshControl`, but the color of all of gears didn't change.
+           Because other gears' color is computed automatically according to main gear.
+            
+        I removed `gearRefreshControl`, then set it again.
+        */
+//        self.gearRefreshControl.gearTintColor = CUSTOM_THEME_COLOR.lighterColor(0.7)
+        
+        gearRefreshControl?.endRefreshing()
+        gearRefreshControl?.removeFromSuperview()
+        gearRefreshManager()
+    }
     
     // MARK: - part of GearRefreshControl
     
     
     override func scrollViewDidScroll(scrollView: UIScrollView) {
-        gearRefreshControl.scrollViewDidScroll(scrollView)
+        gearRefreshControl?.scrollViewDidScroll(scrollView)
     }
     
     private func gearRefreshManager(){
         gearRefreshControl = GearRefreshControl(frame: self.view.bounds)
-        gearRefreshControl.gearTintColor = CUSTOM_THEME_COLOR //UIColor.yellowColor()
-        
+        gearRefreshControl.gearTintColor = CUSTOM_THEME_COLOR.lighterColor(0.7)
         gearRefreshControl.addTarget(self, action: "refreshData", forControlEvents: UIControlEvents.ValueChanged)
         refreshControl = gearRefreshControl
-        
     }
     
     
@@ -105,10 +135,8 @@ class IBBSBaseViewController: UITableViewController, ContainerViewControllerDele
         self.gearRefreshControl.beginRefreshing()
         self.tableView.setContentOffset(CGPointMake(0, -125.0), animated: true)
         
-        let delayInSeconds: Double = 0.6
-        let delta = Int64(Double(NSEC_PER_SEC) * delayInSeconds)
-        
-        let popTime:dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW,delta)
+        let delayInSeconds: Double = 0.5
+        let popTime:dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW, Int64(Double(NSEC_PER_SEC) * delayInSeconds))
         dispatch_after(popTime, dispatch_get_main_queue(), {
             self.gearRefreshControl.endRefreshing()
             
@@ -116,14 +144,15 @@ class IBBSBaseViewController: UITableViewController, ContainerViewControllerDele
         
     }
     
-    // ContainerViewControllerDelegate
     func hideCornerActionButton() {
         print("hide corner button")
-        self.cornerActionButton.hidden = true
+        self.cornerActionButton?.hidden = true
     }
     
     func showCornerActionButton() {
         print("show corner button")
-        self.cornerActionButton.hidden = false
+        self.cornerActionButton?.hidden = false
     }
+    
+    
 }

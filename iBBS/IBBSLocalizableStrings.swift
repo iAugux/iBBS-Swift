@@ -34,7 +34,9 @@ let REGISTER_FAILED            = NSLocalizedString("Register failed!", comment: 
 let SERVER_ERROR               = NSLocalizedString("sorry, something wrong with server...\n😭😭😭", comment: "")
 let LOGIN_TO_READ_MESSAGE      = NSLocalizedString("login in to read message", comment: "")
 let LOGIN_TO_POST              = NSLocalizedString("login in to post", comment: "")
+let PLEASE_LOGIN_AGAIN         = NSLocalizedString("Please login again", comment: "")
 
+let BUTTON_CHANGE_THEME        = NSLocalizedString("change theme", comment: "")
 let BUTTON_LOGIN               = NSLocalizedString("Login", comment: "")
 let BUTTON_REGISTER            = NSLocalizedString("Register", comment: "")
 let BUTTON_SEND                = NSLocalizedString("Send", comment: "")
@@ -49,6 +51,7 @@ let BUTTON_CANCEL              = NSLocalizedString("Cancel", comment: "")
 let ERROR_MESSAGE              = NSLocalizedString("Error Message", comment: "")
 let SURE_TO_LOGOUT             = NSLocalizedString("Are you sure to logout ?", comment: "")
 let REGISTER_OR_LOGIN          = NSLocalizedString("Login or Register ?", comment: "")
+let TOKEN_LOST_EFFECTIVENESS   = NSLocalizedString("Token lost effectiveness", comment: "")
 
 let REPLY_FAILED               = NSLocalizedString("Reply failed!", comment: "")
 let REPLY_SUCCESSFULLY         = NSLocalizedString("Reply successfully!", comment: "")
