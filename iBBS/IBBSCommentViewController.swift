@@ -49,7 +49,14 @@ class IBBSCommentViewController: ZSSRichTextEditor {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        self.focusTextEditor()
+
+        // TODO: - There is a bug in `ZSSRichTextEditor`. If you show keyboard immediately, then the color picker won't work correctly.
+        
+        let delayInSeconds: Double = 0.7
+        let popTime = dispatch_time(DISPATCH_TIME_NOW,Int64(Double(NSEC_PER_SEC) * delayInSeconds))
+        dispatch_after(popTime, dispatch_get_main_queue(), {
+            self.focusTextEditor()
+        })
     }
     
     func cancelAction(){
