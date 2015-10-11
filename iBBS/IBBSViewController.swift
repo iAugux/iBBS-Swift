@@ -24,6 +24,8 @@ class IBBSViewController: IBBSBaseViewController {
         self.configureNavifationItemTitle()
         self.pullUpToLoadmore()
         self.sendRequest(page)
+        self.postNewArticleSegue = MainStoryboard.SegueIdentifiers.postSegue
+
         IBBSConfigureNodesInfo.sharedInstance.configureNodesInfo()
 
     }
@@ -106,26 +108,14 @@ class IBBSViewController: IBBSBaseViewController {
     
     
     override func cornerActionButtonDidTap() {
-        self.performPostNewArticleSegue()
+        self.performPostNewArticleSegue(segueIdentifier: MainStoryboard.SegueIdentifiers.postSegue)
         
     }
     
     @IBAction func postNewArticleButtonDidTap(sender: AnyObject) {
-        self.performPostNewArticleSegue()
+        self.performPostNewArticleSegue(segueIdentifier: MainStoryboard.SegueIdentifiers.postSegue)
     }
     
-    func performPostNewArticleSegue(){
-        print("editing...")
-        IBBSContext.sharedInstance.isTokenLegal(){ (isTokenLegal) -> Void in
-            if isTokenLegal{
-                self.performSegueWithIdentifier(MainStoryboard.SegueIdentifiers.postSegue, sender: self)
-            }else {
-                self.presentLoginViewControllerIfNotLogin(alertMessage: LOGIN_TO_POST, completion: {self.cornerActionButtonDidTap() })
-                
-            }
-            
-        }
-    }
     
 }
 
@@ -168,6 +158,13 @@ extension IBBSViewController {
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        super.prepareForSegue(segue, sender: sender)
+        if segue.identifier == MainStoryboard.SegueIdentifiers.postSegue {
+            whoCalledEditingViewController = -1
+        }
+    }
+    
 }
 
 extension IBBSViewController {
@@ -181,7 +178,7 @@ extension IBBSViewController {
         dispatch_after(popTime, dispatch_get_main_queue()) { () -> Void in
             self.tableView.reloadData()
             self.page = 1
-            self.gearRefreshControl.endRefreshing()
+            self.gearRefreshControl?.endRefreshing()
         }
         
     }
@@ -208,57 +205,3 @@ extension IBBSViewController {
     
 }
 
-extension IBBSViewController {
-    
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        
-        if segue.identifier == MainStoryboard.SegueIdentifiers.postSegue {
-            if let destinationVC = segue.destinationViewController as? UINavigationController {
-
-                self.presentLoginViewControllerIfNotLogin(alertMessage: LOGIN_TO_POST, completion: {
-                    
-                    self.presentViewController(destinationVC, animated: true, completion: nil)
-                })
-            }
-        }
-    }
-   
-    
-    func reloadDataAfterPosting() {
-        print("reloading")
-        self.sendRequest(1)
-//        self.automaticPullingDownToRefresh()
-    }
-    
-    
-}
-
-extension UIViewController {
-    public func presentLoginViewControllerIfNotLogin(alertMessage message: String, completion: (() -> Void)?){
-        IBBSContext.sharedInstance.isTokenLegal(){ (isTokenLegal) -> Void in
-            if !isTokenLegal {
-                let loginAlertController = UIAlertController(title: "", message: message, preferredStyle: .Alert)
-                let okAction = UIAlertAction(title: BUTTON_OK, style: .Default, handler: { (_) -> Void in
-                    let vc = IBBSEffectViewController()
-                    vc.modalTransitionStyle = UIModalTransitionStyle.FlipHorizontal
-                    self.presentViewController(vc, animated: true, completion: nil)
-                    
-                    IBBSContext.sharedInstance.login(cancelled: {
-                        vc.dismissViewControllerAnimated(true , completion: nil)
-                        }, completion: {
-                            vc.dismissViewControllerAnimated(true, completion: nil)
-                            
-                            if let completionHandler = completion {
-                                completionHandler()
-                            }
-                    })
-                })
-                let cancelAction = UIAlertAction(title: BUTTON_CANCEL, style: .Cancel , handler: nil)
-                loginAlertController.addAction(cancelAction)
-                loginAlertController.addAction(okAction)
-                self.presentViewController(loginAlertController, animated: true, completion: nil)
-                
-            }
-        }
-    }
-}

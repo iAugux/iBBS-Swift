@@ -144,6 +144,7 @@ class IBBSContext {
     
     func saveNodes(nodes: AnyObject) {
         let userDefaults = NSUserDefaults.standardUserDefaults()
+        userDefaults.removeObjectForKey(kNodesId)
         userDefaults.setObject(NSKeyedArchiver.archivedDataWithRootObject(nodes), forKey: kNodesId)
         userDefaults.synchronize()
     }

@@ -134,7 +134,11 @@
         <!--Node View Controller-->
         <scene sceneID="83w-xd-DKK">
             <objects>
-                <tableViewController storyboardIdentifier="iBBSNodeViewController" id="SAd-RE-di8" customClass="IBBSNodeViewController" customModule="iBBS" customModuleProvider="target" sceneMemberID="viewController"/>
+                <tableViewController storyboardIdentifier="iBBSNodeViewController" id="SAd-RE-di8" customClass="IBBSNodeViewController" customModule="iBBS" customModuleProvider="target" sceneMemberID="viewController">
+                    <connections>
+                        <segue destination="KeS-cg-uVx" kind="presentation" identifier="postNewArticleWithNode" id="SF8-PN-qFy"/>
+                    </connections>
+                </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kkh-dm-3iK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="648.75" y="8.4507042253521121"/>
@@ -684,4 +688,7 @@
         <image name="node" width="50" height="50"/>
         <image name="register_button" width="50" height="50"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="SF8-PN-qFy"/>
+    </inferredMetricsTieBreakers>
 </document>

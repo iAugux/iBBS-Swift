@@ -25,8 +25,9 @@ class IBBSNodeViewController: IBBSBaseViewController, UIGestureRecognizerDelegat
         self.configureTableView()
         self.configureView()
         self.configureGestureRecognizer()
-        
         self.sendRequest(page)
+        self.postNewArticleSegue = MainStoryboard.SegueIdentifiers.postNewArticleWithNodeSegue
+        
     }
     
     
@@ -36,6 +37,11 @@ class IBBSNodeViewController: IBBSBaseViewController, UIGestureRecognizerDelegat
         
         self.navigationController?.interactivePopGestureRecognizer?.delegate = self
         self.navigationController?.interactivePopGestureRecognizer?.enabled = true
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadDataAfterPosting", name: kShouldReloadDataAfterPosting, object: nil)
+    }
+    
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: kShouldReloadDataAfterPosting, object: nil)
     }
     
     override func didReceiveMemoryWarning() {
@@ -101,6 +107,11 @@ class IBBSNodeViewController: IBBSBaseViewController, UIGestureRecognizerDelegat
         self.view.addGestureRecognizer(edgeGestureRecognizer)
     }
 
+    override func cornerActionButtonDidTap() {
+        self.performPostNewArticleSegue(segueIdentifier: MainStoryboard.SegueIdentifiers.postNewArticleWithNodeSegue)
+    }
+    
+    
     // MARK: - Table view data source
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -143,7 +154,6 @@ class IBBSNodeViewController: IBBSBaseViewController, UIGestureRecognizerDelegat
         
     }
     
-   
     
 }
 
@@ -159,7 +169,7 @@ extension IBBSNodeViewController {
         dispatch_after(popTime, dispatch_get_main_queue()) { () -> Void in
             self.tableView.reloadData()
             self.page = 1
-            self.gearRefreshControl.endRefreshing()
+            self.gearRefreshControl?.endRefreshing()
         }
         
     }

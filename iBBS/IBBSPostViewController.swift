@@ -69,13 +69,13 @@ class IBBSPostViewController: IBBSEditorBaseViewController {
         }
         self.shouldShowKeyboard = false
         let userID: String, token: String
-        articleArray.setValue(getHTML(), forKey: content)
+        contentsArrayOfPostArticle.setValue(getHTML(), forKey: content)
         if let loginData = IBBSContext.sharedInstance.getLoginData() {
             userID = loginData["uid"].stringValue
             token = loginData["token"].stringValue
             print(userID)
             print(token)
-            APIClient.sharedInstance.post(userID, nodeID: articleArray[nodeID]!, content: articleArray[content]!, title: articleArray[articleTitle]!, token: token, success: { (json) -> Void in
+            APIClient.sharedInstance.post(userID, nodeID: contentsArrayOfPostArticle[nodeID]!, content: contentsArrayOfPostArticle[content]!, title: contentsArrayOfPostArticle[articleTitle]!, token: token, success: { (json) -> Void in
                 print(json)
 
                 let msg = json["msg"].stringValue
@@ -107,7 +107,7 @@ class IBBSPostViewController: IBBSEditorBaseViewController {
                     print(error)
                     self.view.makeToast(message: SERVER_ERROR, duration: TIME_OF_TOAST_OF_SERVER_ERROR, position: HRToastPositionTop)
             }
-            print(articleArray)
+            print(contentsArrayOfPostArticle)
         }
     }
     

@@ -38,6 +38,7 @@ struct MainStoryboard {
 
     struct SegueIdentifiers {
         static let postSegue                   = "postNewArticle"
+        static let postNewArticleWithNodeSegue = "postNewArticleWithNode"
         static let nodeToMainVCSegueIdentifier = "nodeToMainVC"
 
     }

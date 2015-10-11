@@ -20,6 +20,7 @@ class IBBSBaseViewController: UITableViewController {
     var gearRefreshControl: GearRefreshControl!
     var cornerActionButton: UIButton!
     var page: Int = 1
+    var postNewArticleSegue: String!
     
 
     var datasource: [JSON]! {
@@ -154,5 +155,72 @@ class IBBSBaseViewController: UITableViewController {
         self.cornerActionButton?.hidden = false
     }
     
+
+
+
+}
+
+extension IBBSBaseViewController {
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        if segue.identifier == MainStoryboard.SegueIdentifiers.postNewArticleWithNodeSegue {
+            if let destinationVC = segue.destinationViewController as? UINavigationController {
+                
+                self.presentLoginViewControllerIfNotLogin(alertMessage: LOGIN_TO_POST, completion: {
+                    
+                    self.presentViewController(destinationVC, animated: true, completion: nil)
+                })
+            }
+        }
+    }
+    
+    func performPostNewArticleSegue(segueIdentifier segueID: String){
+        print("editing...")
+        IBBSContext.sharedInstance.isTokenLegal(){ (isTokenLegal) -> Void in
+            if isTokenLegal{
+                self.performSegueWithIdentifier(segueID, sender: self)
+            }else {
+                self.presentLoginViewControllerIfNotLogin(alertMessage: LOGIN_TO_POST, completion:{self.performPostNewArticleSegue(segueIdentifier: segueID) })
+                
+            }
+            
+        }
+    }
+
+    func reloadDataAfterPosting() {
+        print("reloading")
+        if self.page == 1 {
+            self.performSelector("refreshData")
+            self.automaticPullingDownToRefresh()
+        }
+    }
+    
+     func presentLoginViewControllerIfNotLogin(alertMessage message: String, completion: (() -> Void)?){
+        IBBSContext.sharedInstance.isTokenLegal(){ (isTokenLegal) -> Void in
+            if !isTokenLegal {
+                let loginAlertController = UIAlertController(title: "", message: message, preferredStyle: .Alert)
+                let okAction = UIAlertAction(title: BUTTON_OK, style: .Default, handler: { (_) -> Void in
+                    let vc = IBBSEffectViewController()
+                    vc.modalTransitionStyle = UIModalTransitionStyle.FlipHorizontal
+                    self.presentViewController(vc, animated: true, completion: nil)
+                    
+                    IBBSContext.sharedInstance.login(cancelled: {
+                        vc.dismissViewControllerAnimated(true , completion: nil)
+                        }, completion: {
+                            vc.dismissViewControllerAnimated(true, completion: nil)
+                            
+                            if let completionHandler = completion {
+                                completionHandler()
+                            }
+                    })
+                })
+                let cancelAction = UIAlertAction(title: BUTTON_CANCEL, style: .Cancel , handler: nil)
+                loginAlertController.addAction(cancelAction)
+                loginAlertController.addAction(okAction)
+                self.presentViewController(loginAlertController, animated: true, completion: nil)
+                
+            }
+        }
+    }
 }

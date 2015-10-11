@@ -19,7 +19,11 @@ class IBBSNodesCollectionViewController: UICollectionViewController {
     
     var gearRefreshControl: GearRefreshControl!
     
-    var nodesArray: [JSON]?
+    var nodesArray: [JSON]? {
+        didSet {
+            self.collectionView?.reloadData()
+        }
+    }
     
     
     override func viewDidLoad() {
@@ -94,8 +98,9 @@ class IBBSNodesCollectionViewController: UICollectionViewController {
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCellWithReuseIdentifier(MainStoryboard.CollectionCellIdentifiers.nodeCollectionCell, forIndexPath: indexPath) as? IBBSNodesCollectionViewCell {
-            self.nodesArray = IBBSConfigureNodesInfo.sharedInstance.nodesArray
+//            self.nodesArray = IBBSConfigureNodesInfo.sharedInstance.nodesArray
             if let array = self.nodesArray {
+                
                 let json = array[indexPath.row]
                 print(json)
                 cell.infoLabel?.text = json["name"].stringValue
@@ -114,6 +119,7 @@ class IBBSNodesCollectionViewController: UICollectionViewController {
             print(json)
             if let vc = storyboard?.instantiateViewControllerWithIdentifier(MainStoryboard.VCIdentifiers.nodeVC) as? IBBSNodeViewController {
                 vc.nodeJSON = json
+                whoCalledEditingViewController = indexPath.row
                 self.navigationController?.pushViewController(vc, animated: true)
             }
         }
@@ -155,15 +161,15 @@ extension IBBSNodesCollectionViewController {
     }
        
     func refreshData(){
-        
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
             IBBSConfigureNodesInfo.sharedInstance.configureNodesInfo()
+            self.nodesArray = IBBSConfigureNodesInfo.sharedInstance.nodesArray
+
             dispatch_async(dispatch_get_main_queue(), {
                 self.collectionView?.reloadData()
 
             })
         })
-
     }
     
 }

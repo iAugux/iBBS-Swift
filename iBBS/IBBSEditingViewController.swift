@@ -13,7 +13,8 @@
 import UIKit
 import SwiftyJSON
 
-var articleArray: NSMutableDictionary!
+var contentsArrayOfPostArticle: NSMutableDictionary!
+var whoCalledEditingViewController: Int! = -1
 
 class IBBSEditingViewController: UIViewController, UITextViewDelegate {
     
@@ -43,7 +44,7 @@ class IBBSEditingViewController: UIViewController, UITextViewDelegate {
     private let nodeID = "board"
     private let articleTitle = "title"
     private let postControllerID = "iBBSPostViewController"
-    private let defaultSelectedRow = 2
+    private var defaultSelectedRow: Int!
     private var blurView: UIView!
     
     override func viewDidLoad() {
@@ -59,14 +60,15 @@ class IBBSEditingViewController: UIViewController, UITextViewDelegate {
         self.blurView.alpha = BLUR_VIEW_ALPHA_OF_BG_IMAGE
         self.view.insertSubview(blurView, atIndex: 0)
   
+        self.configureDefaultSelectedRow()
         self.nodesPickerView.delegate = self
         self.nodesPickerView.dataSource = self
         self.nodesPickerView.selectRow(defaultSelectedRow, inComponent: 0, animated: true)
         self.contentTextView.delegate = self
        
-        articleArray = NSMutableDictionary()
+        contentsArrayOfPostArticle = NSMutableDictionary()
         // set default node ID
-        articleArray.setValue(defaultSelectedRow + 1, forKey: nodeID)
+        contentsArrayOfPostArticle.setValue(defaultSelectedRow, forKey: nodeID)
  
         let delayInSeconds: Double = 0.7
         let delta = Int64(Double(NSEC_PER_SEC) * delayInSeconds)
@@ -101,6 +103,14 @@ class IBBSEditingViewController: UIViewController, UITextViewDelegate {
         self.blurView.frame = self.view.frame
     }
     
+    func configureDefaultSelectedRow() {
+        if whoCalledEditingViewController == -1 { // IBBSViewController called me
+            self.defaultSelectedRow = 2
+        } else {
+            self.defaultSelectedRow = whoCalledEditingViewController
+        }
+    }
+    
     func cancelAction(){
         // close keyboard first
         self.contentTextView.resignFirstResponder()
@@ -111,9 +121,9 @@ class IBBSEditingViewController: UIViewController, UITextViewDelegate {
     @IBAction func okAction(sender: AnyObject) {
        
         let title = self.contentTextView.text
-        articleArray.setValue(title, forKey: self.articleTitle)
+        contentsArrayOfPostArticle.setValue(title, forKey: self.articleTitle)
         
-        if let title = articleArray.valueForKey(self.articleTitle) as? String {
+        if let title = contentsArrayOfPostArticle.valueForKey(self.articleTitle) as? String {
             let str = title.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
             if str.utf8.count == 0 {
                 
@@ -168,17 +178,8 @@ extension IBBSEditingViewController: UIPickerViewDataSource {
         return 1
     }
     
-    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        let pickerID = self.nodesPickerView.selectedRowInComponent(0)
-        print(pickerID)
-        // save node ID to array
-        articleArray.setDictionary([nodeID: pickerID])
-    }
-}
-
-extension IBBSEditingViewController: UIPickerViewDelegate {
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-//        print(node)
+        //        print(node)
         if let node = self.node {
             let node = node.arrayValue[row]
             let nodeName = node["name"].stringValue
@@ -187,4 +188,15 @@ extension IBBSEditingViewController: UIPickerViewDelegate {
         return ""
     }
     
+
+}
+
+extension IBBSEditingViewController: UIPickerViewDelegate {
+
+    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        let pickerID = self.nodesPickerView.selectedRowInComponent(0)
+        print(pickerID)
+        // save node ID to array
+        contentsArrayOfPostArticle.setDictionary([nodeID: pickerID])
+    }
 }
