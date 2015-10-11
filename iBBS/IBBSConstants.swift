@@ -11,10 +11,13 @@
 //
 
 
-let kThemeDidChangeNotification = "kThemeDidChangeNotification"
-let kShouldHideCornerActionButton = "kShouldHideCornerActionButton"
-let kShouldShowCornerActionButton = "kShouldShowCornerActionButton"
-let kShouldReloadDataAfterPosting = "kShouldReloadDataAfterPosting"
+let kThemeDidChangeNotification                    = "kThemeDidChangeNotification"
+let kShouldHideCornerActionButton                  = "kShouldHideCornerActionButton"
+let kShouldShowCornerActionButton                  = "kShouldShowCornerActionButton"
+let kShouldReloadDataAfterPosting                  = "kShouldReloadDataAfterPosting"
+let kJustLoggedinNotification                      = "kJustLoggedinNotification"
+
+
 
 var SHOULD_HIDE_NAVIGATIONBAR                      = false
 

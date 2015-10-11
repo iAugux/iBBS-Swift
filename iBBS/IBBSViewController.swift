@@ -21,7 +21,7 @@ class IBBSViewController: IBBSBaseViewController {
         super.viewDidLoad()
         self.automaticPullingDownToRefresh()
         self.configureTableView()
-        self.configureView()
+        self.configureNavifationItemTitle()
         self.pullUpToLoadmore()
         self.sendRequest(page)
         IBBSConfigureNodesInfo.sharedInstance.configureNodesInfo()
@@ -40,11 +40,17 @@ class IBBSViewController: IBBSBaseViewController {
         //        self.navigationController?.interactivePopGestureRecognizer?.delegate = nil
         self.navigationController?.interactivePopGestureRecognizer?.enabled = false
         
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "configureNavifationItemTitle", name: kJustLoggedinNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadDataAfterPosting", name: kShouldReloadDataAfterPosting, object: nil)
     }
     
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: kJustLoggedinNotification, object: nil)
+    }
+    
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: kShouldReloadDataAfterPosting, object: nil)
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
     func sendRequest(page: Int) {
@@ -73,8 +79,7 @@ class IBBSViewController: IBBSBaseViewController {
     }
     
     
-    func configureView(){
-        self.navigationController?.navigationBarHidden = false
+    func configureNavifationItemTitle(){
         
         self.navigationItem.title = "iBBS"
         IBBSContext.sharedInstance.isTokenLegal(){ (isTokenLegal) -> Void in

@@ -406,7 +406,6 @@ extension IBBSMessagesViewController: DraggableViewDelegate {
         replyCardTextViewPlaceholder = " @\(self.currentSenderUsername):  "
         replyCard.content.text = replyCardTextViewPlaceholder
         
-        replyCard.content.backgroundColor = UIColor.blackColor()
         let separator = UIView(frame: CGRectMake(16, 34, cardWidth - 32, 0.5))
         separator.backgroundColor = UIColor(red:0.874, green:0.913, blue:0.956, alpha:1)
         separator.layer.shadowRadius = 5

@@ -147,6 +147,7 @@ class SlidePanelViewController: UIViewController, UITableViewDataSource, UITable
                 IBBSContext.sharedInstance.configureCurrentUserAvatar(self.userProfileImage)
                 self.delegate?.removeFrontBlurView()
 //                NSNotificationCenter.defaultCenter().postNotificationName(kShouldReloadDataAfterPosting, object: nil)
+                NSNotificationCenter.defaultCenter().postNotificationName(kJustLoggedinNotification, object: nil)
             })
             
         }

@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "680F4B13193FB74A06E6ACB3"
+               BlueprintIdentifier = "E58CD1F8DC101AFCEB038143"
                BuildableName = "GearRefreshControl.framework"
                BlueprintName = "GearRefreshControl"
                ReferencedContainer = "container:Pods.xcodeproj">
