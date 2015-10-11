@@ -649,7 +649,7 @@
         <scene sceneID="eQG-Yk-a4b">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="VzT-fl-kKP" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Message" image="Message" id="Wsh-2o-yUI"/>
+                    <tabBarItem key="tabBarItem" title="Message" image="message" id="Wsh-2o-yUI"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="8Hu-fP-rH4">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -677,10 +677,10 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Message" width="50" height="50"/>
         <image name="cancel_button" width="50" height="50"/>
         <image name="continue" width="50" height="50"/>
         <image name="home" width="50" height="50"/>
+        <image name="message" width="50" height="50"/>
         <image name="node" width="50" height="50"/>
         <image name="register_button" width="50" height="50"/>
     </resources>
