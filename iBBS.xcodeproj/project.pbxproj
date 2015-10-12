@@ -7,8 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AE8856DA6428C9A9883E641C /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1C292620E723BF3ACB11187 /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		AE8856DA6428C9A9883E641C /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1C292620E723BF3ACB11187 /* Pods.framework */; };
 		B10149A81BCAC164001DC5AB /* IBBSEditorBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10149A71BCAC164001DC5AB /* IBBSEditorBaseViewController.swift */; };
+		B10149DA1BCB9C14001DC5AB /* UIColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10149D91BCB9C14001DC5AB /* UIColor+Hex.swift */; };
+		B10149E11BCBB264001DC5AB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B10149DF1BCBB264001DC5AB /* LaunchScreen.storyboard */; };
 		B1017FF71BAA827200533D61 /* DraggableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1017FF41BAA827200533D61 /* DraggableView.swift */; };
 		B1017FF81BAA827200533D61 /* DraggableViewBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1017FF51BAA827200533D61 /* DraggableViewBackground.swift */; };
 		B11373DB1BB6E32C00DB9D1F /* IBBSEffectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B11373DA1BB6E32C00DB9D1F /* IBBSEffectViewController.swift */; };
@@ -57,7 +59,6 @@
 		B165BCEC1BA9662B00036477 /* IBBSConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B165BCEB1BA9662B00036477 /* IBBSConstants.swift */; };
 		B17939321B96DDD3002E1B21 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17939311B96DDD3002E1B21 /* AppDelegate.swift */; };
 		B17939391B96DDD3002E1B21 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B17939381B96DDD3002E1B21 /* Assets.xcassets */; };
-		B179393C1B96DDD3002E1B21 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B179393A1B96DDD3002E1B21 /* LaunchScreen.storyboard */; };
 		B17939441B96DDF3002E1B21 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B17939431B96DDF3002E1B21 /* Main.storyboard */; };
 		B179394A1B96DE08002E1B21 /* IBBSViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17939451B96DE08002E1B21 /* IBBSViewController.swift */; };
 		B179394B1B96DE08002E1B21 /* IBBSTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17939461B96DE08002E1B21 /* IBBSTableViewCell.swift */; };
@@ -170,6 +171,8 @@
 /* Begin PBXFileReference section */
 		7125851B10244A76AE990DF6 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		B10149A71BCAC164001DC5AB /* IBBSEditorBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSEditorBaseViewController.swift; sourceTree = "<group>"; };
+		B10149D91BCB9C14001DC5AB /* UIColor+Hex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Hex.swift"; sourceTree = "<group>"; };
+		B10149E01BCBB264001DC5AB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B1017FF41BAA827200533D61 /* DraggableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DraggableView.swift; sourceTree = "<group>"; };
 		B1017FF51BAA827200533D61 /* DraggableViewBackground.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DraggableViewBackground.swift; sourceTree = "<group>"; };
 		B11373DA1BB6E32C00DB9D1F /* IBBSEffectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSEffectViewController.swift; sourceTree = "<group>"; };
@@ -219,7 +222,6 @@
 		B179392E1B96DDD3002E1B21 /* iBBS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iBBS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B17939311B96DDD3002E1B21 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B17939381B96DDD3002E1B21 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		B179393B1B96DDD3002E1B21 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B179393D1B96DDD3002E1B21 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B17939431B96DDF3002E1B21 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		B17939451B96DE08002E1B21 /* IBBSViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSViewController.swift; sourceTree = "<group>"; };
@@ -424,6 +426,7 @@
 				B141A5331BC5175C00A32CD8 /* PanDirectionGestureRecognizer+Addtions.swift */,
 				B141A5341BC5175C00A32CD8 /* TopMostViewController+Additions.swift */,
 				B141A5351BC5175C00A32CD8 /* UIColor+Additions.swift */,
+				B10149D91BCB9C14001DC5AB /* UIColor+Hex.swift */,
 				B141A5361BC5175C00A32CD8 /* UILabel+Additions.swift */,
 				B141A5371BC5175C00A32CD8 /* UIScreen+Additions.swift */,
 				B141A5381BC5175C00A32CD8 /* UITextView+Additions.swift */,
@@ -630,10 +633,10 @@
 		B1CA72131B97220F006823B3 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				B10149DF1BCBB264001DC5AB /* LaunchScreen.storyboard */,
 				B1F711A31BB83AC900128E26 /* Localizable.strings */,
 				B1CA72191B972434006823B3 /* iBBS-Bridging-Header.h */,
 				B17939381B96DDD3002E1B21 /* Assets.xcassets */,
-				B179393A1B96DDD3002E1B21 /* LaunchScreen.storyboard */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -789,7 +792,6 @@
 				B113B0471BA196BF004ECFA0 /* arrow@2x.png in Resources */,
 				B197C7D91BA730FC00DE0678 /* ZSScenterjustify.png in Resources */,
 				B197C7D81BA730FC00DE0678 /* ZSSbold@2x.png in Resources */,
-				B179393C1B96DDD3002E1B21 /* LaunchScreen.storyboard in Resources */,
 				B197C81B1BA730FC00DE0678 /* ZSSviewsource.png in Resources */,
 				B197C7ED1BA730FC00DE0678 /* ZSSimage.png in Resources */,
 				B197C8051BA730FC00DE0678 /* ZSSredo.png in Resources */,
@@ -815,6 +817,7 @@
 				B197C8171BA730FC00DE0678 /* ZSSunlink.png in Resources */,
 				B197C7FD1BA730FC00DE0678 /* ZSSoutdent.png in Resources */,
 				B197C7EE1BA730FC00DE0678 /* ZSSimage@2x.png in Resources */,
+				B10149E11BCBB264001DC5AB /* LaunchScreen.storyboard in Resources */,
 				B148AF221B98C3B100D00524 /* IBBSDetailHeaderView.xib in Resources */,
 				B197C7E71BA730FC00DE0678 /* ZSSh5.png in Resources */,
 				B197C7FE1BA730FC00DE0678 /* ZSSoutdent@2x.png in Resources */,
@@ -961,6 +964,7 @@
 				B15BD5B61BA54BBC00969D36 /* IBBSNodeTableViewCell.swift in Sources */,
 				B141A5451BC5175C00A32CD8 /* UITextView+Additions.swift in Sources */,
 				B141A5411BC5175C00A32CD8 /* TopMostViewController+Additions.swift in Sources */,
+				B10149DA1BCB9C14001DC5AB /* UIColor+Hex.swift in Sources */,
 				B13BFF821BC8FF840034E1E8 /* IBBSFavoriteViewController.swift in Sources */,
 				B141A5421BC5175C00A32CD8 /* UIColor+Additions.swift in Sources */,
 				B113B04B1BA196BF004ECFA0 /* UIScrollView+Refresh.swift in Sources */,
@@ -977,10 +981,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		B179393A1B96DDD3002E1B21 /* LaunchScreen.storyboard */ = {
+		B10149DF1BCBB264001DC5AB /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				B179393B1B96DDD3002E1B21 /* Base */,
+				B10149E01BCBB264001DC5AB /* Base */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";

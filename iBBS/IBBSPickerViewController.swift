@@ -35,7 +35,7 @@ class IBBSPickerViewController: UIViewController {
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: "cancel")
         
         self.textField = UITextField(frame: CGRectMake(20, 20, self.view.frame.size.width - 40, 40))
-//        self.textField.text = !self.isInsertImagePicker ? "http://www.apple.com" : "http://fineprintnyc.com/images/blog/history-of-apple-logo/apple-logo-2.jpg"
+        self.textField.text = !self.isInsertImagePicker ? "http://www.apple.com" : "http://fineprintnyc.com/images/blog/history-of-apple-logo/apple-logo-2.jpg"
         self.textField.layer.borderColor = UIColor.grayColor().CGColor
         self.textField.layer.borderWidth = 0.5
         self.textField.clearButtonMode = UITextFieldViewMode.Always

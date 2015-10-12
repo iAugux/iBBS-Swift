@@ -27,7 +27,8 @@ class IBBSNodeViewController: IBBSBaseViewController, UIGestureRecognizerDelegat
         self.configureGestureRecognizer()
         self.sendRequest(page)
         self.postNewArticleSegue = MainStoryboard.SegueIdentifiers.postNewArticleWithNodeSegue
-        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadDataAfterPosting", name: kShouldReloadDataAfterPosting, object: nil)
+
     }
     
     
@@ -37,7 +38,6 @@ class IBBSNodeViewController: IBBSBaseViewController, UIGestureRecognizerDelegat
         
         self.navigationController?.interactivePopGestureRecognizer?.delegate = self
         self.navigationController?.interactivePopGestureRecognizer?.enabled = true
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadDataAfterPosting", name: kShouldReloadDataAfterPosting, object: nil)
     }
     
     deinit {

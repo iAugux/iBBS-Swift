@@ -10,7 +10,7 @@ import UIKit
 
 
 let kCurrentTheme = "kCurrentTheme"
-var CUSTOM_THEME_COLOR = themeColorArray[0]
+var CUSTOM_THEME_COLOR = themeColorArray[2]
 var BACKGROUNDER_IMAGE = UIImage(named: "bg_image_yellow")
 
 public enum IBBSThemes: Int {

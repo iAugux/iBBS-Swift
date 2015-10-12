@@ -1,28 +1,57 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9052" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9058" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" initialViewController="W8F-vI-RD3">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9040"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9048"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
-        <scene sceneID="EHf-IW-A2E">
+        <scene sceneID="MAv-T5-Aim">
             <objects>
-                <viewController id="01J-lp-oVM" sceneMemberID="viewController">
+                <viewController id="W8F-vI-RD3" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Llm-lL-Icb"/>
-                        <viewControllerLayoutGuide type="bottom" id="xb3-aO-Qok"/>
+                        <viewControllerLayoutGuide type="top" id="xp0-cp-epF"/>
+                        <viewControllerLayoutGuide type="bottom" id="7EV-1a-qmW"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
+                    <view key="view" contentMode="scaleToFill" id="jcJ-KK-Hxo">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_image_green" translatesAutoresizingMaskIntoConstraints="NO" id="fGi-uP-DhI">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <animations/>
+                            </imageView>
+                            <visualEffectView opaque="NO" alpha="0.87" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZOj-C5-bLq">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="pBG-7h-wg2">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <animations/>
+                                </view>
+                                <animations/>
+                                <blurEffect style="light"/>
+                            </visualEffectView>
+                        </subviews>
                         <animations/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="fGi-uP-DhI" secondAttribute="trailing" id="Baw-AF-Z0v"/>
+                            <constraint firstItem="ZOj-C5-bLq" firstAttribute="top" secondItem="fGi-uP-DhI" secondAttribute="top" id="VIy-EZ-4A0"/>
+                            <constraint firstItem="fGi-uP-DhI" firstAttribute="bottom" secondItem="7EV-1a-qmW" secondAttribute="top" id="WF4-67-ETW"/>
+                            <constraint firstItem="fGi-uP-DhI" firstAttribute="leading" secondItem="jcJ-KK-Hxo" secondAttribute="leading" id="aPr-mP-KNY"/>
+                            <constraint firstItem="ZOj-C5-bLq" firstAttribute="leading" secondItem="fGi-uP-DhI" secondAttribute="leading" id="edK-aT-lbQ"/>
+                            <constraint firstItem="ZOj-C5-bLq" firstAttribute="bottom" secondItem="7EV-1a-qmW" secondAttribute="top" id="nd5-KP-AMs"/>
+                            <constraint firstItem="ZOj-C5-bLq" firstAttribute="trailing" secondItem="fGi-uP-DhI" secondAttribute="trailing" id="qgt-np-mdk"/>
+                            <constraint firstItem="fGi-uP-DhI" firstAttribute="top" secondItem="jcJ-KK-Hxo" secondAttribute="top" id="xyd-My-Tgb"/>
+                        </constraints>
                     </view>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Zgw-PK-Oh8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="53" y="375"/>
+            <point key="canvasLocation" x="881" y="309"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="bg_image_green" width="640" height="960"/>
+    </resources>
 </document>

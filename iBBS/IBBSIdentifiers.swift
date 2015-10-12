@@ -59,3 +59,5 @@ struct SlidePanelStoryboard {
         static let settingNav      = "iBBSSettingNavigationController"
     }
 }
+
+

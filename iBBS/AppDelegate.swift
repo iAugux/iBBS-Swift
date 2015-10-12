@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
-        
+    
         // SlideMenu
         application.statusBarStyle = .LightContent
         let containerViewController = ContainerViewController()
@@ -42,24 +42,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         
         // Set Theme
-//        self.window?.backgroundColor = UIColor.whiteColor()
         let userDefaults = NSUserDefaults.standardUserDefaults()
         if let theme = userDefaults.objectForKey(kCurrentTheme) {
             IBBSThemes(rawValue: Int(theme as! NSNumber))?.setTheme()
-            self.setWindowTintColor()
+            self.setWindowColor()
             
         }else {
-            let theme = IBBSThemes.DefaultTheme
+            let theme = IBBSThemes.GreenTheme
             theme.setTheme()
-            self.window?.tintColor = CUSTOM_THEME_COLOR
+            self.setWindowColor()
 
         }
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "setWindowTintColor", name: kThemeDidChangeNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "setWindowColor", name: kThemeDidChangeNotification, object: nil)
         
         return true
     }
     
-    func setWindowTintColor(){
+    func setWindowColor(){
         self.window?.tintColor = CUSTOM_THEME_COLOR
         self.window?.backgroundColor = CUSTOM_THEME_COLOR.lighterColor(0.6)
 

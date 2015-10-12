@@ -27,6 +27,7 @@ class IBBSViewController: IBBSBaseViewController {
         self.postNewArticleSegue = MainStoryboard.SegueIdentifiers.postSegue
 
         IBBSConfigureNodesInfo.sharedInstance.configureNodesInfo()
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadDataAfterPosting", name: kShouldReloadDataAfterPosting, object: nil)
 
     }
     
@@ -43,7 +44,6 @@ class IBBSViewController: IBBSBaseViewController {
         self.navigationController?.interactivePopGestureRecognizer?.enabled = false
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "configureNavifationItemTitle", name: kJustLoggedinNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadDataAfterPosting", name: kShouldReloadDataAfterPosting, object: nil)
     }
     
     override func viewWillDisappear(animated: Bool) {
