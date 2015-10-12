@@ -24,6 +24,7 @@ let FILL_IN_ALL_THE_FORM       = NSLocalizedString("You should fill in all the f
 let CHECK_IT_AGAIN             = NSLocalizedString("please check it again", comment: "")
 let CHECK_DIGITS_OF_USERNAME   = NSLocalizedString("Digits of username must be more than 4 and less than 16.", comment: "")
 let INVALID_EMAIL              = NSLocalizedString("Invalid email address !", comment: "")
+let INVALID_PASSWORD           = NSLocalizedString("Invalid password", comment: "")
 let TRY_AGAIN                  = NSLocalizedString("Try again", comment: "")
 let I_WILL_CHECK               = NSLocalizedString("I'll check", comment: "")
 let CHECK_DIGITS_OF_PASSWORD   = NSLocalizedString("Digits of password should more than 6 .", comment: "")

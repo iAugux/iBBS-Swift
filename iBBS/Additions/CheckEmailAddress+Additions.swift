@@ -17,4 +17,11 @@ extension NSString {
         return emailTest.evaluateWithObject(self)
     }
     
+    func isValidPassword() -> Bool {
+        let passwdRegex = "^([a-zA-Z0-9]|[*_ !^?#@%$&=+-]){4,16}$"
+        let passwdTest = NSPredicate(format: "SELF MATCHES %@", passwdRegex)
+        return passwdTest.evaluateWithObject(self)
+    }
+    
+    
 }

@@ -66,7 +66,8 @@ class IBBSContext {
         }
         
         let okAction = UIAlertAction(title: BUTTON_OK, style: .Default) { (action: UIAlertAction) -> Void in
-            APIClient.sharedInstance.userLogin(username.text!, passwd: password.text!, success: { (json) -> Void in
+            let encryptedPasswd = password.text?.MD5()
+            APIClient.sharedInstance.userLogin(username.text!, passwd: encryptedPasswd!, success: { (json) -> Void in
                 print(json)
                 // something wrong , alert!!
                 if json["code"].intValue == 0 {

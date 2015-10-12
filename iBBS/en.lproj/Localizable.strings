@@ -45,4 +45,5 @@
     "change theme" = "Change Theme";
     "Token lost effectiveness" = "Token lost effectiveness";
     "Please login again" = "Please login again";
+    "Invalid password" = "Invalid password";
 }

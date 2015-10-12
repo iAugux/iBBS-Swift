@@ -122,6 +122,16 @@ class IBBSRegisterViewController: UIViewController, UITextFieldDelegate {
             return
         }
         
+        if !passwd!.isValidPassword() {
+            let alertCtl = UIAlertController(title: "", message: INVALID_PASSWORD, preferredStyle: .Alert)
+            let cancelAction = UIAlertAction(title: TRY_AGAIN, style: .Cancel, handler: nil)
+            alertCtl.addAction(cancelAction)
+            
+            self.presentViewController(alertCtl, animated: true, completion: nil)
+            return
+
+        }
+        
         if passwd != passwdAgain {
             let alertCtl = UIAlertController(title: PASSWD_MUST_BE_THE_SAME, message: TRY_AGAIN, preferredStyle: .Alert)
             let cancelAction = UIAlertAction(title: TRY_AGAIN, style: .Cancel, handler: nil)
@@ -132,11 +142,12 @@ class IBBSRegisterViewController: UIViewController, UITextFieldDelegate {
         }
         
         // everything is fine, ready to go
-        APIClient.sharedInstance.userRegister(email!, username: username!, passwd: passwd!, success: { (json) -> Void in
+        let encryptedPasswd = (passwd as! String).MD5()
+        APIClient.sharedInstance.userRegister(email!, username: username!, passwd: encryptedPasswd, success: { (json) -> Void in
             print(json)
             if json["code"].intValue == 1 {
                 // register successfully!
-                APIClient.sharedInstance.userLogin(username!, passwd: passwd!, success: { (json) -> Void in
+                APIClient.sharedInstance.userLogin(username!, passwd: encryptedPasswd, success: { (json) -> Void in
                     print(json)
                     IBBSContext.sharedInstance.saveLoginData(json.object)
                     
