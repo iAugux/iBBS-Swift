@@ -5,12 +5,11 @@
 
 ## Screenshots
 <br>
+<div align=center> <img src="Screenshots/4.gif" width="304" height="540"/></div>
+<div align=center> <img src="Screenshots/5.gif" width="304" height="540"/></div>
 <div align=center> <img src="Screenshots/1.gif" width="304" height="540"/></div>
 <div align=center> <img src="Screenshots/2.gif" width="304" height="540"/></div>
 <div align=center> <img src="Screenshots/3.gif" width="304" height="540"/></div>
-<div align=center> <img src="Screenshots/5.gif" width="304" height="540"/></div>
-
-<div align=center> <img src="Screenshots/4.gif" width="304" height="540"/></div>
 <br>
 ## Requirements
 
