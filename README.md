@@ -13,7 +13,7 @@ A BBS client in swift(2.0)
 
 ![sample](Screenshots/5.gif)
 
-![sample](Screenshots/4.gif =640)
+![sample](Screenshots/4.gif=640)
 
 ## Requirements
 
