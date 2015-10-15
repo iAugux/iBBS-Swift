@@ -1,7 +1,10 @@
 
 # iBBS-Swift
  A BBS client in swift (2.0).
+ 
+ My another [Weibo](https://github.com/iAugux/Weboot) project in swift you may want to see it too.
 <br>
+
 ## Requirements
 
 - iOS 8.0+
@@ -33,9 +36,9 @@
 
 <br>
 
-## Contribution
+## Contributions
 
-``Thanks to:``
+``Specially thanks to:``
 
 - Backstage of this BBS designed by my friend [mw2c](https://github.com/mw2c) .
 - [Alamofire](https://github.com/Alamofire/Alamofire)
@@ -45,7 +48,7 @@
 - [SwiftyJSON](https://github.com/SwiftyJSON/SwiftyJSON)
 - [ZSSRichTextEditor](https://github.com/nnhubbard/ZSSRichTextEditor)
 
-``Sort by alphabet except the first one.`` 
+``Sorted by alphabet except the first one.`` 
 
  
 ## The MIT License (MIT)
