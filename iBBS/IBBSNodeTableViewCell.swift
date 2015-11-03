@@ -15,15 +15,7 @@ import SwiftyJSON
 
 class IBBSNodeTableViewCell: UITableViewCell {
     
-    @IBOutlet weak var userProfireImage: UIImageView!{
-        didSet{
-            userProfireImage.clipsToBounds       = true
-            userProfireImage.layer.borderWidth   = 0.3
-            userProfireImage.layer.borderColor   = UIColor.blackColor().CGColor
-            userProfireImage.layer.cornerRadius  = 18.0
-            userProfireImage.backgroundColor     = UIColor.randomColor()
-        }
-    }
+    @IBOutlet weak var userProfireImage: IBBSAvatarImageView!
     @IBOutlet weak var topicLabel: UILabel!
     @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var postTime: UILabel!

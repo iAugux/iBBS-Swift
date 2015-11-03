@@ -15,15 +15,7 @@ import SwiftyJSON
 
 class IBBSReplyCell: UITableViewCell {
     
-    @IBOutlet weak var avatarImageView: UIImageView!{
-        didSet{
-            avatarImageView.layer.cornerRadius = 15.0
-            avatarImageView.clipsToBounds      = true
-            avatarImageView.layer.borderWidth  = 0.3
-            avatarImageView.layer.borderColor  = UIColor.blackColor().CGColor
-            avatarImageView.backgroundColor    = UIColor.randomColor()
-        }
-    }
+    @IBOutlet weak var avatarImageView: IBBSAvatarImageView!
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var replyContent: UITextView!
     

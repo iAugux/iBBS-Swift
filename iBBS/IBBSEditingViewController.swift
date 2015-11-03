@@ -18,13 +18,10 @@ var whoCalledEditingViewController: Int! = -1
 
 class IBBSEditingViewController: UIViewController, UITextViewDelegate {
     
-    @IBOutlet var avatarImageView: UIImageView!{
+    @IBOutlet var avatarImageView: IBBSAvatarImageView!{
         didSet{
-            avatarImageView.clipsToBounds       = true
-            avatarImageView.layer.borderWidth   = 0.3
-            avatarImageView.layer.borderColor   = UIColor.blackColor().CGColor
-            avatarImageView.layer.cornerRadius  = 30.0
-            avatarImageView.backgroundColor     = CUSTOM_THEME_COLOR.darkerColor(0.75)
+           
+            avatarImageView.backgroundColor = CUSTOM_THEME_COLOR.darkerColor(0.75)
             IBBSContext.sharedInstance.configureCurrentUserAvatar(avatarImageView)
         }
     }

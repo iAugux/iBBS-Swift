@@ -15,17 +15,7 @@ import SwiftyJSON
 
 
 class IBBSMessageTableViewCell: UITableViewCell {
-    @IBOutlet var avatarImageView: UIImageView!{
-        didSet{
-            avatarImageView.clipsToBounds       = true
-            avatarImageView.layer.borderWidth   = 0.3
-            avatarImageView.layer.borderColor   = UIColor.blackColor().CGColor
-            avatarImageView.layer.cornerRadius  = 18.0
-            avatarImageView.backgroundColor     = UIColor.randomColor()
-            avatarImageView.contentMode = UIViewContentMode.ScaleAspectFill
-            
-        }
-    }
+    @IBOutlet var avatarImageView: IBBSAvatarImageView!
     @IBOutlet var isMessageRead: UIImageView!
     @IBOutlet var timeLabel: UILabel!
     @IBOutlet var contentLabel: UILabel!

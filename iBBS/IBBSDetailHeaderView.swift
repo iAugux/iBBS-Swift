@@ -19,16 +19,7 @@ class IBBSDetailHeaderView: UIView {
             headerTitleLabel.numberOfLines = 0
         }
     }
-    @IBOutlet weak var avatarImageView: UIImageView!{
-        didSet{
-            avatarImageView.layer.cornerRadius = 14.0
-            avatarImageView.clipsToBounds      = true
-            avatarImageView.layer.borderWidth  = 0.3
-            avatarImageView.layer.borderColor  = UIColor.blackColor().CGColor
-            avatarImageView.backgroundColor    = UIColor.randomColor()
-        }
-    }
-    
+    @IBOutlet weak var avatarImageView: IBBSAvatarImageView!
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var content: UITextView!

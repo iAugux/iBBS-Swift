@@ -162,6 +162,7 @@
 		B1C5F5FA1BA8338400CAF514 /* IBBSContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1C5F5F91BA8338400CAF514 /* IBBSContext.swift */; };
 		B1CA72081B96DE74006823B3 /* IBBSAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1CA72071B96DE74006823B3 /* IBBSAPIClient.swift */; };
 		B1CA721F1B9734DA006823B3 /* IBBSBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1CA721E1B9734DA006823B3 /* IBBSBaseViewController.swift */; };
+		B1D261781BE858D5005EAE10 /* IBBSAvatarImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D261771BE858D5005EAE10 /* IBBSAvatarImageView.swift */; };
 		B1D27C551BC3B002006153BB /* IBBSNodesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D27C541BC3B002006153BB /* IBBSNodesCollectionViewCell.swift */; };
 		B1D27C571BC4109F006153BB /* IBBSCustomSelectedBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D27C561BC4109F006153BB /* IBBSCustomSelectedBackgroundView.swift */; };
 		B1F711A11BB83AC900128E26 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B1F711A31BB83AC900128E26 /* Localizable.strings */; };
@@ -342,6 +343,7 @@
 		B1CA72071B96DE74006823B3 /* IBBSAPIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSAPIClient.swift; sourceTree = "<group>"; };
 		B1CA72191B972434006823B3 /* iBBS-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iBBS-Bridging-Header.h"; sourceTree = "<group>"; };
 		B1CA721E1B9734DA006823B3 /* IBBSBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSBaseViewController.swift; sourceTree = "<group>"; };
+		B1D261771BE858D5005EAE10 /* IBBSAvatarImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSAvatarImageView.swift; sourceTree = "<group>"; };
 		B1D27C541BC3B002006153BB /* IBBSNodesCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSNodesCollectionViewCell.swift; sourceTree = "<group>"; };
 		B1D27C561BC4109F006153BB /* IBBSCustomSelectedBackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSCustomSelectedBackgroundView.swift; sourceTree = "<group>"; };
 		B1F711A21BB83AC900128E26 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -682,6 +684,7 @@
 				B148AF1C1B98B1D800D00524 /* IBBSReplyCell.xib */,
 				B1C105D21BA1D4730088DBCB /* IBBSNodesCell.swift */,
 				B1D27C541BC3B002006153BB /* IBBSNodesCollectionViewCell.swift */,
+				B1D261771BE858D5005EAE10 /* IBBSAvatarImageView.swift */,
 				B1D27C561BC4109F006153BB /* IBBSCustomSelectedBackgroundView.swift */,
 			);
 			name = Views;
@@ -923,6 +926,7 @@
 				B197C82A1BA730FC00DE0678 /* ZSSTextView.m in Sources */,
 				B1CA72081B96DE74006823B3 /* IBBSAPIClient.swift in Sources */,
 				B1563DD81BB2BD4B00F6D00B /* IBBSRegisterViewController.swift in Sources */,
+				B1D261781BE858D5005EAE10 /* IBBSAvatarImageView.swift in Sources */,
 				B1C105D31BA1D4730088DBCB /* IBBSNodesCell.swift in Sources */,
 				B113B0481BA196BF004ECFA0 /* RefreshBaseView.swift in Sources */,
 				B1C5F5F81BA80B2400CAF514 /* IBBSEditingViewController.swift in Sources */,

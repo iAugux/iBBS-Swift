@@ -28,7 +28,7 @@ class IBBSNodeViewController: IBBSBaseViewController, UIGestureRecognizerDelegat
         self.sendRequest(page)
         self.postNewArticleSegue = MainStoryboard.SegueIdentifiers.postNewArticleWithNodeSegue
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadDataAfterPosting", name: kShouldReloadDataAfterPosting, object: nil)
-
+        
     }
     
     

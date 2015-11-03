@@ -20,12 +20,8 @@ protocol ToggleLeftPanelDelegate{
 
 class SlidePanelViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate {
     
-    @IBOutlet weak var userProfileImage: UIImageView!{
+    @IBOutlet weak var userProfileImage: IBBSAvatarImageView!{
         didSet{
-            userProfileImage.layer.cornerRadius = 35.0
-            userProfileImage.clipsToBounds = true
-            userProfileImage.layer.borderColor = UIColor.lightGrayColor().CGColor
-            userProfileImage.layer.borderWidth = 0.3
             userProfileImage.backgroundColor = CUSTOM_THEME_COLOR.darkerColor(0.75)
             userProfileImage.image = AVATAR_PLACEHOLDER_IMAGE
             self.configureLoginAndLogoutView(userProfileImage)
