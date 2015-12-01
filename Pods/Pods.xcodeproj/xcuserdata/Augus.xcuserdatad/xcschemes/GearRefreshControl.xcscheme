@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'CD1A1EE3C7C8272CF671E977'
+               BlueprintIdentifier = 'E9D1304CDEC99C67F44460FA'
                BlueprintName = 'GearRefreshControl'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'GearRefreshControl.framework'>

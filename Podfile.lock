@@ -6,7 +6,7 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire (~> 2.0)
-  - GearRefreshControl (~> 0.2)
+  - GearRefreshControl
   - Kingfisher (~> 1.6)
   - SwiftyJSON (from `https://github.com/SwiftyJSON/SwiftyJSON.git`)
 
