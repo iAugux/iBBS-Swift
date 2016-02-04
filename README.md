@@ -1,18 +1,17 @@
 
 # iBBS-Swift
- A BBS client in swift (2.0).
- 
- My another [Weibo](https://github.com/iAugux/Weboot) project in swift you may want to see it too.
-<br>
+![Language](https://img.shields.io/badge/language-Swift%202-orange.svg)
+![License](https://img.shields.io/github/license/iAugux/iBBS-Swift.svg?style=flat)
 
+A BBS client in Swift.
+ 
 ## Requirements
 
 - iOS 8.0+
-- Xcode 7.0+
-- Swift 2.0
+- Xcode 7.2+
+- Swift 2.1
  
 ## Usage
-
 
 #####Trail account:
 
@@ -26,15 +25,30 @@
 - Or just click [here](http://obbs.sinaapp.com) to register.
 
 ## Screenshots
-<br>
 
-<div align=center> <img src="https://raw.githubusercontent.com/iAugux/ProjectScreenshots/master/iBBS/4.gif" width="304" height="540"/></div>
-<div align=center> <img src="https://raw.githubusercontent.com/iAugux/ProjectScreenshots/master/iBBS/5.gif" width="304" height="540"/></div>
-<div align=center> <img src="https://raw.githubusercontent.com/iAugux/ProjectScreenshots/master/iBBS/1.gif" width="304" height="540"/></div>
-<div align=center> <img src="https://raw.githubusercontent.com/iAugux/ProjectScreenshots/master/iBBS/2.gif" width="304" height="540"/></div>
-<div align=center> <img src="https://raw.githubusercontent.com/iAugux/ProjectScreenshots/master/iBBS/3.gif" width="304" height="540"/></div>
+<div> 
+<img src="https://raw.githubusercontent.com/iAugux/ProjectScreenshots/master/iBBS/4.gif" width="304" height="540"/>
+</div>
+</br>
 
-<br>
+<div>
+<img src="https://raw.githubusercontent.com/iAugux/ProjectScreenshots/master/iBBS/5.gif" width="304" height="540"/>
+</div>
+</br>
+
+<div>
+<img src="https://raw.githubusercontent.com/iAugux/ProjectScreenshots/master/iBBS/1.gif" width="304" height="540"/>
+</div>
+</br>
+
+<div>
+<img src="https://raw.githubusercontent.com/iAugux/ProjectScreenshots/master/iBBS/2.gif" width="304" height="540"/>
+</div>
+</br>
+
+<div>
+<img src="https://raw.githubusercontent.com/iAugux/ProjectScreenshots/master/iBBS/3.gif" width="304" height="540"/>
+</div>
 
 ## Contributions
 
@@ -49,11 +63,11 @@
 - [ZSSRichTextEditor](https://github.com/nnhubbard/ZSSRichTextEditor)
 
 ``Sorted by alphabet except the first one.`` 
-
  
 ## The MIT License (MIT)
+`iBBS-Swift` is available under the MIT license. See the `LICENSE` file for more info.
 
-Copyright (c) 2015 iAugus
+Copyright © 2015 - 2016 iAugus
 
 
 
