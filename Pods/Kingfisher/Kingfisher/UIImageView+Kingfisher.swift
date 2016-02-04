@@ -24,7 +24,7 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
-import Foundation
+import UIKit
 
 // MARK: - Set Images
 /**
@@ -187,36 +187,51 @@ public extension UIImageView {
         image = placeholderImage
         
         kf_setWebURL(resource.downloadURL)
-        let task = KingfisherManager.sharedManager.retrieveImageWithResource(resource, optionsInfo: optionsInfo, progressBlock: { (receivedSize, totalSize) -> () in
-            if let progressBlock = progressBlock {
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    progressBlock(receivedSize: receivedSize, totalSize: totalSize)
-                    
-                })
-            }
-            }, completionHandler: {[weak self] (image, error, cacheType, imageURL) -> () in
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+        let task = KingfisherManager.sharedManager.retrieveImageWithResource(resource, optionsInfo: optionsInfo,
+            progressBlock: { receivedSize, totalSize in
+                if let progressBlock = progressBlock {
+                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                        progressBlock(receivedSize: receivedSize, totalSize: totalSize)
+                        
+                    })
+                }
+            },
+            completionHandler: {[weak self] image, error, cacheType, imageURL in
+                
+                dispatch_async_safely_main_queue {
                     if let sSelf = self where imageURL == sSelf.kf_webURL && image != nil {
-                        if let transition = optionsInfo?[.Transition] as? ImageTransition {
-                            UIView.transitionWithView(sSelf, duration: 0.0, options: [], animations: { () -> Void in
-                                indicator?.stopAnimating()
-                                }, completion: { (finished) -> Void in
+                        
+                        if let transitionItem = optionsInfo?.kf_firstMatchIgnoringAssociatedValue(.Transition(.None)),
+                            case .Transition(let transition) = transitionItem where cacheType == .None {
+                            
+                            UIView.transitionWithView(sSelf, duration: 0.0, options: [],
+                                animations: {
+                                    indicator?.stopAnimating()
+                                },
+                                completion: { finished in
                                     UIView.transitionWithView(sSelf, duration: transition.duration,
-                                        options: transition.animationOptions, animations:
-                                        { () -> Void in
+                                        options: transition.animationOptions,
+                                        animations: {
                                             transition.animations?(sSelf, image!)
-                                        }, completion: transition.completion)
-                            })
+                                        },
+                                        completion: { finished in
+                                            transition.completion?(finished)
+                                            completionHandler?(image: image, error: error, cacheType: cacheType, imageURL: imageURL)
+                                        }
+                                    )
+                                }
+                            )
                         } else {
                             indicator?.stopAnimating()
-                            sSelf.image = image;
+                            sSelf.image = image
+                            completionHandler?(image: image, error: error, cacheType: cacheType, imageURL: imageURL)
                         }
-                        
+                    } else {
+                        completionHandler?(image: image, error: error, cacheType: cacheType, imageURL: imageURL)
                     }
-                    
-                    completionHandler?(image: image, error: error, cacheType: cacheType, imageURL: imageURL)
-                })
-            })
+                }
+            }
+        )
         
         return task
     }
@@ -255,9 +270,7 @@ private var showIndicatorWhenLoadingKey: Void?
 public extension UIImageView {
     /// Get the image URL binded to this image view.
     public var kf_webURL: NSURL? {
-        get {
-            return objc_getAssociatedObject(self, &lastURLKey) as? NSURL
-        }
+        return objc_getAssociatedObject(self, &lastURLKey) as? NSURL
     }
     
     private func kf_setWebURL(URL: NSURL) {
@@ -280,8 +293,14 @@ public extension UIImageView {
                 return
             } else {
                 if newValue {
-                    let indicator = UIActivityIndicatorView(activityIndicatorStyle:.Gray)
-                    indicator.center = center
+                    #if os(tvOS)
+                        let indicatorStyle = UIActivityIndicatorViewStyle.White
+                    #else
+                        let indicatorStyle = UIActivityIndicatorViewStyle.Gray
+                    #endif
+                    let indicator = UIActivityIndicatorView(activityIndicatorStyle:indicatorStyle)
+                    indicator.center = CGPointMake(CGRectGetMidX(bounds), CGRectGetMidY(bounds))
+                    
                     indicator.autoresizingMask = [.FlexibleLeftMargin, .FlexibleRightMargin, .FlexibleBottomMargin, .FlexibleTopMargin]
                     indicator.hidden = true
                     indicator.hidesWhenStopped = true
@@ -302,9 +321,7 @@ public extension UIImageView {
     /// The indicator view showing when loading. This will be `nil` if `kf_showIndicatorWhenLoading` is false.
     /// You may want to use this to set the indicator style or color when you set `kf_showIndicatorWhenLoading` to true.
     public var kf_indicator: UIActivityIndicatorView? {
-        get {
-            return objc_getAssociatedObject(self, &indicatorKey) as? UIActivityIndicatorView
-        }
+        return objc_getAssociatedObject(self, &indicatorKey) as? UIActivityIndicatorView
     }
     
     private func kf_setIndicator(indicator: UIActivityIndicatorView?) {
@@ -319,7 +336,7 @@ public extension UIImageView {
                       placeholderImage: UIImage?,
                                options: KingfisherOptions) -> RetrieveImageTask
     {
-        return kf_setImageWithURL(URL, placeholderImage: placeholderImage, optionsInfo: [.Options: options], progressBlock: nil, completionHandler: nil)
+        return kf_setImageWithURL(URL, placeholderImage: placeholderImage, optionsInfo: [.Options(options)], progressBlock: nil, completionHandler: nil)
     }
     
     @available(*, deprecated=1.2, message="Use -kf_setImageWithURL:placeholderImage:optionsInfo:completionHandler: instead.")
@@ -328,7 +345,7 @@ public extension UIImageView {
                                options: KingfisherOptions,
                      completionHandler: CompletionHandler?) -> RetrieveImageTask
     {
-        return kf_setImageWithURL(URL, placeholderImage: placeholderImage, optionsInfo: [.Options: options], progressBlock: nil, completionHandler: completionHandler)
+        return kf_setImageWithURL(URL, placeholderImage: placeholderImage, optionsInfo: [.Options(options)], progressBlock: nil, completionHandler: completionHandler)
     }
     
     @available(*, deprecated=1.2, message="Use -kf_setImageWithURL:placeholderImage:optionsInfo:progressBlock:completionHandler: instead.")
@@ -338,8 +355,7 @@ public extension UIImageView {
                          progressBlock: DownloadProgressBlock?,
                      completionHandler: CompletionHandler?) -> RetrieveImageTask
     {
-        return kf_setImageWithURL(URL, placeholderImage: placeholderImage, optionsInfo: [.Options: options], progressBlock: progressBlock, completionHandler: completionHandler)
+        return kf_setImageWithURL(URL, placeholderImage: placeholderImage, optionsInfo: [.Options(options)], progressBlock: progressBlock, completionHandler: completionHandler)
     }
     
 }
-

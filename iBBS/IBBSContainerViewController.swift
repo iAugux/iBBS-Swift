@@ -36,7 +36,7 @@ class ContainerViewController: UIViewController, UIGestureRecognizerDelegate, To
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.configureBlurView()
+        configureBlurView()
         mainViewController = UIStoryboard.mainViewController()
         centerNavigationController = UINavigationController(rootViewController: mainViewController)
         centerNavigationController.setNavigationBarHidden(true , animated: false)
@@ -44,7 +44,7 @@ class ContainerViewController: UIViewController, UIGestureRecognizerDelegate, To
         addChildViewController(centerNavigationController)
         centerNavigationController.didMoveToParentViewController(self)
         
-        self.configureGestureRecognizer()
+        configureGestureRecognizer()
         
        
     }

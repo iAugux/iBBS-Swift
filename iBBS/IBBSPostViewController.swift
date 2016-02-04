@@ -40,10 +40,11 @@ class IBBSPostViewController: IBBSEditorBaseViewController {
         
         // TODO: - There is a bug in `ZSSRichTextEditor`. If you show keyboard immediately, then the color picker won't work correctly.
         
-        let delayInSeconds: Double = 1
-        let popTime = dispatch_time(DISPATCH_TIME_NOW, Int64(Double(NSEC_PER_SEC) * delayInSeconds))
-        dispatch_after(popTime, dispatch_get_main_queue(), {
-            self.focusTextEditor()
+//        let delayInSeconds: Double = 1
+//        let popTime = dispatch_time(DISPATCH_TIME_NOW, Int64(Double(NSEC_PER_SEC) * delayInSeconds))
+        let weakSelf = self
+        dispatch_async(dispatch_get_main_queue(), {
+            weakSelf.focusTextEditor()
         })
         
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(Double(NSEC_PER_SEC) * 1.2)), dispatch_get_main_queue()) { () -> Void in

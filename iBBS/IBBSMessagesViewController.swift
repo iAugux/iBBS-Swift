@@ -453,8 +453,18 @@ extension IBBSMessagesViewController: DraggableViewDelegate {
     func animateToKeyboardHeight(kbHeight: CGFloat, duration: Double) {
         print("keyboardHeight: \(kbHeight), duration: \(duration)")
         self.keyboardHeight = kbHeight
-        replyCard?.frame = CGRectMake(16, 50, UIScreen.screenWidth() - 32, UIScreen.screenHeight() - 50 - 8 - kbHeight)
-        replyCard?.content.frame = CGRectMake(16, 35, replyCard.frame.width - 32, UIScreen.screenHeight() - 50 - 45 - 8 - kbHeight)
+        
+//        let delayInSeconds: Double = 0.2
+//        let popTime = dispatch_time(DISPATCH_TIME_NOW, Int64(Double(NSEC_PER_SEC) * delayInSeconds))
+//        dispatch_after(popTime, dispatch_get_main_queue(), {
+//            UIView.animateWithDuration(duration) { () -> Void in
+//                self.replyCard?.frame.size.height = UIScreen.screenHeight() - 50 - 8 - kbHeight
+//                self.replyCard?.content.frame.size.height = UIScreen.screenHeight() - 50 - 45 - 8 - kbHeight
+//            }
+//        })
+        
+        self.replyCard?.frame.size.height = UIScreen.screenHeight() - 50 - 8 - kbHeight
+        self.replyCard?.content.frame.size.height = UIScreen.screenHeight() - 50 - 45 - 8 - kbHeight
     }
     
 }

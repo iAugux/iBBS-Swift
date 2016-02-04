@@ -24,10 +24,10 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
-import Foundation
+import UIKit
 
 /**
-Transition effect to use when an image loaded by `UIImageView` extension API in Kingfisher.
+Transition effect to use when an image downloaded and set by `UIImageView` extension API in Kingfisher.
 You can assign an enum value with transition duration as an item in `KingfisherOptionsInfo` 
 to enable the animation transition.
 
@@ -99,4 +99,3 @@ public enum ImageTransition {
         }
     }
 }
-
