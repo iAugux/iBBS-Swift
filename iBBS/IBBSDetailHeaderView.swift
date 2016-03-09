@@ -34,9 +34,9 @@ class IBBSDetailHeaderView: UIView {
         headerTitleLabel?.text = json["title"].stringValue.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
         timeLabel?.text = json["post_time"].stringValue
         let data = json["post_content"].stringValue.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
-        self.content.ausAttributedText(data)
-//        self.content.ausAutomanticResizeTextViewFrameSize()
-        print(json["post_content"].stringValue)
+        content.ausAttributedText(data)
+//        content.ausAutomanticResizeTextViewFrameSize()
+        DEBUGLog(json["post_content"].stringValue)
 
         nodeName = json["board"].stringValue
     }

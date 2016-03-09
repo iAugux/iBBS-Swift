@@ -27,33 +27,33 @@ class IBBSPickerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Picker"
-        self.view.backgroundColor = UIColor.redColor()
+        title = "Picker"
+        view.backgroundColor = UIColor.redColor()
         let saveButton = UIBarButtonItem(barButtonSystemItem: .Save, target: self, action: "saveURL")
-        self.navigationItem.rightBarButtonItem = saveButton
+        navigationItem.rightBarButtonItem = saveButton
         
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: "cancel")
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: "cancel")
         
-        self.textField = UITextField(frame: CGRectMake(20, 20, self.view.frame.size.width - 40, 40))
-        self.textField.text = !self.isInsertImagePicker ? "http://www.apple.com" : "http://fineprintnyc.com/images/blog/history-of-apple-logo/apple-logo-2.jpg"
-        self.textField.layer.borderColor = UIColor.grayColor().CGColor
-        self.textField.layer.borderWidth = 0.5
-        self.textField.clearButtonMode = UITextFieldViewMode.Always
-        self.view.addSubview(self.textField)
+        textField = UITextField(frame: CGRectMake(20, 20, view.frame.size.width - 40, 40))
+        textField.text = !isInsertImagePicker ? "http://www.apple.com" : "http://fineprintnyc.com/images/blog/history-of-apple-logo/apple-logo-2.jpg"
+        textField.layer.borderColor = UIColor.grayColor().CGColor
+        textField.layer.borderWidth = 0.5
+        textField.clearButtonMode = UITextFieldViewMode.Always
+        view.addSubview(textField)
         
     }
     
     func cancel(){
-        self.dismissViewControllerAnimated(true , completion: nil)
+        dismissViewControllerAnimated(true , completion: nil)
     }
     
     func saveURL(){
-        self.dismissViewControllerAnimated(true , completion: nil)
-        let vc = self.demoView
-        if !self.isInsertImagePicker {
-            vc.showInsertLinkDialogWithLink(self.textField.text, title: nil)
-        }else{
-            vc.showInsertLinkDialogWithLink(self.textField.text, title: nil)
+        dismissViewControllerAnimated(true , completion: nil)
+        let vc = demoView
+        if !isInsertImagePicker {
+            vc.showInsertLinkDialogWithLink(textField.text, title: nil)
+        } else {
+            vc.showInsertLinkDialogWithLink(textField.text, title: nil)
         }
         
     }

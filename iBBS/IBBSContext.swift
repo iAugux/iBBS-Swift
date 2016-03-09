@@ -28,22 +28,22 @@ class IBBSContext {
             let uid = json["uid"].stringValue
             let token = json["token"].stringValue
             APIClient.sharedInstance.isTokenLegal(uid, token: token, success: { (json) -> Void in
-                print(json)
+                DEBUGLog(json)
                 
                 if json["code"].intValue == 1 {
                     completionHandler(isTokenLegal: true)
                     
-                }else{
+                } else {
                     let msg = json["msg"].stringValue
                    UIApplication.topMostViewController()?.view.makeToast(message: msg, duration: TIME_OF_TOAST_OF_TOKEN_ILLEGAL, position: HRToastPositionTop)
                     completionHandler(isTokenLegal: false)
                     
                 }
                 }, failure: { (error) -> Void in
-                    print(error)
+                    DEBUGLog(error)
                     completionHandler(isTokenLegal: false)
             })
-        }else{
+        } else {
             completionHandler(isTokenLegal: false)
         }
     }
@@ -68,7 +68,7 @@ class IBBSContext {
         let okAction = UIAlertAction(title: BUTTON_OK, style: .Default) { (action: UIAlertAction) -> Void in
             let encryptedPasswd = password.text?.MD5()
             APIClient.sharedInstance.userLogin(username.text!, passwd: encryptedPasswd!, success: { (json) -> Void in
-                print(json)
+                DEBUGLog(json)
                 // something wrong , alert!!
                 if json["code"].intValue == 0 {
                     let msg = json["msg"].stringValue
@@ -80,7 +80,7 @@ class IBBSContext {
                     
                     alert.addAction(cancelAction)
                     UIApplication.topMostViewController()?.presentViewController(alert, animated: true, completion: nil)
-                }else{
+                } else {
                     // success , keep token and other info
                     IBBSContext.sharedInstance.saveLoginData(json.object)
                     if let completionHandler = completion {
@@ -90,7 +90,7 @@ class IBBSContext {
                 
                 
                 }) { (error ) -> Void in
-                    print(error)
+                    DEBUGLog(error)
             }
         }
         let cancelAction = UIAlertAction(title: BUTTON_CANCEL, style: .Cancel) { (_) -> Void in
@@ -127,7 +127,7 @@ class IBBSContext {
     
     
     func saveLoginData(data: AnyObject) {
-        print("----\(data)-----")
+        DEBUGLog("----\(data)-----")
         let userDefaults = NSUserDefaults.standardUserDefaults()
         userDefaults.setObject(NSKeyedArchiver.archivedDataWithRootObject(data), forKey: kLoginFeedbackJson)
         userDefaults.synchronize()
@@ -165,9 +165,9 @@ class IBBSContext {
         if let json = data {
             let avatar = json["avatar"].stringValue
             if avatar.utf16.count == 0 {
-                print("there is no avatar, set a image holder")
+                DEBUGLog("there is no avatar, set a image holder")
                 imageView.image = AVATAR_PLACEHOLDER_IMAGE
-            }else{
+            } else {
                 if let url = NSURL(string: avatar as String) {
                     imageView.kf_setImageWithURL(url, placeholderImage: AVATAR_PLACEHOLDER_IMAGE)
                 }

@@ -26,16 +26,16 @@ class IBBSBaseViewController: UITableViewController {
     var datasource: [JSON]! {
         didSet{
             //            print(datasource)
-            self.tableView.reloadData()
+            tableView.reloadData()
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.gearRefreshManager()
-        self.configureCornerActionButton()
-        self.navigationController?.navigationBar.hidden = SHOULD_HIDE_NAVIGATIONBAR
-        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : CUSTOM_THEME_COLOR]
+        gearRefreshManager()
+        configureCornerActionButton()
+        navigationController?.navigationBar.hidden = SHOULD_HIDE_NAVIGATIONBAR
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : CUSTOM_THEME_COLOR]
 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateTheme", name: kThemeDidChangeNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "hideCornerActionButton", name: kShouldHideCornerActionButton, object: nil)
@@ -84,7 +84,7 @@ class IBBSBaseViewController: UITableViewController {
     }
     
     func cornerActionButtonDidTap() {
-        print("corner action button did tap")
+        DEBUGLog("corner action button did tap")
         let alertCtrl = UIAlertController(title: "", message: "TODO...", preferredStyle: .Alert)
         let cancelAction = UIAlertAction(title: "OK", style: .Cancel , handler: nil)
         alertCtrl.addAction(cancelAction)
@@ -93,8 +93,8 @@ class IBBSBaseViewController: UITableViewController {
     
     
     func updateTheme() {
-        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : CUSTOM_THEME_COLOR]
-        self.cornerActionButton?.backgroundColor = CUSTOM_THEME_COLOR.lighterColor(0.85)
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : CUSTOM_THEME_COLOR]
+        cornerActionButton?.backgroundColor = CUSTOM_THEME_COLOR.lighterColor(0.85)
         
         /**
            I tried to set `gearTintColor` to `gearRefreshControl`, but the color of all of gears didn't change.
@@ -102,7 +102,7 @@ class IBBSBaseViewController: UITableViewController {
             
         I removed `gearRefreshControl`, then set it again.
         */
-//        self.gearRefreshControl.gearTintColor = CUSTOM_THEME_COLOR.lighterColor(0.7)
+//        gearRefreshControl.gearTintColor = CUSTOM_THEME_COLOR.lighterColor(0.7)
         
         gearRefreshControl?.endRefreshing()
         gearRefreshControl?.removeFromSuperview()
@@ -117,7 +117,7 @@ class IBBSBaseViewController: UITableViewController {
     }
     
     private func gearRefreshManager(){
-        gearRefreshControl = GearRefreshControl(frame: self.view.bounds)
+        gearRefreshControl = GearRefreshControl(frame: view.bounds)
         gearRefreshControl.gearTintColor = CUSTOM_THEME_COLOR.lighterColor(0.7)
         gearRefreshControl.addTarget(self, action: "refreshData", forControlEvents: UIControlEvents.ValueChanged)
         refreshControl = gearRefreshControl
@@ -133,8 +133,8 @@ class IBBSBaseViewController: UITableViewController {
     }
     
     func automaticContentOffset(){
-        self.gearRefreshControl.beginRefreshing()
-        self.tableView.setContentOffset(CGPointMake(0, -125.0), animated: true)
+        gearRefreshControl.beginRefreshing()
+        tableView.setContentOffset(CGPointMake(0, -125.0), animated: true)
         
         let delayInSeconds: Double = 0.5
         let popTime:dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW, Int64(Double(NSEC_PER_SEC) * delayInSeconds))
@@ -146,13 +146,13 @@ class IBBSBaseViewController: UITableViewController {
     }
     
     func hideCornerActionButton() {
-        print("hide corner button")
-        self.cornerActionButton?.hidden = true
+        DEBUGLog("hide corner button")
+        cornerActionButton?.hidden = true
     }
     
     func showCornerActionButton() {
-        print("show corner button")
-        self.cornerActionButton?.hidden = false
+        DEBUGLog("show corner button")
+        cornerActionButton?.hidden = false
     }
     
 
@@ -167,7 +167,7 @@ extension IBBSBaseViewController {
         if segue.identifier == MainStoryboard.SegueIdentifiers.postNewArticleWithNodeSegue {
             if let destinationVC = segue.destinationViewController as? UINavigationController {
                 
-                self.presentLoginViewControllerIfNotLogin(alertMessage: LOGIN_TO_POST, completion: {
+                presentLoginViewControllerIfNotLogin(alertMessage: LOGIN_TO_POST, completion: {
                     
                     self.presentViewController(destinationVC, animated: true, completion: nil)
                 })
@@ -176,12 +176,14 @@ extension IBBSBaseViewController {
     }
     
     func performPostNewArticleSegue(segueIdentifier segueID: String){
-        print("editing...")
+        DEBUGLog("editing...")
         IBBSContext.sharedInstance.isTokenLegal(){ (isTokenLegal) -> Void in
             if isTokenLegal{
                 self.performSegueWithIdentifier(segueID, sender: self)
-            }else {
-                self.presentLoginViewControllerIfNotLogin(alertMessage: LOGIN_TO_POST, completion:{self.performPostNewArticleSegue(segueIdentifier: segueID) })
+            } else {
+                self.presentLoginViewControllerIfNotLogin(alertMessage: LOGIN_TO_POST, completion:{
+                    self.performPostNewArticleSegue(segueIdentifier: segueID)
+                })
                 
             }
             
@@ -189,10 +191,10 @@ extension IBBSBaseViewController {
     }
 
     func reloadDataAfterPosting() {
-        print("reloading")
-        if self.page == 1 {
-            self.performSelector("refreshData")
-            self.automaticPullingDownToRefresh()
+        DEBUGLog("reloading")
+        if page == 1 {
+            performSelector("refreshData")
+            automaticPullingDownToRefresh()
         }
     }
     

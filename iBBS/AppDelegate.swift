@@ -29,7 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let homeNav = mainStoryboard.instantiateViewControllerWithIdentifier("homeNav") as! UINavigationController
         homeNav.viewControllers[0] = containerViewController
         homeNav.setNavigationBarHidden(true, animated: false)
-        self.window?.rootViewController = homeNav
+        window?.rootViewController = homeNav
         
         
         // Settings
@@ -45,12 +45,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let userDefaults = NSUserDefaults.standardUserDefaults()
         if let theme = userDefaults.objectForKey(kCurrentTheme) {
             IBBSThemes(rawValue: Int(theme as! NSNumber))?.setTheme()
-            self.setWindowColor()
+            setWindowColor()
             
-        }else {
+        } else {
             let theme = IBBSThemes.GreenTheme
             theme.setTheme()
-            self.setWindowColor()
+            setWindowColor()
 
         }
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "setWindowColor", name: kThemeDidChangeNotification, object: nil)
@@ -58,9 +58,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
-    func setWindowColor(){
-        self.window?.tintColor = CUSTOM_THEME_COLOR
-        self.window?.backgroundColor = CUSTOM_THEME_COLOR.lighterColor(0.6)
+    private func setWindowColor(){
+        window?.tintColor = CUSTOM_THEME_COLOR
+        window?.backgroundColor = CUSTOM_THEME_COLOR.lighterColor(0.6)
 
     }
     

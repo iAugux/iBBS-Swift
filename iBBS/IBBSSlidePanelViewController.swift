@@ -24,7 +24,7 @@ class SlidePanelViewController: UIViewController, UITableViewDataSource, UITable
         didSet{
             userProfileImage.backgroundColor = CUSTOM_THEME_COLOR.darkerColor(0.75)
             userProfileImage.image = AVATAR_PLACEHOLDER_IMAGE
-            self.configureLoginAndLogoutView(userProfileImage)
+            configureLoginAndLogoutView(userProfileImage)
             
         }
     }
@@ -37,11 +37,11 @@ class SlidePanelViewController: UIViewController, UITableViewDataSource, UITable
     
     override func loadView() {
         super.loadView()
-        self.view.backgroundColor = UIColor(patternImage: BACKGROUNDER_IMAGE!)
+        view.backgroundColor = UIColor(patternImage: BACKGROUNDER_IMAGE!)
         blurView = UIVisualEffectView(effect: UIBlurEffect(style: .Light))
-        blurView.frame = self.view.frame
+        blurView.frame = view.frame
         blurView.alpha = BLUR_VIEW_ALPHA_OF_BG_IMAGE
-        self.view.insertSubview(blurView, atIndex: 0)
+        view.insertSubview(blurView, atIndex: 0)
         
     }
     
@@ -50,7 +50,7 @@ class SlidePanelViewController: UIViewController, UITableViewDataSource, UITable
         tableView.backgroundColor = UIColor.clearColor()
         tableView.tableFooterView = UIView(frame: CGRectZero)
         tableView.scrollEnabled = false
-        IBBSContext.sharedInstance.configureCurrentUserAvatar(self.userProfileImage)
+        IBBSContext.sharedInstance.configureCurrentUserAvatar(userProfileImage)
         
         NSNotificationCenter.defaultCenter().postNotificationName(kShouldHideCornerActionButton, object: nil)
     }
@@ -66,7 +66,7 @@ class SlidePanelViewController: UIViewController, UITableViewDataSource, UITable
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        self.blurView.frame = self.view.frame
+        blurView.frame = view.frame
 
     }
     
@@ -77,7 +77,7 @@ class SlidePanelViewController: UIViewController, UITableViewDataSource, UITable
 
     override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
         if themePickerBar != nil {
-            self.showThemePickerView()
+            showThemePickerView()
         }
     }
     
@@ -93,8 +93,8 @@ class SlidePanelViewController: UIViewController, UITableViewDataSource, UITable
             
             if IBBSContext.sharedInstance.getLoginData() == nil {
                 // login or register
-                self.alertToChooseLoginOrRegister()
-            }else{
+                alertToChooseLoginOrRegister()
+            } else {
                 IBBSContext.sharedInstance.isTokenLegal({ (isTokenLegal) -> Void in
                     if isTokenLegal {
                         // do logout
@@ -152,8 +152,8 @@ class SlidePanelViewController: UIViewController, UITableViewDataSource, UITable
             
             //            UIView.animateWithDuration(0.75, animations: { () -> Void in
             //                UIView.setAnimationCurve(UIViewAnimationCurve.EaseInOut)
-            //                self.navigationController?.pushViewController(vc, animated: true)
-            //                UIView.setAnimationTransition(UIViewAnimationTransition.FlipFromRight, forView: self.navigationController!.view, cache: false)
+            //                navigationController?.pushViewController(vc, animated: true)
+            //                UIView.setAnimationTransition(UIViewAnimationTransition.FlipFromRight, forView: navigationController!.view, cache: false)
             //            })
             self.navigationController?.pushViewController(vc, animated: true)
             self.delegate?.toggleLeftPanel()
@@ -169,7 +169,7 @@ class SlidePanelViewController: UIViewController, UITableViewDataSource, UITable
         }
         alertCtrl.addAction(loginAction)
         alertCtrl.addAction(registerAction)
-        self.presentViewController(alertCtrl, animated: true, completion: nil)
+        presentViewController(alertCtrl, animated: true, completion: nil)
     }
     
     // MARK: - configure theme
@@ -282,15 +282,15 @@ class SlidePanelViewController: UIViewController, UITableViewDataSource, UITable
         }
         
         destinationVC?.title = cellTitleArray[indexPath.row]
-        self.navigationController?.pushViewController(destinationVC, animated: true)
+        navigationController?.pushViewController(destinationVC, animated: true)
         
-//        self.delegate?.toggleLeftPanel()
+//        delegate?.toggleLeftPanel()
 //        
 //        // after pushing view controller, remove the blur view
 //        let delayInSeconds: Double = 1
 //        let popTime = dispatch_time(DISPATCH_TIME_NOW, Int64(Double(NSEC_PER_SEC) * delayInSeconds))
 //        dispatch_after(popTime, dispatch_get_main_queue(), {
-//            self.delegate?.removeFrontBlurView()
+//            delegate?.removeFrontBlurView()
 //        })
         
     }

@@ -14,14 +14,14 @@ class IBBSEffectViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor(patternImage: BACKGROUNDER_IMAGE!)
+        view.backgroundColor = UIColor(patternImage: BACKGROUNDER_IMAGE!)
         
         blurView = UIVisualEffectView(effect: UIBlurEffect(style: .Light))
-        blurView.frame = self.view.frame
+        blurView.frame = view.frame
         blurView.alpha = BLUR_VIEW_ALPHA_OF_BG_IMAGE
         let gesture = UITapGestureRecognizer(target: self, action: "blurViewDidTap")
         blurView.addGestureRecognizer(gesture)
-        self.view.addSubview(blurView)
+        view.addSubview(blurView)
         
     }
     
@@ -31,15 +31,15 @@ class IBBSEffectViewController: UIViewController {
     }
     
     func blurViewDidTap(){
-        self.dismissViewControllerAnimated(true , completion: nil)
+        dismissViewControllerAnimated(true , completion: nil)
     }
     
     override func willRotateToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval) {
-        self.blurView.frame = CGRectMake(0, 0, 750, 750)
+        blurView.frame = CGRectMake(0, 0, 750, 750)
     }
     
     override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
-        self.blurView.frame = self.view.frame
+        blurView.frame = view.frame
     }
     
     /*

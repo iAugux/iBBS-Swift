@@ -21,7 +21,7 @@ class IBBSNodesCollectionViewController: UICollectionViewController {
     
     var nodesArray: [JSON]? {
         didSet {
-            self.collectionView?.reloadData()
+            collectionView?.reloadData()
         }
     }
     
@@ -29,24 +29,24 @@ class IBBSNodesCollectionViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         IBBSConfigureNodesInfo.sharedInstance.configureNodesInfo()
-        self.nodesArray = IBBSConfigureNodesInfo.sharedInstance.nodesArray
-        self.gearRefreshManager()
+        nodesArray = IBBSConfigureNodesInfo.sharedInstance.nodesArray
+        gearRefreshManager()
 
-        self.collectionView?.addSubview(gearRefreshControl)
-        self.collectionView?.alwaysBounceVertical = true
+        collectionView?.addSubview(gearRefreshControl)
+        collectionView?.alwaysBounceVertical = true
         
-        self.collectionView?.backgroundColor = UIColor.whiteColor()
-        self.navigationController?.navigationBar.topItem?.title = TITLE_ALL_NODES
+        collectionView?.backgroundColor = UIColor.whiteColor()
+        navigationController?.navigationBar.topItem?.title = TITLE_ALL_NODES
     
     }
     
     override func willAnimateRotationToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval) {
-        self.collectionView?.collectionViewLayout.invalidateLayout()
+        collectionView?.collectionViewLayout.invalidateLayout()
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: CUSTOM_THEME_COLOR]
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: CUSTOM_THEME_COLOR]
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateTheme", name: kThemeDidChangeNotification, object: nil)
 
@@ -54,7 +54,7 @@ class IBBSNodesCollectionViewController: UICollectionViewController {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        self.navigationController?.interactivePopGestureRecognizer?.enabled = false
+        navigationController?.interactivePopGestureRecognizer?.enabled = false
 
     }
 
@@ -69,8 +69,8 @@ class IBBSNodesCollectionViewController: UICollectionViewController {
     
     // MARK: - update theme
     func updateTheme() {
-        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : CUSTOM_THEME_COLOR]
-        if let cells = self.collectionView?.visibleCells() as? [IBBSNodesCollectionViewCell] {
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : CUSTOM_THEME_COLOR]
+        if let cells = collectionView?.visibleCells() as? [IBBSNodesCollectionViewCell] {
             for index in 0 ..< cells.count {
                 let cell = cells[index]
                 cell.imageView.backgroundColor = CUSTOM_THEME_COLOR.lighterColor(0.75)
@@ -82,7 +82,7 @@ class IBBSNodesCollectionViewController: UICollectionViewController {
         
         gearRefreshControl?.removeFromSuperview()
         gearRefreshManager()
-        self.collectionView?.addSubview(gearRefreshControl)
+        collectionView?.addSubview(gearRefreshControl)
     }
     
     // MARK: - Collection view data source
@@ -93,16 +93,16 @@ class IBBSNodesCollectionViewController: UICollectionViewController {
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        return self.nodesArray?.count ?? 0
+        return nodesArray?.count ?? 0
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCellWithReuseIdentifier(MainStoryboard.CollectionCellIdentifiers.nodeCollectionCell, forIndexPath: indexPath) as? IBBSNodesCollectionViewCell {
-//            self.nodesArray = IBBSConfigureNodesInfo.sharedInstance.nodesArray
-            if let array = self.nodesArray {
+//            nodesArray = IBBSConfigureNodesInfo.sharedInstance.nodesArray
+            if let array = nodesArray {
                 
                 let json = array[indexPath.row]
-                print(json)
+                DEBUGLog(json)
                 cell.infoLabel?.text = json["name"].stringValue
                 
             }
@@ -114,13 +114,13 @@ class IBBSNodesCollectionViewController: UICollectionViewController {
   
     // MARK: - Collection view delegate
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        if let array = self.nodesArray {
+        if let array = nodesArray {
             let json = array[indexPath.row]
-            print(json)
+            DEBUGLog(json)
             if let vc = storyboard?.instantiateViewControllerWithIdentifier(MainStoryboard.VCIdentifiers.nodeVC) as? IBBSNodeViewController {
                 vc.nodeJSON = json
                 whoCalledEditingViewController = indexPath.row
-                self.navigationController?.pushViewController(vc, animated: true)
+                navigationController?.pushViewController(vc, animated: true)
             }
         }
         collectionView.deselectItemAtIndexPath(indexPath, animated: true)
@@ -153,7 +153,7 @@ extension IBBSNodesCollectionViewController {
     }
     
     private func gearRefreshManager(){
-        gearRefreshControl = GearRefreshControl(frame: self.view.bounds)
+        gearRefreshControl = GearRefreshControl(frame: view.bounds)
         gearRefreshControl.gearTintColor = CUSTOM_THEME_COLOR.lighterColor(0.7)
         
         gearRefreshControl.addTarget(self, action: "refreshData", forControlEvents: UIControlEvents.ValueChanged)
@@ -199,7 +199,7 @@ public class IBBSConfigureNodesInfo {
         APIClient.sharedInstance.getNodes({ (json) -> Void in
             if json.type == Type.Array {
                 self.nodesArray = json.arrayValue
-                print(json.arrayValue)
+                DEBUGLog(json.arrayValue)
                 IBBSContext.sharedInstance.saveNodes(json.object)
             }
             }) { (error) -> Void in

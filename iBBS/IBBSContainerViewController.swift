@@ -56,7 +56,7 @@ class ContainerViewController: UIViewController, UIGestureRecognizerDelegate, To
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        self.centerVCFrontBlurView.frame = self.view.frame
+        centerVCFrontBlurView.frame = view.frame
     }
     
     
@@ -65,7 +65,7 @@ class ContainerViewController: UIViewController, UIGestureRecognizerDelegate, To
         let viewEffect = UIBlurEffect(style: .Light)
         centerVCFrontBlurView = UIVisualEffectView(effect: viewEffect)
         centerVCFrontBlurView.alpha = 0.96
-        centerVCFrontBlurView.frame = self.view.frame
+        centerVCFrontBlurView.frame = view.frame
     }
     
     func configureGestureRecognizer(){
@@ -209,7 +209,7 @@ class ContainerViewController: UIViewController, UIGestureRecognizerDelegate, To
     
     func handleTapGesture(){
         animateLeftPanel(false)
-        self.centerVCFrontBlurView.removeFromSuperview()
+        centerVCFrontBlurView.removeFromSuperview()
         NSNotificationCenter.defaultCenter().postNotificationName(kShouldShowCornerActionButton, object: nil)
 
     }
@@ -218,12 +218,12 @@ class ContainerViewController: UIViewController, UIGestureRecognizerDelegate, To
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         if leftViewController != nil{
             animateLeftPanel(false)
-            self.centerVCFrontBlurView.removeFromSuperview()
+            centerVCFrontBlurView.removeFromSuperview()
         }
     }
     // ToggleLeftPanelDelegate
     func removeFrontBlurView(){
-        self.centerVCFrontBlurView.removeFromSuperview()
+        centerVCFrontBlurView.removeFromSuperview()
     }
     
 }

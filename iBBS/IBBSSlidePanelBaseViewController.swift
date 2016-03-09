@@ -14,13 +14,13 @@ class IBBSSlidePanelBaseViewController: UIViewController {
     
     override func loadView() {
         super.loadView()
-        self.manuallyConfigureTopBar()
+        manuallyConfigureTopBar()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        self.manuallyConfigureTopBar()
-        self.configureScreenEdgePanGesture()
+//        manuallyConfigureTopBar()
+        configureScreenEdgePanGesture()
     }
 
     override func didReceiveMemoryWarning() {
@@ -34,7 +34,7 @@ class IBBSSlidePanelBaseViewController: UIViewController {
 //        let statusBarView = UIToolbar(frame:  UIApplication.sharedApplication().statusBarFrame)
 //        statusBarView.barStyle = .Default
 //        statusBarView.translucent = true
-//        self.view?.addSubview(statusBarView)
+//        view?.addSubview(statusBarView)
         
         // add navigation bar
 //        let navBar = UINavigationBar(frame: CGRectMake(0.0, 20.0, UIScreen.screenWidth(), 44.0))
@@ -43,20 +43,20 @@ class IBBSSlidePanelBaseViewController: UIViewController {
         navBar.barStyle = .Default
         navBar.translucent = true
         navBar.titleTextAttributes = [NSForegroundColorAttributeName : CUSTOM_THEME_COLOR]
-        navBar.setItems([UINavigationItem(title: self.title ?? "")], animated: false)
+        navBar.setItems([UINavigationItem(title: title ?? "")], animated: false)
         navBar.topItem?.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "back_button"), style: .Plain, target: self, action: "popViewController")
-        self.view.addSubview(navBar)
+        view.addSubview(navBar)
     }
     
     func popViewController() {
-        self.navigationController?.popViewControllerAnimated(true)
+        navigationController?.popViewControllerAnimated(true)
       
     }
     
     func configureScreenEdgePanGesture() {
         let recognizer = UIScreenEdgePanGestureRecognizer(target: self, action: "popViewController")
         recognizer.edges = UIRectEdge.Left
-        self.view.addGestureRecognizer(recognizer)
+        view.addGestureRecognizer(recognizer)
     }
     
     /*

@@ -17,16 +17,15 @@ import SwiftyJSON
 class IBBSNodeViewController: IBBSBaseViewController, UIGestureRecognizerDelegate {
     
     var nodeJSON: JSON?
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.pullUpToLoadmore()
-        self.configureTableView()
-        self.configureView()
-        self.configureGestureRecognizer()
-        self.sendRequest(page)
-        self.postNewArticleSegue = MainStoryboard.SegueIdentifiers.postNewArticleWithNodeSegue
+        pullUpToLoadmore()
+        configureTableView()
+        configureView()
+        configureGestureRecognizer()
+        sendRequest(page)
+        postNewArticleSegue = MainStoryboard.SegueIdentifiers.postNewArticleWithNodeSegue
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadDataAfterPosting", name: kShouldReloadDataAfterPosting, object: nil)
         
     }
@@ -34,10 +33,10 @@ class IBBSNodeViewController: IBBSBaseViewController, UIGestureRecognizerDelegat
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        //        self.navigationController?.hidesBarsOnSwipe = true
+        //        navigationController?.hidesBarsOnSwipe = true
         
-        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
-        self.navigationController?.interactivePopGestureRecognizer?.enabled = true
+        navigationController?.interactivePopGestureRecognizer?.delegate = self
+        navigationController?.interactivePopGestureRecognizer?.enabled = true
     }
     
     deinit {
@@ -51,15 +50,15 @@ class IBBSNodeViewController: IBBSBaseViewController, UIGestureRecognizerDelegat
     
     
     @IBAction func toggleSideMenu(sender: AnyObject) {
-        //        self.navigationController?.setNavigationBarHidden(true , animated: true)
-        //        self.toggleSideMenuView()
+        //        navigationController?.setNavigationBarHidden(true , animated: true)
+        //        toggleSideMenuView()
         
     }
 
     
     func sendRequest(page: Int) {
-        if let node = self.nodeJSON {
-            APIClient.sharedInstance.getLatestTopics(node["id"].stringValue, page: self.page, success: { (json) -> Void in
+        if let node = nodeJSON {
+            APIClient.sharedInstance.getLatestTopics(node["id"].stringValue, page: page, success: { (json) -> Void in
                 if json == nil && page != 1 {
                     UIApplication.topMostViewController()?.view?.makeToast(message: NO_MORE_DATA, duration: TIME_OF_TOAST_OF_NO_MORE_DATA, position: HRToastPositionCenter)
                 }
@@ -72,12 +71,12 @@ class IBBSNodeViewController: IBBSBaseViewController, UIGestureRecognizerDelegat
                         let appendArray = json.arrayValue
                         self.datasource? += appendArray
                         self.tableView.reloadData()
-                        print(self.datasource)
+                        DEBUGLog(self.datasource)
                     }
                     
                 }
                 }, failure: { (error) -> Void in
-                    print(error)
+                    DEBUGLog(error)
                     self.view.makeToast(message: SERVER_ERROR, duration: TIME_OF_TOAST_OF_SERVER_ERROR, position: HRToastPositionTop)
 
             })
@@ -85,12 +84,12 @@ class IBBSNodeViewController: IBBSBaseViewController, UIGestureRecognizerDelegat
     }
     
     func configureView(){
-        self.navigationController?.navigationBarHidden = false
+        navigationController?.navigationBarHidden = false
         
-        if let node = self.nodeJSON {
-            self.title = node["title"].stringValue
+        if let node = nodeJSON {
+            title = node["title"].stringValue
         }else {
-            self.title = "iBBS"
+            title = "iBBS"
         }
     }
     
@@ -104,11 +103,11 @@ class IBBSNodeViewController: IBBSBaseViewController, UIGestureRecognizerDelegat
     func configureGestureRecognizer(){
         let edgeGestureRecognizer = UIScreenEdgePanGestureRecognizer(target: self, action: "toggleSideMenu:")
         edgeGestureRecognizer.edges = UIRectEdge.Right
-        self.view.addGestureRecognizer(edgeGestureRecognizer)
+        view.addGestureRecognizer(edgeGestureRecognizer)
     }
 
     override func cornerActionButtonDidTap() {
-        self.performPostNewArticleSegue(segueIdentifier: MainStoryboard.SegueIdentifiers.postNewArticleWithNodeSegue)
+        performPostNewArticleSegue(segueIdentifier: MainStoryboard.SegueIdentifiers.postNewArticleWithNodeSegue)
     }
     
     
@@ -116,7 +115,7 @@ class IBBSNodeViewController: IBBSBaseViewController, UIGestureRecognizerDelegat
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if datasource != nil {
-            //            print(datasource)
+            //            DEBUGLog(datasource)
             
             return datasource.count
             
@@ -127,11 +126,11 @@ class IBBSNodeViewController: IBBSBaseViewController, UIGestureRecognizerDelegat
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         if let cell = tableView.dequeueReusableCellWithIdentifier(MainStoryboard.CellIdentifiers.iBBSNodeTableViewCell) as? IBBSNodeTableViewCell {
-            let json = self.datasource[indexPath.row]
-            print("****************")
-            print(json)
-            print("****************")
-            print("****************")
+            let json = datasource[indexPath.row]
+            DEBUGLog("****************")
+            DEBUGLog(json)
+            DEBUGLog("****************")
+            DEBUGLog("****************")
             cell.loadDataToCell(json)
             return cell
         }
@@ -142,14 +141,14 @@ class IBBSNodeViewController: IBBSBaseViewController, UIGestureRecognizerDelegat
     
     // MARK: - table view delegate
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let json = self.datasource[indexPath.row]
+        let json = datasource[indexPath.row]
 //        if let destinationVC = storyboard?.instantiateViewControllerWithIdentifier(MainStoryboard.VCIdentifiers.iBBSDetailVC) as? IBBSDetailViewController {
 //            destinationVC.json = json
-//            self.navigationController?.pushViewController(destinationVC, animated: true)
+//            navigationController?.pushViewController(destinationVC, animated: true)
 //        }
         let destinationVC = IBBSDetailViewController()
         destinationVC.json = json
-        self.navigationController?.pushViewController(destinationVC, animated: true)
+        navigationController?.pushViewController(destinationVC, animated: true)
             
         
     }
@@ -162,7 +161,7 @@ extension IBBSNodeViewController {
     // MARK: - refresh
     func refreshData(){
         
-        self.sendRequest(page)
+        sendRequest(page)
         //         be sure to stop refreshing while there is an error with network or something else
         let refreshInSeconds = 1.3
         let popTime = dispatch_time(DISPATCH_TIME_NOW, Int64(refreshInSeconds * Double(NSEC_PER_SEC)));
@@ -176,17 +175,17 @@ extension IBBSNodeViewController {
 
     // MARK: - pull up to load more
     func pullUpToLoadmore(){
-        self.tableView.addFooterWithCallback({
-            print("pulling up")
+        tableView.addFooterWithCallback({
+            DEBUGLog("pulling up")
             self.page += 1
-            print(self.page)
+            DEBUGLog(self.page)
             
             self.sendRequest(self.page)
             let delayInSeconds: Double = 1.0
             let delta = Int64(Double(NSEC_PER_SEC) * delayInSeconds)
             let popTime:dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW,delta)
             dispatch_after(popTime, dispatch_get_main_queue(), {
-                //                self.tableView.reloadData()
+                //                tableView.reloadData()
                 self.tableView.footerEndRefreshing()
                 
             })

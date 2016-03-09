@@ -17,8 +17,8 @@ class IBBSNodesCell: UITableViewCell {
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: .Default, reuseIdentifier: nil)
-        self.layoutMargins = UIEdgeInsetsZero
-        self.separatorInset = UIEdgeInsetsZero
+        layoutMargins = UIEdgeInsetsZero
+        separatorInset = UIEdgeInsetsZero
     }
 
     required init?(coder aDecoder: NSCoder) {

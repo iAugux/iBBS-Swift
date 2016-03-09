@@ -12,24 +12,24 @@ class IBBSEditorBaseViewController: ZSSRichTextEditor {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.shouldShowKeyboard = false
+        shouldShowKeyboard = false
         
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: BUTTON_SEND, style: .Plain, target: self, action: "sendAction")
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: BUTTON_SEND, style: .Plain, target: self, action: "sendAction")
         
-        self.formatHTML = false
+        formatHTML = false
         
         // Set the base URL if you would like to use relative links, such as to images.
-        self.baseURL = NSURL(string: "http://iAugus.com")
+        baseURL = NSURL(string: "http://iAugus.com")
         
         
         // Set the toolbar item color
-        self.toolbarItemTintColor = UIColor.blackColor()
+        toolbarItemTintColor = UIColor.blackColor()
         
         // Set the toolbar selected color
-        self.toolbarItemSelectedTintColor = CUSTOM_THEME_COLOR
+        toolbarItemSelectedTintColor = CUSTOM_THEME_COLOR
         
         // Choose which toolbar items to show
-        //        self.enabledToolbarItems = [ZSSRichTextEditorToolbarBold, ZSSRichTextEditorToolbarH1, ZSSRichTextEditorToolbarParagraph]
+        //        enabledToolbarItems = [ZSSRichTextEditorToolbarBold, ZSSRichTextEditorToolbarH1, ZSSRichTextEditorToolbarParagraph]
         /**
         
         ZSSRichTextEditorToolbarBold
@@ -74,8 +74,8 @@ class IBBSEditorBaseViewController: ZSSRichTextEditor {
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.navigationBar.tintColor = CUSTOM_THEME_COLOR
-        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : CUSTOM_THEME_COLOR]
+        navigationController?.navigationBar.tintColor = CUSTOM_THEME_COLOR
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : CUSTOM_THEME_COLOR]
         
     }
     
@@ -85,27 +85,27 @@ class IBBSEditorBaseViewController: ZSSRichTextEditor {
     }
     
     override func showInsertURLAlternatePicker(){
-        self.dismissAlertView()
+        dismissAlertView()
         let picker = IBBSPickerViewController()
         picker.demoView = self
         let nav = UINavigationController()
         nav.navigationBar.translucent = false
-        self.presentViewController(nav, animated: true, completion: nil)
+        presentViewController(nav, animated: true, completion: nil)
         
     }
     
     override func showInsertImageAlternatePicker() {
-        self.dismissAlertView()
+        dismissAlertView()
         let picker = IBBSPickerViewController()
         picker.demoView = self
         picker.isInsertImagePicker = true
         let nav = UINavigationController()
         nav.navigationBar.translucent = false
-        self.presentViewController(nav, animated: true, completion: nil)
+        presentViewController(nav, animated: true, completion: nil)
     }
     
     func exportHTML() {
-        NSLog("%@", self.getHTML())
+        NSLog("%@", getHTML())
     }
 
     

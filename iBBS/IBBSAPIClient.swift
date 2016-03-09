@@ -48,22 +48,22 @@ class APIClient {
 
     func isTokenLegal(uid: AnyObject, token: AnyObject, success: (JSON) -> Void, failure: (NSError) -> Void){
         let param = ["uid": uid, "token": token]
-        self.getJSONData("isTokenLegal", parameters: param, success: success, failure: failure)
+        getJSONData("isTokenLegal", parameters: param, success: success, failure: failure)
     }
     
     func readMessage(uid: AnyObject, token: AnyObject, msgID: AnyObject, success: (JSON) -> Void, failure: (NSError) -> Void) {
         let dict = ["uid": uid, "token": token, "msg_id": msgID]
-        self.getJSONData("read_message", parameters: dict , success: success, failure: failure)
+        getJSONData("read_message", parameters: dict , success: success, failure: failure)
     }
     
     func getMessages(userID: AnyObject, token: AnyObject, success: (JSON) -> Void, failure: (NSError) -> Void) {
         let dict = ["uid": userID, "token": token]
-        self.getJSONData("messages", parameters: dict, success: success, failure: failure)
+        getJSONData("messages", parameters: dict, success: success, failure: failure)
     }
     
     func sendMessage(uid: AnyObject, token: AnyObject, receiver_uid: AnyObject,title: AnyObject, content: AnyObject, success: (JSON) -> Void, failure: (NSError) -> Void) {
         let dict = ["uid": uid, "send_to": receiver_uid,"title": title, "content": content, "token": token]
-        self.postJSONData("send_message", parameters: dict, success: success, failure: failure)
+        postJSONData("send_message", parameters: dict, success: success, failure: failure)
     }
     
     
@@ -75,48 +75,48 @@ class APIClient {
         var dict = [String: AnyObject]()
         if title == nil {
             dict = ["uid": uid, "send_to": receiver_uid, "content": content, "token": token]
-        }else{
+        } else {
             dict = ["uid": uid, "send_to": receiver_uid, "title": title!, "content": content, "token": token]
         }
-        self.postJSONData("send_message", parameters: dict, success: success, failure: failure)
+        postJSONData("send_message", parameters: dict, success: success, failure: failure)
     }
     
     func post(userID: AnyObject, nodeID: AnyObject, content: AnyObject, title: AnyObject, token: AnyObject, success: (JSON) -> Void, failure: (NSError) -> Void) {
         let dict = ["uid": userID, "board": nodeID, "content": content, "title": title, "token": token]
-        self.postJSONData("create_post", parameters: dict, success: success, failure: failure)
+        postJSONData("create_post", parameters: dict, success: success, failure: failure)
     }
     
     func comment(userID: AnyObject, postID: AnyObject, content: AnyObject, token: AnyObject, success: (JSON) -> Void, failure: (NSError) -> Void) {
         let dict = ["uid": userID, "post_id": postID, "content": content, "token": token]
-        self.postJSONData("create_comment", parameters: dict, success: success, failure: failure)
+        postJSONData("create_comment", parameters: dict, success: success, failure: failure)
     }
     
     func userRegister(email: AnyObject, username: AnyObject, passwd: AnyObject, success: (JSON) -> Void, failure: (NSError) -> Void) {
         let dict = ["email": email, "username": username, "password": passwd]
-        self.postJSONData("register", parameters: dict, success: success, failure: failure)
+        postJSONData("register", parameters: dict, success: success, failure: failure)
     }
     
     func userLogin(userID: AnyObject, passwd: AnyObject, success: (JSON) -> Void, failure: (NSError) -> Void) {
         let dict = ["user": userID, "password": passwd]
-        self.getJSONData("login", parameters: dict, success: success, failure: failure)
+        getJSONData("login", parameters: dict, success: success, failure: failure)
     }
 
     func getLatestTopics(page: AnyObject, success: (JSON) -> Void, failure: (NSError) -> Void) {
         let param = ["page": page]
-        self.getJSONData("latest", parameters: param, success: success, failure: failure)
+        getJSONData("latest", parameters: param, success: success, failure: failure)
     }
     
     func getLatestTopics(nodeID: AnyObject, page: AnyObject, success: (JSON) -> Void, failure: (NSError) -> Void) {
         let dict = ["boardId": nodeID, "page": page]
-        self.getJSONData("posts", parameters: dict, success: success, failure: failure)
+        getJSONData("posts", parameters: dict, success: success, failure: failure)
     }
 
     func getReplies(postID: AnyObject, page: AnyObject, success: (JSON) -> Void, failure: (NSError) -> Void) {
         let dict = ["postId": postID, "page": page]
-        self.getJSONData("comments", parameters: dict, success: success, failure: failure)
+        getJSONData("comments", parameters: dict, success: success, failure: failure)
     }
     
     func getNodes(success: (JSON) -> Void, failure: (NSError) -> Void) {
-        self.getJSONData("boards", parameters: nil, success: success, failure: failure)
+        getJSONData("boards", parameters: nil, success: success, failure: failure)
     }
 }

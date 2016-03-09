@@ -24,9 +24,9 @@ class IBBSMessageTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.layoutMargins = UIEdgeInsetsZero
-        self.separatorInset = UIEdgeInsetsZero
-        self.selectionStyle = UITableViewCellSelectionStyle.None
+        layoutMargins = UIEdgeInsetsZero
+        separatorInset = UIEdgeInsetsZero
+        selectionStyle = UITableViewCellSelectionStyle.None
     }
     
     override func setSelected(selected: Bool, animated: Bool) {
@@ -45,19 +45,19 @@ class IBBSMessageTableViewCell: UITableViewCell {
         
         isRead = json["is_read"].intValue
         if isRead == 0 {
-            self.isMessageRead.image = UIImage(named: "message_is_read_marker")
-            self.isMessageRead.changeColorForImageOfImageView(CUSTOM_THEME_COLOR.lighterColor(0.7))
-        }else if isRead == 1{
-            self.isMessageRead.image = UIImage(named: "message_is_read_marker")
+            isMessageRead.image = UIImage(named: "message_is_read_marker")
+            isMessageRead.changeColorForImageOfImageView(CUSTOM_THEME_COLOR.lighterColor(0.7))
+        }else if isRead == 1 {
+            isMessageRead.image = UIImage(named: "message_is_read_marker")
         }
         
         let isAdministrator = json["type"].boolValue
         if !isAdministrator {
-            self.avatarImageView.backgroundColor = UIColor.blackColor()
-            self.avatarImageView.image = UIImage(named: "administrator")
+            avatarImageView.backgroundColor = UIColor.blackColor()
+            avatarImageView.image = UIImage(named: "administrator")
             //                usernameLabel.text = json["username"].stringValue
             usernameLabel.text = "Admin"
-        }else{
+        } else {
             usernameLabel.text = json["sender"].stringValue
             
         }

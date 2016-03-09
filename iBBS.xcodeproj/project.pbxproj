@@ -23,6 +23,8 @@
 		B1209C611BA3477B00F75673 /* IBBSTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B1209C601BA3477B00F75673 /* IBBSTableViewCell.xib */; };
 		B124B9F31BA9BB92000034CC /* IBBSMessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B124B9F11BA9BB92000034CC /* IBBSMessageTableViewCell.swift */; };
 		B124B9F41BA9BB92000034CC /* IBBSMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B124B9F21BA9BB92000034CC /* IBBSMessageTableViewCell.xib */; };
+		B125567C1C8FF660000EBED8 /* DEBUGLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = B125567B1C8FF660000EBED8 /* DEBUGLog.swift */; };
+		B12556801C8FF742000EBED8 /* Encrypt+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B125567F1C8FF742000EBED8 /* Encrypt+Additions.swift */; };
 		B13BFF7E1BC8FD3D0034E1E8 /* IBBSSlidePanel.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B13BFF7D1BC8FD3D0034E1E8 /* IBBSSlidePanel.storyboard */; };
 		B13BFF801BC8FF710034E1E8 /* IBBSNotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B13BFF7F1BC8FF710034E1E8 /* IBBSNotificationViewController.swift */; };
 		B13BFF821BC8FF840034E1E8 /* IBBSFavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B13BFF811BC8FF840034E1E8 /* IBBSFavoriteViewController.swift */; };
@@ -34,7 +36,6 @@
 		B141A52C1BC4EDC100A32CD8 /* IBBSThemes.swift in Sources */ = {isa = PBXBuildFile; fileRef = B141A52B1BC4EDC100A32CD8 /* IBBSThemes.swift */; };
 		B141A53B1BC5175C00A32CD8 /* Alamofire-SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = B141A52E1BC5175C00A32CD8 /* Alamofire-SwiftyJSON.swift */; };
 		B141A53C1BC5175C00A32CD8 /* CheckEmailAddress+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B141A52F1BC5175C00A32CD8 /* CheckEmailAddress+Additions.swift */; };
-		B141A53D1BC5175C00A32CD8 /* Encrypt+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B141A5301BC5175C00A32CD8 /* Encrypt+Additions.swift */; };
 		B141A53E1BC5175C00A32CD8 /* HRToast+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B141A5311BC5175C00A32CD8 /* HRToast+UIView.swift */; };
 		B141A53F1BC5175C00A32CD8 /* NSString+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B141A5321BC5175C00A32CD8 /* NSString+Additions.swift */; };
 		B141A5401BC5175C00A32CD8 /* PanDirectionGestureRecognizer+Addtions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B141A5331BC5175C00A32CD8 /* PanDirectionGestureRecognizer+Addtions.swift */; };
@@ -186,6 +187,8 @@
 		B1209C601BA3477B00F75673 /* IBBSTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IBBSTableViewCell.xib; sourceTree = "<group>"; };
 		B124B9F11BA9BB92000034CC /* IBBSMessageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSMessageTableViewCell.swift; sourceTree = "<group>"; };
 		B124B9F21BA9BB92000034CC /* IBBSMessageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IBBSMessageTableViewCell.xib; sourceTree = "<group>"; };
+		B125567B1C8FF660000EBED8 /* DEBUGLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DEBUGLog.swift; sourceTree = "<group>"; };
+		B125567F1C8FF742000EBED8 /* Encrypt+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Encrypt+Additions.swift"; sourceTree = "<group>"; };
 		B13BFF7D1BC8FD3D0034E1E8 /* IBBSSlidePanel.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = IBBSSlidePanel.storyboard; sourceTree = "<group>"; };
 		B13BFF7F1BC8FF710034E1E8 /* IBBSNotificationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSNotificationViewController.swift; sourceTree = "<group>"; };
 		B13BFF811BC8FF840034E1E8 /* IBBSFavoriteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSFavoriteViewController.swift; sourceTree = "<group>"; };
@@ -197,7 +200,6 @@
 		B141A52B1BC4EDC100A32CD8 /* IBBSThemes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSThemes.swift; sourceTree = "<group>"; };
 		B141A52E1BC5175C00A32CD8 /* Alamofire-SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Alamofire-SwiftyJSON.swift"; sourceTree = "<group>"; };
 		B141A52F1BC5175C00A32CD8 /* CheckEmailAddress+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CheckEmailAddress+Additions.swift"; sourceTree = "<group>"; };
-		B141A5301BC5175C00A32CD8 /* Encrypt+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Encrypt+Additions.swift"; sourceTree = "<group>"; };
 		B141A5311BC5175C00A32CD8 /* HRToast+UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HRToast+UIView.swift"; sourceTree = "<group>"; };
 		B141A5321BC5175C00A32CD8 /* NSString+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSString+Additions.swift"; sourceTree = "<group>"; };
 		B141A5331BC5175C00A32CD8 /* PanDirectionGestureRecognizer+Addtions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PanDirectionGestureRecognizer+Addtions.swift"; sourceTree = "<group>"; };
@@ -417,12 +419,13 @@
 			name = IBBSSlidePanelControllers;
 			sourceTree = "<group>";
 		};
-		B141A52D1BC5175C00A32CD8 /* Additions */ = {
+		B141A52D1BC5175C00A32CD8 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				B125567B1C8FF660000EBED8 /* DEBUGLog.swift */,
 				B141A52E1BC5175C00A32CD8 /* Alamofire-SwiftyJSON.swift */,
 				B141A52F1BC5175C00A32CD8 /* CheckEmailAddress+Additions.swift */,
-				B141A5301BC5175C00A32CD8 /* Encrypt+Additions.swift */,
+				B125567F1C8FF742000EBED8 /* Encrypt+Additions.swift */,
 				B141A5311BC5175C00A32CD8 /* HRToast+UIView.swift */,
 				B141A5321BC5175C00A32CD8 /* NSString+Additions.swift */,
 				B141A5331BC5175C00A32CD8 /* PanDirectionGestureRecognizer+Addtions.swift */,
@@ -437,6 +440,7 @@
 				B141A53A1BC5175C00A32CD8 /* UIViewController+Additions.swift */,
 				B13BFF891BC962890034E1E8 /* CAAnimation+Additions.swift */,
 			);
+			name = Extensions;
 			path = Additions;
 			sourceTree = "<group>";
 		};
@@ -479,7 +483,7 @@
 				B1CA72141B972299006823B3 /* Controllers */,
 				B1CA72151B9722A4006823B3 /* Views */,
 				B148AF141B982E1C00D00524 /* Models */,
-				B141A52D1BC5175C00A32CD8 /* Additions */,
+				B141A52D1BC5175C00A32CD8 /* Extensions */,
 				B1CA72041B96DE55006823B3 /* ThirdParty */,
 				B1CA72131B97220F006823B3 /* Supporting Files */,
 				B17939431B96DDF3002E1B21 /* Main.storyboard */,
@@ -934,7 +938,6 @@
 				B113B0491BA196BF004ECFA0 /* RefreshConst.swift in Sources */,
 				B113B04A1BA196BF004ECFA0 /* RefreshFooterView.swift in Sources */,
 				B141A53C1BC5175C00A32CD8 /* CheckEmailAddress+Additions.swift in Sources */,
-				B141A53D1BC5175C00A32CD8 /* Encrypt+Additions.swift in Sources */,
 				B197C81F1BA730FC00DE0678 /* CYRTextView.m in Sources */,
 				B148AF241B98C52300D00524 /* IBBSDetailHeaderView.swift in Sources */,
 				B148AF181B98572900D00524 /* IBBSDetailViewController.swift in Sources */,
@@ -955,6 +958,7 @@
 				B197C8221BA730FC00DE0678 /* HRCgUtil.m in Sources */,
 				B1C5F5FA1BA8338400CAF514 /* IBBSContext.swift in Sources */,
 				B1D27C551BC3B002006153BB /* IBBSNodesCollectionViewCell.swift in Sources */,
+				B125567C1C8FF660000EBED8 /* DEBUGLog.swift in Sources */,
 				B197C8261BA730FC00DE0678 /* HRColorUtil.m in Sources */,
 				B179394D1B96DE08002E1B21 /* IBBSContainerViewController.swift in Sources */,
 				B13BFF881BC91D3E0034E1E8 /* IBBSSlidePanelBaseViewController.swift in Sources */,
@@ -977,6 +981,7 @@
 				B17939321B96DDD3002E1B21 /* AppDelegate.swift in Sources */,
 				B141A53E1BC5175C00A32CD8 /* HRToast+UIView.swift in Sources */,
 				B197C8241BA730FC00DE0678 /* HRColorPickerView.m in Sources */,
+				B12556801C8FF742000EBED8 /* Encrypt+Additions.swift in Sources */,
 				B11722AF1BC1A4A500EFFBC5 /* IBBSIdentifiers.swift in Sources */,
 				B197C8291BA730FC00DE0678 /* ZSSRichTextEditor.m in Sources */,
 			);
@@ -1101,6 +1106,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -D DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.iAugus.iBBS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -1123,6 +1129,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -D DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.iAugus.iBBS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

@@ -21,22 +21,22 @@ class IBBSDetailViewController: IBBSBaseViewController, UIGestureRecognizerDeleg
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.sendRequest(page)
-        self.pullUpToLoadmore()
-        self.configureHeaderView()
-        self.configureTableView()
-        self.configureGesture()
-//        self.configureCornerCommentButton()
+        sendRequest(page)
+        pullUpToLoadmore()
+        configureHeaderView()
+        configureTableView()
+        configureGesture()
+//        configureCornerCommentButton()
         
-//        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Comment", style: .Plain, target: self, action: "commentAction")
+//        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Comment", style: .Plain, target: self, action: "commentAction")
     }
     
 //    override func viewDidAppear(animated: Bool) {
 //        super.viewDidAppear(animated)
 //        
 //        // TODO: - There is a bug! App will crash sometimes when set hidesBarsOnSwipe to true, but I don't know why
-//        self.navigationController?.navigationBar.hidden = false
-//        self.navigationController?.hidesBarsOnSwipe = true
+//        navigationController?.navigationBar.hidden = false
+//        navigationController?.hidesBarsOnSwipe = true
 //    }
     
     
@@ -47,7 +47,7 @@ class IBBSDetailViewController: IBBSBaseViewController, UIGestureRecognizerDeleg
     }
     
     override func cornerActionButtonDidTap() {
-        print("commenting...")
+        DEBUGLog("commenting...")
         IBBSContext.sharedInstance.isTokenLegal(){ (isTokenLegal) -> Void in
             if isTokenLegal{
                 let post_id = self.json["id"].stringValue
@@ -93,8 +93,8 @@ class IBBSDetailViewController: IBBSBaseViewController, UIGestureRecognizerDeleg
         //        headerView.setFrameHeight(headerViewFittingSize.height)
         headerView.setNeedsUpdateConstraints()
         headerView.updateConstraintsIfNeeded()
-        self.tableView.tableHeaderView = headerView
-        self.navigationItem.title = headerView.nodeName
+        tableView.tableHeaderView = headerView
+        navigationItem.title = headerView.nodeName
         
     }
     
@@ -106,23 +106,23 @@ class IBBSDetailViewController: IBBSBaseViewController, UIGestureRecognizerDeleg
     //    }
     
     func sendRequest(page: Int) {
-        APIClient.sharedInstance.getReplies(self.json["id"].stringValue, page: self.page, success: { (json) -> Void in
+        APIClient.sharedInstance.getReplies(json["id"].stringValue, page: page, success: { (json) -> Void in
             if json == nil && page != 1 {
                 UIApplication.topMostViewController()?.view?.makeToast(message: NO_MORE_DATA, duration: TIME_OF_TOAST_OF_NO_MORE_DATA, position: HRToastPositionCenter)
             }
             if json.type == Type.Array {
-                if self.page == 1{
+                if page == 1{
                     self.datasource = json.arrayValue
                     self.tableView.reloadData()
                 }else {
                     let appendArray = json.arrayValue
                     self.datasource? += appendArray
                     self.tableView.reloadData()
-                    print(self.datasource)
+                    DEBUGLog(self.datasource)
                 }
             }
             }) { (error) -> Void in
-                print(error)
+                DEBUGLog(error)
                 self.view.makeToast(message: SERVER_ERROR, duration: TIME_OF_TOAST_OF_SERVER_ERROR, position: HRToastPositionTop)
                 
         }
@@ -130,8 +130,8 @@ class IBBSDetailViewController: IBBSBaseViewController, UIGestureRecognizerDeleg
     
     // MARK: - configure gesture
     func configureGesture(){
-        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
-        self.navigationController?.interactivePopGestureRecognizer?.enabled = true
+        navigationController?.interactivePopGestureRecognizer?.delegate = self
+        navigationController?.interactivePopGestureRecognizer?.enabled = true
         
     }
     
@@ -140,7 +140,7 @@ class IBBSDetailViewController: IBBSBaseViewController, UIGestureRecognizerDeleg
     }
     
     //    func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
-    //        if self.navigationController?.viewControllers.count == 1 {
+    //        if navigationController?.viewControllers.count == 1 {
     //            return false
     //        }
     //        return true
@@ -232,7 +232,7 @@ extension IBBSDetailViewController {
     // MARK: - refresh
     func refreshData(){
         
-        self.sendRequest(page)
+        sendRequest(page)
         //         be sure to stop refreshing while there is an error with network or something else
         let refreshInSeconds = 1.3
         let popTime = dispatch_time(DISPATCH_TIME_NOW, Int64(refreshInSeconds * Double(NSEC_PER_SEC)));
@@ -246,17 +246,17 @@ extension IBBSDetailViewController {
     
     // MARK: - pull up to load more
     func pullUpToLoadmore(){
-        self.tableView.addFooterWithCallback({
-            print("pulling up")
+        tableView.addFooterWithCallback({
+            DEBUGLog("pulling up")
             self.page += 1
-            print(self.page)
+            DEBUGLog(self.page)
             
             self.sendRequest(self.page)
             let delayInSeconds: Double = 1.0
             let delta = Int64(Double(NSEC_PER_SEC) * delayInSeconds)
             let popTime:dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW,delta)
             dispatch_after(popTime, dispatch_get_main_queue(), {
-                //                self.tableView.reloadData()
+                //                tableView.reloadData()
                 self.tableView.footerEndRefreshing()
                 
             })

@@ -39,11 +39,11 @@ class IBBSRegisterViewController: UIViewController, UITextFieldDelegate {
         emailTextField.delegate         = self
         passwordTextField.delegate      = self
         passwordAgainTextField.delegate = self
-        self.view.backgroundColor       = UIColor(patternImage: BACKGROUNDER_IMAGE!)
+        view.backgroundColor       = UIColor(patternImage: BACKGROUNDER_IMAGE!)
         blurView                        = UIVisualEffectView(effect: UIBlurEffect(style: .Light))
-        blurView.frame                  = self.view.frame
+        blurView.frame                  = view.frame
         blurView.alpha                  = BLUR_VIEW_ALPHA_OF_BG_IMAGE + 0.2
-        self.view.insertSubview(blurView, atIndex: 0)
+        view.insertSubview(blurView, atIndex: 0)
     }
 
     override func viewDidLoad() {
@@ -54,7 +54,7 @@ class IBBSRegisterViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        blurView.frame = self.view.frame
+        blurView.frame = view.frame
     }
 
     override func didReceiveMemoryWarning() {
@@ -66,10 +66,10 @@ class IBBSRegisterViewController: UIViewController, UITextFieldDelegate {
         
         //        UIView.animateWithDuration(0.75, animations: { () -> Void in
         //            UIView.setAnimationCurve(UIViewAnimationCurve.EaseInOut)
-        //            UIView.setAnimationTransition(UIViewAnimationTransition.FlipFromLeft, forView: self.navigationController!.view, cache: false)
+        //            UIView.setAnimationTransition(UIViewAnimationTransition.FlipFromLeft, forView: navigationController!.view, cache: false)
         //        })
         
-        self.navigationController?.popViewControllerAnimated(true)
+        navigationController?.popViewControllerAnimated(true)
         
     }
     
@@ -86,7 +86,7 @@ class IBBSRegisterViewController: UIViewController, UITextFieldDelegate {
             let cancelAction = UIAlertAction(title: I_WILL_CHECK, style: .Cancel, handler: nil)
             alertCtl.addAction(cancelAction)
             
-            self.presentViewController(alertCtl, animated: true, completion: nil)
+            presentViewController(alertCtl, animated: true, completion: nil)
             return
         }
         
@@ -95,7 +95,7 @@ class IBBSRegisterViewController: UIViewController, UITextFieldDelegate {
             let cancelAction = UIAlertAction(title: TRY_AGAIN, style: .Cancel, handler: nil)
             alertCtl.addAction(cancelAction)
             
-            self.presentViewController(alertCtl, animated: true, completion: nil)
+            presentViewController(alertCtl, animated: true, completion: nil)
             return
         }
         
@@ -105,7 +105,7 @@ class IBBSRegisterViewController: UIViewController, UITextFieldDelegate {
             let cancelAction = UIAlertAction(title: TRY_AGAIN, style: .Cancel, handler: nil)
             alertCtl.addAction(cancelAction)
             
-            self.presentViewController(alertCtl, animated: true, completion: nil)
+            presentViewController(alertCtl, animated: true, completion: nil)
             return
         }
         
@@ -114,7 +114,7 @@ class IBBSRegisterViewController: UIViewController, UITextFieldDelegate {
             let cancelAction = UIAlertAction(title: I_KNOW, style: .Cancel, handler: nil)
             alertCtl.addAction(cancelAction)
             
-            self.presentViewController(alertCtl, animated: true, completion: nil)
+            presentViewController(alertCtl, animated: true, completion: nil)
             return
         }
         
@@ -123,7 +123,7 @@ class IBBSRegisterViewController: UIViewController, UITextFieldDelegate {
             let cancelAction = UIAlertAction(title: TRY_AGAIN, style: .Cancel, handler: nil)
             alertCtl.addAction(cancelAction)
             
-            self.presentViewController(alertCtl, animated: true, completion: nil)
+            presentViewController(alertCtl, animated: true, completion: nil)
             return
 
         }
@@ -133,18 +133,18 @@ class IBBSRegisterViewController: UIViewController, UITextFieldDelegate {
             let cancelAction = UIAlertAction(title: TRY_AGAIN, style: .Cancel, handler: nil)
             alertCtl.addAction(cancelAction)
             
-            self.presentViewController(alertCtl, animated: true, completion: nil)
+            presentViewController(alertCtl, animated: true, completion: nil)
             return
         }
         
         // everything is fine, ready to go
         let encryptedPasswd = (passwd as! String).MD5()
         APIClient.sharedInstance.userRegister(email!, username: username!, passwd: encryptedPasswd, success: { (json) -> Void in
-            print(json)
+            DEBUGLog(json)
             if json["code"].intValue == 1 {
                 // register successfully!
                 APIClient.sharedInstance.userLogin(username!, passwd: encryptedPasswd, success: { (json) -> Void in
-                    print(json)
+                    DEBUGLog(json)
                     IBBSContext.sharedInstance.saveLoginData(json.object)
                     
                     self.view.makeToast(message: REGISTER_SUCESSFULLY, duration: TIME_OF_TOAST_OF_REGISTER_SUCCESS, position: HRToastPositionTop)
@@ -159,12 +159,12 @@ class IBBSRegisterViewController: UIViewController, UITextFieldDelegate {
                     })
                     
                     }, failure: { (error) -> Void in
-                        print(error)
+                        DEBUGLog(error)
                         self.view.makeToast(message: SERVER_ERROR, duration: TIME_OF_TOAST_OF_SERVER_ERROR, position: HRToastPositionTop)
                         
                 })
                 
-            }else{
+            } else {
                 // failed
                 let errorInfo = json["msg"].stringValue
                 let alertCtl = UIAlertController(title: REGISTER_FAILED, message: errorInfo, preferredStyle: .Alert)
@@ -175,7 +175,7 @@ class IBBSRegisterViewController: UIViewController, UITextFieldDelegate {
 
             }
             }, failure: { (error) -> Void in
-                print(error)
+                DEBUGLog(error)
                 self.view.makeToast(message: SERVER_ERROR, duration: TIME_OF_TOAST_OF_SERVER_ERROR, position: HRToastPositionTop)
                 
         })
@@ -187,13 +187,13 @@ class IBBSRegisterViewController: UIViewController, UITextFieldDelegate {
         if textField == usernameTextField {
             textField.resignFirstResponder()
             emailTextField.becomeFirstResponder()
-        }else if textField == emailTextField {
+        } else if textField == emailTextField {
             textField.resignFirstResponder()
             passwordTextField.becomeFirstResponder()
-        }else if textField == passwordTextField {
+        } else if textField == passwordTextField {
             textField.resignFirstResponder()
             passwordAgainTextField.becomeFirstResponder()
-        }else{
+        } else {
             textField.resignFirstResponder()
 //            performSelector("signupButton:")
         }

@@ -19,29 +19,28 @@ class IBBSViewController: IBBSBaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.automaticPullingDownToRefresh()
-        self.configureTableView()
-        self.configureNavifationItemTitle()
-        self.pullUpToLoadmore()
-        self.sendRequest(page)
-        self.postNewArticleSegue = MainStoryboard.SegueIdentifiers.postSegue
+        automaticPullingDownToRefresh()
+        configureTableView()
+        configureNavifationItemTitle()
+        pullUpToLoadmore()
+        sendRequest(page)
+        postNewArticleSegue = MainStoryboard.SegueIdentifiers.postSegue
 
         IBBSConfigureNodesInfo.sharedInstance.configureNodesInfo()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadDataAfterPosting", name: kShouldReloadDataAfterPosting, object: nil)
 
     }
     
-       
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        //        self.navigationController?.hidesBarsOnSwipe = true
+        //        navigationController?.hidesBarsOnSwipe = true
         
         /**
         important: if present NavigationController's property of interactivePopGestureRecognizer is enable, we must set it to disable,
         otherwise if we call UIScreenEdgePanGestureRecognizer on present ViewController it will crash.
         */
-        //        self.navigationController?.interactivePopGestureRecognizer?.delegate = nil
-        self.navigationController?.interactivePopGestureRecognizer?.enabled = false
+        //        navigationController?.interactivePopGestureRecognizer?.delegate = nil
+        navigationController?.interactivePopGestureRecognizer?.enabled = false
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "configureNavifationItemTitle", name: kJustLoggedinNotification, object: nil)
     }
@@ -75,7 +74,7 @@ class IBBSViewController: IBBSBaseViewController {
                 
             }
             }, failure: { (error) -> Void in
-                print(error)
+                DEBUGLog(error)
                 self.view.makeToast(message: SERVER_ERROR, duration: TIME_OF_TOAST_OF_SERVER_ERROR, position: HRToastPositionTop)
         })
     }
@@ -83,7 +82,7 @@ class IBBSViewController: IBBSBaseViewController {
     
     func configureNavifationItemTitle(){
         
-        self.navigationItem.title = "iBBS"
+        navigationItem.title = "iBBS"
         IBBSContext.sharedInstance.isTokenLegal(){ (isTokenLegal) -> Void in
             if isTokenLegal {
                 if let data = IBBSContext.sharedInstance.getLoginData() {
@@ -108,12 +107,12 @@ class IBBSViewController: IBBSBaseViewController {
     
     
     override func cornerActionButtonDidTap() {
-        self.performPostNewArticleSegue(segueIdentifier: MainStoryboard.SegueIdentifiers.postSegue)
+        performPostNewArticleSegue(segueIdentifier: MainStoryboard.SegueIdentifiers.postSegue)
         
     }
     
     @IBAction func postNewArticleButtonDidTap(sender: AnyObject) {
-        self.performPostNewArticleSegue(segueIdentifier: MainStoryboard.SegueIdentifiers.postSegue)
+        performPostNewArticleSegue(segueIdentifier: MainStoryboard.SegueIdentifiers.postSegue)
     }
     
     
@@ -124,7 +123,7 @@ extension IBBSViewController {
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if datasource != nil {
-            print(datasource.count)
+            DEBUGLog(datasource.count)
             return datasource.count
             
         }
@@ -134,8 +133,8 @@ extension IBBSViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         if let cell = tableView.dequeueReusableCellWithIdentifier(MainStoryboard.CellIdentifiers.iBBSTableViewCell) as? IBBSTableViewCell {
-            let json = self.datasource[indexPath.row]
-            print(json)
+            let json = datasource[indexPath.row]
+            DEBUGLog(json)
             
             cell.loadDataToCell(json)
             return cell
@@ -147,15 +146,15 @@ extension IBBSViewController {
     
     // MARK: - table view delegate
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let json = self.datasource[indexPath.row]
+        let json = datasource[indexPath.row]
         //        if let vc = storyboard?.instantiateViewControllerWithIdentifier(MainStoryboard.VCIdentifiers.detailVC) as? IBBSDetailViewController{
         //            vc.json = json
-        //            self.navigationController?.pushViewController(vc, animated: true)
+        //            navigationController?.pushViewController(vc, animated: true)
         //        }
         let vc = IBBSDetailViewController()
         vc.json = json
         vc.navigationController?.navigationBar.hidden = true
-        self.navigationController?.pushViewController(vc, animated: true)
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -171,7 +170,7 @@ extension IBBSViewController {
     // MARK: - refresh
     func refreshData(){
         
-        self.sendRequest(page)
+        sendRequest(page)
         //         be sure to stop refreshing while there is an error with network or something else
         let refreshInSeconds = 1.3
         let popTime = dispatch_time(DISPATCH_TIME_NOW, Int64(refreshInSeconds * Double(NSEC_PER_SEC)));
@@ -186,17 +185,17 @@ extension IBBSViewController {
     
     // MARK: - pull up to load more
     func pullUpToLoadmore(){
-        self.tableView.addFooterWithCallback({
-            print("pulling up")
+        tableView.addFooterWithCallback({
+            DEBUGLog("pulling up")
             self.page += 1
-            print("page: \(self.page)")
+            DEBUGLog("page: \(self.page)")
             
             self.sendRequest(self.page)
             let delayInSeconds: Double = 1.0
             let delta = Int64(Double(NSEC_PER_SEC) * delayInSeconds)
             let popTime:dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW,delta)
             dispatch_after(popTime, dispatch_get_main_queue(), {
-                //                self.tableView.reloadData()
+                //                tableView.reloadData()
                 self.tableView.footerEndRefreshing()
                 
             })

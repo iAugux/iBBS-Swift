@@ -27,13 +27,13 @@ class IBBSPostViewController: IBBSEditorBaseViewController {
 
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        self.navigationController?.navigationBar.translucent = false
-//        self.focusTextEditor()
+        navigationController?.navigationBar.translucent = false
+//        focusTextEditor()
 //        
 //        let delayInSeconds: Double = 0.4
 //        let popTime = dispatch_time(DISPATCH_TIME_NOW,Int64(Double(NSEC_PER_SEC) * delayInSeconds))
 //        dispatch_after(popTime, dispatch_get_main_queue(), {
-//            self.toolbarHolder?.hidden = false
+//            toolbarHolder?.hidden = false
 //            
 //        })
         
@@ -54,30 +54,30 @@ class IBBSPostViewController: IBBSEditorBaseViewController {
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
-//        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
-//        self.navigationController?.navigationBar.shadowImage = UIImage()
-//        self.navigationController?.navigationBar.translucent = true
+//        navigationController?.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
+//        navigationController?.navigationBar.shadowImage = UIImage()
+//        navigationController?.navigationBar.translucent = true
 
-        self.toolbarHolder?.hidden = true
-        self.blurTextEditor()
+        toolbarHolder?.hidden = true
+        blurTextEditor()
     }
 
     func sendAction() {
-        self.blurTextEditor()
+        blurTextEditor()
         if getHTML().ausTrimHtmlInWhitespaceAndNewlineCharacterSet().isEmpty {
-            self.configureAlertController()
+            configureAlertController()
             return
         }
-        self.shouldShowKeyboard = false
+        shouldShowKeyboard = false
         let userID: String, token: String
         contentsArrayOfPostArticle.setValue(getHTML(), forKey: content)
         if let loginData = IBBSContext.sharedInstance.getLoginData() {
             userID = loginData["uid"].stringValue
             token = loginData["token"].stringValue
-            print(userID)
-            print(token)
+            DEBUGLog(userID)
+            DEBUGLog(token)
             APIClient.sharedInstance.post(userID, nodeID: contentsArrayOfPostArticle[nodeID]!, content: contentsArrayOfPostArticle[content]!, title: contentsArrayOfPostArticle[articleTitle]!, token: token, success: { (json) -> Void in
-                print(json)
+                DEBUGLog(json)
 
                 let msg = json["msg"].stringValue
                 if json["code"].intValue == 1 { //post successfully
@@ -92,7 +92,7 @@ class IBBSPostViewController: IBBSEditorBaseViewController {
                         self.dismissViewControllerAnimated(true , completion: nil)
                     })
 
-                }else{
+                } else {
                     self.view?.makeToast(message: msg, duration: TIME_OF_TOAST_OF_POST_FAILED, position: HRToastPositionTop)
                     let delayInSeconds: Double = 1.5
                     let delta = Int64(Double(NSEC_PER_SEC) * delayInSeconds)
@@ -105,16 +105,16 @@ class IBBSPostViewController: IBBSEditorBaseViewController {
                 }
                 
                 }) { (error ) -> Void in
-                    print(error)
+                    DEBUGLog(error)
                     self.view.makeToast(message: SERVER_ERROR, duration: TIME_OF_TOAST_OF_SERVER_ERROR, position: HRToastPositionTop)
             }
-            print(contentsArrayOfPostArticle)
+            DEBUGLog(contentsArrayOfPostArticle)
         }
     }
     
     func cancelAction(){
-        self.blurTextEditor()
-        self.dismissViewControllerAnimated(true , completion: nil)
+        blurTextEditor()
+        dismissViewControllerAnimated(true , completion: nil)
         
     }
 
@@ -125,7 +125,7 @@ class IBBSPostViewController: IBBSEditorBaseViewController {
         }
         
         alertController.addAction(action)
-        self.presentViewController(alertController, animated: true, completion: nil)
+        presentViewController(alertController, animated: true, completion: nil)
     }
     
     override func didReceiveMemoryWarning() {

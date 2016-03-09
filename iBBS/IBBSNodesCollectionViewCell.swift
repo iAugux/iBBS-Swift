@@ -39,7 +39,7 @@ class IBBSNodesCollectionViewCell: UICollectionViewCell {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         customBackgroundView = IBBSCustomSelectedBackgroundView()
-        self.selectedBackgroundView = customBackgroundView
+        selectedBackgroundView = customBackgroundView
         
     }
     

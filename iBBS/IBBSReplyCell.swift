@@ -23,9 +23,9 @@ class IBBSReplyCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         selectionStyle = .None
-        self.preservesSuperviewLayoutMargins = false
-        self.separatorInset = UIEdgeInsetsZero
-        self.layoutMargins = UIEdgeInsetsZero
+        preservesSuperviewLayoutMargins = false
+        separatorInset = UIEdgeInsetsZero
+        layoutMargins = UIEdgeInsetsZero
     }
     
     override func setSelected(selected: Bool, animated: Bool) {
@@ -39,7 +39,7 @@ class IBBSReplyCell: UITableViewCell {
         avatarImageView.kf_setImageWithURL(imageUrl!, placeholderImage: AVATAR_PLACEHOLDER_IMAGE)
         usernameLabel.text = json["username"].stringValue
         let data = json["comment_content"].stringValue
-        print(data)
+        DEBUGLog(data)
 
         replyContent.ausAttributedText(data)
         replyContent.ausReturnFrameSizeAfterResizingTextView()

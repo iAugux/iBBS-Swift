@@ -16,13 +16,10 @@ class IBBSCommentViewController: IBBSEditorBaseViewController {
     
     var post_id = String()
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: "cancelAction")
-        self.navigationController?.navigationBar.translucent = false
-        
-
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: "cancelAction")
+        navigationController?.navigationBar.translucent = false
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -39,8 +36,8 @@ class IBBSCommentViewController: IBBSEditorBaseViewController {
     
     func cancelAction(){
         if getHTML().ausTrimHtmlInWhitespaceAndNewlineCharacterSet().isEmpty {
-            self.blurTextEditor()
-            self.dismissViewControllerAnimated(true , completion: nil)
+            blurTextEditor()
+            dismissViewControllerAnimated(true , completion: nil)
         } else {
             let alert = UIAlertController(title: "", message: ARE_YOU_SURE_TO_GIVE_UP, preferredStyle: .Alert)
             let continueAction = UIAlertAction(title: BUTTON_CONTINUE, style: .Default, handler: { _ in
@@ -62,11 +59,11 @@ class IBBSCommentViewController: IBBSEditorBaseViewController {
         
     }
     
-    func sendAction(){
-        self.blurTextEditor()
+    func sendAction() {
+        blurTextEditor()
         
         if getHTML().ausTrimHtmlInWhitespaceAndNewlineCharacterSet().isEmpty {
-            self.configureAlertController()
+            configureAlertController()
             return
         }
         
@@ -77,7 +74,7 @@ class IBBSCommentViewController: IBBSEditorBaseViewController {
             let token = loginData["token"].stringValue
             
             APIClient.sharedInstance.comment(userID , postID: post_id, content: content, token: token, success: { (json ) -> Void in
-                print(json)
+                DEBUGLog(json)
                 let msg = json["msg"].stringValue
                 if json["code"].intValue == 1 { //comment successfully
                     self.view?.makeToast(message: msg, duration: TIME_OF_TOAST_OF_COMMENT_SUCCESS, position: HRToastPositionTop)
@@ -89,7 +86,7 @@ class IBBSCommentViewController: IBBSEditorBaseViewController {
                         self.dismissViewControllerAnimated(true , completion: nil)
                     })
                     
-                }else{
+                } else {
                     self.view?.makeToast(message: msg, duration: TIME_OF_TOAST_OF_COMMENT_FAILED, position: HRToastPositionTop)
                     let delayInSeconds: Double = 0.5
                     let delta = Int64(Double(NSEC_PER_SEC) * delayInSeconds)
@@ -101,7 +98,7 @@ class IBBSCommentViewController: IBBSEditorBaseViewController {
                     
                 }
                 }) { (error ) -> Void in
-                    print(error)
+                    DEBUGLog(error)
                     self.view.makeToast(message: SERVER_ERROR, duration: TIME_OF_TOAST_OF_SERVER_ERROR, position: HRToastPositionTop)
                     
             }
@@ -115,7 +112,7 @@ class IBBSCommentViewController: IBBSEditorBaseViewController {
                self.focusTextEditor()
         }
         alertController.addAction(action)
-        self.presentViewController(alertController, animated: true, completion: nil)
+        presentViewController(alertController, animated: true, completion: nil)
     }
     
     
