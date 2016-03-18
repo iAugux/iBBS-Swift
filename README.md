@@ -1,8 +1,8 @@
-
+###`抱歉，由于新浪SAE收费提高，服务端暂时关闭`
 # iBBS-Swift
 ![Language](https://img.shields.io/badge/language-Swift%202-orange.svg)
 ![GitHub license](http://img.shields.io/github/license/mashape/apistatus.svg)
-[![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/iaugux)
+[![Tweet](https://img.shields.io/badge/Tweet-%40iAugux-1B95E0.svg)](https://twitter.com/iaugux)
 
 A BBS client in Swift.
  
