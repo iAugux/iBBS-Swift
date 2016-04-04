@@ -37,9 +37,9 @@ class IBBSBaseViewController: UITableViewController {
         navigationController?.navigationBar.hidden = SHOULD_HIDE_NAVIGATIONBAR
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : CUSTOM_THEME_COLOR]
 
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateTheme", name: kThemeDidChangeNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "hideCornerActionButton", name: kShouldHideCornerActionButton, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "showCornerActionButton", name: kShouldShowCornerActionButton, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(IBBSBaseViewController.updateTheme), name: kThemeDidChangeNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(IBBSBaseViewController.hideCornerActionButton), name: kShouldHideCornerActionButton, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(IBBSBaseViewController.showCornerActionButton), name: kShouldShowCornerActionButton, object: nil)
     }
     
     
@@ -50,7 +50,7 @@ class IBBSBaseViewController: UITableViewController {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "showCornerActionButton", name: kShouldShowCornerActionButton, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(IBBSBaseViewController.showCornerActionButton), name: kShouldShowCornerActionButton, object: nil)
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -79,7 +79,7 @@ class IBBSBaseViewController: UITableViewController {
         cornerActionButton?.layer.cornerRadius = 20.0
         cornerActionButton?.clipsToBounds = true
         cornerActionButton?.setImage(UIImage(named: "plus_button"), forState: .Normal)
-        cornerActionButton?.addTarget(self, action: "cornerActionButtonDidTap", forControlEvents: .TouchUpInside)
+        cornerActionButton?.addTarget(self, action: #selector(IBBSBaseViewController.cornerActionButtonDidTap), forControlEvents: .TouchUpInside)
         UIApplication.topMostViewController()?.view.addSubview(cornerActionButton)
     }
     
@@ -119,7 +119,7 @@ class IBBSBaseViewController: UITableViewController {
     private func gearRefreshManager(){
         gearRefreshControl = GearRefreshControl(frame: view.bounds)
         gearRefreshControl.gearTintColor = CUSTOM_THEME_COLOR.lighterColor(0.7)
-        gearRefreshControl.addTarget(self, action: "refreshData", forControlEvents: UIControlEvents.ValueChanged)
+        gearRefreshControl.addTarget(self, action: #selector(IBBSBaseViewController.refreshData), forControlEvents: UIControlEvents.ValueChanged)
         refreshControl = gearRefreshControl
     }
     
@@ -127,7 +127,7 @@ class IBBSBaseViewController: UITableViewController {
     // MARK: - Automatic pulling down to refresh
     func automaticPullingDownToRefresh(){
         
-        NSTimer.scheduledTimerWithTimeInterval(0.6, target: self, selector: "automaticContentOffset", userInfo: nil, repeats: false)
+        NSTimer.scheduledTimerWithTimeInterval(0.6, target: self, selector: #selector(IBBSBaseViewController.automaticContentOffset), userInfo: nil, repeats: false)
         //        NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: "endRefresh", userInfo: nil, repeats: false)
         //        NSTimer.performSelector("endRefresh", withObject: nil, afterDelay: 0.1)
     }
@@ -189,11 +189,13 @@ extension IBBSBaseViewController {
             
         }
     }
+    
+    func refreshData() {}
 
     func reloadDataAfterPosting() {
         DEBUGLog("reloading")
         if page == 1 {
-            performSelector("refreshData")
+            performSelector(#selector(IBBSBaseViewController.refreshData))
             automaticPullingDownToRefresh()
         }
     }

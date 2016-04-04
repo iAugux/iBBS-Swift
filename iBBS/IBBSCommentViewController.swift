@@ -18,7 +18,7 @@ class IBBSCommentViewController: IBBSEditorBaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: "cancelAction")
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: #selector(IBBSCommentViewController.cancelAction))
         navigationController?.navigationBar.translucent = false
     }
     
@@ -59,7 +59,9 @@ class IBBSCommentViewController: IBBSEditorBaseViewController {
         
     }
     
-    func sendAction() {
+    override func sendAction() {
+        super.sendAction()
+        
         blurTextEditor()
         
         if getHTML().ausTrimHtmlInWhitespaceAndNewlineCharacterSet().isEmpty {
@@ -74,7 +76,7 @@ class IBBSCommentViewController: IBBSEditorBaseViewController {
             let token = loginData["token"].stringValue
             
             APIClient.sharedInstance.comment(userID , postID: post_id, content: content, token: token, success: { (json ) -> Void in
-                DEBUGLog(json)
+                debugPrint(json)
                 let msg = json["msg"].stringValue
                 if json["code"].intValue == 1 { //comment successfully
                     self.view?.makeToast(message: msg, duration: TIME_OF_TOAST_OF_COMMENT_SUCCESS, position: HRToastPositionTop)

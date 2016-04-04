@@ -27,7 +27,7 @@ class IBBSViewController: IBBSBaseViewController {
         postNewArticleSegue = MainStoryboard.SegueIdentifiers.postSegue
 
         IBBSConfigureNodesInfo.sharedInstance.configureNodesInfo()
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadDataAfterPosting", name: kShouldReloadDataAfterPosting, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(reloadDataAfterPosting), name: kShouldReloadDataAfterPosting, object: nil)
 
     }
     
@@ -42,7 +42,7 @@ class IBBSViewController: IBBSBaseViewController {
         //        navigationController?.interactivePopGestureRecognizer?.delegate = nil
         navigationController?.interactivePopGestureRecognizer?.enabled = false
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "configureNavifationItemTitle", name: kJustLoggedinNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(IBBSViewController.configureNavifationItemTitle), name: kJustLoggedinNotification, object: nil)
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -134,7 +134,7 @@ extension IBBSViewController {
         
         if let cell = tableView.dequeueReusableCellWithIdentifier(MainStoryboard.CellIdentifiers.iBBSTableViewCell) as? IBBSTableViewCell {
             let json = datasource[indexPath.row]
-            DEBUGLog(json)
+            debugPrint(json)
             
             cell.loadDataToCell(json)
             return cell
@@ -168,7 +168,8 @@ extension IBBSViewController {
 
 extension IBBSViewController {
     // MARK: - refresh
-    func refreshData(){
+    override func refreshData(){
+        super.refreshData()
         
         sendRequest(page)
         //         be sure to stop refreshing while there is an error with network or something else

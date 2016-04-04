@@ -118,7 +118,7 @@ class IBBSDetailViewController: IBBSBaseViewController, UIGestureRecognizerDeleg
                     let appendArray = json.arrayValue
                     self.datasource? += appendArray
                     self.tableView.reloadData()
-                    DEBUGLog(self.datasource)
+                    debugPrint(self.datasource)
                 }
             }
             }) { (error) -> Void in
@@ -230,7 +230,8 @@ class IBBSDetailViewController: IBBSBaseViewController, UIGestureRecognizerDeleg
 
 extension IBBSDetailViewController {
     // MARK: - refresh
-    func refreshData(){
+    override func refreshData(){
+        super.refreshData()
         
         sendRequest(page)
         //         be sure to stop refreshing while there is an error with network or something else

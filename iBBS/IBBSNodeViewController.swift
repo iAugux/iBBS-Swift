@@ -26,7 +26,7 @@ class IBBSNodeViewController: IBBSBaseViewController, UIGestureRecognizerDelegat
         configureGestureRecognizer()
         sendRequest(page)
         postNewArticleSegue = MainStoryboard.SegueIdentifiers.postNewArticleWithNodeSegue
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "reloadDataAfterPosting", name: kShouldReloadDataAfterPosting, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(reloadDataAfterPosting), name: kShouldReloadDataAfterPosting, object: nil)
         
     }
     
@@ -71,7 +71,7 @@ class IBBSNodeViewController: IBBSBaseViewController, UIGestureRecognizerDelegat
                         let appendArray = json.arrayValue
                         self.datasource? += appendArray
                         self.tableView.reloadData()
-                        DEBUGLog(self.datasource)
+                        debugPrint(self.datasource)
                     }
                     
                 }
@@ -101,7 +101,7 @@ class IBBSNodeViewController: IBBSBaseViewController, UIGestureRecognizerDelegat
     }
     
     func configureGestureRecognizer(){
-        let edgeGestureRecognizer = UIScreenEdgePanGestureRecognizer(target: self, action: "toggleSideMenu:")
+        let edgeGestureRecognizer = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(IBBSNodeViewController.toggleSideMenu(_:)))
         edgeGestureRecognizer.edges = UIRectEdge.Right
         view.addGestureRecognizer(edgeGestureRecognizer)
     }
@@ -128,7 +128,7 @@ class IBBSNodeViewController: IBBSBaseViewController, UIGestureRecognizerDelegat
         if let cell = tableView.dequeueReusableCellWithIdentifier(MainStoryboard.CellIdentifiers.iBBSNodeTableViewCell) as? IBBSNodeTableViewCell {
             let json = datasource[indexPath.row]
             DEBUGLog("****************")
-            DEBUGLog(json)
+            debugPrint(json)
             DEBUGLog("****************")
             DEBUGLog("****************")
             cell.loadDataToCell(json)
@@ -159,7 +159,8 @@ class IBBSNodeViewController: IBBSBaseViewController, UIGestureRecognizerDelegat
 
 extension IBBSNodeViewController {
     // MARK: - refresh
-    func refreshData(){
+    override func refreshData(){
+        super.refreshData()
         
         sendRequest(page)
         //         be sure to stop refreshing while there is an error with network or something else

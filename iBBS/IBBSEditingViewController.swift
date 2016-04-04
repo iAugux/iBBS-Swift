@@ -49,8 +49,8 @@ class IBBSEditingViewController: UIViewController, UITextViewDelegate {
         IBBSConfigureNodesInfo.sharedInstance.configureNodesInfo()
         node = IBBSContext.sharedInstance.getNodes()
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self , action: "cancelAction")
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: BUTTON_NEXT, style: .Plain, target: self, action: "okAction:")
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self , action: #selector(IBBSEditingViewController.cancelAction))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: BUTTON_NEXT, style: .Plain, target: self, action: #selector(IBBSEditingViewController.okAction(_:)))
         view.backgroundColor = UIColor(patternImage: BACKGROUNDER_IMAGE!)
         blurView = UIVisualEffectView(effect: UIBlurEffect(style: .Light))
         blurView.frame = view.frame

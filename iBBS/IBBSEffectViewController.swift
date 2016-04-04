@@ -19,7 +19,7 @@ class IBBSEffectViewController: UIViewController {
         blurView = UIVisualEffectView(effect: UIBlurEffect(style: .Light))
         blurView.frame = view.frame
         blurView.alpha = BLUR_VIEW_ALPHA_OF_BG_IMAGE
-        let gesture = UITapGestureRecognizer(target: self, action: "blurViewDidTap")
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(IBBSEffectViewController.blurViewDidTap))
         blurView.addGestureRecognizer(gesture)
         view.addSubview(blurView)
         

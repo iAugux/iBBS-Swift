@@ -28,7 +28,7 @@ class IBBSContext {
             let uid = json["uid"].stringValue
             let token = json["token"].stringValue
             APIClient.sharedInstance.isTokenLegal(uid, token: token, success: { (json) -> Void in
-                DEBUGLog(json)
+                debugPrint(json)
                 
                 if json["code"].intValue == 1 {
                     completionHandler(isTokenLegal: true)
@@ -68,7 +68,7 @@ class IBBSContext {
         let okAction = UIAlertAction(title: BUTTON_OK, style: .Default) { (action: UIAlertAction) -> Void in
             let encryptedPasswd = password.text?.MD5()
             APIClient.sharedInstance.userLogin(username.text!, passwd: encryptedPasswd!, success: { (json) -> Void in
-                DEBUGLog(json)
+                debugPrint(json)
                 // something wrong , alert!!
                 if json["code"].intValue == 0 {
                     let msg = json["msg"].stringValue

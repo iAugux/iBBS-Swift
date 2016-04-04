@@ -40,7 +40,7 @@ class DraggableView: UIView {
         self.frame = CGRectMake(16, 50, UIScreen.screenWidth() - 32, UIScreen.screenHeight() - 80)
         self.backgroundColor = UIColor.randomColor()
 
-        panGestureRecognizer = PanDirectionGestureRecognizer(direction: .Horizontal, target: self, action: "beingDragged:")
+        panGestureRecognizer = PanDirectionGestureRecognizer(direction: .Horizontal, target: self, action: #selector(DraggableView.beingDragged(_:)))
 
         self.addGestureRecognizer(panGestureRecognizer)
 

@@ -140,11 +140,11 @@ class IBBSRegisterViewController: UIViewController, UITextFieldDelegate {
         // everything is fine, ready to go
         let encryptedPasswd = (passwd as! String).MD5()
         APIClient.sharedInstance.userRegister(email!, username: username!, passwd: encryptedPasswd, success: { (json) -> Void in
-            DEBUGLog(json)
+            debugPrint(json)
             if json["code"].intValue == 1 {
                 // register successfully!
                 APIClient.sharedInstance.userLogin(username!, passwd: encryptedPasswd, success: { (json) -> Void in
-                    DEBUGLog(json)
+                    debugPrint(json)
                     IBBSContext.sharedInstance.saveLoginData(json.object)
                     
                     self.view.makeToast(message: REGISTER_SUCESSFULLY, duration: TIME_OF_TOAST_OF_REGISTER_SUCCESS, position: HRToastPositionTop)

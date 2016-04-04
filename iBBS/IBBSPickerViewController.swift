@@ -29,10 +29,10 @@ class IBBSPickerViewController: UIViewController {
         super.viewDidLoad()
         title = "Picker"
         view.backgroundColor = UIColor.redColor()
-        let saveButton = UIBarButtonItem(barButtonSystemItem: .Save, target: self, action: "saveURL")
+        let saveButton = UIBarButtonItem(barButtonSystemItem: .Save, target: self, action: #selector(IBBSPickerViewController.saveURL))
         navigationItem.rightBarButtonItem = saveButton
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: "cancel")
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: #selector(IBBSPickerViewController.cancel))
         
         textField = UITextField(frame: CGRectMake(20, 20, view.frame.size.width - 40, 40))
         textField.text = !isInsertImagePicker ? "http://www.apple.com" : "http://fineprintnyc.com/images/blog/history-of-apple-logo/apple-logo-2.jpg"

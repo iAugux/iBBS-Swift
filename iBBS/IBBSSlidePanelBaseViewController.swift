@@ -44,7 +44,7 @@ class IBBSSlidePanelBaseViewController: UIViewController {
         navBar.translucent = true
         navBar.titleTextAttributes = [NSForegroundColorAttributeName : CUSTOM_THEME_COLOR]
         navBar.setItems([UINavigationItem(title: title ?? "")], animated: false)
-        navBar.topItem?.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "back_button"), style: .Plain, target: self, action: "popViewController")
+        navBar.topItem?.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "back_button"), style: .Plain, target: self, action: #selector(IBBSSlidePanelBaseViewController.popViewController))
         view.addSubview(navBar)
     }
     
@@ -54,7 +54,7 @@ class IBBSSlidePanelBaseViewController: UIViewController {
     }
     
     func configureScreenEdgePanGesture() {
-        let recognizer = UIScreenEdgePanGestureRecognizer(target: self, action: "popViewController")
+        let recognizer = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(IBBSSlidePanelBaseViewController.popViewController))
         recognizer.edges = UIRectEdge.Left
         view.addGestureRecognizer(recognizer)
     }
