@@ -20,6 +20,7 @@
 		B113B04A1BA196BF004ECFA0 /* RefreshFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B113B0451BA196BF004ECFA0 /* RefreshFooterView.swift */; };
 		B113B04B1BA196BF004ECFA0 /* UIScrollView+Refresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = B113B0461BA196BF004ECFA0 /* UIScrollView+Refresh.swift */; };
 		B11722AF1BC1A4A500EFFBC5 /* IBBSIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B11722AE1BC1A4A500EFFBC5 /* IBBSIdentifiers.swift */; };
+		B1179C9F1CBE0500008D18EC /* FPSLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1179C9E1CBE0500008D18EC /* FPSLabel.swift */; };
 		B1209C611BA3477B00F75673 /* IBBSTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B1209C601BA3477B00F75673 /* IBBSTableViewCell.xib */; };
 		B124B9F31BA9BB92000034CC /* IBBSMessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B124B9F11BA9BB92000034CC /* IBBSMessageTableViewCell.swift */; };
 		B124B9F41BA9BB92000034CC /* IBBSMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B124B9F21BA9BB92000034CC /* IBBSMessageTableViewCell.xib */; };
@@ -185,6 +186,7 @@
 		B113B0451BA196BF004ECFA0 /* RefreshFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RefreshFooterView.swift; sourceTree = "<group>"; };
 		B113B0461BA196BF004ECFA0 /* UIScrollView+Refresh.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Refresh.swift"; sourceTree = "<group>"; };
 		B11722AE1BC1A4A500EFFBC5 /* IBBSIdentifiers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSIdentifiers.swift; sourceTree = "<group>"; };
+		B1179C9E1CBE0500008D18EC /* FPSLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FPSLabel.swift; sourceTree = "<group>"; };
 		B1209C601BA3477B00F75673 /* IBBSTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IBBSTableViewCell.xib; sourceTree = "<group>"; };
 		B124B9F11BA9BB92000034CC /* IBBSMessageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSMessageTableViewCell.swift; sourceTree = "<group>"; };
 		B124B9F21BA9BB92000034CC /* IBBSMessageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IBBSMessageTableViewCell.xib; sourceTree = "<group>"; };
@@ -425,6 +427,7 @@
 			isa = PBXGroup;
 			children = (
 				B125567B1C8FF660000EBED8 /* DEBUGLog.swift */,
+				B1179C9E1CBE0500008D18EC /* FPSLabel.swift */,
 				B141A52E1BC5175C00A32CD8 /* Alamofire-SwiftyJSON.swift */,
 				B141A52F1BC5175C00A32CD8 /* CheckEmailAddress+Additions.swift */,
 				B125567F1C8FF742000EBED8 /* Encrypt+Additions.swift */,
@@ -969,6 +972,7 @@
 				B141A5461BC5175C00A32CD8 /* UIView+Additions.swift in Sources */,
 				B197C8211BA730FC00DE0678 /* HRBrightnessCursor.m in Sources */,
 				B15AF5B51BA5763700810969 /* IBBSRootNavigationController.swift in Sources */,
+				B1179C9F1CBE0500008D18EC /* FPSLabel.swift in Sources */,
 				B11373DB1BB6E32C00DB9D1F /* IBBSEffectViewController.swift in Sources */,
 				B141A5471BC5175C00A32CD8 /* UIViewController+Additions.swift in Sources */,
 				B15BD5B61BA54BBC00969D36 /* IBBSNodeTableViewCell.swift in Sources */,

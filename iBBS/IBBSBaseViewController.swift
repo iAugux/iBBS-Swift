@@ -51,6 +51,15 @@ class IBBSBaseViewController: UITableViewController {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(IBBSBaseViewController.showCornerActionButton), name: kShouldShowCornerActionButton, object: nil)
+        
+        
+        #if DEBUG
+            let appDelagate = UIApplication.sharedApplication().delegate as? AppDelegate
+
+            if let fps = appDelagate?.fps {
+                appDelagate?.window?.bringSubviewToFront(fps)
+            }
+        #endif
     }
     
     override func viewWillDisappear(animated: Bool) {

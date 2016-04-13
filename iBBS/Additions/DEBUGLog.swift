@@ -10,11 +10,11 @@ import Foundation
 #if DEBUG
     
     func DEBUGLog(message: String?, filename: NSString = #file, function: String = #function, line: Int = #line) {
-        NSLog("[\(filename.lastPathComponent):\(line)] \(function) - \(message)")
+        NSLog("[\(filename.lastPathComponent):\(line)] \(function) - \(message.debugDescription)")
     }
     
     func DEBUGLog(message: AnyObject?, filename: NSString = #file, function: String = #function, line: Int = #line) {
-        NSLog("[\(filename.lastPathComponent):\(line)] \(function) - \(message)")
+        NSLog("[\(filename.lastPathComponent):\(line)] \(function) - \(message.debugDescription)")
     }
     
 #else

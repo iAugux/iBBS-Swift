@@ -19,6 +19,10 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
+    
+    #if DEBUG
+    let fps = FPSLabel(center: CGPointMake(12, 18))
+    #endif
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
@@ -54,6 +58,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         }
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AppDelegate.setWindowColor), name: kThemeDidChangeNotification, object: nil)
+        
+        #if DEBUG
+            window?.addSubview(fps)
+        #endif
         
         return true
     }
