@@ -74,7 +74,7 @@ class IBBSMessagesViewController: IBBSBaseViewController {
                 let token = loginData?["token"].stringValue
                 
                 APIClient.sharedInstance.getMessages(userID!, token: token!, success: { (json ) -> Void in
-                    DEBUGLog(json)
+                    debugPrint(json)
                    
                     self.messageArray = json.arrayValue
                     self.tableView.reloadData()
@@ -121,7 +121,7 @@ class IBBSMessagesViewController: IBBSBaseViewController {
         insertBlurView = UIVisualEffectView(effect: UIBlurEffect(style: .Light))
         insertBlurView.frame = draggableBackground.bounds
         insertBlurView.alpha = 0.96
-        let gesture = UITapGestureRecognizer(target: self, action: "removeViews")
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(IBBSMessagesViewController.removeViews))
         draggableBackground.addGestureRecognizer(gesture)
         UIApplication.topMostViewController()?.view.addSubview(insertBlurView)
         
@@ -161,9 +161,9 @@ class IBBSMessagesViewController: IBBSBaseViewController {
             let token = loginData["token"].stringValue
             
             APIClient.sharedInstance.readMessage(userID, token: token, msgID: messageID, success: { (json ) -> Void in
-                DEBUGLog(json)
+                debugPrint(json)
                 self.messageContent = json
-                DEBUGLog(self.messageContent)
+                debugPrint(self.messageContent)
                 if json["code"].intValue == 1 {
                     // read successfully
                     if let cell = self.tableView.cellForRowAtIndexPath(indexPath) as? IBBSMessageTableViewCell {
@@ -224,7 +224,7 @@ class IBBSMessagesViewController: IBBSBaseViewController {
             currentSenderUserAvatarUrl = NSURL(string: json["sender_avatar"].stringValue)
             let isAdministrator = json["type"].boolValue
             getMessageContent(messageID, indexPath: indexPath, completion: {
-                DEBUGLog(json)
+                debugPrint(json)
                 self.setMessageContent(self.currentSenderUserAvatarUrl, isAdmin: isAdministrator)
                 
             })
@@ -237,7 +237,8 @@ class IBBSMessagesViewController: IBBSBaseViewController {
     
     
     // MARK: - refresh
-    func refreshData(){
+    override func refreshData(){
+        super.refreshData()
         
         sendRequest()
         let refreshInSeconds = 1.3
@@ -280,7 +281,7 @@ extension IBBSMessagesViewController: DraggableViewDelegate {
             }
             
             APIClient.sharedInstance.replyMessage(uid, token: token, receiver_uid: receiver_uid, title: title, content: content, success: { (json) -> Void in
-                DEBUGLog(json)
+                debugPrint(json)
                 // send successfully
                 if json["code"].intValue == 1 {
                     UIApplication.topMostViewController()?.view.makeToast(message: REPLY_SUCCESSFULLY, duration: TIME_OF_TOAST_OF_REPLY_SUCCESS, position: HRToastPositionTop)
@@ -370,8 +371,8 @@ extension IBBSMessagesViewController: DraggableViewDelegate {
             DEBUGLog("swiped right")
             if card == messageCard {
                 draggableBackground.loadCards()
-                NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name: UIKeyboardWillShowNotification, object: nil)
-                NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
+                NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(IBBSMessagesViewController.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
+                NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(IBBSMessagesViewController.keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
                 
                 replyCard = draggableBackground?.allCards.last
 

@@ -62,7 +62,9 @@ class IBBSPostViewController: IBBSEditorBaseViewController {
         blurTextEditor()
     }
 
-    func sendAction() {
+    override func sendAction() {
+        super.sendAction()
+        
         blurTextEditor()
         if getHTML().ausTrimHtmlInWhitespaceAndNewlineCharacterSet().isEmpty {
             configureAlertController()
@@ -77,7 +79,7 @@ class IBBSPostViewController: IBBSEditorBaseViewController {
             DEBUGLog(userID)
             DEBUGLog(token)
             APIClient.sharedInstance.post(userID, nodeID: contentsArrayOfPostArticle[nodeID]!, content: contentsArrayOfPostArticle[content]!, title: contentsArrayOfPostArticle[articleTitle]!, token: token, success: { (json) -> Void in
-                DEBUGLog(json)
+                debugPrint(json)
 
                 let msg = json["msg"].stringValue
                 if json["code"].intValue == 1 { //post successfully

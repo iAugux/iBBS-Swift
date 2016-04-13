@@ -53,12 +53,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             setWindowColor()
 
         }
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "setWindowColor", name: kThemeDidChangeNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AppDelegate.setWindowColor), name: kThemeDidChangeNotification, object: nil)
         
         return true
     }
     
-    private func setWindowColor(){
+    func setWindowColor(){
         window?.tintColor = CUSTOM_THEME_COLOR
         window?.backgroundColor = CUSTOM_THEME_COLOR.lighterColor(0.6)
 

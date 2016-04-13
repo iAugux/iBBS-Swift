@@ -14,7 +14,7 @@ class IBBSEditorBaseViewController: ZSSRichTextEditor {
         super.viewDidLoad()
         shouldShowKeyboard = false
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: BUTTON_SEND, style: .Plain, target: self, action: "sendAction")
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: BUTTON_SEND, style: .Plain, target: self, action: #selector(IBBSEditorBaseViewController.sendAction))
         
         formatHTML = false
         
@@ -83,6 +83,8 @@ class IBBSEditorBaseViewController: ZSSRichTextEditor {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    func sendAction() {}
     
     override func showInsertURLAlternatePicker(){
         dismissAlertView()

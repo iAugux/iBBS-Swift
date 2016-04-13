@@ -48,7 +48,7 @@ class IBBSNodesCollectionViewController: UICollectionViewController {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: CUSTOM_THEME_COLOR]
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateTheme", name: kThemeDidChangeNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(IBBSNodesCollectionViewController.updateTheme), name: kThemeDidChangeNotification, object: nil)
 
     }
     
@@ -102,7 +102,7 @@ class IBBSNodesCollectionViewController: UICollectionViewController {
             if let array = nodesArray {
                 
                 let json = array[indexPath.row]
-                DEBUGLog(json)
+                debugPrint(json)
                 cell.infoLabel?.text = json["name"].stringValue
                 
             }
@@ -116,7 +116,7 @@ class IBBSNodesCollectionViewController: UICollectionViewController {
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         if let array = nodesArray {
             let json = array[indexPath.row]
-            DEBUGLog(json)
+            debugPrint(json)
             if let vc = storyboard?.instantiateViewControllerWithIdentifier(MainStoryboard.VCIdentifiers.nodeVC) as? IBBSNodeViewController {
                 vc.nodeJSON = json
                 whoCalledEditingViewController = indexPath.row
@@ -156,7 +156,7 @@ extension IBBSNodesCollectionViewController {
         gearRefreshControl = GearRefreshControl(frame: view.bounds)
         gearRefreshControl.gearTintColor = CUSTOM_THEME_COLOR.lighterColor(0.7)
         
-        gearRefreshControl.addTarget(self, action: "refreshData", forControlEvents: UIControlEvents.ValueChanged)
+        gearRefreshControl.addTarget(self, action: #selector(IBBSNodesCollectionViewController.refreshData), forControlEvents: UIControlEvents.ValueChanged)
         
     }
        
@@ -199,7 +199,7 @@ public class IBBSConfigureNodesInfo {
         APIClient.sharedInstance.getNodes({ (json) -> Void in
             if json.type == Type.Array {
                 self.nodesArray = json.arrayValue
-                DEBUGLog(json.arrayValue)
+                debugPrint(json.arrayValue)
                 IBBSContext.sharedInstance.saveNodes(json.object)
             }
             }) { (error) -> Void in

@@ -69,12 +69,12 @@ class ContainerViewController: UIViewController, UIGestureRecognizerDelegate, To
     }
     
     func configureGestureRecognizer(){
-        let panGestureRecognizer = UIScreenEdgePanGestureRecognizer(target: self, action: "handlePanGesture:")
+        let panGestureRecognizer = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(ContainerViewController.handlePanGesture(_:)))
         panGestureRecognizer.edges = UIRectEdge.Left
         centerNavigationController.view.addGestureRecognizer(panGestureRecognizer)
 //        panGestureRecognizer.delegate = self
         
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: "handleTapGesture")
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ContainerViewController.handleTapGesture))
         centerVCFrontBlurView.addGestureRecognizer(tapGestureRecognizer)
     }
     

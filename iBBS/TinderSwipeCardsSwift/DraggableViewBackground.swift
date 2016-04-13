@@ -69,7 +69,7 @@ class DraggableViewBackground: UIView, DraggableViewDelegate {
     func loadCards() -> Void {
         if exampleCardLabels.count > 0 {
             let numLoadedCardsCap = exampleCardLabels.count > MAX_BUFFER_SIZE ? MAX_BUFFER_SIZE : exampleCardLabels.count
-            for var i = 0; i < exampleCardLabels.count; i++ {
+            for i in 0 ..< exampleCardLabels.count {
                 let newCard: DraggableView = self.createDraggableViewWithDataAtIndex(i)
                 allCards.append(newCard)
                 if i < numLoadedCardsCap {
@@ -77,7 +77,7 @@ class DraggableViewBackground: UIView, DraggableViewDelegate {
                 }
             }
 
-            for var i = 0; i < loadedCards.count; i++ {
+            for i in 0 ..< loadedCards.count {
                 if i > 0 {
                     self.insertSubview(loadedCards[i], belowSubview: loadedCards[i - 1])
                 } else {
