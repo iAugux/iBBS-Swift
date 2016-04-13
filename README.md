@@ -1,6 +1,6 @@
 ###`抱歉，由于新浪SAE收费提高，服务端暂时关闭`
 # iBBS-Swift
-![Language](https://img.shields.io/badge/language-Swift%202-orange.svg)
+![Language](https://img.shields.io/badge/language-Swift%202.2-orange.svg)
 ![GitHub license](http://img.shields.io/github/license/mashape/apistatus.svg)
 [![Tweet](https://img.shields.io/badge/Tweet-%40iAugux-1B95E0.svg)](https://twitter.com/iaugux)
 
@@ -9,15 +9,15 @@ A BBS client in Swift.
 ## Requirements
 
 - iOS 8.0+
-- Xcode 7.2+
-- Swift 2.1
+- Xcode 7.3+
+- Swift 2.2
  
 ## Usage
 
 #####Trail account:
 
-- usename:``Guest``
-- password:``123456``
+- Username:``Guest``
+- Password:``123456``
 
 #####Register new account:
 
@@ -59,6 +59,7 @@ A BBS client in Swift.
 - [Alamofire](https://github.com/Alamofire/Alamofire)
 - [FrostedSidebar](https://github.com/edekhayser/FrostedSidebar)
 - [GearRefreshControl](https://github.com/andreamazz/GearRefreshControl)
+- [JMRoundedCornerSwift](https://github.com/raozhizhen/JMRoundedCornerSwift)
 - [Kingfisher](https://github.com/onevcat/Kingfisher)
 - [SwiftyJSON](https://github.com/SwiftyJSON/SwiftyJSON)
 - [ZSSRichTextEditor](https://github.com/nnhubbard/ZSSRichTextEditor)
