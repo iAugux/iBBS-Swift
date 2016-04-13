@@ -59,7 +59,6 @@ A BBS client in Swift.
 - [Alamofire](https://github.com/Alamofire/Alamofire)
 - [FrostedSidebar](https://github.com/edekhayser/FrostedSidebar)
 - [GearRefreshControl](https://github.com/andreamazz/GearRefreshControl)
-- [JMRoundedCornerSwift](https://github.com/raozhizhen/JMRoundedCornerSwift)
 - [Kingfisher](https://github.com/onevcat/Kingfisher)
 - [SwiftyJSON](https://github.com/SwiftyJSON/SwiftyJSON)
 - [ZSSRichTextEditor](https://github.com/nnhubbard/ZSSRichTextEditor)
