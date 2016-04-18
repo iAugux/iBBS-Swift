@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     #if DEBUG
-    let fps = FPSLabel(center: CGPointMake(12, 18))
+    let fps = FPSLabel(center: CGPointMake(12, 24))
     #endif
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
