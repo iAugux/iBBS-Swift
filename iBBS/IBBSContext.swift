@@ -35,7 +35,8 @@ class IBBSContext {
                     
                 } else {
                     let msg = json["msg"].stringValue
-                   UIApplication.topMostViewController()?.view.makeToast(message: msg, duration: TIME_OF_TOAST_OF_TOKEN_ILLEGAL, position: HRToastPositionTop)
+                    ASStatusBarToast.makeStatusBarToast(msg, interval: TIME_OF_TOAST_OF_TOKEN_ILLEGAL)
+
                     completionHandler(isTokenLegal: false)
                     
                 }
@@ -79,7 +80,7 @@ class IBBSContext {
                     })
                     
                     alert.addAction(cancelAction)
-                    UIApplication.topMostViewController()?.presentViewController(alert, animated: true, completion: nil)
+                    UIApplication.topMostViewController?.presentViewController(alert, animated: true, completion: nil)
                 } else {
                     // success , keep token and other info
                     IBBSContext.sharedInstance.saveLoginData(json.object)
@@ -101,7 +102,7 @@ class IBBSContext {
         }
         alertVC.addAction(okAction)
         alertVC.addAction(cancelAction)
-        UIApplication.topMostViewController()?.presentViewController(alertVC, animated: true, completion: nil)
+        UIApplication.topMostViewController?.presentViewController(alertVC, animated: true, completion: nil)
         
        
     }
@@ -122,7 +123,7 @@ class IBBSContext {
         
         alertController.addAction(cancelAction)
         alertController.addAction(okAction)
-        UIApplication.topMostViewController()?.presentViewController(alertController, animated: true, completion: nil)
+        UIApplication.topMostViewController?.presentViewController(alertController, animated: true, completion: nil)
     }
     
     

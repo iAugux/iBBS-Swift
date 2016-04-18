@@ -58,8 +58,7 @@ class IBBSViewController: IBBSBaseViewController {
         
         APIClient.sharedInstance.getLatestTopics(page, success: { (json) -> Void in
             if json == nil && page != 1 {
-                
-                UIApplication.topMostViewController()?.view?.makeToast(message: NO_MORE_DATA, duration: TIME_OF_TOAST_OF_NO_MORE_DATA, position: HRToastPositionCenter)
+                ASStatusBarToast.makeStatusBarToast(NO_MORE_DATA, delay: 0, interval: TIME_OF_TOAST_OF_NO_MORE_DATA)
             }
             if json.type == Type.Array {
                 if page == 1{
@@ -75,7 +74,7 @@ class IBBSViewController: IBBSBaseViewController {
             }
             }, failure: { (error) -> Void in
                 DEBUGLog(error)
-                self.view.makeToast(message: SERVER_ERROR, duration: TIME_OF_TOAST_OF_SERVER_ERROR, position: HRToastPositionTop)
+                ASStatusBarToast.makeStatusBarToast(SERVER_ERROR, delay: 0, interval: TIME_OF_TOAST_OF_SERVER_ERROR)
         })
     }
     

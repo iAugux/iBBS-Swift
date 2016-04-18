@@ -81,7 +81,7 @@ class IBBSMessagesViewController: IBBSBaseViewController {
                     
                     }, failure: { (error ) -> Void in
                         DEBUGLog(error)
-                        self.view.makeToast(message: SERVER_ERROR, duration: TIME_OF_TOAST_OF_SERVER_ERROR, position: HRToastPositionTop)
+                        ASStatusBarToast.makeStatusBarToast(SERVER_ERROR, delay: 0, interval: TIME_OF_TOAST_OF_SERVER_ERROR)
                 })
             } else {
                 
@@ -123,7 +123,7 @@ class IBBSMessagesViewController: IBBSBaseViewController {
         insertBlurView.alpha = 0.96
         let gesture = UITapGestureRecognizer(target: self, action: #selector(IBBSMessagesViewController.removeViews))
         draggableBackground.addGestureRecognizer(gesture)
-        UIApplication.topMostViewController()?.view.addSubview(insertBlurView)
+        UIApplication.topMostViewController?.view.addSubview(insertBlurView)
         
     }
     
@@ -140,7 +140,7 @@ class IBBSMessagesViewController: IBBSBaseViewController {
         
         draggableBackground.transform = CGAffineTransformMakeScale(0.01, 0.01)
         UIView.animateWithDuration(0.1, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: { () -> Void in
-            UIApplication.topMostViewController()?.view.addSubview(self.draggableBackground)
+            UIApplication.topMostViewController?.view.addSubview(self.draggableBackground)
             self.draggableBackground.transform = CGAffineTransformIdentity
             
             }) { (_) -> Void in
@@ -284,7 +284,7 @@ extension IBBSMessagesViewController: DraggableViewDelegate {
                 debugPrint(json)
                 // send successfully
                 if json["code"].intValue == 1 {
-                    UIApplication.topMostViewController()?.view.makeToast(message: REPLY_SUCCESSFULLY, duration: TIME_OF_TOAST_OF_REPLY_SUCCESS, position: HRToastPositionTop)
+                    ASStatusBarToast.makeStatusBarToast(REPLY_SUCCESSFULLY, delay: 0, interval: TIME_OF_TOAST_OF_REPLY_SUCCESS)
                     
                 }else { // failed
                     let msg = json["msg"].stringValue

@@ -53,6 +53,9 @@ class APIClient {
         getJSONData("isTokenLegal", parameters: param, success: success, failure: failure)
     }
     
+    
+    // MARK: - Messages
+    
     func readMessage(uid: AnyObject, token: AnyObject, msgID: AnyObject, success: (JSON) -> Void, failure: (NSError) -> Void) {
         let dict = ["uid": uid, "token": token, "msg_id": msgID]
         getJSONData("read_message", parameters: dict , success: success, failure: failure)
@@ -68,20 +71,22 @@ class APIClient {
         postJSONData("send_message", parameters: dict, success: success, failure: failure)
     }
     
-    
     /**
     - parameter title:  title can be nil
 
     */
-    func replyMessage(uid: AnyObject, token: AnyObject, receiver_uid: AnyObject, title: AnyObject?, content: AnyObject, success: (JSON) -> Void, failure: (NSError) -> Void) {
+    func replyMessage(uid: AnyObject, token: AnyObject, receiver_uid: AnyObject, title: AnyObject? = nil, content: AnyObject, success: (JSON) -> Void, failure: (NSError) -> Void) {
         var dict = [String: AnyObject]()
         if title == nil {
             dict = ["uid": uid, "send_to": receiver_uid, "content": content, "token": token]
         } else {
             dict = ["uid": uid, "send_to": receiver_uid, "title": title!, "content": content, "token": token]
         }
-        postJSONData("send_message", parameters: dict, success: success, failure: failure)
+        postJSONData("reply_message", parameters: dict, success: success, failure: failure)
     }
+    
+    
+    // MARK: - Post & Comment
     
     func post(userID: AnyObject, nodeID: AnyObject, content: AnyObject, title: AnyObject, token: AnyObject, success: (JSON) -> Void, failure: (NSError) -> Void) {
         let dict = ["uid": userID, "board": nodeID, "content": content, "title": title, "token": token]
@@ -93,6 +98,9 @@ class APIClient {
         postJSONData("create_comment", parameters: dict, success: success, failure: failure)
     }
     
+    
+    // MARK: - Register  Login
+    
     func userRegister(email: AnyObject, username: AnyObject, passwd: AnyObject, success: (JSON) -> Void, failure: (NSError) -> Void) {
         let dict = ["email": email, "username": username, "password": passwd]
         postJSONData("register", parameters: dict, success: success, failure: failure)
@@ -103,6 +111,9 @@ class APIClient {
         getJSONData("login", parameters: dict, success: success, failure: failure)
     }
 
+    
+    // MARK: - Get Topics & Replies * Nodes
+    
     func getLatestTopics(page: AnyObject, success: (JSON) -> Void, failure: (NSError) -> Void) {
         let param = ["page": page]
         getJSONData("latest", parameters: param, success: success, failure: failure)
@@ -121,4 +132,6 @@ class APIClient {
     func getNodes(success: (JSON) -> Void, failure: (NSError) -> Void) {
         getJSONData("boards", parameters: nil, success: success, failure: failure)
     }
+
+    
 }

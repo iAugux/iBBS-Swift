@@ -86,7 +86,8 @@ class IBBSPostViewController: IBBSEditorBaseViewController {
                     
                     NSNotificationCenter.defaultCenter().postNotificationName(kShouldReloadDataAfterPosting, object: nil)
                     
-                    self.view?.makeToast(message: msg, duration: TIME_OF_TOAST_OF_POST_SUCCESS, position: HRToastPositionTop)
+                    ASStatusBarToast.makeStatusBarToast(msg, interval: TIME_OF_TOAST_OF_POST_SUCCESS)
+
                     let delayInSeconds: Double = 0.3
                     let delta = Int64(Double(NSEC_PER_SEC) * delayInSeconds)
                     let popTime = dispatch_time(DISPATCH_TIME_NOW,delta)
@@ -95,7 +96,8 @@ class IBBSPostViewController: IBBSEditorBaseViewController {
                     })
 
                 } else {
-                    self.view?.makeToast(message: msg, duration: TIME_OF_TOAST_OF_POST_FAILED, position: HRToastPositionTop)
+                    ASStatusBarToast.makeStatusBarToast(msg, interval: TIME_OF_TOAST_OF_POST_FAILED)
+
                     let delayInSeconds: Double = 1.5
                     let delta = Int64(Double(NSEC_PER_SEC) * delayInSeconds)
                     let popTime = dispatch_time(DISPATCH_TIME_NOW,delta)
@@ -108,7 +110,7 @@ class IBBSPostViewController: IBBSEditorBaseViewController {
                 
                 }) { (error ) -> Void in
                     DEBUGLog(error)
-                    self.view.makeToast(message: SERVER_ERROR, duration: TIME_OF_TOAST_OF_SERVER_ERROR, position: HRToastPositionTop)
+                    ASStatusBarToast.makeStatusBarToast(SERVER_ERROR, interval: TIME_OF_TOAST_OF_SERVER_ERROR)
             }
             DEBUGLog(contentsArrayOfPostArticle)
         }

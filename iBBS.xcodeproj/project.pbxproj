@@ -37,7 +37,6 @@
 		B141A52C1BC4EDC100A32CD8 /* IBBSThemes.swift in Sources */ = {isa = PBXBuildFile; fileRef = B141A52B1BC4EDC100A32CD8 /* IBBSThemes.swift */; };
 		B141A53B1BC5175C00A32CD8 /* Alamofire-SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = B141A52E1BC5175C00A32CD8 /* Alamofire-SwiftyJSON.swift */; };
 		B141A53C1BC5175C00A32CD8 /* CheckEmailAddress+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B141A52F1BC5175C00A32CD8 /* CheckEmailAddress+Additions.swift */; };
-		B141A53E1BC5175C00A32CD8 /* HRToast+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B141A5311BC5175C00A32CD8 /* HRToast+UIView.swift */; };
 		B141A53F1BC5175C00A32CD8 /* NSString+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B141A5321BC5175C00A32CD8 /* NSString+Additions.swift */; };
 		B141A5401BC5175C00A32CD8 /* PanDirectionGestureRecognizer+Addtions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B141A5331BC5175C00A32CD8 /* PanDirectionGestureRecognizer+Addtions.swift */; };
 		B141A5411BC5175C00A32CD8 /* TopMostViewController+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B141A5341BC5175C00A32CD8 /* TopMostViewController+Additions.swift */; };
@@ -162,11 +161,14 @@
 		B1C105D31BA1D4730088DBCB /* IBBSNodesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1C105D21BA1D4730088DBCB /* IBBSNodesCell.swift */; };
 		B1C5F5F81BA80B2400CAF514 /* IBBSEditingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1C5F5F71BA80B2400CAF514 /* IBBSEditingViewController.swift */; };
 		B1C5F5FA1BA8338400CAF514 /* IBBSContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1C5F5F91BA8338400CAF514 /* IBBSContext.swift */; };
+		B1C7FD771CC38A630055DB1D /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1C7FD761CC38A630055DB1D /* PaddingLabel.swift */; };
 		B1CA72081B96DE74006823B3 /* IBBSAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1CA72071B96DE74006823B3 /* IBBSAPIClient.swift */; };
 		B1CA721F1B9734DA006823B3 /* IBBSBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1CA721E1B9734DA006823B3 /* IBBSBaseViewController.swift */; };
 		B1D261781BE858D5005EAE10 /* IBBSAvatarImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D261771BE858D5005EAE10 /* IBBSAvatarImageView.swift */; };
 		B1D27C551BC3B002006153BB /* IBBSNodesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D27C541BC3B002006153BB /* IBBSNodesCollectionViewCell.swift */; };
 		B1D27C571BC4109F006153BB /* IBBSCustomSelectedBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D27C561BC4109F006153BB /* IBBSCustomSelectedBackgroundView.swift */; };
+		B1D6B1EC1CC36A0C008B966D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B1D6B1EB1CC36A0C008B966D /* main.m */; };
+		B1D6B1EE1CC36F17008B966D /* ASStatusBarToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D6B1ED1CC36F17008B966D /* ASStatusBarToast.swift */; };
 		B1F711A11BB83AC900128E26 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B1F711A31BB83AC900128E26 /* Localizable.strings */; };
 		B1F711A61BB83C8300128E26 /* IBBSLocalizableStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F711A51BB83C8300128E26 /* IBBSLocalizableStrings.swift */; };
 /* End PBXBuildFile section */
@@ -203,7 +205,6 @@
 		B141A52B1BC4EDC100A32CD8 /* IBBSThemes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSThemes.swift; sourceTree = "<group>"; };
 		B141A52E1BC5175C00A32CD8 /* Alamofire-SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Alamofire-SwiftyJSON.swift"; sourceTree = "<group>"; };
 		B141A52F1BC5175C00A32CD8 /* CheckEmailAddress+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CheckEmailAddress+Additions.swift"; sourceTree = "<group>"; };
-		B141A5311BC5175C00A32CD8 /* HRToast+UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HRToast+UIView.swift"; sourceTree = "<group>"; };
 		B141A5321BC5175C00A32CD8 /* NSString+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSString+Additions.swift"; sourceTree = "<group>"; };
 		B141A5331BC5175C00A32CD8 /* PanDirectionGestureRecognizer+Addtions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PanDirectionGestureRecognizer+Addtions.swift"; sourceTree = "<group>"; };
 		B141A5341BC5175C00A32CD8 /* TopMostViewController+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TopMostViewController+Additions.swift"; sourceTree = "<group>"; };
@@ -345,12 +346,15 @@
 		B1C292620E723BF3ACB11187 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1C5F5F71BA80B2400CAF514 /* IBBSEditingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSEditingViewController.swift; sourceTree = "<group>"; };
 		B1C5F5F91BA8338400CAF514 /* IBBSContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSContext.swift; sourceTree = "<group>"; };
+		B1C7FD761CC38A630055DB1D /* PaddingLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
 		B1CA72071B96DE74006823B3 /* IBBSAPIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSAPIClient.swift; sourceTree = "<group>"; };
 		B1CA72191B972434006823B3 /* iBBS-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iBBS-Bridging-Header.h"; sourceTree = "<group>"; };
 		B1CA721E1B9734DA006823B3 /* IBBSBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSBaseViewController.swift; sourceTree = "<group>"; };
 		B1D261771BE858D5005EAE10 /* IBBSAvatarImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSAvatarImageView.swift; sourceTree = "<group>"; };
 		B1D27C541BC3B002006153BB /* IBBSNodesCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSNodesCollectionViewCell.swift; sourceTree = "<group>"; };
 		B1D27C561BC4109F006153BB /* IBBSCustomSelectedBackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSCustomSelectedBackgroundView.swift; sourceTree = "<group>"; };
+		B1D6B1EB1CC36A0C008B966D /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		B1D6B1ED1CC36F17008B966D /* ASStatusBarToast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ASStatusBarToast.swift; path = Additions/ASStatusBarToast.swift; sourceTree = "<group>"; };
 		B1F711A21BB83AC900128E26 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		B1F711A41BB83ACB00128E26 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		B1F711A51BB83C8300128E26 /* IBBSLocalizableStrings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSLocalizableStrings.swift; sourceTree = "<group>"; };
@@ -431,7 +435,7 @@
 				B141A52E1BC5175C00A32CD8 /* Alamofire-SwiftyJSON.swift */,
 				B141A52F1BC5175C00A32CD8 /* CheckEmailAddress+Additions.swift */,
 				B125567F1C8FF742000EBED8 /* Encrypt+Additions.swift */,
-				B141A5311BC5175C00A32CD8 /* HRToast+UIView.swift */,
+				B1C7FD761CC38A630055DB1D /* PaddingLabel.swift */,
 				B141A5321BC5175C00A32CD8 /* NSString+Additions.swift */,
 				B141A5331BC5175C00A32CD8 /* PanDirectionGestureRecognizer+Addtions.swift */,
 				B141A5341BC5175C00A32CD8 /* TopMostViewController+Additions.swift */,
@@ -485,9 +489,9 @@
 			isa = PBXGroup;
 			children = (
 				B17939311B96DDD3002E1B21 /* AppDelegate.swift */,
-				B1CA72141B972299006823B3 /* Controllers */,
-				B1CA72151B9722A4006823B3 /* Views */,
 				B148AF141B982E1C00D00524 /* Models */,
+				B1CA72151B9722A4006823B3 /* Views */,
+				B1CA72141B972299006823B3 /* Controllers */,
 				B141A52D1BC5175C00A32CD8 /* Extensions */,
 				B1CA72041B96DE55006823B3 /* ThirdParty */,
 				B1CA72131B97220F006823B3 /* Supporting Files */,
@@ -646,6 +650,7 @@
 			children = (
 				B10149DF1BCBB264001DC5AB /* LaunchScreen.storyboard */,
 				B1F711A31BB83AC900128E26 /* Localizable.strings */,
+				B1D6B1EB1CC36A0C008B966D /* main.m */,
 				B1CA72191B972434006823B3 /* iBBS-Bridging-Header.h */,
 				B17939381B96DDD3002E1B21 /* Assets.xcassets */,
 			);
@@ -695,6 +700,7 @@
 				B1D27C541BC3B002006153BB /* IBBSNodesCollectionViewCell.swift */,
 				B1D261771BE858D5005EAE10 /* IBBSAvatarImageView.swift */,
 				B1D27C561BC4109F006153BB /* IBBSCustomSelectedBackgroundView.swift */,
+				B1D6B1ED1CC36F17008B966D /* ASStatusBarToast.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -712,6 +718,7 @@
 				B179392C1B96DDD3002E1B21 /* Resources */,
 				C0B5C909AA039653F5D1CD36 /* 📦 Embed Pods Frameworks */,
 				C99DCA3C1CE73E6CB117F6A3 /* 📦 Copy Pods Resources */,
+				B17F751B2CB424DA50C9EC35 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -877,6 +884,21 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
+		B17F751B2CB424DA50C9EC35 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-iBBS/Pods-iBBS-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		C0B5C909AA039653F5D1CD36 /* 📦 Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -915,6 +937,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B141A53F1BC5175C00A32CD8 /* NSString+Additions.swift in Sources */,
+				B1D6B1EE1CC36F17008B966D /* ASStatusBarToast.swift in Sources */,
 				B1017FF71BAA827200533D61 /* DraggableView.swift in Sources */,
 				B179394A1B96DE08002E1B21 /* IBBSViewController.swift in Sources */,
 				B13BFF841BC8FF8D0034E1E8 /* IBBSProfileViewController.swift in Sources */,
@@ -935,6 +958,7 @@
 				B197C82A1BA730FC00DE0678 /* ZSSTextView.m in Sources */,
 				B1CA72081B96DE74006823B3 /* IBBSAPIClient.swift in Sources */,
 				B1563DD81BB2BD4B00F6D00B /* IBBSRegisterViewController.swift in Sources */,
+				B1C7FD771CC38A630055DB1D /* PaddingLabel.swift in Sources */,
 				B1D261781BE858D5005EAE10 /* IBBSAvatarImageView.swift in Sources */,
 				B1C105D31BA1D4730088DBCB /* IBBSNodesCell.swift in Sources */,
 				B113B0481BA196BF004ECFA0 /* RefreshBaseView.swift in Sources */,
@@ -985,10 +1009,10 @@
 				B165BCEC1BA9662B00036477 /* IBBSConstants.swift in Sources */,
 				B148AF1D1B98B1D800D00524 /* IBBSReplyCell.swift in Sources */,
 				B17939321B96DDD3002E1B21 /* AppDelegate.swift in Sources */,
-				B141A53E1BC5175C00A32CD8 /* HRToast+UIView.swift in Sources */,
 				B197C8241BA730FC00DE0678 /* HRColorPickerView.m in Sources */,
 				B12556801C8FF742000EBED8 /* Encrypt+Additions.swift in Sources */,
 				B11722AF1BC1A4A500EFFBC5 /* IBBSIdentifiers.swift in Sources */,
+				B1D6B1EC1CC36A0C008B966D /* main.m in Sources */,
 				B197C8291BA730FC00DE0678 /* ZSSRichTextEditor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1047,6 +1071,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -1108,6 +1133,7 @@
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = iBBS/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

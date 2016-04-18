@@ -147,7 +147,7 @@ class IBBSRegisterViewController: UIViewController, UITextFieldDelegate {
                     debugPrint(json)
                     IBBSContext.sharedInstance.saveLoginData(json.object)
                     
-                    self.view.makeToast(message: REGISTER_SUCESSFULLY, duration: TIME_OF_TOAST_OF_REGISTER_SUCCESS, position: HRToastPositionTop)
+                    ASStatusBarToast.makeStatusBarToast(REGISTER_SUCESSFULLY, interval: TIME_OF_TOAST_OF_REGISTER_SUCCESS)
                     
                     let delayInSeconds: Double = 1
                     let delta = Int64(Double(NSEC_PER_SEC) * delayInSeconds)
@@ -160,8 +160,7 @@ class IBBSRegisterViewController: UIViewController, UITextFieldDelegate {
                     
                     }, failure: { (error) -> Void in
                         DEBUGLog(error)
-                        self.view.makeToast(message: SERVER_ERROR, duration: TIME_OF_TOAST_OF_SERVER_ERROR, position: HRToastPositionTop)
-                        
+                        ASStatusBarToast.makeStatusBarToast(SERVER_ERROR, interval: TIME_OF_TOAST_OF_SERVER_ERROR)
                 })
                 
             } else {
@@ -176,8 +175,7 @@ class IBBSRegisterViewController: UIViewController, UITextFieldDelegate {
             }
             }, failure: { (error) -> Void in
                 DEBUGLog(error)
-                self.view.makeToast(message: SERVER_ERROR, duration: TIME_OF_TOAST_OF_SERVER_ERROR, position: HRToastPositionTop)
-                
+                ASStatusBarToast.makeStatusBarToast(SERVER_ERROR, interval: TIME_OF_TOAST_OF_SERVER_ERROR)
         })
         
     }

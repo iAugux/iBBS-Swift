@@ -89,7 +89,7 @@ class IBBSBaseViewController: UITableViewController {
         cornerActionButton?.clipsToBounds = true
         cornerActionButton?.setImage(UIImage(named: "plus_button"), forState: .Normal)
         cornerActionButton?.addTarget(self, action: #selector(IBBSBaseViewController.cornerActionButtonDidTap), forControlEvents: .TouchUpInside)
-        UIApplication.topMostViewController()?.view.addSubview(cornerActionButton)
+        UIApplication.topMostViewController?.view.addSubview(cornerActionButton)
     }
     
     func cornerActionButtonDidTap() {
@@ -97,7 +97,7 @@ class IBBSBaseViewController: UITableViewController {
         let alertCtrl = UIAlertController(title: "", message: "TODO...", preferredStyle: .Alert)
         let cancelAction = UIAlertAction(title: "OK", style: .Cancel , handler: nil)
         alertCtrl.addAction(cancelAction)
-        UIApplication.topMostViewController()?.presentViewController(alertCtrl, animated: true, completion: nil)
+        UIApplication.topMostViewController?.presentViewController(alertCtrl, animated: true, completion: nil)
     }
     
     

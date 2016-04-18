@@ -79,8 +79,9 @@ class IBBSCommentViewController: IBBSEditorBaseViewController {
                 debugPrint(json)
                 let msg = json["msg"].stringValue
                 if json["code"].intValue == 1 { //comment successfully
-                    self.view?.makeToast(message: msg, duration: TIME_OF_TOAST_OF_COMMENT_SUCCESS, position: HRToastPositionTop)
                     
+                    ASStatusBarToast.makeStatusBarToast(msg, interval: TIME_OF_TOAST_OF_COMMENT_SUCCESS)
+
                     let delayInSeconds: Double = 0.3
                     let delta = Int64(Double(NSEC_PER_SEC) * delayInSeconds)
                     let popTime = dispatch_time(DISPATCH_TIME_NOW,delta)
@@ -89,7 +90,8 @@ class IBBSCommentViewController: IBBSEditorBaseViewController {
                     })
                     
                 } else {
-                    self.view?.makeToast(message: msg, duration: TIME_OF_TOAST_OF_COMMENT_FAILED, position: HRToastPositionTop)
+                    ASStatusBarToast.makeStatusBarToast(msg, interval: TIME_OF_TOAST_OF_COMMENT_FAILED)
+
                     let delayInSeconds: Double = 0.5
                     let delta = Int64(Double(NSEC_PER_SEC) * delayInSeconds)
                     let popTime = dispatch_time(DISPATCH_TIME_NOW,delta)
@@ -101,8 +103,7 @@ class IBBSCommentViewController: IBBSEditorBaseViewController {
                 }
                 }) { (error ) -> Void in
                     DEBUGLog(error)
-                    self.view.makeToast(message: SERVER_ERROR, duration: TIME_OF_TOAST_OF_SERVER_ERROR, position: HRToastPositionTop)
-                    
+                    ASStatusBarToast.makeStatusBarToast(SERVER_ERROR, interval: TIME_OF_TOAST_OF_SERVER_ERROR)
             }
         }
         

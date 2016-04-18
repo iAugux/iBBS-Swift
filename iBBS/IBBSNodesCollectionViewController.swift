@@ -203,8 +203,7 @@ public class IBBSConfigureNodesInfo {
                 IBBSContext.sharedInstance.saveNodes(json.object)
             }
             }) { (error) -> Void in
-                UIApplication.topMostViewController()?.view.makeToast(message: SERVER_ERROR, duration: TIME_OF_TOAST_OF_SERVER_ERROR, position: HRToastPositionTop)
-                
+                ASStatusBarToast.makeStatusBarToast(SERVER_ERROR, interval: TIME_OF_TOAST_OF_SERVER_ERROR)
         }
     }
 }

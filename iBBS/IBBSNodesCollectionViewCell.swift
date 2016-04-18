@@ -12,13 +12,14 @@ class IBBSNodesCollectionViewCell: UICollectionViewCell {
     
     var customBackgroundView: IBBSCustomSelectedBackgroundView!
 
-    @IBOutlet var infoLabel: UILabel!{
+    @IBOutlet var infoLabel: UILabel! {
         didSet{
             infoLabel.text = nil
 //            infoLabel.textColor = CUSTOM_THEME_COLOR
         }
     }
-    @IBOutlet var imageView: UIImageView!{
+    
+    @IBOutlet var imageView: UIImageView! {
         didSet{
             imageView.backgroundColor = CUSTOM_THEME_COLOR.lighterColor(0.75)
             imageView.layer.cornerRadius = 7.0

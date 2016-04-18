@@ -10,12 +10,12 @@ import UIKit
 
 /**
  Description: the toppest view controller of presenting view controller
- How to use: UIApplication.topMostViewController()
+ How to use: UIApplication.topMostViewController
  Where to use: controllers are not complex
 */
 
 extension UIApplication {
-    class func topMostViewController() -> UIViewController? {
+    class var topMostViewController: UIViewController? {
         var topController = UIApplication.sharedApplication().keyWindow?.rootViewController
         while topController?.presentedViewController != nil {
             topController = topController?.presentedViewController
@@ -28,15 +28,15 @@ extension UIApplication {
 
 /**
  Description: the toppest view controller of presenting view controller
- How to use:  UIApplication.sharedApplication().keyWindow?.rootViewController?.topMostViewController()
+ How to use:  UIApplication.sharedApplication().keyWindow?.rootViewController?.topMostViewController
  Where to use: There are lots of kinds of controllers (UINavigationControllers, UITabbarControllers, UIViewController)
 */
 
 extension UIViewController {
-    func topMostViewController() -> UIViewController? {
+    var topMostViewController: UIViewController? {
         // Handling Modal views
         if let presentedViewController = self.presentedViewController {
-            return presentedViewController.topMostViewController()
+            return presentedViewController.topMostViewController
         }
             // Handling UIViewController's added as subviews to some other views.
         else {
@@ -46,7 +46,7 @@ extension UIViewController {
                 if let subViewController = view.nextResponder() {
                     if subViewController is UIViewController {
                         let viewController = subViewController as! UIViewController
-                        return viewController.topMostViewController()
+                        return viewController.topMostViewController
                     }
                 }
             }
@@ -56,13 +56,13 @@ extension UIViewController {
 }
 
 extension UITabBarController {
-    override func topMostViewController() -> UIViewController? {
-        return self.selectedViewController?.topMostViewController()
+    override var topMostViewController: UIViewController? {
+        return self.selectedViewController?.topMostViewController
     }
 }
 
 extension UINavigationController {
-    override func topMostViewController() -> UIViewController? {
-        return self.visibleViewController?.topMostViewController()
+    override var topMostViewController: UIViewController? {
+        return self.visibleViewController?.topMostViewController
     }
 }
