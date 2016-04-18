@@ -73,14 +73,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     // disable orientation for messages view controller
-    func application(application: UIApplication, supportedInterfaceOrientationsForWindow window: UIWindow?) -> UIInterfaceOrientationMask {
-        if let topMostVC = UIApplication.sharedApplication().keyWindow?.rootViewController?.topMostViewController(){
-            if topMostVC.isKindOfClass(IBBSMessagesViewController.classForCoder()) {
-                return UIInterfaceOrientationMask.Portrait
-            }
-        }
-        return UIInterfaceOrientationMask.All
-    }
+//    func application(application: UIApplication, supportedInterfaceOrientationsForWindow window: UIWindow?) -> UIInterfaceOrientationMask {
+//        if let topMostVC = UIApplication.sharedApplication().keyWindow?.rootViewController?.topMostViewController{
+//            if topMostVC.isKindOfClass(IBBSMessagesViewController.classForCoder()) {
+//                return UIInterfaceOrientationMask.Portrait
+//            }
+//        }
+//        return UIInterfaceOrientationMask.All
+//    }
     
     func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
