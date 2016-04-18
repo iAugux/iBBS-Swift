@@ -21,7 +21,7 @@
 	"I know" = "\U77e5\U9053\U4e86";
 	"Register sucessfully and logging in..." = "\U6ce8\U518c\U6210\U529f\Uff0c\U6b63\U5728\U767b\U5f55...";
 	"Register failed!" = "\U6ce8\U518c\U5931\U8d25";
-	"sorry, something wrong with server..." = "\U5bf9\U4e0d\U8d77\Uff0c\U670d\U52a1\U5668\U51fa\U9519";
+	"sorry, something wrong with server..." = "\U62b1\U6b49\Uff0c\U670d\U52a1\U5668\U51fa\U9519";
 	Login = "\U767b\U5f55";
 	"Please input your username and password." = "\U8bf7\U8f93\U5165\U7528\U6237\U540d\U548c\U5bc6\U7801";
 	username = "\U7528\U6237\U540d";

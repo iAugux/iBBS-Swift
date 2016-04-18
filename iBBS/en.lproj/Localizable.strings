@@ -21,7 +21,7 @@
 	"I know" = "I know";
 	"Register sucessfully and logging in..." = "Register sucessfully and logging in...";
 	"Register failed!" = "Register failed!";
-	"sorry, something wrong with server...\\n\Ud83d\Ude2d\Ud83d\Ude2d\Ud83d\Ude2d" = "sorry, something wrong with server...\\n\Ud83d\Ude2d\Ud83d\Ude2d\Ud83d\Ude2d";
+	"sorry, something wrong with server..." = "Opps, something wrong with server...";
 	Login = Login;
 	"Please input your username and password." = "Please input your username and password.";
 	username = username;
@@ -33,17 +33,17 @@
 	Register = Register;
 	"Login or Register ?" = "Login or Register ?";
 	"login in to read message" = "Need to login, are you sure to login?";
-    "login in to post" = "Need to login, are you sure to login?";
+	"login in to post" = "Need to login, are you sure to login?";
 	Send = Send;
 	"Reply failed!" = "Reply failed!";
 	"Reply successfully!" = "Reply successfully!";
 	"Are you sure to give up ?" = "Are you sure to give up ?";
-    "Continue" = "Continue";
-    "Give up" = "Give up";
-    "Next" = "Next";
-    "All nodes" = "All Nodes";
-    "change theme" = "Change Theme";
-    "Token lost effectiveness" = "Token lost effectiveness";
-    "Please login again" = "Please login again";
-    "Invalid password" = "Invalid password";
+	Continue = Continue;
+	"Give up" = "Give up";
+	Next = Next;
+	"All nodes" = "All Nodes";
+	"change theme" = "Change Theme";
+	"Token lost effectiveness" = "Token lost effectiveness";
+	"Please login again" = "Please login again";
+	"Invalid password" = "Invalid password";
 }
