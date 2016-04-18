@@ -69,7 +69,7 @@ class FPSLabel: UILabel {
         count = 0
         
         let progress = fps / 60.0;
-        textColor = UIColor(hue: CGFloat(0.27 * ( progress - 0.2 )) , saturation: 1, brightness: 0.9, alpha: 1)
+        textColor = UIColor(hue: CGFloat(0.27 * (progress - 0.2)), saturation: 1, brightness: 0.9, alpha: 1)
         text = "\(Int(fps + 0.5)) FPS  "
     }
     
