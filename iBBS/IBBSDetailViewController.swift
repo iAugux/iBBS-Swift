@@ -51,7 +51,8 @@ class IBBSDetailViewController: IBBSBaseViewController, UIGestureRecognizerDeleg
         IBBSContext.sharedInstance.isTokenLegal(){ (isTokenLegal) -> Void in
             if isTokenLegal{
                 let post_id = self.json["id"].stringValue
-                if let vc = mainStoryboard.instantiateViewControllerWithIdentifier("iBBSCommentViewController") as? IBBSCommentViewController{
+
+                if let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("iBBSCommentViewController") as? IBBSCommentViewController{
                     vc.post_id = post_id
                     let nav = UINavigationController(rootViewController: vc)
                     self.presentViewController(nav, animated: true, completion: nil)
@@ -71,7 +72,7 @@ class IBBSDetailViewController: IBBSBaseViewController, UIGestureRecognizerDeleg
         
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.registerNib(UINib(nibName: MainStoryboard.NibIdentifiers.replyCell, bundle: nil), forCellReuseIdentifier: MainStoryboard.CellIdentifiers.replyCell)
+        tableView.registerNib(UINib(nibName: String(IBBSReplyCell), bundle: nil), forCellReuseIdentifier: String(IBBSReplyCell))
         tableView.tableFooterView = UIView(frame: CGRectZero)
         tableView.estimatedRowHeight = 90
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -80,7 +81,7 @@ class IBBSDetailViewController: IBBSBaseViewController, UIGestureRecognizerDeleg
     
     
     func configureHeaderView(){
-        let headerViewNib = NSBundle.mainBundle().loadNibNamed(MainStoryboard.NibIdentifiers.headerView, owner: self, options: nil)
+        let headerViewNib = NSBundle.mainBundle().loadNibNamed(String(IBBSDetailHeaderView), owner: self, options: nil)
         headerView = headerViewNib.first as! IBBSDetailHeaderView
         
         headerView.loadData(json)
@@ -108,7 +109,7 @@ class IBBSDetailViewController: IBBSBaseViewController, UIGestureRecognizerDeleg
     func sendRequest(page: Int) {
         APIClient.sharedInstance.getReplies(json["id"].stringValue, page: page, success: { (json) -> Void in
             if json == nil && page != 1 {
-                ASStatusBarToast.makeStatusBarToast(NO_MORE_DATA, interval: TIME_OF_TOAST_OF_NO_MORE_DATA)
+                IBBSToast.make(NO_MORE_DATA, interval: TIME_OF_TOAST_OF_NO_MORE_DATA)
             }
             if json.type == Type.Array {
                 if page == 1{
@@ -123,7 +124,7 @@ class IBBSDetailViewController: IBBSBaseViewController, UIGestureRecognizerDeleg
             }
             }) { (error) -> Void in
                 DEBUGLog(error)
-                ASStatusBarToast.makeStatusBarToast(SERVER_ERROR, interval: TIME_OF_TOAST_OF_SERVER_ERROR)                
+                IBBSToast.make(SERVER_ERROR, interval: TIME_OF_TOAST_OF_SERVER_ERROR)                
         }
     }
     
@@ -156,9 +157,8 @@ class IBBSDetailViewController: IBBSBaseViewController, UIGestureRecognizerDeleg
         
     }
     
-    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCellWithIdentifier(MainStoryboard.CellIdentifiers.replyCell) as? IBBSReplyCell {
+        if let cell = tableView.dequeueReusableCellWithIdentifier(String(IBBSReplyCell)) as? IBBSReplyCell {
             let json = datasource[indexPath.row]
             cell.loadDataToCell(json)
             
@@ -252,13 +252,9 @@ extension IBBSDetailViewController {
             DEBUGLog(self.page)
             
             self.sendRequest(self.page)
-            let delayInSeconds: Double = 1.0
-            let delta = Int64(Double(NSEC_PER_SEC) * delayInSeconds)
-            let popTime:dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW,delta)
-            dispatch_after(popTime, dispatch_get_main_queue(), {
-                //                tableView.reloadData()
+
+            executeAfterDelay(1.0, completion: {
                 self.tableView.footerEndRefreshing()
-                
             })
         })
     }

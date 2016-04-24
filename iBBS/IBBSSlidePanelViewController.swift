@@ -11,6 +11,7 @@
 //
 
 import UIKit
+import SnapKit
 import SwiftyJSON
 
 protocol ToggleLeftPanelDelegate{
@@ -20,7 +21,7 @@ protocol ToggleLeftPanelDelegate{
 
 class SlidePanelViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate {
     
-    @IBOutlet weak var userProfileImage: IBBSAvatarImageView!{
+    @IBOutlet weak var userProfileImage: IBBSAvatarImageView! {
         didSet{
             userProfileImage.backgroundColor = CUSTOM_THEME_COLOR.darkerColor(0.75)
             userProfileImage.image = AVATAR_PLACEHOLDER_IMAGE
@@ -28,21 +29,24 @@ class SlidePanelViewController: UIViewController, UITableViewDataSource, UITable
             
         }
     }
+    
     var delegate: ToggleLeftPanelDelegate!
     private let cellTitleArray = ["Notification", "Favorite", "Profile", "Setting"]
-    private var blurView: UIView!
-    private var themePickerView: UIView!
     private var themePickerBar: FrostedSidebar!
     @IBOutlet weak var tableView: UITableView!
     
     override func loadView() {
         super.loadView()
-        view.backgroundColor = UIColor(patternImage: BACKGROUNDER_IMAGE!)
-        blurView = UIVisualEffectView(effect: UIBlurEffect(style: .Light))
-        blurView.frame = view.frame
+        
+        view.layer.contents = UIColor(patternImage: BACKGROUNDER_IMAGE!).CGColor
+        
+        // blur view
+        let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .Light))
         blurView.alpha = BLUR_VIEW_ALPHA_OF_BG_IMAGE
         view.insertSubview(blurView, atIndex: 0)
-        
+        blurView.snp_makeConstraints { (make) in
+            make.edges.equalTo(view)
+        }
     }
     
     override func viewDidLoad() {
@@ -63,13 +67,7 @@ class SlidePanelViewController: UIViewController, UITableViewDataSource, UITable
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
     }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        blurView.frame = view.frame
 
-    }
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -82,13 +80,13 @@ class SlidePanelViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     // MARK: - configure login and register
-    func configureLoginAndLogoutView(sender: UIImageView){
+    func configureLoginAndLogoutView(sender: UIImageView) {
         let longTapGesture = UILongPressGestureRecognizer(target: self , action: #selector(SlidePanelViewController.loginOrLogout(_:)))
         sender.addGestureRecognizer(longTapGesture)
         sender.userInteractionEnabled = true
     }
     
-    func loginOrLogout(gesture: UIGestureRecognizer){
+    func loginOrLogout(gesture: UIGestureRecognizer) {
         if gesture.state == .Began {
             
             if IBBSContext.sharedInstance.getLoginData() == nil {
@@ -122,9 +120,6 @@ class SlidePanelViewController: UIViewController, UITableViewDataSource, UITable
                         
                     }
                 })
-                
-                
-               
             }
            
         }
@@ -159,12 +154,9 @@ class SlidePanelViewController: UIViewController, UITableViewDataSource, UITable
             self.delegate?.toggleLeftPanel()
             
             // after pushing view controller, remove the blur view
-            let delayInSeconds: Double = 1
-            let popTime = dispatch_time(DISPATCH_TIME_NOW, Int64(Double(NSEC_PER_SEC) * delayInSeconds))
-            dispatch_after(popTime, dispatch_get_main_queue(), {
+            executeAfterDelay(1, completion: {
                 self.delegate?.removeFrontBlurView()
             })
-            
             
         }
         alertCtrl.addAction(loginAction)
@@ -203,16 +195,13 @@ class SlidePanelViewController: UIViewController, UITableViewDataSource, UITable
         
         NSNotificationCenter.defaultCenter().postNotificationName(kThemeDidChangeNotification, object: nil)
         
-        let delayInSeconds: Double = 0.8
-        let popTime = dispatch_time(DISPATCH_TIME_NOW,Int64(Double(NSEC_PER_SEC) * delayInSeconds))
-        dispatch_after(popTime, dispatch_get_main_queue(), {
+        executeAfterDelay(0.8) {
             self.delegate?.toggleLeftPanel()
-        })
+        }
         
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW,Int64(Double(NSEC_PER_SEC) * 1.2)), dispatch_get_main_queue()) { () -> Void in
+        executeAfterDelay(1.2) {
             self.delegate?.removeFrontBlurView()
             NSNotificationCenter.defaultCenter().postNotificationName(kShouldShowCornerActionButton, object: nil)
-
         }
     }
     
@@ -270,29 +259,19 @@ class SlidePanelViewController: UIViewController, UITableViewDataSource, UITable
         var destinationVC: UIViewController!
         switch indexPath.row {
         case 0:
-            destinationVC = slidePanelStoryboard.instantiateViewControllerWithIdentifier(SlidePanelStoryboard.VCIdentifiers.notificationVC)
+            destinationVC = slidePanelStoryboard.instantiateViewControllerWithIdentifier(String(IBBSNotificationViewController))
         case 1:
-            destinationVC = slidePanelStoryboard.instantiateViewControllerWithIdentifier(SlidePanelStoryboard.VCIdentifiers.favoriteVC)
+            destinationVC = slidePanelStoryboard.instantiateViewControllerWithIdentifier(String(IBBSFavoriteViewController))
         case 2:
-            destinationVC = slidePanelStoryboard.instantiateViewControllerWithIdentifier(SlidePanelStoryboard.VCIdentifiers.profileVC)
+            destinationVC = slidePanelStoryboard.instantiateViewControllerWithIdentifier(String(IBBSProfileViewController))
         case 3:
-            destinationVC = slidePanelStoryboard.instantiateViewControllerWithIdentifier(SlidePanelStoryboard.VCIdentifiers.settingVC)
+            destinationVC = slidePanelStoryboard.instantiateViewControllerWithIdentifier(String(IBBSSettingViewController))
         default:
             return
         }
         
         destinationVC?.title = cellTitleArray[indexPath.row]
         navigationController?.pushViewController(destinationVC, animated: true)
-        
-//        delegate?.toggleLeftPanel()
-//        
-//        // after pushing view controller, remove the blur view
-//        let delayInSeconds: Double = 1
-//        let popTime = dispatch_time(DISPATCH_TIME_NOW, Int64(Double(NSEC_PER_SEC) * delayInSeconds))
-//        dispatch_after(popTime, dispatch_get_main_queue(), {
-//            delegate?.removeFrontBlurView()
-//        })
-        
     }
     
 }

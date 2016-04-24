@@ -20,7 +20,6 @@ class IBBSNodeTableViewCell: UITableViewCell {
     @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var postTime: UILabel!
     
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -39,12 +38,14 @@ class IBBSNodeTableViewCell: UITableViewCell {
     }
     
     func loadDataToCell(json: JSON){
-        let avatarUrl                        = NSURL(string: json["avatar"].stringValue)
-        DEBUGLog(avatarUrl)
-        userProfireImage.kf_setImageWithURL(avatarUrl!, placeholderImage: AVATAR_PLACEHOLDER_IMAGE)
-        topicLabel?.text                = json["title"].stringValue
-        userName.text                   = json["username"].stringValue
-        postTime.text                   = json["post_time"].stringValue
+        
+        let model = IBBSNodeTopicListModel(json: json)
+        
+        userProfireImage.kf_setImageWithURL(model.avatarUrl, placeholderImage: AVATAR_PLACEHOLDER_IMAGE)
+        
+        topicLabel.text = model.title
+        userName.text   = model.username
+        postTime.text   = model.postTime
     }
     
 }

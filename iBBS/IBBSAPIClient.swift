@@ -48,11 +48,6 @@ class APIClient {
         }
     }
 
-    func isTokenLegal(uid: AnyObject, token: AnyObject, success: (JSON) -> Void, failure: (NSError) -> Void){
-        let param = ["uid": uid, "token": token]
-        getJSONData("isTokenLegal", parameters: param, success: success, failure: failure)
-    }
-    
     
     // MARK: - Messages
     
@@ -66,7 +61,7 @@ class APIClient {
         getJSONData("messages", parameters: dict, success: success, failure: failure)
     }
     
-    func sendMessage(uid: AnyObject, token: AnyObject, receiver_uid: AnyObject,title: AnyObject, content: AnyObject, success: (JSON) -> Void, failure: (NSError) -> Void) {
+    func sendMessage(uid: AnyObject, token: AnyObject, receiver_uid: AnyObject, title: AnyObject, content: AnyObject, success: (JSON) -> Void, failure: (NSError) -> Void) {
         let dict = ["uid": uid, "send_to": receiver_uid,"title": title, "content": content, "token": token]
         postJSONData("send_message", parameters: dict, success: success, failure: failure)
     }

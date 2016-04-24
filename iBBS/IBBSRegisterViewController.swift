@@ -144,23 +144,18 @@ class IBBSRegisterViewController: UIViewController, UITextFieldDelegate {
             if json["code"].intValue == 1 {
                 // register successfully!
                 APIClient.sharedInstance.userLogin(username!, passwd: encryptedPasswd, success: { (json) -> Void in
-                    debugPrint(json)
+
                     IBBSContext.sharedInstance.saveLoginData(json.object)
                     
-                    ASStatusBarToast.makeStatusBarToast(REGISTER_SUCESSFULLY, interval: TIME_OF_TOAST_OF_REGISTER_SUCCESS)
+                    IBBSToast.make(REGISTER_SUCESSFULLY, interval: TIME_OF_TOAST_OF_REGISTER_SUCCESS)
                     
-                    let delayInSeconds: Double = 1
-                    let delta = Int64(Double(NSEC_PER_SEC) * delayInSeconds)
-                    let popTime = dispatch_time(DISPATCH_TIME_NOW,delta)
-                    dispatch_after(popTime, dispatch_get_main_queue(), {
-                        // do something
+                    executeAfterDelay(1, completion: {
                         self.navigationController?.popViewControllerAnimated(true)
-                        
                     })
                     
                     }, failure: { (error) -> Void in
                         DEBUGLog(error)
-                        ASStatusBarToast.makeStatusBarToast(SERVER_ERROR, interval: TIME_OF_TOAST_OF_SERVER_ERROR)
+                        IBBSToast.make(SERVER_ERROR, interval: TIME_OF_TOAST_OF_SERVER_ERROR)
                 })
                 
             } else {
@@ -175,7 +170,7 @@ class IBBSRegisterViewController: UIViewController, UITextFieldDelegate {
             }
             }, failure: { (error) -> Void in
                 DEBUGLog(error)
-                ASStatusBarToast.makeStatusBarToast(SERVER_ERROR, interval: TIME_OF_TOAST_OF_SERVER_ERROR)
+                IBBSToast.make(SERVER_ERROR, interval: TIME_OF_TOAST_OF_SERVER_ERROR)
         })
         
     }

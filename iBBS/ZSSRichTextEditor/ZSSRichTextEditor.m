@@ -6,14 +6,13 @@
 //  Copyright (c) 2013 Zed Said Studio. All rights reserved.
 //
 
-#import "IBBS-Swift.h"
-
 #import <objc/runtime.h>
 #import <UIKit/UIKit.h>
 #import "ZSSRichTextEditor.h"
 #import "ZSSBarButtonItem.h"
 #import "HRColorUtil.h"
 #import "ZSSTextView.h"
+
 
 @interface UIWebView (HackishAccessoryHiding)
 @property (nonatomic, assign) BOOL hidesInputAccessoryView;
@@ -80,6 +79,7 @@ static Class hackishFixClass = Nil;
 @interface ZSSRichTextEditor ()
 @property (nonatomic, strong) UIScrollView *toolBarScroll;
 @property (nonatomic, strong) UIToolbar *toolbar;
+@property (nonatomic, strong) UIView *toolbarHolder;
 @property (nonatomic, strong) NSString *htmlString;
 @property (nonatomic, strong) UIWebView *editorView;
 @property (nonatomic, strong) ZSSTextView *sourceView;
@@ -106,8 +106,6 @@ static Class hackishFixClass = Nil;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    self.alertView.tintColor = [ConstantsForObjc customThemeColorForObjc];
     
     self.editorLoaded = NO;
     self.shouldShowKeyboard = YES;
@@ -145,7 +143,8 @@ static Class hackishFixClass = Nil;
     self.toolBarScroll.showsHorizontalScrollIndicator = NO;
     
     // Toolbar with icons
-    self.toolbar = [[UIToolbar alloc] initWithFrame:self.toolBarScroll.frame];
+    self.toolbar = [[UIToolbar alloc] initWithFrame:CGRectZero];
+    self.toolbar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     self.toolbar.backgroundColor = [UIColor clearColor];
     [self.toolBarScroll addSubview:self.toolbar];
     self.toolBarScroll.autoresizingMask = self.toolbar.autoresizingMask;
@@ -836,8 +835,6 @@ static Class hackishFixClass = Nil;
             }
             [self focusTextEditor];
         }]];
-        
-        alertController.view.tintColor = [ConstantsForObjc customThemeColorForObjc];
         [self presentViewController:alertController animated:YES completion:NULL];
         
     } else {
@@ -860,6 +857,7 @@ static Class hackishFixClass = Nil;
         if (title) {
             alt.text = title;
         }
+        
         [self.alertView show];
     }
     
@@ -976,7 +974,6 @@ static Class hackishFixClass = Nil;
             }
             [self focusTextEditor];
         }]];
-        alertController.view.tintColor = [ConstantsForObjc customThemeColorForObjc];
         [self presentViewController:alertController animated:YES completion:NULL];
         
     } else {
@@ -1284,11 +1281,11 @@ static Class hackishFixClass = Nil;
 #pragma mark - Utilities
 
 - (NSString *)removeQuotesFromHTML:(NSString *)html {
-//    html = [html stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""];
-//    html = [html stringByReplacingOccurrencesOfString:@"“" withString:@"&quot;"];
-//    html = [html stringByReplacingOccurrencesOfString:@"”" withString:@"&quot;"];
-//    html = [html stringByReplacingOccurrencesOfString:@"\r"  withString:@"\\r"];
-//    html = [html stringByReplacingOccurrencesOfString:@"\n"  withString:@"\\n"];
+    html = [html stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""];
+    html = [html stringByReplacingOccurrencesOfString:@"“" withString:@"&quot;"];
+    html = [html stringByReplacingOccurrencesOfString:@"”" withString:@"&quot;"];
+    html = [html stringByReplacingOccurrencesOfString:@"\r"  withString:@"\\r"];
+    html = [html stringByReplacingOccurrencesOfString:@"\n"  withString:@"\\n"];
     return html;
 }//end
 

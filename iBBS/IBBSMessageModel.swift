@@ -1,0 +1,35 @@
+//
+//  IBBSMessageModel.swift
+//  iBBS
+//
+//  Created by Augus on 4/18/16.
+//  Copyright © 2016 iAugus. All rights reserved.
+//
+
+import SwiftyJSON
+
+
+struct IBBSMessageModel {
+    
+    var id: String!
+    var avatarUrl: NSURL!
+    var sender: String!
+    var senderUid: String!
+    var content: String!
+    var sendTime: String!
+    var isRead: Bool!
+    var isAdministrator: Bool!
+    
+    init(json: JSON) {
+        avatarUrl       = NSURL(string: json["sender_avatar"].stringValue)
+        id              = json["id"].stringValue
+        sender          = json["sender"].stringValue
+        senderUid       = json["sender_uid"].stringValue
+        content         = json["title"].stringValue
+        sendTime        = json["send_time"].stringValue
+        isRead          = json["is_read"].intValue == 0 ? true : false
+        isAdministrator = json["type"].boolValue
+    }
+    
+    
+}

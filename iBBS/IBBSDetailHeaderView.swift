@@ -14,11 +14,13 @@ import UIKit
 import SwiftyJSON
 
 class IBBSDetailHeaderView: UIView {
-    @IBOutlet weak var headerTitleLabel: UILabel!{
+    
+    @IBOutlet weak var headerTitleLabel: UILabel! {
         didSet{
             headerTitleLabel.numberOfLines = 0
         }
     }
+    
     @IBOutlet weak var avatarImageView: IBBSAvatarImageView!
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
@@ -26,19 +28,17 @@ class IBBSDetailHeaderView: UIView {
 
     var nodeName: String?
     
-    func loadData(json: JSON){
+    func loadData(json: JSON) {
         
-        let avatarUrl = NSURL(string: json["avatar"].stringValue)
-        avatarImageView.kf_setImageWithURL(avatarUrl!, placeholderImage: AVATAR_PLACEHOLDER_IMAGE)
-        usernameLabel?.text = json["username"].stringValue
-        headerTitleLabel?.text = json["title"].stringValue.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
-        timeLabel?.text = json["post_time"].stringValue
-        let data = json["post_content"].stringValue.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
-        content.ausAttributedText(data)
-//        content.ausAutomanticResizeTextViewFrameSize()
-        DEBUGLog(json["post_content"].stringValue)
-
-        nodeName = json["board"].stringValue
+        let model = IBBSTopicModel(json: json)
+        
+        avatarImageView.kf_setImageWithURL(model.avatarUrl, placeholderImage: AVATAR_PLACEHOLDER_IMAGE)
+        
+        nodeName              = model.board
+        usernameLabel.text    = model.username
+        headerTitleLabel.text = model.title
+        timeLabel.text        = model.postTime
+        content.ausAttributedText(model.content)
     }
     
 }

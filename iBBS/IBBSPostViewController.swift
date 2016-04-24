@@ -27,38 +27,14 @@ class IBBSPostViewController: IBBSEditorBaseViewController {
 
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        
         navigationController?.navigationBar.translucent = false
-//        focusTextEditor()
-//        
-//        let delayInSeconds: Double = 0.4
-//        let popTime = dispatch_time(DISPATCH_TIME_NOW,Int64(Double(NSEC_PER_SEC) * delayInSeconds))
-//        dispatch_after(popTime, dispatch_get_main_queue(), {
-//            toolbarHolder?.hidden = false
-//            
-//        })
         
-        
-        // TODO: - There is a bug in `ZSSRichTextEditor`. If you show keyboard immediately, then the color picker won't work correctly.
-        
-//        let delayInSeconds: Double = 1
-//        let popTime = dispatch_time(DISPATCH_TIME_NOW, Int64(Double(NSEC_PER_SEC) * delayInSeconds))
-        let weakSelf = self
-        dispatch_async(dispatch_get_main_queue(), {
-            weakSelf.focusTextEditor()
-        })
-        
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(Double(NSEC_PER_SEC) * 1.2)), dispatch_get_main_queue()) { () -> Void in
-            self.toolbarHolder.hidden = false
-        }
+        focusTextEditor()
     }
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
-//        navigationController?.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
-//        navigationController?.navigationBar.shadowImage = UIImage()
-//        navigationController?.navigationBar.translucent = true
-
-        toolbarHolder?.hidden = true
         blurTextEditor()
     }
 
@@ -86,31 +62,24 @@ class IBBSPostViewController: IBBSEditorBaseViewController {
                     
                     NSNotificationCenter.defaultCenter().postNotificationName(kShouldReloadDataAfterPosting, object: nil)
                     
-                    ASStatusBarToast.makeStatusBarToast(msg, interval: TIME_OF_TOAST_OF_POST_SUCCESS)
+                    IBBSToast.make(msg, interval: TIME_OF_TOAST_OF_POST_SUCCESS)
 
-                    let delayInSeconds: Double = 0.3
-                    let delta = Int64(Double(NSEC_PER_SEC) * delayInSeconds)
-                    let popTime = dispatch_time(DISPATCH_TIME_NOW,delta)
-                    dispatch_after(popTime, dispatch_get_main_queue(), {
+                    executeAfterDelay(0.3, completion: {
                         self.dismissViewControllerAnimated(true , completion: nil)
                     })
 
                 } else {
-                    ASStatusBarToast.makeStatusBarToast(msg, interval: TIME_OF_TOAST_OF_POST_FAILED)
+                    IBBSToast.make(msg, interval: TIME_OF_TOAST_OF_POST_FAILED)
 
-                    let delayInSeconds: Double = 1.5
-                    let delta = Int64(Double(NSEC_PER_SEC) * delayInSeconds)
-                    let popTime = dispatch_time(DISPATCH_TIME_NOW,delta)
-                    dispatch_after(popTime, dispatch_get_main_queue(), {
+                    executeAfterDelay(1.5, completion: {
                         self.navigationController?.popViewControllerAnimated(true)
-                        
                     })
 
                 }
                 
                 }) { (error ) -> Void in
                     DEBUGLog(error)
-                    ASStatusBarToast.makeStatusBarToast(SERVER_ERROR, interval: TIME_OF_TOAST_OF_SERVER_ERROR)
+                    IBBSToast.make(SERVER_ERROR, interval: TIME_OF_TOAST_OF_SERVER_ERROR)
             }
             DEBUGLog(contentsArrayOfPostArticle)
         }
@@ -136,16 +105,5 @@ class IBBSPostViewController: IBBSEditorBaseViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

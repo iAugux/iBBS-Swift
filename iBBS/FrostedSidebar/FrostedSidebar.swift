@@ -13,6 +13,7 @@
 */
 
 import UIKit
+import SnapKit
 import QuartzCore
 
 public protocol FrostedSidebarDelegate{
@@ -421,7 +422,7 @@ public class FrostedSidebar: UIViewController {
             beginAppearanceTransition(true, animated: false)
         }
         viewController.addChildViewController(self)
-        viewController.view.addSubview(self.view)
+        viewController.view.addSubview(view)
         didMoveToParentViewController(self)
         if callingAppearanceMethods{
             endAppearanceTransition()

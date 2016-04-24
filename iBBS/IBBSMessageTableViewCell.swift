@@ -20,7 +20,8 @@ class IBBSMessageTableViewCell: UITableViewCell {
     @IBOutlet var timeLabel: UILabel!
     @IBOutlet var contentLabel: UILabel!
     @IBOutlet var usernameLabel: UILabel!
-    var isRead: Int = 0
+    
+    var isRead: Bool = false
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -38,28 +39,25 @@ class IBBSMessageTableViewCell: UITableViewCell {
     
     
     func loadDataToCell(json: JSON) {
-        let imageUrl = NSURL(string: json["sender_avatar"].stringValue)
-        avatarImageView.kf_setImageWithURL(imageUrl!, placeholderImage: AVATAR_PLACEHOLDER_IMAGE)
-        timeLabel.text = json["send_time"].stringValue
-        contentLabel.text = json["title"].stringValue
         
-        isRead = json["is_read"].intValue
-        if isRead == 0 {
-            isMessageRead.image = UIImage(named: "message_is_read_marker")
-            isMessageRead.changeColorForImageOfImageView(CUSTOM_THEME_COLOR.lighterColor(0.7))
-        }else if isRead == 1 {
-            isMessageRead.image = UIImage(named: "message_is_read_marker")
-        }
+        let model = IBBSMessageModel(json: json)
         
-        let isAdministrator = json["type"].boolValue
-        if !isAdministrator {
+        avatarImageView.kf_setImageWithURL(model.avatarUrl, placeholderImage: AVATAR_PLACEHOLDER_IMAGE)
+        
+        timeLabel.text    = model.sendTime
+        contentLabel.text = model.content
+        isRead            = model.isRead
+        
+        isMessageRead.image = UIImage(named: "message_is_read_marker")
+        isRead ? isMessageRead.changeColorForImageOfImageView(CUSTOM_THEME_COLOR.lighterColor(0.7)) : ()
+        
+        if !model.isAdministrator {
             avatarImageView.backgroundColor = UIColor.blackColor()
             avatarImageView.image = UIImage(named: "administrator")
             //                usernameLabel.text = json["username"].stringValue
             usernameLabel.text = "Admin"
         } else {
             usernameLabel.text = json["sender"].stringValue
-            
         }
     }
     

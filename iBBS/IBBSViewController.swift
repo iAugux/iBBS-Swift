@@ -13,7 +13,10 @@
 import UIKit
 import SwiftyJSON
 
+
 class IBBSViewController: IBBSBaseViewController {
+    
+    private let postSegue = "postNewArticle"
     
     @IBOutlet var postNewArticleButton: UIBarButtonItem!
     
@@ -24,7 +27,7 @@ class IBBSViewController: IBBSBaseViewController {
         configureNavifationItemTitle()
         pullUpToLoadmore()
         sendRequest(page)
-        postNewArticleSegue = MainStoryboard.SegueIdentifiers.postSegue
+        postNewArticleSegue = postSegue
 
         IBBSConfigureNodesInfo.sharedInstance.configureNodesInfo()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(reloadDataAfterPosting), name: kShouldReloadDataAfterPosting, object: nil)
@@ -58,10 +61,10 @@ class IBBSViewController: IBBSBaseViewController {
         
         APIClient.sharedInstance.getLatestTopics(page, success: { (json) -> Void in
             if json == nil && page != 1 {
-                ASStatusBarToast.makeStatusBarToast(NO_MORE_DATA, delay: 0, interval: TIME_OF_TOAST_OF_NO_MORE_DATA)
+                IBBSToast.make(NO_MORE_DATA, delay: 0, interval: TIME_OF_TOAST_OF_NO_MORE_DATA)
             }
             if json.type == Type.Array {
-                if page == 1{
+                if page == 1 {
                     self.datasource = json.arrayValue
                     
                 }else {
@@ -69,12 +72,14 @@ class IBBSViewController: IBBSBaseViewController {
                     
                     self.datasource? += appendArray
                     self.tableView.reloadData()
+                    
+                    DEBUGPrint(self.datasource)
                 }
                 
             }
             }, failure: { (error) -> Void in
                 DEBUGLog(error)
-                ASStatusBarToast.makeStatusBarToast(SERVER_ERROR, delay: 0, interval: TIME_OF_TOAST_OF_SERVER_ERROR)
+                IBBSToast.make(SERVER_ERROR, delay: 0, interval: TIME_OF_TOAST_OF_SERVER_ERROR)
         })
     }
     
@@ -93,7 +98,7 @@ class IBBSViewController: IBBSBaseViewController {
     }
     
     func configureTableView(){
-        tableView.registerNib(UINib(nibName: MainStoryboard.NibIdentifiers.iBBSTableViewCell, bundle: nil ), forCellReuseIdentifier: MainStoryboard.CellIdentifiers.iBBSTableViewCell)
+        tableView.registerNib(UINib(nibName: String(IBBSTableViewCell), bundle: nil ), forCellReuseIdentifier: String(IBBSTableViewCell))
         tableView.tableFooterView = UIView(frame: CGRectZero)
         tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -106,12 +111,12 @@ class IBBSViewController: IBBSBaseViewController {
     
     
     override func cornerActionButtonDidTap() {
-        performPostNewArticleSegue(segueIdentifier: MainStoryboard.SegueIdentifiers.postSegue)
+        performPostNewArticleSegue(segueIdentifier: postSegue)
         
     }
     
     @IBAction func postNewArticleButtonDidTap(sender: AnyObject) {
-        performPostNewArticleSegue(segueIdentifier: MainStoryboard.SegueIdentifiers.postSegue)
+        performPostNewArticleSegue(segueIdentifier: postSegue)
     }
     
     
@@ -131,10 +136,8 @@ extension IBBSViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        if let cell = tableView.dequeueReusableCellWithIdentifier(MainStoryboard.CellIdentifiers.iBBSTableViewCell) as? IBBSTableViewCell {
-            let json = datasource[indexPath.row]
-            debugPrint(json)
-            
+        if let cell = tableView.dequeueReusableCellWithIdentifier(String(IBBSTableViewCell)) as? IBBSTableViewCell {
+            let json = datasource[indexPath.row]            
             cell.loadDataToCell(json)
             return cell
         }
@@ -146,10 +149,10 @@ extension IBBSViewController {
     // MARK: - table view delegate
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let json = datasource[indexPath.row]
-        //        if let vc = storyboard?.instantiateViewControllerWithIdentifier(MainStoryboard.VCIdentifiers.detailVC) as? IBBSDetailViewController{
-        //            vc.json = json
-        //            navigationController?.pushViewController(vc, animated: true)
-        //        }
+//                if let vc = storyboard?.instantiateViewControllerWithIdentifier(String(IBBSDetailViewController)) as? IBBSDetailViewController{
+//                    vc.json = json
+//                    navigationController?.pushViewController(vc, animated: true)
+//                }
         let vc = IBBSDetailViewController()
         vc.json = json
         vc.navigationController?.navigationBar.hidden = true
@@ -158,7 +161,7 @@ extension IBBSViewController {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         super.prepareForSegue(segue, sender: sender)
-        if segue.identifier == MainStoryboard.SegueIdentifiers.postSegue {
+        if segue.identifier == postSegue {
             whoCalledEditingViewController = -1
         }
     }
@@ -191,13 +194,9 @@ extension IBBSViewController {
             DEBUGLog("page: \(self.page)")
             
             self.sendRequest(self.page)
-            let delayInSeconds: Double = 1.0
-            let delta = Int64(Double(NSEC_PER_SEC) * delayInSeconds)
-            let popTime:dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW,delta)
-            dispatch_after(popTime, dispatch_get_main_queue(), {
-                //                tableView.reloadData()
+
+            executeAfterDelay(1.0, completion: {
                 self.tableView.footerEndRefreshing()
-                
             })
         })
     }

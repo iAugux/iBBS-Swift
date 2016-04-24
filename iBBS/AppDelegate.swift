@@ -11,7 +11,6 @@
 //
 
 
-
 import UIKit
 
 @UIApplicationMain
@@ -21,16 +20,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     #if DEBUG
-    let fps = FPSLabel(center: CGPointMake(12, 24))
+    let fps = FPSLabel(center: CGPointMake(3, 20))
     #endif
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
     
+        #if DEBUG
+            window?.addSubview(fps)
+        #endif
+        
         // SlideMenu
         application.statusBarStyle = .LightContent
         let containerViewController = ContainerViewController()
-        let homeNav = mainStoryboard.instantiateViewControllerWithIdentifier("homeNav") as! UINavigationController
+        
+        let homeNav = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("homeNav") as! UINavigationController
         homeNav.viewControllers[0] = containerViewController
         homeNav.setNavigationBarHidden(true, animated: false)
         window?.rootViewController = homeNav
@@ -59,10 +63,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AppDelegate.setWindowColor), name: kThemeDidChangeNotification, object: nil)
         
-        #if DEBUG
-            window?.addSubview(fps)
-        #endif
-        
         return true
     }
     
@@ -71,16 +71,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.backgroundColor = CUSTOM_THEME_COLOR.lighterColor(0.6)
 
     }
-    
-    // disable orientation for messages view controller
-//    func application(application: UIApplication, supportedInterfaceOrientationsForWindow window: UIWindow?) -> UIInterfaceOrientationMask {
-//        if let topMostVC = UIApplication.sharedApplication().keyWindow?.rootViewController?.topMostViewController{
-//            if topMostVC.isKindOfClass(IBBSMessagesViewController.classForCoder()) {
-//                return UIInterfaceOrientationMask.Portrait
-//            }
-//        }
-//        return UIInterfaceOrientationMask.All
-//    }
     
     func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

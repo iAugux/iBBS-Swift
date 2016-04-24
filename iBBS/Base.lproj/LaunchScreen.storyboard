@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" initialViewController="W8F-vI-RD3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" initialViewController="W8F-vI-RD3">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -13,36 +13,25 @@
                         <viewControllerLayoutGuide type="top" id="xp0-cp-epF"/>
                         <viewControllerLayoutGuide type="bottom" id="7EV-1a-qmW"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="jcJ-KK-Hxo">
+                    <view key="view" userInteractionEnabled="NO" contentMode="scaleToFill" id="jcJ-KK-Hxo">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_image_green" translatesAutoresizingMaskIntoConstraints="NO" id="fGi-uP-DhI">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <animations/>
-                            </imageView>
-                            <visualEffectView opaque="NO" alpha="0.87" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZOj-C5-bLq">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="pBG-7h-wg2">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    <animations/>
-                                </view>
-                                <animations/>
-                                <blurEffect style="light"/>
-                            </visualEffectView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="iBBS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rax-zF-ILu">
+                                <rect key="frame" x="194.5" y="221.5" width="211.5" height="157.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="211.5" id="2JQ-BC-O5Z"/>
+                                    <constraint firstAttribute="height" constant="157.5" id="qop-Rn-vCf"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Zapfino" family="Zapfino" pointSize="30"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
-                        <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="fGi-uP-DhI" secondAttribute="trailing" id="Baw-AF-Z0v"/>
-                            <constraint firstItem="ZOj-C5-bLq" firstAttribute="top" secondItem="fGi-uP-DhI" secondAttribute="top" id="VIy-EZ-4A0"/>
-                            <constraint firstItem="fGi-uP-DhI" firstAttribute="bottom" secondItem="7EV-1a-qmW" secondAttribute="top" id="WF4-67-ETW"/>
-                            <constraint firstItem="fGi-uP-DhI" firstAttribute="leading" secondItem="jcJ-KK-Hxo" secondAttribute="leading" id="aPr-mP-KNY"/>
-                            <constraint firstItem="ZOj-C5-bLq" firstAttribute="leading" secondItem="fGi-uP-DhI" secondAttribute="leading" id="edK-aT-lbQ"/>
-                            <constraint firstItem="ZOj-C5-bLq" firstAttribute="bottom" secondItem="7EV-1a-qmW" secondAttribute="top" id="nd5-KP-AMs"/>
-                            <constraint firstItem="ZOj-C5-bLq" firstAttribute="trailing" secondItem="fGi-uP-DhI" secondAttribute="trailing" id="qgt-np-mdk"/>
-                            <constraint firstItem="fGi-uP-DhI" firstAttribute="top" secondItem="jcJ-KK-Hxo" secondAttribute="top" id="xyd-My-Tgb"/>
+                            <constraint firstItem="rax-zF-ILu" firstAttribute="centerX" secondItem="jcJ-KK-Hxo" secondAttribute="centerX" id="6Te-E9-AO6"/>
+                            <constraint firstItem="rax-zF-ILu" firstAttribute="centerY" secondItem="jcJ-KK-Hxo" secondAttribute="centerY" id="ihb-OG-hgU"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -51,7 +40,4 @@
             <point key="canvasLocation" x="881" y="309"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="bg_image_green" width="640" height="960"/>
-    </resources>
 </document>

@@ -74,7 +74,7 @@
 
 - (void)loadView
 {
-    CGRect frame = [[UIScreen mainScreen] bounds];
+    CGRect frame = [[UIScreen mainScreen] applicationFrame];
     frame.size.height -= 44.f;
     
     self.view = [[UIView alloc] initWithFrame:frame];
@@ -85,7 +85,7 @@
     HRColorPickerStyle style;
     
 // j5136p1 12/08/2014 : Set size to mainScreen size and if a navigationviewcontroller exists we change it to navigation controller view size
-    CGSize viewSize = [[UIScreen mainScreen] bounds].size;
+    CGSize viewSize = [[UIScreen mainScreen] applicationFrame].size;
     
 // j5136p1 12/08/2014 : if a navigationviewcontroller exists we change it to navigation controller view size to fit ex. modal views
     if (self.navigationController)

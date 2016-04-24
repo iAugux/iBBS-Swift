@@ -26,12 +26,10 @@ class IBBSCommentViewController: IBBSEditorBaseViewController {
         super.viewDidAppear(animated)
 
         // TODO: - There is a bug in `ZSSRichTextEditor`. If you show keyboard immediately, then the color picker won't work correctly.
-        
-        let delayInSeconds: Double = 0.9
-        let popTime = dispatch_time(DISPATCH_TIME_NOW,Int64(Double(NSEC_PER_SEC) * delayInSeconds))
-        dispatch_after(popTime, dispatch_get_main_queue(), {
+
+        executeAfterDelay(0.9) {
             self.focusTextEditor()
-        })
+        }
     }
     
     func cancelAction(){
@@ -50,9 +48,8 @@ class IBBSCommentViewController: IBBSEditorBaseViewController {
             
             alert.addAction(continueAction)
             alert.addAction(cancelAction)
-            let delayInSeconds: Double = 0.5
-            let popTime = dispatch_time(DISPATCH_TIME_NOW, Int64(Double(NSEC_PER_SEC) * delayInSeconds))
-            dispatch_after(popTime, dispatch_get_main_queue(), {
+
+            executeAfterDelay(0.5, completion: {
                 self.presentViewController(alert, animated: true, completion: nil)
             })
         }
@@ -80,30 +77,23 @@ class IBBSCommentViewController: IBBSEditorBaseViewController {
                 let msg = json["msg"].stringValue
                 if json["code"].intValue == 1 { //comment successfully
                     
-                    ASStatusBarToast.makeStatusBarToast(msg, interval: TIME_OF_TOAST_OF_COMMENT_SUCCESS)
+                    IBBSToast.make(msg, interval: TIME_OF_TOAST_OF_COMMENT_SUCCESS)
 
-                    let delayInSeconds: Double = 0.3
-                    let delta = Int64(Double(NSEC_PER_SEC) * delayInSeconds)
-                    let popTime = dispatch_time(DISPATCH_TIME_NOW,delta)
-                    dispatch_after(popTime, dispatch_get_main_queue(), {
+                    executeAfterDelay(0.3, completion: {
                         self.dismissViewControllerAnimated(true , completion: nil)
                     })
                     
                 } else {
-                    ASStatusBarToast.makeStatusBarToast(msg, interval: TIME_OF_TOAST_OF_COMMENT_FAILED)
+                    IBBSToast.make(msg, interval: TIME_OF_TOAST_OF_COMMENT_FAILED)
 
-                    let delayInSeconds: Double = 0.5
-                    let delta = Int64(Double(NSEC_PER_SEC) * delayInSeconds)
-                    let popTime = dispatch_time(DISPATCH_TIME_NOW,delta)
-                    dispatch_after(popTime, dispatch_get_main_queue(), {
+                    executeAfterDelay(0.5, completion: {
                         self.focusTextEditor()
-                        
                     })
                     
                 }
                 }) { (error ) -> Void in
                     DEBUGLog(error)
-                    ASStatusBarToast.makeStatusBarToast(SERVER_ERROR, interval: TIME_OF_TOAST_OF_SERVER_ERROR)
+                    IBBSToast.make(SERVER_ERROR, interval: TIME_OF_TOAST_OF_SERVER_ERROR)
             }
         }
         
@@ -123,16 +113,5 @@ class IBBSCommentViewController: IBBSEditorBaseViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    
-    /*
-    // MARK: - Navigation
-    
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    // Get the new view controller using segue.destinationViewController.
-    // Pass the selected object to the new view controller.
-    }
-    */
     
 }

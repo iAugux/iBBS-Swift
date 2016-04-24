@@ -1,24 +1,20 @@
 //
-//  UIScreen+Additions.swift
-//  iBBS
+//  UIScreen+Extension.swift
 //
 //  Created by Augus on 9/8/15.
-//
-//  http://iAugus.com
-//  https://github.com/iAugux
-//
 //  Copyright © 2015 iAugus. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 extension UIScreen {
-    class func screenWidth() -> CGFloat {
+    
+    class var width: CGFloat {
         return UIScreen.mainScreen().bounds.width
     }
     
-    class func screenHeight() -> CGFloat {
+    class var height: CGFloat {
         return UIScreen.mainScreen().bounds.height
     }
-    
+
 }

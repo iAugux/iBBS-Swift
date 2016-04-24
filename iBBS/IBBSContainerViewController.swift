@@ -27,6 +27,7 @@ class ContainerViewController: UIViewController, UIGestureRecognizerDelegate, To
     var centerNavigationController: UINavigationController!
     var mainViewController: UIViewController!
     var leftViewController: SlidePanelViewController?
+    
     var currentState: SlideOutState = .collapsed {
         didSet {
             let shouldShowShadow = currentState != .collapsed
@@ -45,8 +46,6 @@ class ContainerViewController: UIViewController, UIGestureRecognizerDelegate, To
         centerNavigationController.didMoveToParentViewController(self)
         
         configureGestureRecognizer()
-        
-       
     }
     
     override func didReceiveMemoryWarning() {
@@ -54,18 +53,11 @@ class ContainerViewController: UIViewController, UIGestureRecognizerDelegate, To
         // Dispose of any resources that can be recreated.
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        centerVCFrontBlurView.frame = view.frame
-    }
-    
-    
     func configureBlurView(){
         //        centerVCFrontBlurView = UIButton.buttonWithType(UIButtonType.Custom) as! UIButton
         let viewEffect = UIBlurEffect(style: .Light)
         centerVCFrontBlurView = UIVisualEffectView(effect: viewEffect)
         centerVCFrontBlurView.alpha = 0.96
-        centerVCFrontBlurView.frame = view.frame
     }
     
     func configureGestureRecognizer(){
@@ -177,7 +169,12 @@ class ContainerViewController: UIViewController, UIGestureRecognizerDelegate, To
         case .Began:
             
             mainViewController.view.addSubview(centerVCFrontBlurView)
+            centerVCFrontBlurView.snp_makeConstraints(closure: { (make) in
+                make.edges.equalTo(view)
+            })
+            
             mainViewController.navigationController?.setNavigationBarHidden(true , animated: false)
+            
             if (currentState == .collapsed) {
                 if (gestureIsDraggingFromLeftToRight) {
                     addLeftPanelViewController()
@@ -221,6 +218,7 @@ class ContainerViewController: UIViewController, UIGestureRecognizerDelegate, To
             centerVCFrontBlurView.removeFromSuperview()
         }
     }
+    
     // ToggleLeftPanelDelegate
     func removeFrontBlurView(){
         centerVCFrontBlurView.removeFromSuperview()

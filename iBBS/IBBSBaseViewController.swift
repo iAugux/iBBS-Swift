@@ -11,10 +11,11 @@
 //
 
 import UIKit
+import SnapKit
 import GearRefreshControl
 import SwiftyJSON
 
-
+let postNewArticleWithNodeSegue = "postNewArticleWithNode"
 
 class IBBSBaseViewController: UITableViewController {
     var gearRefreshControl: GearRefreshControl!
@@ -25,7 +26,6 @@ class IBBSBaseViewController: UITableViewController {
 
     var datasource: [JSON]! {
         didSet{
-            //            print(datasource)
             tableView.reloadData()
         }
     }
@@ -50,15 +50,12 @@ class IBBSBaseViewController: UITableViewController {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(IBBSBaseViewController.showCornerActionButton), name: kShouldShowCornerActionButton, object: nil)
         
-        
         #if DEBUG
-            let appDelagate = UIApplication.sharedApplication().delegate as? AppDelegate
-
-            if let fps = appDelagate?.fps {
-                appDelagate?.window?.bringSubviewToFront(fps)
-            }
+            let appDelagate = UIApplication.sharedApplication().delegate as! AppDelegate
+            appDelagate.window?.bringSubviewToFront(appDelagate.fps)
         #endif
     }
     
@@ -83,13 +80,21 @@ class IBBSBaseViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func configureCornerActionButton(){
-        cornerActionButton = UIButton(frame: CGRectMake(UIScreen.screenWidth() - 66, UIScreen.screenHeight() - 110, 40, 40))
+    func configureCornerActionButton() {
+        cornerActionButton = UIButton()
         cornerActionButton?.layer.cornerRadius = 20.0
         cornerActionButton?.clipsToBounds = true
         cornerActionButton?.setImage(UIImage(named: "plus_button"), forState: .Normal)
         cornerActionButton?.addTarget(self, action: #selector(IBBSBaseViewController.cornerActionButtonDidTap), forControlEvents: .TouchUpInside)
-        UIApplication.topMostViewController?.view.addSubview(cornerActionButton)
+        
+        guard let topView = UIApplication.topMostViewController?.view else { return }
+        
+        topView.addSubview(cornerActionButton)
+        cornerActionButton.snp_makeConstraints { (make) in
+            make.width.height.equalTo(40)
+            make.right.equalTo(-16)
+            make.bottom.equalTo(-70)
+        }
     }
     
     func cornerActionButtonDidTap() {
@@ -117,15 +122,12 @@ class IBBSBaseViewController: UITableViewController {
         gearRefreshControl?.removeFromSuperview()
         gearRefreshManager()
     }
-    
-    // MARK: - part of GearRefreshControl
-    
-    
+        
     override func scrollViewDidScroll(scrollView: UIScrollView) {
         gearRefreshControl?.scrollViewDidScroll(scrollView)
     }
     
-    private func gearRefreshManager(){
+    private func gearRefreshManager() {
         gearRefreshControl = GearRefreshControl(frame: view.bounds)
         gearRefreshControl.gearTintColor = CUSTOM_THEME_COLOR.lighterColor(0.7)
         gearRefreshControl.addTarget(self, action: #selector(IBBSBaseViewController.refreshData), forControlEvents: UIControlEvents.ValueChanged)
@@ -134,24 +136,20 @@ class IBBSBaseViewController: UITableViewController {
     
     
     // MARK: - Automatic pulling down to refresh
-    func automaticPullingDownToRefresh(){
+    func automaticPullingDownToRefresh() {
         
         NSTimer.scheduledTimerWithTimeInterval(0.6, target: self, selector: #selector(IBBSBaseViewController.automaticContentOffset), userInfo: nil, repeats: false)
         //        NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: "endRefresh", userInfo: nil, repeats: false)
         //        NSTimer.performSelector("endRefresh", withObject: nil, afterDelay: 0.1)
     }
     
-    func automaticContentOffset(){
+    func automaticContentOffset() {
         gearRefreshControl.beginRefreshing()
         tableView.setContentOffset(CGPointMake(0, -125.0), animated: true)
-        
-        let delayInSeconds: Double = 0.5
-        let popTime:dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW, Int64(Double(NSEC_PER_SEC) * delayInSeconds))
-        dispatch_after(popTime, dispatch_get_main_queue(), {
+
+        executeAfterDelay(0.5) {
             self.gearRefreshControl.endRefreshing()
-            
-        })
-        
+        }
     }
     
     func hideCornerActionButton() {
@@ -173,7 +171,7 @@ extension IBBSBaseViewController {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
-        if segue.identifier == MainStoryboard.SegueIdentifiers.postNewArticleWithNodeSegue {
+        if segue.identifier == postNewArticleWithNodeSegue {
             if let destinationVC = segue.destinationViewController as? UINavigationController {
                 
                 presentLoginViewControllerIfNotLogin(alertMessage: LOGIN_TO_POST, completion: {
@@ -187,7 +185,9 @@ extension IBBSBaseViewController {
     func performPostNewArticleSegue(segueIdentifier segueID: String){
         DEBUGLog("editing...")
         IBBSContext.sharedInstance.isTokenLegal(){ (isTokenLegal) -> Void in
-            if isTokenLegal{
+            print(isTokenLegal)
+            if isTokenLegal {
+            
                 self.performSegueWithIdentifier(segueID, sender: self)
             } else {
                 self.presentLoginViewControllerIfNotLogin(alertMessage: LOGIN_TO_POST, completion:{

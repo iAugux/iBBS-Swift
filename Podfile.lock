@@ -1,15 +1,15 @@
 PODS:
   - Alamofire (2.0.2)
-  - DKChainableAnimationKit (1.6.0)
   - GearRefreshControl (0.3.0)
   - Kingfisher (1.9.3)
+  - SnapKit (0.20.0)
   - SwiftyJSON (2.3.2)
 
 DEPENDENCIES:
   - Alamofire (~> 2.0)
-  - DKChainableAnimationKit
   - GearRefreshControl
   - Kingfisher (~> 1.6)
+  - SnapKit
   - SwiftyJSON (from `https://github.com/SwiftyJSON/SwiftyJSON.git`)
 
 EXTERNAL SOURCES:
@@ -23,9 +23,9 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   Alamofire: 8edbab00802a752bb5240cc2abe70e7e881488ad
-  DKChainableAnimationKit: fe28909402825a42cc632b211eadcc39ad2bee38
   GearRefreshControl: c7b1abac8a298f180df48c1bc450469e98840c46
   Kingfisher: 9e37d2a78a082dc123bfe8a16de65de85518daae
+  SnapKit: 5fce3c1bbbf1fbd31de9aa92f33eb9fa03f15650
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
 
 COCOAPODS: 0.39.0

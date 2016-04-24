@@ -6,7 +6,7 @@
 //  Copyright © 2015 iAugus. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 extension UIViewController {
     func presentViewControllerLikePushAnimation(destinationVC: UIViewController) {

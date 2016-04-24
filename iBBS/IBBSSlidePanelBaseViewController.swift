@@ -38,7 +38,7 @@ class IBBSSlidePanelBaseViewController: UIViewController {
         
         // add navigation bar
 //        let navBar = UINavigationBar(frame: CGRectMake(0.0, 20.0, UIScreen.screenWidth(), 44.0))
-        let navBar = UINavigationBar(frame: CGRectMake(0.0, 0.0, UIScreen.screenWidth(), 64.0))
+        let navBar = UINavigationBar(frame: CGRectMake(0.0, 0.0, UIScreen.width, 64.0))
 
         navBar.barStyle = .Default
         navBar.translucent = true

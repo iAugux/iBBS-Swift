@@ -53,9 +53,11 @@ class IBBSEditingViewController: UIViewController, UITextViewDelegate {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: BUTTON_NEXT, style: .Plain, target: self, action: #selector(IBBSEditingViewController.okAction(_:)))
         view.backgroundColor = UIColor(patternImage: BACKGROUNDER_IMAGE!)
         blurView = UIVisualEffectView(effect: UIBlurEffect(style: .Light))
-        blurView.frame = view.frame
         blurView.alpha = BLUR_VIEW_ALPHA_OF_BG_IMAGE
         view.insertSubview(blurView, atIndex: 0)
+        blurView.snp_makeConstraints { (make) in
+            make.edges.equalTo(UIEdgeInsetsZero)
+        }
   
         configureDefaultSelectedRow()
         nodesPickerView.delegate = self
@@ -67,37 +69,17 @@ class IBBSEditingViewController: UIViewController, UITextViewDelegate {
         // set default node ID
         contentsArrayOfPostArticle.setValue(defaultSelectedRow, forKey: nodeID)
  
-        let delayInSeconds: Double = 0.7
-        let delta = Int64(Double(NSEC_PER_SEC) * delayInSeconds)
-        let popTime = dispatch_time(DISPATCH_TIME_NOW,delta)
-        dispatch_after(popTime, dispatch_get_main_queue(), {
-            self.contentTextView.becomeFirstResponder()
-        })
-
-        
+        contentTextView.becomeFirstResponder()
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-//        navigationController?.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
-//        navigationController?.navigationBar.shadowImage = UIImage()
-//        navigationController?.navigationBar.translucent = true
         
-//        navigationController?.navigationBar.backgroundColor = UIColor.redColor()
         navigationController?.navigationBar.tintColor = CUSTOM_THEME_COLOR
-        //        navigationController?.navigationBar.barTintColor = UIColor.clearColor()
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: CUSTOM_THEME_COLOR]
 
         navigationController?.navigationBar.translucent = true
 
-    }
-    
-    override func willRotateToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval) {
-        blurView.frame = CGRectMake(0, 0, 750, 750)
-    }
-    
-    override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
-        blurView.frame = view.frame
     }
     
     func configureDefaultSelectedRow() {

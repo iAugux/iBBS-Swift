@@ -97,7 +97,7 @@ class IBBSNodesCollectionViewController: UICollectionViewController {
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        if let cell = collectionView.dequeueReusableCellWithReuseIdentifier(MainStoryboard.CollectionCellIdentifiers.nodeCollectionCell, forIndexPath: indexPath) as? IBBSNodesCollectionViewCell {
+        if let cell = collectionView.dequeueReusableCellWithReuseIdentifier(String(IBBSNodesCollectionViewCell), forIndexPath: indexPath) as? IBBSNodesCollectionViewCell {
 //            nodesArray = IBBSConfigureNodesInfo.sharedInstance.nodesArray
             if let array = nodesArray {
                 
@@ -117,7 +117,7 @@ class IBBSNodesCollectionViewController: UICollectionViewController {
         if let array = nodesArray {
             let json = array[indexPath.row]
             debugPrint(json)
-            if let vc = storyboard?.instantiateViewControllerWithIdentifier(MainStoryboard.VCIdentifiers.nodeVC) as? IBBSNodeViewController {
+            if let vc = storyboard?.instantiateViewControllerWithIdentifier(String(IBBSNodeViewController)) as? IBBSNodeViewController {
                 vc.nodeJSON = json
                 whoCalledEditingViewController = indexPath.row
                 navigationController?.pushViewController(vc, animated: true)
@@ -143,12 +143,10 @@ extension IBBSNodesCollectionViewController {
     // MARK: - perform GearRefreshControl
     override func scrollViewDidScroll(scrollView: UIScrollView) {
         gearRefreshControl?.scrollViewDidScroll(scrollView)
-        let delayInSeconds: Double = 3
-        let popTime:dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW, Int64(Double(NSEC_PER_SEC) * delayInSeconds))
-        dispatch_after(popTime, dispatch_get_main_queue(), {
+
+        executeAfterDelay(3) {
             self.gearRefreshControl?.endRefreshing()
-            
-        })
+        }
     
     }
     
@@ -203,7 +201,7 @@ public class IBBSConfigureNodesInfo {
                 IBBSContext.sharedInstance.saveNodes(json.object)
             }
             }) { (error) -> Void in
-                ASStatusBarToast.makeStatusBarToast(SERVER_ERROR, interval: TIME_OF_TOAST_OF_SERVER_ERROR)
+                IBBSToast.make(SERVER_ERROR, interval: TIME_OF_TOAST_OF_SERVER_ERROR)
         }
     }
 }

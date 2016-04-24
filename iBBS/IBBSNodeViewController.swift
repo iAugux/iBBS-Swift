@@ -25,7 +25,7 @@ class IBBSNodeViewController: IBBSBaseViewController, UIGestureRecognizerDelegat
         configureView()
         configureGestureRecognizer()
         sendRequest(page)
-        postNewArticleSegue = MainStoryboard.SegueIdentifiers.postNewArticleWithNodeSegue
+        postNewArticleSegue = postNewArticleWithNodeSegue
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(reloadDataAfterPosting), name: kShouldReloadDataAfterPosting, object: nil)
         
     }
@@ -60,7 +60,7 @@ class IBBSNodeViewController: IBBSBaseViewController, UIGestureRecognizerDelegat
         if let node = nodeJSON {
             APIClient.sharedInstance.getLatestTopics(node["id"].stringValue, page: page, success: { (json) -> Void in
                 if json == nil && page != 1 {
-                    ASStatusBarToast.makeStatusBarToast(NO_MORE_DATA, interval: TIME_OF_TOAST_OF_NO_MORE_DATA)
+                    IBBSToast.make(NO_MORE_DATA, interval: TIME_OF_TOAST_OF_NO_MORE_DATA)
                 }
                 
                 if json.type == Type.Array {
@@ -77,7 +77,7 @@ class IBBSNodeViewController: IBBSBaseViewController, UIGestureRecognizerDelegat
                 }
                 }, failure: { (error) -> Void in
                     DEBUGLog(error)
-                    ASStatusBarToast.makeStatusBarToast(SERVER_ERROR, interval: TIME_OF_TOAST_OF_SERVER_ERROR)
+                    IBBSToast.make(SERVER_ERROR, interval: TIME_OF_TOAST_OF_SERVER_ERROR)
             })
         }
     }
@@ -93,7 +93,7 @@ class IBBSNodeViewController: IBBSBaseViewController, UIGestureRecognizerDelegat
     }
     
     func configureTableView(){
-        tableView.registerNib(UINib(nibName: MainStoryboard.NibIdentifiers.iBBSNodeTableViewCellName, bundle: nil ), forCellReuseIdentifier: MainStoryboard.CellIdentifiers.iBBSNodeTableViewCell)
+        tableView.registerNib(UINib(nibName: String(IBBSNodeTableViewCell), bundle: nil ), forCellReuseIdentifier: String(IBBSNodeTableViewCell))
         tableView.tableFooterView = UIView(frame: CGRectZero)
         tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -106,7 +106,7 @@ class IBBSNodeViewController: IBBSBaseViewController, UIGestureRecognizerDelegat
     }
 
     override func cornerActionButtonDidTap() {
-        performPostNewArticleSegue(segueIdentifier: MainStoryboard.SegueIdentifiers.postNewArticleWithNodeSegue)
+        performPostNewArticleSegue(segueIdentifier: postNewArticleWithNodeSegue)
     }
     
     
@@ -114,22 +114,15 @@ class IBBSNodeViewController: IBBSBaseViewController, UIGestureRecognizerDelegat
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if datasource != nil {
-            //            DEBUGLog(datasource)
-            
             return datasource.count
-            
         }
         return 0
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        if let cell = tableView.dequeueReusableCellWithIdentifier(MainStoryboard.CellIdentifiers.iBBSNodeTableViewCell) as? IBBSNodeTableViewCell {
+        if let cell = tableView.dequeueReusableCellWithIdentifier(String(IBBSNodeTableViewCell)) as? IBBSNodeTableViewCell {
             let json = datasource[indexPath.row]
-            DEBUGLog("****************")
-            debugPrint(json)
-            DEBUGLog("****************")
-            DEBUGLog("****************")
             cell.loadDataToCell(json)
             return cell
         }
@@ -181,13 +174,9 @@ extension IBBSNodeViewController {
             DEBUGLog(self.page)
             
             self.sendRequest(self.page)
-            let delayInSeconds: Double = 1.0
-            let delta = Int64(Double(NSEC_PER_SEC) * delayInSeconds)
-            let popTime:dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW,delta)
-            dispatch_after(popTime, dispatch_get_main_queue(), {
-                //                tableView.reloadData()
+
+            executeAfterDelay(1.0, completion: {
                 self.tableView.footerEndRefreshing()
-                
             })
         })
     }

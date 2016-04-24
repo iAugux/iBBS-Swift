@@ -37,29 +37,34 @@ class DraggableView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.setupView()
-        self.frame = CGRectMake(16, 50, UIScreen.screenWidth() - 32, UIScreen.screenHeight() - 80)
         self.backgroundColor = UIColor.randomColor()
 
         panGestureRecognizer = PanDirectionGestureRecognizer(direction: .Horizontal, target: self, action: #selector(DraggableView.beingDragged(_:)))
 
         self.addGestureRecognizer(panGestureRecognizer)
 
-        avatar = UIImageView(frame: CGRectMake(self.frame.size.width / 2 - 25, 8 , 50, 50))
+        avatar = UIImageView()
         avatar.backgroundColor = UIColor.randomColor()
         avatar.clipsToBounds = true
         avatar.layer.cornerRadius = 25.0
-        avatar.layer.borderWidth = 0.1
-        avatar.layer.borderColor = UIColor.blackColor().CGColor
         avatar.contentMode = UIViewContentMode.ScaleToFill
-        self.addSubview(avatar)
+        addSubview(avatar)
+        avatar.snp_makeConstraints { (make) in
+            make.width.height.equalTo(50)
+            make.top.equalTo(8)
+            make.centerX.equalTo(0)
+        }
         
-        content = UITextView(frame: CGRectMake(8, 63, self.frame.size.width - 16, self.frame.size.height - 71))
+        content = UITextView()
         content.textAlignment = NSTextAlignment.Center
         content.font = UIFont.systemFontOfSize(17.0)
         content.editable = false
         content.backgroundColor = UIColor.clearColor()
         content.textColor = UIColor.blackColor()
-        self.addSubview(content)
+        addSubview(content)
+        content.snp_makeConstraints { (make) in
+            make.edges.equalTo(UIEdgeInsetsMake(63, 8, -16, -8))
+        }
         
         xFromCenter = 0
         yFromCenter = 0

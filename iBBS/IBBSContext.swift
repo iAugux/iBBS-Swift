@@ -14,6 +14,7 @@ import UIKit
 import SwiftyJSON
 
 class IBBSContext {
+    
     static let sharedInstance = IBBSContext()
     
     private init(){}
@@ -35,7 +36,7 @@ class IBBSContext {
                     
                 } else {
                     let msg = json["msg"].stringValue
-                    ASStatusBarToast.makeStatusBarToast(msg, interval: TIME_OF_TOAST_OF_TOKEN_ILLEGAL)
+                    IBBSToast.make(msg, interval: TIME_OF_TOAST_OF_TOKEN_ILLEGAL)
 
                     completionHandler(isTokenLegal: false)
                     
@@ -69,11 +70,12 @@ class IBBSContext {
         let okAction = UIAlertAction(title: BUTTON_OK, style: .Default) { (action: UIAlertAction) -> Void in
             let encryptedPasswd = password.text?.MD5()
             APIClient.sharedInstance.userLogin(username.text!, passwd: encryptedPasswd!, success: { (json) -> Void in
-                debugPrint(json)
+                
+                let model = IBBSLoginModel(json: json)
+                
                 // something wrong , alert!!
-                if json["code"].intValue == 0 {
-                    let msg = json["msg"].stringValue
-                    let alert = UIAlertController(title: ERROR_MESSAGE, message: msg, preferredStyle: UIAlertControllerStyle.Alert)
+                if model.code == 0 {
+                    let alert = UIAlertController(title: ERROR_MESSAGE, message: model.message, preferredStyle: UIAlertControllerStyle.Alert)
                     let cancelAction = UIAlertAction(title: TRY_AGAIN, style: .Cancel, handler: { (_) -> Void in
                         self.login(cancelled: nil, completion: nil)
                         alertVC.dismissViewControllerAnimated(true , completion: nil)
@@ -128,7 +130,6 @@ class IBBSContext {
     
     
     func saveLoginData(data: AnyObject) {
-        DEBUGLog("----\(data)-----")
         let userDefaults = NSUserDefaults.standardUserDefaults()
         userDefaults.setObject(NSKeyedArchiver.archivedDataWithRootObject(data), forKey: kLoginFeedbackJson)
         userDefaults.synchronize()

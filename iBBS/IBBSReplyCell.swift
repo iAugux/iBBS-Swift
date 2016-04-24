@@ -35,13 +35,14 @@ class IBBSReplyCell: UITableViewCell {
     }
     
     func loadDataToCell(json: JSON) {
-        let imageUrl = NSURL(string: json["avatar"].stringValue)
-        avatarImageView.kf_setImageWithURL(imageUrl!, placeholderImage: AVATAR_PLACEHOLDER_IMAGE)
-        usernameLabel.text = json["username"].stringValue
-        let data = json["comment_content"].stringValue
-        DEBUGLog(data)
+        
+        let model = IBBSReplyMessageModel(json: json)
+        
+        avatarImageView.kf_setImageWithURL(model.avatarUrl, placeholderImage: AVATAR_PLACEHOLDER_IMAGE)
+        
+        usernameLabel.text = model.username
 
-        replyContent.ausAttributedText(data)
+        replyContent.ausAttributedText(model.content)
         replyContent.ausReturnFrameSizeAfterResizingTextView()
     }
     

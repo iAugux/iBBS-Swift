@@ -10,6 +10,8 @@
 //  Copyright © 2015 iAugus. All rights reserved.
 //
 
+import UIKit
+
 
 let kThemeDidChangeNotification                    = "kThemeDidChangeNotification"
 let kShouldHideCornerActionButton                  = "kShouldHideCornerActionButton"

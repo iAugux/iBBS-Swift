@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9058" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9048"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
         <!--Notification View Controller-->
         <scene sceneID="w1N-Lk-YOd">
             <objects>
-                <viewController storyboardIdentifier="iBBSNotificationViewController" id="jdL-1m-2ao" customClass="IBBSNotificationViewController" customModule="iBBS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="IBBSNotificationViewController" id="jdL-1m-2ao" customClass="IBBSNotificationViewController" customModule="iBBS" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="DQW-Uq-2Ku"/>
                         <viewControllerLayoutGuide type="bottom" id="2VI-1t-vX1"/>
@@ -16,7 +16,6 @@
                     <view key="view" contentMode="scaleToFill" id="7cQ-rU-R5D">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <animations/>
                         <color key="backgroundColor" red="1" green="0.87988919019699097" blue="0.16853547096252441" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                 </viewController>
@@ -27,7 +26,7 @@
         <!--Favorite View Controller-->
         <scene sceneID="jPC-fj-Efb">
             <objects>
-                <viewController storyboardIdentifier="iBBSFavoriteViewController" id="bpw-dv-2pa" customClass="IBBSFavoriteViewController" customModule="iBBS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="IBBSFavoriteViewController" id="bpw-dv-2pa" customClass="IBBSFavoriteViewController" customModule="iBBS" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="sN9-Q6-gmy"/>
                         <viewControllerLayoutGuide type="bottom" id="5Uu-Kc-Yol"/>
@@ -35,7 +34,6 @@
                     <view key="view" contentMode="scaleToFill" id="7r5-Yf-ecb">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <animations/>
                         <color key="backgroundColor" red="0.85442942380905151" green="0.21830189228057861" blue="0.1714787483215332" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <navigationItem key="navigationItem" id="C9d-ZH-K9O"/>
@@ -47,7 +45,7 @@
         <!--Profile View Controller-->
         <scene sceneID="5de-AB-ecK">
             <objects>
-                <viewController storyboardIdentifier="iBBSProfileViewController" id="8tZ-lu-iPY" customClass="IBBSProfileViewController" customModule="iBBS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="IBBSProfileViewController" id="8tZ-lu-iPY" customClass="IBBSProfileViewController" customModule="iBBS" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="c0U-Ck-Cjm"/>
                         <viewControllerLayoutGuide type="bottom" id="xKR-Vf-ZeA"/>
@@ -55,7 +53,6 @@
                     <view key="view" contentMode="scaleToFill" id="vW0-4S-6g2">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="FIm-xn-50T"/>
@@ -67,7 +64,7 @@
         <!--Setting View Controller-->
         <scene sceneID="kcf-oA-Mjr">
             <objects>
-                <viewController storyboardIdentifier="iBBSSettingViewController" id="8Mz-nS-vDR" customClass="IBBSSettingViewController" customModule="iBBS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="IBBSSettingViewController" id="8Mz-nS-vDR" customClass="IBBSSettingViewController" customModule="iBBS" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="mp1-zd-GOW"/>
                         <viewControllerLayoutGuide type="bottom" id="gnE-M8-x5h"/>
@@ -75,7 +72,6 @@
                     <view key="view" contentMode="scaleToFill" id="6D0-jn-mE1">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="wXR-zN-TN1"/>

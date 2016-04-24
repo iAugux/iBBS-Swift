@@ -42,13 +42,17 @@ class IBBSTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
-    func loadDataToCell(json: JSON){
-        let avatarUrl                        = NSURL(string: json["avatar"].stringValue)
-        userProfireImage.kf_setImageWithURL(avatarUrl!, placeholderImage: AVATAR_PLACEHOLDER_IMAGE)
-        topicLabel?.text                = json["title"].stringValue
-        userName.text                   = json["username"].stringValue
-        nodeName.text                   = json["board"].stringValue
-        postTime.text                   = json["post_time"].stringValue
+    func loadDataToCell(json: JSON) {
+        
+        let model = IBBSTopicListModel(json: json)
+        
+        userProfireImage.kf_setImageWithURL(model.avatarUrl, placeholderImage: AVATAR_PLACEHOLDER_IMAGE)
+        userProfireImage.userId = model.username
+        
+        topicLabel.text = model.title
+        userName.text   = model.username
+        nodeName.text   = model.board
+        postTime.text   = model.postTime
     }
 
 }
