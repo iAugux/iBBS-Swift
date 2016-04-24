@@ -1,13 +1,13 @@
 PODS:
-  - Alamofire (2.0.2)
+  - Alamofire (3.3.1)
   - GearRefreshControl (0.3.0)
   - Kingfisher (1.9.3)
   - SnapKit (0.20.0)
   - SwiftyJSON (2.3.2)
 
 DEPENDENCIES:
-  - Alamofire (~> 2.0)
-  - GearRefreshControl
+  - Alamofire (~> 3.3)
+  - GearRefreshControl (~> 0.3)
   - Kingfisher (~> 1.6)
   - SnapKit
   - SwiftyJSON (from `https://github.com/SwiftyJSON/SwiftyJSON.git`)
@@ -22,7 +22,7 @@ CHECKOUT OPTIONS:
     :git: https://github.com/SwiftyJSON/SwiftyJSON.git
 
 SPEC CHECKSUMS:
-  Alamofire: 8edbab00802a752bb5240cc2abe70e7e881488ad
+  Alamofire: 369bc67b6f5ac33ded3648d7bd21c5bfb91c2ecc
   GearRefreshControl: c7b1abac8a298f180df48c1bc450469e98840c46
   Kingfisher: 9e37d2a78a082dc123bfe8a16de65de85518daae
   SnapKit: 5fce3c1bbbf1fbd31de9aa92f33eb9fa03f15650
