@@ -26,18 +26,18 @@ class IBBSDetailViewController: IBBSBaseViewController, UIGestureRecognizerDeleg
         configureHeaderView()
         configureTableView()
         configureGesture()
-//        configureCornerCommentButton()
+        //        configureCornerCommentButton()
         
-//        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Comment", style: .Plain, target: self, action: "commentAction")
+        //        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Comment", style: .Plain, target: self, action: "commentAction")
     }
     
-//    override func viewDidAppear(animated: Bool) {
-//        super.viewDidAppear(animated)
-//        
-//        // TODO: - There is a bug! App will crash sometimes when set hidesBarsOnSwipe to true, but I don't know why
-//        navigationController?.navigationBar.hidden = false
-//        navigationController?.hidesBarsOnSwipe = true
-//    }
+    //    override func viewDidAppear(animated: Bool) {
+    //        super.viewDidAppear(animated)
+    //
+    //        // TODO: - There is a bug! App will crash sometimes when set hidesBarsOnSwipe to true, but I don't know why
+    //        navigationController?.navigationBar.hidden = false
+    //        navigationController?.hidesBarsOnSwipe = true
+    //    }
     
     
     
@@ -47,23 +47,27 @@ class IBBSDetailViewController: IBBSBaseViewController, UIGestureRecognizerDeleg
     }
     
     override func cornerActionButtonDidTap() {
+        
         DEBUGLog("commenting...")
-        IBBSContext.sharedInstance.isTokenLegal(){ (isTokenLegal) -> Void in
-            if isTokenLegal{
-                let post_id = self.json["id"].stringValue
-
-                if let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("iBBSCommentViewController") as? IBBSCommentViewController{
-                    vc.post_id = post_id
-                    let nav = UINavigationController(rootViewController: vc)
-                    self.presentViewController(nav, animated: true, completion: nil)
-                }
-                
-            }else {
-                IBBSContext.sharedInstance.login(cancelled: nil, completion: {
-                    self.cornerActionButtonDidTap()
-                })
-            }
-
+        
+        let key = IBBSLoginKey()
+        
+        if key.isValid {
+            
+            guard let vc = MainStoryboard.instantiateViewControllerWithIdentifier(String(IBBSCommentViewController)) as? IBBSCommentViewController else { return }
+            
+            let model = IBBSTopicModel(json: json)
+            vc.post_id = model.id
+            
+            let nav = UINavigationController(rootViewController: vc)
+            presentViewController(nav, animated: true, completion: nil)
+            
+        } else {
+            
+            IBBSContext.sharedInstance.login(cancelled: nil, completion: {
+                self.cornerActionButtonDidTap()
+            })
+            
         }
         
     }
@@ -122,9 +126,9 @@ class IBBSDetailViewController: IBBSBaseViewController, UIGestureRecognizerDeleg
                     debugPrint(self.datasource)
                 }
             }
-            }) { (error) -> Void in
-                DEBUGLog(error)
-                IBBSToast.make(SERVER_ERROR, interval: TIME_OF_TOAST_OF_SERVER_ERROR)                
+        }) { (error) -> Void in
+            DEBUGLog(error)
+            IBBSToast.make(SERVER_ERROR, interval: TIME_OF_TOAST_OF_SERVER_ERROR)
         }
     }
     
@@ -252,7 +256,7 @@ extension IBBSDetailViewController {
             DEBUGLog(self.page)
             
             self.sendRequest(self.page)
-
+            
             executeAfterDelay(1.0, completion: {
                 self.tableView.footerEndRefreshing()
             })

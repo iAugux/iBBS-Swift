@@ -74,45 +74,35 @@ class IBBSMessagesViewController: IBBSBaseViewController {
     }
     
     func sendRequest() {
-        IBBSContext.sharedInstance.isTokenLegal(){ (isTokenLegal) -> Void in
-            if isTokenLegal {
-                let loginData = IBBSContext.sharedInstance.getLoginData()
-                let userID = loginData?["uid"].stringValue
-                let token = loginData?["token"].stringValue
-                
-                APIClient.sharedInstance.getMessages(userID!, token: token!, success: { (json ) -> Void in
-                    debugPrint(json)
-                    
-                    self.messageArray = json.arrayValue
-                    self.tableView.reloadData()
-                    
-                    }, failure: { (error ) -> Void in
-                        DEBUGLog(error)
-                        IBBSToast.make(SERVER_ERROR, delay: 0, interval: TIME_OF_TOAST_OF_SERVER_ERROR)
-                })
-            } else {
-                
-                self.presentLoginViewControllerIfNotLogin(alertMessage: LOGIN_TO_READ_MESSAGE, completion: { () -> Void in
-                    self.automaticPullingDownToRefresh()
-                    self.sendRequest()
-                })
-            }
-            
-            
+        
+        let key = IBBSLoginKey()
+        
+        guard key.isValid else {
+            presentLoginViewControllerIfNotLogin(alertMessage: LOGIN_TO_READ_MESSAGE, completion: { () -> Void in
+                self.automaticPullingDownToRefresh()
+                self.sendRequest()
+            })
+            return
         }
         
+        APIClient.sharedInstance.getMessages(key.uid, token: key.token, success: { (json ) -> Void in
+            
+            self.messageArray = json.arrayValue
+            self.tableView.reloadData()
+            
+            }, failure: { (error ) -> Void in
+                DEBUGLog(error)
+                IBBSToast.make(SERVER_ERROR, delay: 0, interval: TIME_OF_TOAST_OF_SERVER_ERROR)
+        })
     }
     
     override func updateTheme() {
         super.updateTheme()
-        if let cells = tableView?.visibleCells as? [IBBSMessageTableViewCell] {
-            for index in 0 ..< cells.count {
-                let cell = cells[index]
-                
-                if cell.isRead {
-                    cell.isMessageRead?.changeColorForImageOfImageView(CUSTOM_THEME_COLOR.lighterColor(0.7))
-                }
-            }
+        
+        guard let cells = tableView?.visibleCells as? [IBBSMessageTableViewCell] else { return }
+        
+        _ = cells.map() {
+            if $0.isRead { $0.isMessageRead?.changeColorForImageOfImageView(CUSTOM_THEME_COLOR.lighterColor(0.7)) }
         }
     }
     
@@ -154,37 +144,41 @@ class IBBSMessagesViewController: IBBSBaseViewController {
     }
     
     private func getMessageContent(messageID: AnyObject, indexPath: NSIndexPath, completion: (() -> Void)?) {
-        if let loginData = IBBSContext.sharedInstance.getLoginData() {
-            let userID = loginData["uid"].stringValue
-            let token = loginData["token"].stringValue
+        
+        let key = IBBSLoginKey()
+        
+        guard key.isValid else { return }
+        
+        APIClient.sharedInstance.readMessage(key.uid, token: key.token, msgID: messageID, success: { (json) -> Void in
             
-            APIClient.sharedInstance.readMessage(userID, token: token, msgID: messageID, success: { (json ) -> Void in
-                debugPrint(json)
-                self.messageContent = json
-                debugPrint(self.messageContent)
-                if json["code"].intValue == 1 {
-                    // read successfully
-                    if let cell = self.tableView.cellForRowAtIndexPath(indexPath) as? IBBSMessageTableViewCell {
-                        cell.isMessageRead.image = UIImage(named: "message_have_read")
-                    }
-                    if let completionHandler = completion {
-                        completionHandler()
-                    }
-                }
-            }) { (error ) -> Void in
-                DEBUGLog(error)
-            }
+            self.messageContent = json
             
+            guard IBBSModel(json: json).success else { return }
+            
+            // read successfully
+            
+            completion?()
+            
+            guard let cell = self.tableView.cellForRowAtIndexPath(indexPath) as? IBBSMessageTableViewCell else { return }
+            
+            cell.isMessageRead.image = UIImage(named: "message_have_read")
+            
+        }) { (error) -> Void in
+            DEBUGLog(error)
         }
     }
     
-    private func setMessageContent(avatarUrl: NSURL,isAdmin: Bool){
-        let content = messageContent["msg"]["content"].stringValue
-        //        let title = messageContent["title"].stringValue
-        //        let username = messageContent["msg"]["username"].stringValue
+    private func setMessageContent(avatarUrl: NSURL, isAdmin: Bool) {
+        
+        let model = IBBSReadMessageModel(json: messageContent)
+        
+        //        let title = model.title
+        //        let username = model.username
+        
         messageCard = draggableBackground.allCards[0]
-        messageCard.content.text = content
+        messageCard.content.text = model.content
         messageCard.avatar.kf_setImageWithURL(avatarUrl, placeholderImage: AVATAR_PLACEHOLDER_IMAGE)
+        
         if !isAdmin {
             messageCard.avatar.backgroundColor = UIColor.blackColor()
             messageCard.avatar.image = UIImage(named: "administrator")
@@ -251,56 +245,58 @@ extension IBBSMessagesViewController: DraggableViewDelegate {
     
     // MARK: - reply message
     private func readyToReplyMessage() {
-        if let info = IBBSContext.sharedInstance.getLoginData() {
-            let uid = info["uid"].stringValue
-            let token = info["token"].stringValue
-            let receiver_uid = currentSenderUserID
-            let title = "@\(currentSenderUsername)"
-            let content = (replyCard.content.text).stringByTrimmingCharactersInSet(NSCharacterSet(charactersInString: replyCardTextViewPlaceholder))
-            if content.utf8.count == 0 {
-                let alert = UIAlertController(title: "", message: YOU_HAVENOT_WROTE_ANYTHING, preferredStyle: .Alert)
-                let okAction = UIAlertAction(title: GOT_IT, style: .Cancel, handler: { (_) -> Void in
+        
+        let key = IBBSLoginKey()
+        
+        guard key.isValid else { return }
+        
+        let receiver_uid = currentSenderUserID
+        let title = "@\(currentSenderUsername)"
+        let content = (replyCard.content.text).stringByTrimmingCharactersInSet(NSCharacterSet(charactersInString: replyCardTextViewPlaceholder))
+        
+        guard content.utf8.count != 0 else {
+            
+            let alert = UIAlertController(title: "", message: YOU_HAVENOT_WROTE_ANYTHING, preferredStyle: .Alert)
+            let okAction = UIAlertAction(title: GOT_IT, style: .Cancel, handler: { (_) -> Void in
+                self.showReplyCardAgainIfSomethingWrong()
+            })
+            
+            alert.addAction(okAction)
+            
+            executeAfterDelay(1, completion: {
+                self.presentViewController(alert, animated: true, completion: nil)
+            })
+            
+            return
+        }
+        
+        APIClient.sharedInstance.replyMessage(key.uid, token: key.token, receiver_uid: receiver_uid, title: title, content: content, success: { (json) -> Void in
+            
+            let model = IBBSModel(json: json)
+            
+            if model.success {
+                // send successfully
+                IBBSToast.make(REPLY_SUCCESSFULLY, delay: 0, interval: TIME_OF_TOAST_OF_REPLY_SUCCESS)
+                
+            } else {
+                // failed
+                let alert = UIAlertController(title: REPLY_FAILED, message: model.message, preferredStyle: .Alert)
+                let cancelAction = UIAlertAction(title: BUTTON_CANCEL, style: .Cancel, handler: nil)
+                let continueAction = UIAlertAction(title: TRY_AGAIN, style: .Default, handler: { (_ ) -> Void in
                     self.showReplyCardAgainIfSomethingWrong()
                 })
                 
-                alert.addAction(okAction)
-
+                alert.addAction(cancelAction)
+                alert.addAction(continueAction)
+                
                 executeAfterDelay(1, completion: {
                     self.presentViewController(alert, animated: true, completion: nil)
                 })
                 
-                return
             }
-            
-            APIClient.sharedInstance.replyMessage(uid, token: token, receiver_uid: receiver_uid, title: title, content: content, success: { (json) -> Void in
-                debugPrint(json)
-                // send successfully
-                if json["code"].intValue == 1 {
-                    IBBSToast.make(REPLY_SUCCESSFULLY, delay: 0, interval: TIME_OF_TOAST_OF_REPLY_SUCCESS)
-                    
-                } else { // failed
-                    let msg = json["msg"].stringValue
-                    let alert = UIAlertController(title: REPLY_FAILED, message: msg, preferredStyle: .Alert)
-                    let cancelAction = UIAlertAction(title: BUTTON_CANCEL, style: .Cancel, handler: nil)
-                    let continueAction = UIAlertAction(title: TRY_AGAIN, style: .Default, handler: { (_ ) -> Void in
-                        DEBUGLog("try again")
-                        self.showReplyCardAgainIfSomethingWrong()
-                    })
-                    
-                    alert.addAction(cancelAction)
-                    alert.addAction(continueAction)
-
-                    executeAfterDelay(1, completion: {
-                        self.presentViewController(alert, animated: true, completion: nil)
-                    })
-                    
-                }
-                }, failure: { (error ) -> Void in
-                    DEBUGLog(error)
-            })
-            
-        }
-        
+            }, failure: { (error ) -> Void in
+                DEBUGLog(error)
+        })
     }
     
     // MARK: - configure reply card
@@ -347,7 +343,7 @@ extension IBBSMessagesViewController: DraggableViewDelegate {
                 
                 alert.addAction(continueAction)
                 alert.addAction(cancelAction)
-
+                
                 executeAfterDelay(0.5, completion: {
                     self.presentViewController(alert, animated: true, completion: nil)
                 })

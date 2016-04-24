@@ -30,6 +30,18 @@ struct IBBSMessageModel {
         isRead          = json["is_read"].intValue == 0 ? true : false
         isAdministrator = json["type"].boolValue
     }
+}
+
+
+struct IBBSReadMessageModel {
     
+    var username: String!
+    var title: String!
+    var content: String!
     
+    init(json: JSON) {
+        username = json["msg"]["username"].stringValue
+        content  = json["msg"]["content"].stringValue
+        title    = json["title"].stringValue
+    }
 }

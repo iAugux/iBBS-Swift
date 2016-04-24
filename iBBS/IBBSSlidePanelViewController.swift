@@ -87,46 +87,48 @@ class SlidePanelViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     func loginOrLogout(gesture: UIGestureRecognizer) {
-        if gesture.state == .Began {
-            
-            if IBBSContext.sharedInstance.getLoginData() == nil {
-                // login or register
-                alertToChooseLoginOrRegister()
-            } else {
-                IBBSContext.sharedInstance.isTokenLegal({ (isTokenLegal) -> Void in
-                    if isTokenLegal {
-                        // do logout
-                        IBBSContext.sharedInstance.logout(completion: {
-                            self.userProfileImage.image = AVATAR_PLACEHOLDER_IMAGE
-                        })
-                    } else {
-                        // login again
-                        let alertVC = UIAlertController(title: TOKEN_LOST_EFFECTIVENESS, message: PLEASE_LOGIN_AGAIN, preferredStyle: .Alert)
-                        let okAction = UIAlertAction(title: BUTTON_OK, style: .Default, handler: { (_) -> Void in
-                            self.delegate?.toggleLeftPanel()
-                            IBBSContext.sharedInstance.login(cancelled: {
-                                self.delegate?.removeFrontBlurView()
-                                }, completion: {
-                                    IBBSContext.sharedInstance.configureCurrentUserAvatar(self.userProfileImage)
-                                    self.delegate?.removeFrontBlurView()
-//                                    NSNotificationCenter.defaultCenter().postNotificationName(kShouldReloadDataAfterPosting, object: nil)
-                            })
-
-                        })
-                        let cancelAction = UIAlertAction(title: BUTTON_CANCEL, style: .Cancel, handler: nil)
-                        alertVC.addAction(cancelAction)
-                        alertVC.addAction(okAction)
-                        self.presentViewController(alertVC, animated: true, completion: nil)
-                        
-                    }
-                })
-            }
-           
-        }
         
+        guard gesture.state == .Began else { return }
+        
+        let key = IBBSLoginKey()
+        
+        guard !key.isValid else {
+            // logout
+            IBBSContext.sharedInstance.logout(completion: {
+                self.userProfileImage.image = AVATAR_PLACEHOLDER_IMAGE
+            })
+            return
+        }
+
+        // login or register
+        
+        if key.token == nil {
+            alertToChooseLoginOrRegister()
+            
+        } else {
+            // token invalid, login again
+            
+            let alertVC = UIAlertController(title: TOKEN_LOST_EFFECTIVENESS, message: PLEASE_LOGIN_AGAIN, preferredStyle: .Alert)
+            let okAction = UIAlertAction(title: BUTTON_OK, style: .Default, handler: { (_) -> Void in
+                self.delegate?.toggleLeftPanel()
+                IBBSContext.sharedInstance.login(cancelled: {
+                    self.delegate?.removeFrontBlurView()
+                    }, completion: {
+                        IBBSContext.sharedInstance.configureCurrentUserAvatar(self.userProfileImage)
+                        self.delegate?.removeFrontBlurView()
+                        //                                    NSNotificationCenter.defaultCenter().postNotificationName(kShouldReloadDataAfterPosting, object: nil)
+                })
+                
+            })
+            
+            let cancelAction = UIAlertAction(title: BUTTON_CANCEL, style: .Cancel, handler: nil)
+            alertVC.addAction(cancelAction)
+            alertVC.addAction(okAction)
+            self.presentViewController(alertVC, animated: true, completion: nil)
+        }
     }
     
-    func alertToChooseLoginOrRegister(){
+    func alertToChooseLoginOrRegister() {
         let alertCtrl = UIAlertController(title: "", message: REGISTER_OR_LOGIN, preferredStyle: .Alert)
         let loginAction = UIAlertAction(title: BUTTON_LOGIN, style: .Default) { (_) -> Void in
             // login
@@ -140,16 +142,12 @@ class SlidePanelViewController: UIViewController, UITableViewDataSource, UITable
 //                NSNotificationCenter.defaultCenter().postNotificationName(kShouldReloadDataAfterPosting, object: nil)
                 NSNotificationCenter.defaultCenter().postNotificationName(kJustLoggedinNotification, object: nil)
             })
-            
         }
+        
         let registerAction = UIAlertAction(title: BUTTON_REGISTER, style: .Default) { (_) -> Void in
-            let vc = self.storyboard?.instantiateViewControllerWithIdentifier("iBBSRegisterViewController") as! IBBSRegisterViewController
             
-            //            UIView.animateWithDuration(0.75, animations: { () -> Void in
-            //                UIView.setAnimationCurve(UIViewAnimationCurve.EaseInOut)
-            //                navigationController?.pushViewController(vc, animated: true)
-            //                UIView.setAnimationTransition(UIViewAnimationTransition.FlipFromRight, forView: navigationController!.view, cache: false)
-            //            })
+            guard let vc = MainStoryboard.instantiateViewControllerWithIdentifier(String(IBBSRegisterViewController)) as? IBBSRegisterViewController else { return }
+            
             self.navigationController?.pushViewController(vc, animated: true)
             self.delegate?.toggleLeftPanel()
             
@@ -157,8 +155,8 @@ class SlidePanelViewController: UIViewController, UITableViewDataSource, UITable
             executeAfterDelay(1, completion: {
                 self.delegate?.removeFrontBlurView()
             })
-            
         }
+        
         alertCtrl.addAction(loginAction)
         alertCtrl.addAction(registerAction)
         presentViewController(alertCtrl, animated: true, completion: nil)
@@ -213,6 +211,7 @@ class SlidePanelViewController: UIViewController, UITableViewDataSource, UITable
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 4
     }
+    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let cell = UITableViewCell()
@@ -223,7 +222,6 @@ class SlidePanelViewController: UIViewController, UITableViewDataSource, UITable
         cell.selectionStyle = UITableViewCellSelectionStyle.None
         cell.textLabel?.text = cellTitleArray[indexPath.row]
         return cell
-        
     }
     
     
@@ -256,7 +254,9 @@ class SlidePanelViewController: UIViewController, UITableViewDataSource, UITable
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 
         let slidePanelStoryboard = UIStoryboard(name: "IBBSSlidePanel", bundle: NSBundle.mainBundle())
+        
         var destinationVC: UIViewController!
+        
         switch indexPath.row {
         case 0:
             destinationVC = slidePanelStoryboard.instantiateViewControllerWithIdentifier(String(IBBSNotificationViewController))

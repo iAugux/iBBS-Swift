@@ -13,6 +13,9 @@
 
 import UIKit
 
+
+let MainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+
 @UIApplicationMain
 
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -34,7 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         application.statusBarStyle = .LightContent
         let containerViewController = ContainerViewController()
         
-        let homeNav = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("homeNav") as! UINavigationController
+        let homeNav = MainStoryboard.instantiateViewControllerWithIdentifier(String(RootNavigationController)) as! UINavigationController
         homeNav.viewControllers[0] = containerViewController
         homeNav.setNavigationBarHidden(true, animated: false)
         window?.rootViewController = homeNav

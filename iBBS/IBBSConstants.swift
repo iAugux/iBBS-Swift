@@ -49,8 +49,8 @@ let SWIPE_LEFT_TO_CANCEL_RIGHT_TO_CONTINUE         = true
 let AVATAR_PLACEHOLDER_IMAGE = UIImage(named: "avatar_placeholder")
 
 
-@objc class  ConstantsForObjc: NSObject {
-    class func customThemeColorForObjc() -> UIColor {
+@objc class ConstantsForObjc: NSObject {
+    class var customThemeColorForObjc: UIColor {
         return CUSTOM_THEME_COLOR
     }
     

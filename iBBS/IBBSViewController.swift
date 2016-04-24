@@ -87,14 +87,12 @@ class IBBSViewController: IBBSBaseViewController {
     func configureNavifationItemTitle(){
         
         navigationItem.title = "iBBS"
-        IBBSContext.sharedInstance.isTokenLegal(){ (isTokenLegal) -> Void in
-            if isTokenLegal {
-                if let data = IBBSContext.sharedInstance.getLoginData() {
-                    let username = data["username"].stringValue
-                    self.navigationItem.title = username
-                }
-            }
-        }
+        
+        let key = IBBSLoginKey()
+        
+        guard key.isValid && key.username != nil else { return }
+        
+        self.navigationItem.title = key.username
     }
     
     func configureTableView(){

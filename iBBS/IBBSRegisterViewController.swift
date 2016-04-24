@@ -138,14 +138,19 @@ class IBBSRegisterViewController: UIViewController, UITextFieldDelegate {
         }
         
         // everything is fine, ready to go
+        
         let encryptedPasswd = (passwd as! String).MD5()
+        
         APIClient.sharedInstance.userRegister(email!, username: username!, passwd: encryptedPasswd, success: { (json) -> Void in
-            debugPrint(json)
-            if json["code"].intValue == 1 {
+
+            let model = IBBSModel(json: json)
+            
+            if model.success {
+                
                 // register successfully!
                 APIClient.sharedInstance.userLogin(username!, passwd: encryptedPasswd, success: { (json) -> Void in
 
-                    IBBSContext.sharedInstance.saveLoginData(json.object)
+                    IBBSLoginKey.saveTokenJson(json.object)
                     
                     IBBSToast.make(REGISTER_SUCESSFULLY, interval: TIME_OF_TOAST_OF_REGISTER_SUCCESS)
                     
@@ -159,9 +164,9 @@ class IBBSRegisterViewController: UIViewController, UITextFieldDelegate {
                 })
                 
             } else {
+                
                 // failed
-                let errorInfo = json["msg"].stringValue
-                let alertCtl = UIAlertController(title: REGISTER_FAILED, message: errorInfo, preferredStyle: .Alert)
+                let alertCtl = UIAlertController(title: REGISTER_FAILED, message: model.message, preferredStyle: .Alert)
                 let cancelAction = UIAlertAction(title: TRY_AGAIN, style: .Cancel, handler: nil)
                 alertCtl.addAction(cancelAction)
                 

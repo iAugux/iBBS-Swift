@@ -10,7 +10,7 @@
         <!--View Controller-->
         <scene sceneID="24R-xF-9SW">
             <objects>
-                <viewController storyboardIdentifier="iBBSViewController" id="T5a-bP-HpV" customClass="IBBSViewController" customModule="iBBS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="IBBSViewController" id="T5a-bP-HpV" customClass="IBBSViewController" customModule="iBBS" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="Due-VP-skg">
                         <barButtonItem key="rightBarButtonItem" systemItem="compose" id="Mdl-mj-oIb">
                             <connections>
@@ -30,7 +30,7 @@
         <!--Nodes Collection View Controller-->
         <scene sceneID="j1x-5G-arI">
             <objects>
-                <collectionViewController storyboardIdentifier="iBBSNodesCollectionViewController" id="VIq-t0-wMI" customClass="IBBSNodesCollectionViewController" customModule="iBBS" customModuleProvider="target" sceneMemberID="viewController">
+                <collectionViewController storyboardIdentifier="IBBSNodesCollectionViewController" id="VIq-t0-wMI" customClass="IBBSNodesCollectionViewController" customModule="iBBS" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="43V-fM-VFm">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -109,7 +109,7 @@
         <!--Comment View Controller-->
         <scene sceneID="7bb-FX-cBs">
             <objects>
-                <viewController storyboardIdentifier="iBBSCommentViewController" id="r06-nq-ZZe" customClass="IBBSCommentViewController" customModule="iBBS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="IBBSCommentViewController" id="r06-nq-ZZe" customClass="IBBSCommentViewController" customModule="iBBS" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="uBh-ow-w7M"/>
                         <viewControllerLayoutGuide type="bottom" id="o1K-ZM-EvB"/>
@@ -179,7 +179,7 @@
         <!--Register View Controller-->
         <scene sceneID="hdM-LY-5fi">
             <objects>
-                <viewController storyboardIdentifier="iBBSRegisterViewController" id="eAR-XS-65E" customClass="IBBSRegisterViewController" customModule="iBBS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="IBBSRegisterViewController" id="eAR-XS-65E" customClass="IBBSRegisterViewController" customModule="iBBS" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="uSk-tG-0gm"/>
                         <viewControllerLayoutGuide type="bottom" id="r20-HU-2sf"/>
@@ -328,7 +328,7 @@
         <!--Slide Panel View Controller-->
         <scene sceneID="9ha-dd-P5K">
             <objects>
-                <viewController storyboardIdentifier="leftViewController" id="t8S-nX-2TZ" customClass="SlidePanelViewController" customModule="iBBS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SlidePanelViewController" id="t8S-nX-2TZ" customClass="SlidePanelViewController" customModule="iBBS" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="k9g-qY-IxG"/>
                         <viewControllerLayoutGuide type="bottom" id="oRa-3o-H2b"/>
@@ -397,7 +397,7 @@
         <!--Root Navigation Controller-->
         <scene sceneID="8wT-y8-xiN">
             <objects>
-                <navigationController storyboardIdentifier="homeNav" id="Kxb-TR-yzk" customClass="RootNavigationController" customModule="iBBS" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="RootNavigationController" id="Kxb-TR-yzk" customClass="RootNavigationController" customModule="iBBS" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="07s-Ez-oq2">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -413,7 +413,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="Tn4-oV-Qin">
             <objects>
-                <tabBarController storyboardIdentifier="tabBarController" id="ljr-Zy-mv6" customClass="TabBarController" customModule="iBBS" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="TabBarController" id="ljr-Zy-mv6" customClass="TabBarController" customModule="iBBS" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="z2r-xK-xAH"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="Rf2-7f-Zhn">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
@@ -471,7 +471,7 @@
         <!--Post View Controller-->
         <scene sceneID="JHA-DO-euF">
             <objects>
-                <viewController storyboardIdentifier="iBBSPostViewController" id="Eru-Uo-yiR" customClass="IBBSPostViewController" customModule="iBBS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="IBBSPostViewController" id="Eru-Uo-yiR" customClass="IBBSPostViewController" customModule="iBBS" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Aq4-67-TgH"/>
                         <viewControllerLayoutGuide type="bottom" id="8fe-fm-hDw"/>
@@ -674,7 +674,7 @@
         <!--Messages View Controller-->
         <scene sceneID="cC4-hr-PCA">
             <objects>
-                <tableViewController storyboardIdentifier="iBBSMessagesViewController" id="QSz-tT-99V" customClass="IBBSMessagesViewController" customModule="iBBS" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="IBBSMessagesViewController" id="QSz-tT-99V" customClass="IBBSMessagesViewController" customModule="iBBS" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="2ap-GM-ywg"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wAl-13-j3D" userLabel="First Responder" sceneMemberID="firstResponder"/>

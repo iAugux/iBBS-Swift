@@ -17,41 +17,12 @@ class IBBSContext {
     
     static let sharedInstance = IBBSContext()
     
-    private init(){}
-    
     private let kNodesId = "kNodes"
     private let kLoginFeedbackJson = "kLoginFeedbackJson"
 
     
-    func isTokenLegal(completionHandler: ((isTokenLegal: Bool) -> Void)) {
-
-        if let json = IBBSContext.sharedInstance.getLoginData() {
-            let uid = json["uid"].stringValue
-            let token = json["token"].stringValue
-            APIClient.sharedInstance.isTokenLegal(uid, token: token, success: { (json) -> Void in
-                debugPrint(json)
-                
-                if json["code"].intValue == 1 {
-                    completionHandler(isTokenLegal: true)
-                    
-                } else {
-                    let msg = json["msg"].stringValue
-                    IBBSToast.make(msg, interval: TIME_OF_TOAST_OF_TOKEN_ILLEGAL)
-
-                    completionHandler(isTokenLegal: false)
-                    
-                }
-                }, failure: { (error) -> Void in
-                    DEBUGLog(error)
-                    completionHandler(isTokenLegal: false)
-            })
-        } else {
-            completionHandler(isTokenLegal: false)
-        }
-    }
-    
-    
     func login(cancelled cancelled: (() -> Void)?, completion: (() -> Void)?) {
+        
         var username, password: UITextField!
       
         let alertVC = UIAlertController(title: BUTTON_LOGIN, message: INSERT_UID_AND_PASSWD, preferredStyle: .Alert)
@@ -68,7 +39,9 @@ class IBBSContext {
         }
         
         let okAction = UIAlertAction(title: BUTTON_OK, style: .Default) { (action: UIAlertAction) -> Void in
+            
             let encryptedPasswd = password.text?.MD5()
+            
             APIClient.sharedInstance.userLogin(username.text!, passwd: encryptedPasswd!, success: { (json) -> Void in
                 
                 let model = IBBSLoginModel(json: json)
@@ -83,12 +56,12 @@ class IBBSContext {
                     
                     alert.addAction(cancelAction)
                     UIApplication.topMostViewController?.presentViewController(alert, animated: true, completion: nil)
+                    
                 } else {
                     // success , keep token and other info
-                    IBBSContext.sharedInstance.saveLoginData(json.object)
-                    if let completionHandler = completion {
-                        completionHandler()
-                    }
+                    IBBSLoginKey.saveTokenJson(json.object)
+
+                    completion?()
                 }
                 
                 
@@ -96,12 +69,12 @@ class IBBSContext {
                     DEBUGLog(error)
             }
         }
+        
         let cancelAction = UIAlertAction(title: BUTTON_CANCEL, style: .Cancel) { (_) -> Void in
             alertVC.dismissViewControllerAnimated(true , completion: nil)
-            if let cancelHandler = cancelled {
-                cancelHandler()
-            }
+            cancelled?()
         }
+        
         alertVC.addAction(okAction)
         alertVC.addAction(cancelAction)
         UIApplication.topMostViewController?.presentViewController(alertVC, animated: true, completion: nil)
@@ -109,7 +82,7 @@ class IBBSContext {
        
     }
 
-    func logout(completion completion: (() -> Void)?){
+    func logout(completion completion: (() -> Void)?) {
         
         let alertController = UIAlertController(title: "", message: SURE_TO_LOGOUT, preferredStyle: .Alert)
         let cancelAction = UIAlertAction(title: BUTTON_CANCEL, style: .Default, handler: nil)
@@ -118,31 +91,12 @@ class IBBSContext {
             let userDefaults = NSUserDefaults.standardUserDefaults()
             userDefaults.removeObjectForKey(self.kLoginFeedbackJson)
             
-            if let completionHandler = completion {
-                completionHandler()
-            }
+            completion?()
         }
         
         alertController.addAction(cancelAction)
         alertController.addAction(okAction)
         UIApplication.topMostViewController?.presentViewController(alertController, animated: true, completion: nil)
-    }
-    
-    
-    func saveLoginData(data: AnyObject) {
-        let userDefaults = NSUserDefaults.standardUserDefaults()
-        userDefaults.setObject(NSKeyedArchiver.archivedDataWithRootObject(data), forKey: kLoginFeedbackJson)
-        userDefaults.synchronize()
-    }
-    
-    func getLoginData() -> JSON? {
-        let userDefaults = NSUserDefaults.standardUserDefaults()
-        if let data = userDefaults.objectForKey(kLoginFeedbackJson) {
-            let json = NSKeyedUnarchiver.unarchiveObjectWithData(data as! NSData)
-            return JSON(json!)
-        }
-        
-        return nil
     }
     
     func saveNodes(nodes: AnyObject) {
@@ -162,19 +116,16 @@ class IBBSContext {
         return nil
     }
     
-    func configureCurrentUserAvatar(imageView: UIImageView){
-        let data = IBBSContext.sharedInstance.getLoginData()
-        if let json = data {
-            let avatar = json["avatar"].stringValue
-            if avatar.utf16.count == 0 {
-                DEBUGLog("there is no avatar, set a image holder")
-                imageView.image = AVATAR_PLACEHOLDER_IMAGE
-            } else {
-                if let url = NSURL(string: avatar as String) {
-                    imageView.kf_setImageWithURL(url, placeholderImage: AVATAR_PLACEHOLDER_IMAGE)
-                }
-            }
+    func configureCurrentUserAvatar(imageView: UIImageView) {
+        
+        let json = IBBSLoginKey()
+        
+        guard let avatar = json.avatar else {
+            imageView.image = AVATAR_PLACEHOLDER_IMAGE
+            return
         }
+        
+        imageView.kf_setImageWithURL(avatar, placeholderImage: AVATAR_PLACEHOLDER_IMAGE)
     }
     
 }

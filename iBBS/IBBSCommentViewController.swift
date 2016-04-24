@@ -67,36 +67,36 @@ class IBBSCommentViewController: IBBSEditorBaseViewController {
         }
         
         let content = getHTML()
-
-        if let loginData = IBBSContext.sharedInstance.getLoginData(){
-            let userID = loginData["uid"].stringValue
-            let token = loginData["token"].stringValue
-            
-            APIClient.sharedInstance.comment(userID , postID: post_id, content: content, token: token, success: { (json ) -> Void in
-                debugPrint(json)
-                let msg = json["msg"].stringValue
-                if json["code"].intValue == 1 { //comment successfully
-                    
-                    IBBSToast.make(msg, interval: TIME_OF_TOAST_OF_COMMENT_SUCCESS)
-
-                    executeAfterDelay(0.3, completion: {
-                        self.dismissViewControllerAnimated(true , completion: nil)
-                    })
-                    
-                } else {
-                    IBBSToast.make(msg, interval: TIME_OF_TOAST_OF_COMMENT_FAILED)
-
-                    executeAfterDelay(0.5, completion: {
-                        self.focusTextEditor()
-                    })
-                    
-                }
-                }) { (error ) -> Void in
-                    DEBUGLog(error)
-                    IBBSToast.make(SERVER_ERROR, interval: TIME_OF_TOAST_OF_SERVER_ERROR)
-            }
-        }
         
+        let key = IBBSLoginKey()
+        
+        guard key.isValid else { return }
+                
+        APIClient.sharedInstance.comment(key.uid, postID: post_id, content: content, token: key.token, success: { (json) -> Void in
+
+            let model = IBBSModel(json: json)
+
+            if model.success { //comment successfully
+                
+                IBBSToast.make(model.message, interval: TIME_OF_TOAST_OF_COMMENT_SUCCESS)
+                
+                executeAfterDelay(0.3, completion: {
+                    self.dismissViewControllerAnimated(true , completion: nil)
+                })
+                
+            } else {
+                IBBSToast.make(model.message, interval: TIME_OF_TOAST_OF_COMMENT_FAILED)
+                
+                executeAfterDelay(0.5, completion: {
+                    self.focusTextEditor()
+                })
+            }
+            
+        }) { (error ) -> Void in
+            
+            DEBUGLog(error)
+            IBBSToast.make(SERVER_ERROR, interval: TIME_OF_TOAST_OF_SERVER_ERROR)
+        }
     }
     
     func configureAlertController() {

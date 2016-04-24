@@ -67,7 +67,7 @@ class IBBSEditingViewController: UIViewController, UITextViewDelegate {
        
         contentsArrayOfPostArticle = NSMutableDictionary()
         // set default node ID
-        contentsArrayOfPostArticle.setValue(defaultSelectedRow, forKey: nodeID)
+        contentsArrayOfPostArticle.setObject(defaultSelectedRow, forKey: nodeID)
  
         contentTextView.becomeFirstResponder()
     }
@@ -100,11 +100,14 @@ class IBBSEditingViewController: UIViewController, UITextViewDelegate {
     @IBAction func okAction(sender: AnyObject) {
        
         let title = contentTextView.text
-        contentsArrayOfPostArticle.setValue(title, forKey: articleTitle)
+        
+        contentsArrayOfPostArticle.setObject(title, forKey: articleTitle)
         
         if let title = contentsArrayOfPostArticle.valueForKey(articleTitle) as? String {
+            
             let str = title.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
-            if str.utf8.count == 0 {
+
+            if str.isEmpty {
                 
                 let alertController = UIAlertController(title: "", message: YOU_HAVENOT_WROTE_ANYTHING, preferredStyle: .Alert)
                 let action = UIAlertAction(title: GOT_IT, style: .Cancel) { (_) -> Void in
@@ -116,12 +119,11 @@ class IBBSEditingViewController: UIViewController, UITextViewDelegate {
                 
                 return
             }
-            
         }
         
-        if let vc = storyboard?.instantiateViewControllerWithIdentifier(postControllerID) as? IBBSPostViewController {
-            navigationController?.pushViewController(vc , animated: true)
-        }
+        guard let vc = MainStoryboard.instantiateViewControllerWithIdentifier(String(IBBSPostViewController)) as? IBBSPostViewController else { return }
+        
+        navigationController?.pushViewController(vc , animated: true)
     }
     
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -176,6 +178,6 @@ extension IBBSEditingViewController: UIPickerViewDelegate {
         let pickerID = nodesPickerView.selectedRowInComponent(0)
         DEBUGLog(pickerID)
         // save node ID to array
-        contentsArrayOfPostArticle.setDictionary([nodeID: pickerID])
+        contentsArrayOfPostArticle.setObject(pickerID, forKey: nodeID)
     }
 }

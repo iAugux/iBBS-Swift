@@ -29,7 +29,7 @@ class IBBSAvatarImageView: UIImageView {
     
     @objc private func avatarDidTap() {
         
-        guard let nav = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("UserNavigationViewController") as? UINavigationController else { return }
+        guard let nav = MainStoryboard.instantiateViewControllerWithIdentifier("UserNavigationViewController") as? UINavigationController else { return }
         guard let vc = nav.viewControllers.first as? IBBSUserViewController else { return }
 
         vc.userId = userId

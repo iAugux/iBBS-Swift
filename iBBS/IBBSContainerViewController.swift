@@ -228,13 +228,12 @@ class ContainerViewController: UIViewController, UIGestureRecognizerDelegate, To
 
 
 private extension UIStoryboard {
-    class func mainStoryboard() -> UIStoryboard { return UIStoryboard(name: "Main", bundle: NSBundle.mainBundle()) }
     
     class func leftViewController() -> SlidePanelViewController? {
-        return mainStoryboard().instantiateViewControllerWithIdentifier("leftViewController") as? SlidePanelViewController
+        return MainStoryboard.instantiateViewControllerWithIdentifier(String(SlidePanelViewController)) as? SlidePanelViewController
     }
     
     class func mainViewController() -> TabBarController? {
-        return mainStoryboard().instantiateViewControllerWithIdentifier("tabBarController") as? TabBarController
+        return MainStoryboard.instantiateViewControllerWithIdentifier(String(TabBarController)) as? TabBarController
     }
 }

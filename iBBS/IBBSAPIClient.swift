@@ -24,30 +24,32 @@ class APIClient {
     
     static let sharedInstance = APIClient()
     
-    private init(){}
-    
     func getJSONData(path: String, parameters: [String : AnyObject]?, success: (JSON) -> Void, failure: (NSError) -> Void) {
-        Alamofire.request(.GET, APIRootURL + path, parameters: parameters)
-            .responseSwiftyJSON { (request, response, json, error) in
-                if let err = error {
-                    failure(err)
-                } else {
-                    success(json)
-                }
+        
+        Alamofire.request(.GET, APIRootURL + path, parameters: parameters).responseSwiftyJSON { (response) in
+            
+            switch response.result {
+            case .Success(let json):
+                success(json)
+            case .Failure(let error):
+                failure(error)
+            }
         }
     }
-
+    
     func postJSONData(path: String, parameters: [String : AnyObject]?, success: (JSON) -> Void, failure: (NSError) -> Void) {
-        Alamofire.request(.POST, APIRootURL + path, parameters: parameters)
-            .responseSwiftyJSON { (request, response, json, error) in
-                if let err = error {
-                    failure(err)
-                } else {
-                    success(json)
-                }
+        
+        Alamofire.request(.GET, APIRootURL + path, parameters: parameters).responseSwiftyJSON { (response) in
+            
+            switch response.result {
+            case .Success(let json):
+                success(json)
+            case .Failure(let error):
+                failure(error)
+            }
         }
     }
-
+    
     
     // MARK: - Messages
     
@@ -67,9 +69,9 @@ class APIClient {
     }
     
     /**
-    - parameter title:  title can be nil
-
-    */
+     - parameter title:  title can be nil
+     
+     */
     func replyMessage(uid: AnyObject, token: AnyObject, receiver_uid: AnyObject, title: AnyObject? = nil, content: AnyObject, success: (JSON) -> Void, failure: (NSError) -> Void) {
         var dict = [String: AnyObject]()
         if title == nil {
@@ -105,7 +107,7 @@ class APIClient {
         let dict = ["user": userID, "password": passwd]
         getJSONData("login", parameters: dict, success: success, failure: failure)
     }
-
+    
     
     // MARK: - Get Topics & Replies * Nodes
     
@@ -118,7 +120,7 @@ class APIClient {
         let dict = ["boardId": nodeID, "page": page]
         getJSONData("posts", parameters: dict, success: success, failure: failure)
     }
-
+    
     func getReplies(postID: AnyObject, page: AnyObject, success: (JSON) -> Void, failure: (NSError) -> Void) {
         let dict = ["postId": postID, "page": page]
         getJSONData("comments", parameters: dict, success: success, failure: failure)
@@ -127,6 +129,6 @@ class APIClient {
     func getNodes(success: (JSON) -> Void, failure: (NSError) -> Void) {
         getJSONData("boards", parameters: nil, success: success, failure: failure)
     }
-
+    
     
 }
