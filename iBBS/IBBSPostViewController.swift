@@ -28,7 +28,9 @@ class IBBSPostViewController: IBBSEditorBaseViewController {
         
         navigationController?.navigationBar.translucent = false
         
-        focusTextEditor()
+        executeAfterDelay(0.3) {
+            self.focusTextEditor()
+        }
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -67,24 +69,24 @@ class IBBSPostViewController: IBBSEditorBaseViewController {
             print(model)
             
 //
-//            if model.success { //post successfully
-//                
-//                NSNotificationCenter.defaultCenter().postNotificationName(kShouldReloadDataAfterPosting, object: nil)
-//                
-//                IBBSToast.make(model.message, interval: TIME_OF_TOAST_OF_POST_SUCCESS)
-//                
-//                executeAfterDelay(0.3, completion: {
-//                    self.dismissViewControllerAnimated(true , completion: nil)
-//                })
-//                
-//            } else {
-//                IBBSToast.make(model.message, interval: TIME_OF_TOAST_OF_POST_FAILED)
-//                
-//                executeAfterDelay(1.5, completion: {
-//                    self.navigationController?.popViewControllerAnimated(true)
-//                })
-//                
-//            }
+            if model.success { //post successfully
+                
+                NSNotificationCenter.defaultCenter().postNotificationName(kShouldReloadDataAfterPosting, object: nil)
+                
+                IBBSToast.make(model.message, interval: TIME_OF_TOAST_OF_POST_SUCCESS)
+                
+                executeAfterDelay(0.3, completion: {
+                    self.dismissViewControllerAnimated(true , completion: nil)
+                })
+                
+            } else {
+                IBBSToast.make(model.message, interval: TIME_OF_TOAST_OF_POST_FAILED)
+                
+                executeAfterDelay(1.5, completion: {
+                    self.navigationController?.popViewControllerAnimated(true)
+                })
+                
+            }
             
         }) { (error) -> Void in
             DEBUGLog(error)
@@ -98,6 +100,7 @@ class IBBSPostViewController: IBBSEditorBaseViewController {
     }
     
     private func configureAlertController() {
+        
         let alertController = UIAlertController(title: "", message: YOU_HAVENOT_WROTE_ANYTHING, preferredStyle: .Alert)
         let action = UIAlertAction(title: GOT_IT, style: .Cancel) { (_) -> Void in
             self.focusTextEditor()

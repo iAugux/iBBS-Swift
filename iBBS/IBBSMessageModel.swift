@@ -11,10 +11,10 @@ import SwiftyJSON
 
 struct IBBSMessageModel {
     
-    var id: String!
+    var id: Int!
     var avatarUrl: NSURL!
     var sender: String!
-    var senderUid: String!
+    var senderUid: Int!
     var content: String!
     var sendTime: String!
     var isRead: Bool!
@@ -22,9 +22,9 @@ struct IBBSMessageModel {
     
     init(json: JSON) {
         avatarUrl       = NSURL(string: json["sender_avatar"].stringValue)
-        id              = json["id"].stringValue
+        id              = json["id"].intValue
         sender          = json["sender"].stringValue
-        senderUid       = json["sender_uid"].stringValue
+        senderUid       = json["sender_uid"].intValue
         content         = json["title"].stringValue
         sendTime        = json["send_time"].stringValue
         isRead          = json["is_read"].intValue == 0 ? true : false

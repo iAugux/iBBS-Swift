@@ -40,7 +40,7 @@ class SlidePanelViewController: UIViewController, UITableViewDataSource, UITable
     override func loadView() {
         super.loadView()
         
-        view.layer.contents = UIColor(patternImage: BACKGROUNDER_IMAGE!).CGColor
+        view.backgroundColor = UIColor(patternImage: BACKGROUNDER_IMAGE!)
         
         // blur view
         let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .Light))

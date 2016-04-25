@@ -28,19 +28,19 @@ class IBBSViewController: IBBSBaseViewController {
         pullUpToLoadmore()
         sendRequest(page)
         postNewArticleSegue = postSegue
-
+        
         IBBSConfigureNodesInfo.sharedInstance.configureNodesInfo()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(reloadDataAfterPosting), name: kShouldReloadDataAfterPosting, object: nil)
-
+        
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
         /**
-        important: if present NavigationController's property of interactivePopGestureRecognizer is enable, we must set it to disable,
-        otherwise if we call UIScreenEdgePanGestureRecognizer on present ViewController it will crash.
-        */
+         important: if present NavigationController's property of interactivePopGestureRecognizer is enable, we must set it to disable,
+         otherwise if we call UIScreenEdgePanGestureRecognizer on present ViewController it will crash.
+         */
         //        navigationController?.interactivePopGestureRecognizer?.delegate = nil
         navigationController?.interactivePopGestureRecognizer?.enabled = false
         
@@ -59,23 +59,25 @@ class IBBSViewController: IBBSBaseViewController {
     private func sendRequest(page: Int) {
         
         APIClient.sharedInstance.getLatestTopics(page, success: { (json) -> Void in
+            
+            DEBUGPrint(json)
+            
             if json == nil && page != 1 {
                 IBBSToast.make(NO_MORE_DATA, delay: 0, interval: TIME_OF_TOAST_OF_NO_MORE_DATA)
             }
+            
             if json.type == Type.Array {
                 if page == 1 {
                     self.datasource = json.arrayValue
                     
-                }else {
+                } else {
                     let appendArray = json.arrayValue
                     
                     self.datasource? += appendArray
                     self.tableView.reloadData()
-                    
-                    DEBUGPrint(self.datasource)
                 }
-                
             }
+            
             }, failure: { (error) -> Void in
                 DEBUGLog(error)
                 IBBSToast.make(SERVER_ERROR, delay: 0, interval: TIME_OF_TOAST_OF_SERVER_ERROR)
@@ -135,7 +137,7 @@ extension IBBSViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         if let cell = tableView.dequeueReusableCellWithIdentifier(String(IBBSTableViewCell)) as? IBBSTableViewCell {
-            let json = datasource[indexPath.row]            
+            let json = datasource[indexPath.row]
             cell.loadDataToCell(json)
             return cell
         }
@@ -148,10 +150,10 @@ extension IBBSViewController {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let json = datasource[indexPath.row]
-//                if let vc = storyboard?.instantiateViewControllerWithIdentifier(String(IBBSDetailViewController)) as? IBBSDetailViewController{
-//                    vc.json = json
-//                    navigationController?.pushViewController(vc, animated: true)
-//                }
+        //                if let vc = storyboard?.instantiateViewControllerWithIdentifier(String(IBBSDetailViewController)) as? IBBSDetailViewController{
+        //                    vc.json = json
+        //                    navigationController?.pushViewController(vc, animated: true)
+        //                }
         let vc = IBBSDetailViewController()
         vc.json = json
         vc.navigationController?.navigationBar.hidden = true
@@ -193,7 +195,7 @@ extension IBBSViewController {
             DEBUGLog("page: \(self.page)")
             
             self.sendRequest(self.page)
-
+            
             executeAfterDelay(1.0, completion: {
                 self.tableView.footerEndRefreshing()
             })

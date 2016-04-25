@@ -42,7 +42,7 @@ class IBBSRegisterViewController: UIViewController, UITextFieldDelegate {
         passwordTextField.delegate      = self
         passwordAgainTextField.delegate = self
         
-        view.layer.contents = UIColor(patternImage: BACKGROUNDER_IMAGE!).CGColor
+        view.backgroundColor = UIColor(patternImage: BACKGROUNDER_IMAGE!)
         
         // blur view
         let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .Light))
@@ -55,7 +55,10 @@ class IBBSRegisterViewController: UIViewController, UITextFieldDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
         usernameTextField.becomeFirstResponder()
     }
 
@@ -197,4 +200,16 @@ class IBBSRegisterViewController: UIViewController, UITextFieldDelegate {
         return true
     }
     
+    
+    // MARK: - 
+    
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        
+        // dismiss keyboard
+        _ = view.subviews.map() {
+            if $0 is UITextField {
+                $0.resignFirstResponder()
+            }
+        }
+    }
 }

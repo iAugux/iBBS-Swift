@@ -1291,11 +1291,11 @@ static Class hackishFixClass = Nil;
 #pragma mark - Utilities
 
 - (NSString *)removeQuotesFromHTML:(NSString *)html {
-//    html = [html stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""];
-//    html = [html stringByReplacingOccurrencesOfString:@"“" withString:@"&quot;"];
-//    html = [html stringByReplacingOccurrencesOfString:@"”" withString:@"&quot;"];
-//    html = [html stringByReplacingOccurrencesOfString:@"\r"  withString:@"\\r"];
-//    html = [html stringByReplacingOccurrencesOfString:@"\n"  withString:@"\\n"];
+    html = [html stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""];
+    html = [html stringByReplacingOccurrencesOfString:@"“" withString:@"&quot;"];
+    html = [html stringByReplacingOccurrencesOfString:@"”" withString:@"&quot;"];
+    html = [html stringByReplacingOccurrencesOfString:@"\r"  withString:@"\\r"];
+    html = [html stringByReplacingOccurrencesOfString:@"\n"  withString:@"\\n"];
     return html;
 }//end
 

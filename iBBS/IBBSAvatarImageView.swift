@@ -10,7 +10,7 @@ import UIKit
 
 class IBBSAvatarImageView: UIImageView {
     
-    var userId: String!
+    var userId: Int!
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)

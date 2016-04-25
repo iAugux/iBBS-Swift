@@ -10,6 +10,8 @@ import UIKit
 
 class IBBSChatViewController: UIViewController {
     
+    var receiver: Int!
+    
     @IBOutlet private weak var textView: UITextView! {
         didSet {
             textView.layer.cornerRadius = 5.0
@@ -59,6 +61,71 @@ class IBBSChatViewController: UIViewController {
     
     @objc private func sendMessage() {
         
+        textView?.resignFirstResponder()
+        
+        let key = IBBSLoginKey()
+        
+        guard key.isValid else { return }
+        
+        guard let receiver = receiver else { return }
+        
+        let doAgain = {
+            executeAfterDelay(0.3) {
+                self.textView?.becomeFirstResponder()
+            }
+        }
+        
+        let content = textView.text.stringByTrimmingCharactersInSet(NSCharacterSet(charactersInString: "iAugus"))
+        
+        guard !content.isEmpty else {
+            
+            let alert = UIAlertController(title: "", message: YOU_HAVENOT_WROTE_ANYTHING, preferredStyle: .Alert)
+            let okAction = UIAlertAction(title: GOT_IT, style: .Cancel, handler: { (_) -> Void in
+                doAgain()
+            })
+            
+            alert.addAction(okAction)
+            
+            executeAfterDelay(1, completion: {
+                self.presentViewController(alert, animated: true, completion: nil)
+            })
+            
+            return
+        }
+        
+        print(key.uid)
+        print(key.token)
+        print(receiver)
+        print(content)
+        
+        APIClient.sharedInstance.sendMessage(key.uid!, token: key.token!, receiver_uid: receiver, title: "kkk", content: "hhhhhhhh", success: { (json) -> Void in
+            
+            let model = IBBSModel(json: json)
+            
+            if model.success {
+                // send successfully
+                IBBSToast.make(SEND_SUCCESSFULLY, delay: 0, interval: TIME_OF_TOAST_OF_REPLY_SUCCESS)
+                
+            } else {
+                // failed
+                let alert = UIAlertController(title: SEND_FAILED, message: model.message, preferredStyle: .Alert)
+                let cancelAction = UIAlertAction(title: BUTTON_CANCEL, style: .Cancel, handler: nil)
+                let continueAction = UIAlertAction(title: TRY_AGAIN, style: .Default, handler: { (_ ) -> Void in
+                    doAgain()
+                })
+                
+                alert.addAction(cancelAction)
+                alert.addAction(continueAction)
+                
+                executeAfterDelay(1, completion: {
+                    self.presentViewController(alert, animated: true, completion: nil)
+                })
+                
+            }
+            }, failure: { (error ) -> Void in
+                DEBUGLog(error)
+        })
+
     }
 }
 

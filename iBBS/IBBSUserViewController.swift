@@ -10,7 +10,7 @@ import UIKit
 
 class IBBSUserViewController: UIViewController {
     
-    var userId: String!
+    var userId: Int!
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -18,14 +18,12 @@ class IBBSUserViewController: UIViewController {
         didSet {
             userImageView.layer.cornerRadius = userImageView.frame.width / 2
             userImageView.userInteractionEnabled = false
-            
-            
         }
     }
     
     @IBOutlet weak var usernameLabel: UILabel! {
         didSet {
-            usernameLabel.text = userId
+            usernameLabel.text = String(userId)
         }
     }
     
@@ -39,6 +37,17 @@ class IBBSUserViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        let identifier = "GoToChatViewController"
+        
+        guard segue.identifier == identifier else { return }
+        
+        guard let vc = segue.destinationViewController as? IBBSChatViewController else { return }
+        
+        vc.receiver = userId
     }
 
 }

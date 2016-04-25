@@ -721,7 +721,7 @@
                         <barButtonItem key="leftBarButtonItem" image="close" id="4u2-8p-8go"/>
                         <barButtonItem key="rightBarButtonItem" image="send_message" id="N5o-56-4dz">
                             <connections>
-                                <segue destination="8XT-ov-1Vd" kind="show" id="w8K-9n-MFw"/>
+                                <segue destination="8XT-ov-1Vd" kind="show" identifier="GoToChatViewController" id="w8K-9n-MFw"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

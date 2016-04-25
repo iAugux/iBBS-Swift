@@ -46,4 +46,6 @@
 	"Token lost effectiveness" = "Token\U5931\U6548";
 	"Please login again" = "\U8bf7\U91cd\U65b0\U767b\U9646";
 	"Invalid password" = "\U5bc6\U7801\U4e0d\U53ef\U7528";
+	"Send successfully!" = "\U53d1\U9001\U6210\U529f\Uff01";
+	"Send failed!" = "\U53d1\U9001\U5931\U8d25\Uff01";
 }

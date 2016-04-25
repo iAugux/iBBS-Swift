@@ -11,7 +11,7 @@ import SwiftyJSON
 
 struct IBBSTopicModel {
     
-    var id: String!
+    var id: Int!
     var board: String!
     var title: String!
     var content: String!
@@ -20,7 +20,7 @@ struct IBBSTopicModel {
     var avatarUrl: NSURL!
     
     init(json: JSON) {
-        id        = json["id"].stringValue
+        id        = json["id"].intValue
         board     = json["board"].stringValue
         username  = json["username"].stringValue
         postTime  = json["post_time"].stringValue

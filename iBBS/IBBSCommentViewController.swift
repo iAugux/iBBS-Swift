@@ -14,7 +14,7 @@ import UIKit
 
 class IBBSCommentViewController: IBBSEditorBaseViewController {
     
-    var post_id = String()
+    var post_id = Int()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +25,9 @@ class IBBSCommentViewController: IBBSEditorBaseViewController {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
 
-        focusTextEditor()
+        executeAfterDelay(0.3) {
+            self.focusTextEditor()
+        }
     }
     
     @objc private func cancelAction() {

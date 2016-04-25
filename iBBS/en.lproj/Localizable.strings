@@ -12,6 +12,8 @@
 	"No message yet..." = "No message yet...";
 	"You should fill in all the form" = "You should fill in all the form";
 	"please check it again" = "please check it again";
+	"Send failed!" = "Send failed!";
+	"Send successfully!" = "Send successfully!";
 	"Digits of username must be more than 4 and less than 16." = "Digits of username must be more than 3 and less than 16.";
 	"Invalid email address !" = "Invalid email address !";
 	"Try again" = "Try again";

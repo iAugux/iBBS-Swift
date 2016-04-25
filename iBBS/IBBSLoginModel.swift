@@ -16,7 +16,7 @@ struct IBBSLoginModel {
     var code: Int!
     var expire: NSDate!
     var avatar: NSURL!
-    var userId: String!
+    var userId: Int!
     var username: String!
     
     init(json: JSON) {
@@ -25,7 +25,7 @@ struct IBBSLoginModel {
         code = json["code"].intValue
         expire = NSDate(timeIntervalSince1970: json["expire"].doubleValue)
         avatar = NSURL(string: json["avatar"].stringValue)
-        userId = json["uid"].stringValue
+        userId = json["uid"].intValue
         username = json["username"].stringValue
     }
 }

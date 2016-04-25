@@ -22,7 +22,7 @@ class IBBSMessagesViewController: IBBSBaseViewController {
     private var draggableBackground: DraggableViewBackground!
     private var messageCard: DraggableView!
     private var replyCard: DraggableView!
-    private var currentSenderUserID: String!
+    private var currentSenderUserID: Int!
     private var currentSenderUsername: String!
     private var currentSenderUserAvatarUrl: NSURL!
     private var replyCardTextViewPlaceholder: String!
@@ -251,7 +251,7 @@ extension IBBSMessagesViewController: DraggableViewDelegate {
         let title = "@\(currentSenderUsername)"
         let content = (replyCard.content.text).stringByTrimmingCharactersInSet(NSCharacterSet(charactersInString: replyCardTextViewPlaceholder))
         
-        guard content.utf8.count != 0 else {
+        guard !content.isEmpty else {
             
             let alert = UIAlertController(title: "", message: YOU_HAVENOT_WROTE_ANYTHING, preferredStyle: .Alert)
             let okAction = UIAlertAction(title: GOT_IT, style: .Cancel, handler: { (_) -> Void in

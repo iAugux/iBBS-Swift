@@ -13,7 +13,7 @@ private let kLoginFeedbackJson = "kLoginFeedbackJson"
 
 struct IBBSLoginKey {
     
-    var uid: String!
+    var uid: Int!
     var token: String!
     var expiry: NSDate!
     var avatar: NSURL!

@@ -57,3 +57,6 @@ let TOKEN_LOST_EFFECTIVENESS   = NSLocalizedString("Token lost effectiveness", c
 let REPLY_FAILED               = NSLocalizedString("Reply failed!", comment: "")
 let REPLY_SUCCESSFULLY         = NSLocalizedString("Reply successfully!", comment: "")
 let ARE_YOU_SURE_TO_GIVE_UP    = NSLocalizedString("Are you sure to give up ?", comment: "Are you sure to cancel replying ?")
+
+let SEND_FAILED                = NSLocalizedString("Send failed!", comment: "")
+let SEND_SUCCESSFULLY          = NSLocalizedString("Send successfully!", comment: "")

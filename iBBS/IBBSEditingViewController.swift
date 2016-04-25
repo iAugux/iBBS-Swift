@@ -53,7 +53,7 @@ class IBBSEditingViewController: UIViewController, UITextViewDelegate {
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self , action: #selector(cancelAction))
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: BUTTON_NEXT, style: .Plain, target: self, action: #selector(okAction(_:)))
         
-        view.layer.contents = UIColor(patternImage: BACKGROUNDER_IMAGE!).CGColor
+        view.backgroundColor = UIColor(patternImage: BACKGROUNDER_IMAGE!)
         
         blurView = UIVisualEffectView(effect: UIBlurEffect(style: .Light))
         blurView.alpha = BLUR_VIEW_ALPHA_OF_BG_IMAGE
