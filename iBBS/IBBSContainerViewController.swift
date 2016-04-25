@@ -13,7 +13,7 @@
 
 import UIKit
 
-private let kExpandedOffSet: CGFloat = 130.0
+let kExpandedOffSet: CGFloat = 130.0
 
 enum SlideOutState {
     case collapsed
