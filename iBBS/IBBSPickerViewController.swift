@@ -22,17 +22,18 @@ class IBBSPickerViewController: UIViewController {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         
         // Custom initialization
-        
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         title = "Picker"
         view.backgroundColor = UIColor.redColor()
-        let saveButton = UIBarButtonItem(barButtonSystemItem: .Save, target: self, action: #selector(IBBSPickerViewController.saveURL))
+        
+        let saveButton = UIBarButtonItem(barButtonSystemItem: .Save, target: self, action: #selector(saveURL))
         navigationItem.rightBarButtonItem = saveButton
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: #selector(IBBSPickerViewController.cancel))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: #selector(cancel))
         
         textField = UITextField(frame: CGRectMake(20, 20, view.frame.size.width - 40, 40))
         textField.text = !isInsertImagePicker ? "http://www.apple.com" : "http://fineprintnyc.com/images/blog/history-of-apple-logo/apple-logo-2.jpg"
@@ -40,14 +41,13 @@ class IBBSPickerViewController: UIViewController {
         textField.layer.borderWidth = 0.5
         textField.clearButtonMode = UITextFieldViewMode.Always
         view.addSubview(textField)
-        
     }
     
-    func cancel(){
+    @objc private func cancel() {
         dismissViewControllerAnimated(true , completion: nil)
     }
     
-    func saveURL(){
+    @objc private func saveURL() {
         dismissViewControllerAnimated(true , completion: nil)
         let vc = demoView
         if !isInsertImagePicker {
@@ -55,26 +55,15 @@ class IBBSPickerViewController: UIViewController {
         } else {
             vc.showInsertLinkDialogWithLink(textField.text, title: nil)
         }
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    
-    /*
-    // MARK: - Navigation
-    
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    // Get the new view controller using segue.destinationViewController.
-    // Pass the selected object to the new view controller.
-    }
-    */
     
 }

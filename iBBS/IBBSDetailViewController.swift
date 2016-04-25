@@ -16,8 +16,9 @@ import SwiftyJSON
 class IBBSDetailViewController: IBBSBaseViewController, UIGestureRecognizerDelegate {
     
     var json: JSON!
-    var headerView: IBBSDetailHeaderView!
-    var prototypeCell: IBBSReplyCell!
+    
+    private var headerView: IBBSDetailHeaderView!
+    private var prototypeCell: IBBSReplyCell!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,20 +27,7 @@ class IBBSDetailViewController: IBBSBaseViewController, UIGestureRecognizerDeleg
         configureHeaderView()
         configureTableView()
         configureGesture()
-        //        configureCornerCommentButton()
-        
-        //        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Comment", style: .Plain, target: self, action: "commentAction")
     }
-    
-    //    override func viewDidAppear(animated: Bool) {
-    //        super.viewDidAppear(animated)
-    //
-    //        // TODO: - There is a bug! App will crash sometimes when set hidesBarsOnSwipe to true, but I don't know why
-    //        navigationController?.navigationBar.hidden = false
-    //        navigationController?.hidesBarsOnSwipe = true
-    //    }
-    
-    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -47,8 +35,6 @@ class IBBSDetailViewController: IBBSBaseViewController, UIGestureRecognizerDeleg
     }
     
     override func cornerActionButtonDidTap() {
-        
-        DEBUGLog("commenting...")
         
         let key = IBBSLoginKey()
         
@@ -67,29 +53,25 @@ class IBBSDetailViewController: IBBSBaseViewController, UIGestureRecognizerDeleg
             IBBSContext.sharedInstance.login(cancelled: nil, completion: {
                 self.cornerActionButtonDidTap()
             })
-            
         }
-        
     }
     
-    func configureTableView(){
-        
+    private func configureTableView() {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.registerNib(UINib(nibName: String(IBBSReplyCell), bundle: nil), forCellReuseIdentifier: String(IBBSReplyCell))
         tableView.tableFooterView = UIView(frame: CGRectZero)
         tableView.estimatedRowHeight = 90
         tableView.rowHeight = UITableViewAutomaticDimension
-        
     }
     
-    
-    func configureHeaderView(){
+    private func configureHeaderView() {
+        
         let headerViewNib = NSBundle.mainBundle().loadNibNamed(String(IBBSDetailHeaderView), owner: self, options: nil)
         headerView = headerViewNib.first as! IBBSDetailHeaderView
         
         headerView.loadData(json)
-        //                headerView.content.backgroundColor = UIColor.randomColor()
+        
         let headerTitleLabelHeight = headerView.headerTitleLabel.ausReturnFrameSizeAfterResizingLabel().height
         let contentLabelHeight = headerView.content.ausReturnFrameSizeAfterResizingTextView().height
         let totalHeight = headerTitleLabelHeight + contentLabelHeight + 12 + 28 + 16 + 8 + 8
@@ -100,21 +82,17 @@ class IBBSDetailViewController: IBBSBaseViewController, UIGestureRecognizerDeleg
         headerView.updateConstraintsIfNeeded()
         tableView.tableHeaderView = headerView
         navigationItem.title = headerView.nodeName
-        
     }
     
-    //    func customizeNavBar(color: UIColor, titleFont: UIFont, buttonFont: UIFont) {
-    //
-    //        UINavigationBar.appearance().tintColor = color
-    //        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: color, NSFontAttributeName: titleFont]
-    //        UIBarButtonItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: color, NSFontAttributeName: buttonFont], forState: UIControlState.Normal)
-    //    }
-    
-    func sendRequest(page: Int) {
+    private func sendRequest(page: Int) {
+        
         APIClient.sharedInstance.getReplies(json["id"].stringValue, page: page, success: { (json) -> Void in
+            
             if json == nil && page != 1 {
                 IBBSToast.make(NO_MORE_DATA, interval: TIME_OF_TOAST_OF_NO_MORE_DATA)
+                return
             }
+            
             if json.type == Type.Array {
                 if page == 1{
                     self.datasource = json.arrayValue
@@ -126,6 +104,7 @@ class IBBSDetailViewController: IBBSBaseViewController, UIGestureRecognizerDeleg
                     debugPrint(self.datasource)
                 }
             }
+            
         }) { (error) -> Void in
             DEBUGLog(error)
             IBBSToast.make(SERVER_ERROR, interval: TIME_OF_TOAST_OF_SERVER_ERROR)
@@ -133,10 +112,9 @@ class IBBSDetailViewController: IBBSBaseViewController, UIGestureRecognizerDeleg
     }
     
     // MARK: - configure gesture
-    func configureGesture(){
+    private func configureGesture() {
         navigationController?.interactivePopGestureRecognizer?.delegate = self
         navigationController?.interactivePopGestureRecognizer?.enabled = true
-        
     }
     
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailByGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
@@ -150,15 +128,18 @@ class IBBSDetailViewController: IBBSBaseViewController, UIGestureRecognizerDeleg
     //        return true
     //    }
     
+}
+
+
+// MARK: - table view data source
+
+extension IBBSDetailViewController {
     
-    
-    // MARK: - table view data source
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if datasource != nil {
             return datasource.count
         }
         return 0
-        
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -184,74 +165,45 @@ class IBBSDetailViewController: IBBSBaseViewController, UIGestureRecognizerDeleg
         
     }
     
-    // customize title for header in section
     override func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-        if let header = view as? UITableViewHeaderFooterView {
-            //           header.textLabel?.backgroundColor = UIColor.redColor()
-            header.textLabel?.font = UIFont.systemFontOfSize(14)
-        }
         
+        guard let header = view as? UITableViewHeaderFooterView else { return }
         
+        // customize title for header in section
+        header.textLabel?.font = UIFont.systemFontOfSize(14)
     }
-    
-    //    // customize title for header in section
-    //    func titleForHeaderInSection() -> NSString? {
-    //        if datasource == nil || datasource.count == 0 {
-    //            return "No reply yet"
-    //        }
-    //        else if datasource.count == 1 {
-    //            return "Reply : 1"
-    //        }
-    //        return "Replies : \(datasource.count)"
-    //    }
-    //
-    //    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-    //        let text = titleForHeaderInSection()
-    //        let labelSize = text!.sizeWithAttributes([NSFontAttributeName: UIFont.systemFontOfSize(TITLE_FOR_HEADER_IN_SECTION_FONT_SIZE)])
-    //        let titleLabel = UILabel(frame: CGRectMake(0, 0, labelSize.width , labelSize.height))
-    //        let headerViewForSection = UITableViewHeaderFooterView(frame: CGRectMake(0, 0, UIScreen.screenWidth(), 22))
-    //        titleLabel.text = text as? String
-    //        titleLabel.font = UIFont.systemFontOfSize(TITLE_FOR_HEADER_IN_SECTION_FONT_SIZE)
-    //
-    //        titleLabel.center.y = 14
-    //        titleLabel.frame.origin.x = 18
-    //        headerViewForSection.addSubview(titleLabel)
-    //
-    //        headerViewForSection.backgroundColor = UIColor.redColor()
-    //        return headerViewForSection
-    //
-    //
-    //    }
     
     override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 90
     }
     
-    
-    
 }
 
+
 extension IBBSDetailViewController {
+    
     // MARK: - refresh
-    override func refreshData(){
+    
+    override func refreshData() {
         super.refreshData()
         
         sendRequest(page)
-        //         be sure to stop refreshing while there is an error with network or something else
-        let refreshInSeconds = 1.3
-        let popTime = dispatch_time(DISPATCH_TIME_NOW, Int64(refreshInSeconds * Double(NSEC_PER_SEC)));
-        dispatch_after(popTime, dispatch_get_main_queue()) { () -> Void in
+        
+        // be sure to stop refreshing while there is an error with network or something else
+        executeAfterDelay(1.3) {
             self.tableView.reloadData()
             self.page = 1
             self.gearRefreshControl.endRefreshing()
         }
-        
     }
     
+    
     // MARK: - pull up to load more
-    func pullUpToLoadmore(){
+    
+    private func pullUpToLoadmore() {
+        
         tableView.addFooterWithCallback({
-            DEBUGLog("pulling up")
+
             self.page += 1
             DEBUGLog(self.page)
             

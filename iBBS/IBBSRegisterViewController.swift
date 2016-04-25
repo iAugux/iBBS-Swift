@@ -7,11 +7,11 @@
 //
 
 import UIKit
+import SnapKit
 import SwiftyJSON
 
 
 class IBBSRegisterViewController: UIViewController, UITextFieldDelegate {
-    
     
     @IBOutlet var avatarImageView: IBBSAvatarImageView! {
         didSet{
@@ -19,8 +19,7 @@ class IBBSRegisterViewController: UIViewController, UITextFieldDelegate {
             avatarImageView.image           = AVATAR_PLACEHOLDER_IMAGE
         }
     }
-    @IBOutlet var usernameTextField: UITextField!
-    @IBOutlet var emailTextField: UITextField!
+    
     @IBOutlet var passwordTextField: UITextField! {
         didSet {
             passwordTextField.secureTextEntry = true
@@ -32,29 +31,32 @@ class IBBSRegisterViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    private var blurView: UIView!    
+    @IBOutlet var usernameTextField: UITextField!
+    @IBOutlet var emailTextField: UITextField!
+    
     override func loadView() {
         super.loadView()
+        
         usernameTextField.delegate      = self
         emailTextField.delegate         = self
         passwordTextField.delegate      = self
         passwordAgainTextField.delegate = self
-        view.backgroundColor       = UIColor(patternImage: BACKGROUNDER_IMAGE!)
-        blurView                        = UIVisualEffectView(effect: UIBlurEffect(style: .Light))
-        blurView.frame                  = view.frame
-        blurView.alpha                  = BLUR_VIEW_ALPHA_OF_BG_IMAGE + 0.2
+        
+        view.layer.contents = UIColor(patternImage: BACKGROUNDER_IMAGE!).CGColor
+        
+        // blur view
+        let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .Light))
+        blurView.alpha = BLUR_VIEW_ALPHA_OF_BG_IMAGE + 0.2
         view.insertSubview(blurView, atIndex: 0)
+        blurView.snp_makeConstraints { (make) in
+            make.edges.equalTo(UIEdgeInsetsZero)
+        }
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         usernameTextField.becomeFirstResponder()
-        // Do any additional setup after loading the view.
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        blurView.frame = view.frame
     }
 
     override func didReceiveMemoryWarning() {
@@ -63,14 +65,7 @@ class IBBSRegisterViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func cancelButton(sender: AnyObject) {
-        
-        //        UIView.animateWithDuration(0.75, animations: { () -> Void in
-        //            UIView.setAnimationCurve(UIViewAnimationCurve.EaseInOut)
-        //            UIView.setAnimationTransition(UIViewAnimationTransition.FlipFromLeft, forView: navigationController!.view, cache: false)
-        //        })
-        
         navigationController?.popViewControllerAnimated(true)
-        
     }
     
     @IBAction func signupButton(sender: AnyObject) {
@@ -180,8 +175,11 @@ class IBBSRegisterViewController: UIViewController, UITextFieldDelegate {
         
     }
     
+    
     // MARK: - text field delegate
+    
     func textFieldShouldReturn(textField: UITextField) -> Bool {
+        
         if textField == usernameTextField {
             textField.resignFirstResponder()
             emailTextField.becomeFirstResponder()
@@ -195,6 +193,7 @@ class IBBSRegisterViewController: UIViewController, UITextFieldDelegate {
             textField.resignFirstResponder()
 //            performSelector("signupButton:")
         }
+        
         return true
     }
     

@@ -7,12 +7,12 @@
 //
 
 import UIKit
-import ZSSRichTextEditor
 
 class IBBSEditorBaseViewController: ZSSRichTextEditor {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         shouldShowKeyboard = false
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: BUTTON_SEND, style: .Plain, target: self, action: #selector(IBBSEditorBaseViewController.sendAction))
@@ -21,7 +21,6 @@ class IBBSEditorBaseViewController: ZSSRichTextEditor {
         
         // Set the base URL if you would like to use relative links, such as to images.
         baseURL = NSURL(string: "http://iAugus.com")
-        
         
         // Set the toolbar item color
         toolbarItemTintColor = UIColor.blackColor()
@@ -67,17 +66,14 @@ class IBBSEditorBaseViewController: ZSSRichTextEditor {
         ZSSRichTextEditorToolbarParagraph
         ZSSRichTextEditorToolbarAll
         ZSSRichTextEditorToolbarNone
-        
-        */
 
-
+         */
     }
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.tintColor = CUSTOM_THEME_COLOR
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : CUSTOM_THEME_COLOR]
-        
     }
     
     override func didReceiveMemoryWarning() {
@@ -85,16 +81,13 @@ class IBBSEditorBaseViewController: ZSSRichTextEditor {
         // Dispose of any resources that can be recreated.
     }
     
-    func sendAction() {}
-    
-    override func showInsertURLAlternatePicker(){
+    override func showInsertURLAlternatePicker() {
         dismissAlertView()
         let picker = IBBSPickerViewController()
         picker.demoView = self
         let nav = UINavigationController()
         nav.navigationBar.translucent = false
         presentViewController(nav, animated: true, completion: nil)
-        
     }
     
     override func showInsertImageAlternatePicker() {
@@ -111,5 +104,6 @@ class IBBSEditorBaseViewController: ZSSRichTextEditor {
         NSLog("%@", getHTML())
     }
 
+    func sendAction() {}
 
 }

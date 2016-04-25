@@ -73,7 +73,7 @@ class IBBSMessagesViewController: IBBSBaseViewController {
         return UIInterfaceOrientation.LandscapeRight
     }
     
-    func sendRequest() {
+    private func sendRequest() {
         
         let key = IBBSLoginKey()
         
@@ -106,7 +106,7 @@ class IBBSMessagesViewController: IBBSBaseViewController {
         }
     }
     
-    func removeViews() {
+    @objc private func removeViews() {
         draggableBackground?.removeFromSuperview()
     }
     
@@ -116,7 +116,8 @@ class IBBSMessagesViewController: IBBSBaseViewController {
         draggableBackground.alpha = 0.96
         draggableBackground.allCards[0].delegate = self
         draggableBackground.backgroundColor = UIColor.clearColor()
-        let gesture = UITapGestureRecognizer(target: self, action: #selector(IBBSMessagesViewController.removeViews))
+        
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(removeViews))
         draggableBackground.addGestureRecognizer(gesture)
     }
     
@@ -125,7 +126,6 @@ class IBBSMessagesViewController: IBBSBaseViewController {
         tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.tableFooterView = UIView(frame: CGRectZero)
-        
     }
     
     private func addDraggableViewWithAnimation(duration duration: NSTimeInterval = 0.1) {
@@ -229,14 +229,10 @@ class IBBSMessagesViewController: IBBSBaseViewController {
         super.refreshData()
         
         sendRequest()
-        let refreshInSeconds = 1.3
-        let popTime = dispatch_time(DISPATCH_TIME_NOW, Int64(refreshInSeconds * Double(NSEC_PER_SEC)));
-        dispatch_after(popTime, dispatch_get_main_queue()) { () -> Void in
-            //            tableView.reloadData()
-            
+
+        executeAfterDelay(1.3) {
             self.gearRefreshControl.endRefreshing()
         }
-        
     }
 }
 
@@ -244,6 +240,7 @@ class IBBSMessagesViewController: IBBSBaseViewController {
 extension IBBSMessagesViewController: DraggableViewDelegate {
     
     // MARK: - reply message
+    
     private func readyToReplyMessage() {
         
         let key = IBBSLoginKey()

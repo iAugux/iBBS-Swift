@@ -18,11 +18,11 @@ import SwiftyJSON
 let postNewArticleWithNodeSegue = "postNewArticleWithNode"
 
 class IBBSBaseViewController: UITableViewController {
+    
     var gearRefreshControl: GearRefreshControl!
     var cornerActionButton: UIButton!
     var page: Int = 1
     var postNewArticleSegue: String!
-    
 
     var datasource: [JSON]! {
         didSet{
@@ -161,9 +161,6 @@ class IBBSBaseViewController: UITableViewController {
         DEBUGLog("show corner button")
         cornerActionButton?.hidden = false
     }
-    
-
-
 
 }
 
@@ -215,6 +212,7 @@ extension IBBSBaseViewController {
         let loginAlertController = UIAlertController(title: "", message: message, preferredStyle: .Alert)
         
         let okAction = UIAlertAction(title: BUTTON_OK, style: .Default, handler: { (_) -> Void in
+            
             let vc = IBBSEffectViewController()
             vc.modalTransitionStyle = UIModalTransitionStyle.FlipHorizontal
             self.presentViewController(vc, animated: true, completion: nil)

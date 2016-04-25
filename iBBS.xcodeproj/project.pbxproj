@@ -55,6 +55,7 @@
 		B15BD5B61BA54BBC00969D36 /* IBBSNodeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B15BD5B41BA54BBC00969D36 /* IBBSNodeTableViewCell.swift */; };
 		B15BD5B71BA54BBC00969D36 /* IBBSNodeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B15BD5B51BA54BBC00969D36 /* IBBSNodeTableViewCell.xib */; };
 		B15BD5B91BA54C8100969D36 /* IBBSNodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B15BD5B81BA54C8100969D36 /* IBBSNodeViewController.swift */; };
+		B1648DEA1CCE3C0C008257DB /* UIDevice+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1648DE91CCE3C0C008257DB /* UIDevice+Extension.swift */; };
 		B165BCEA1BA940DC00036477 /* IBBSCommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B165BCE91BA940DC00036477 /* IBBSCommentViewController.swift */; };
 		B165BCEC1BA9662B00036477 /* IBBSConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B165BCEB1BA9662B00036477 /* IBBSConstants.swift */; };
 		B16C66B51CCD2F87002C62A9 /* Alamofire3-SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = B16C66B41CCD2F87002C62A9 /* Alamofire3-SwiftyJSON.swift */; };
@@ -236,6 +237,7 @@
 		B15BD5B41BA54BBC00969D36 /* IBBSNodeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSNodeTableViewCell.swift; sourceTree = "<group>"; };
 		B15BD5B51BA54BBC00969D36 /* IBBSNodeTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IBBSNodeTableViewCell.xib; sourceTree = "<group>"; };
 		B15BD5B81BA54C8100969D36 /* IBBSNodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSNodeViewController.swift; sourceTree = "<group>"; };
+		B1648DE91CCE3C0C008257DB /* UIDevice+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extension.swift"; sourceTree = "<group>"; };
 		B165BCE91BA940DC00036477 /* IBBSCommentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSCommentViewController.swift; sourceTree = "<group>"; };
 		B165BCEB1BA9662B00036477 /* IBBSConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSConstants.swift; sourceTree = "<group>"; };
 		B16C66B41CCD2F87002C62A9 /* Alamofire3-SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Alamofire3-SwiftyJSON.swift"; sourceTree = "<group>"; };
@@ -478,6 +480,7 @@
 				B141A5341BC5175C00A32CD8 /* TopMostViewController+Additions.swift */,
 				B141A5351BC5175C00A32CD8 /* UIColor+Additions.swift */,
 				B10149D91BCB9C14001DC5AB /* UIColor+Hex.swift */,
+				B1648DE91CCE3C0C008257DB /* UIDevice+Extension.swift */,
 				B141A5361BC5175C00A32CD8 /* UILabel+Additions.swift */,
 				B17376BA1CC5D3C900C27725 /* UIScreen+Extension.swift */,
 				B141A5381BC5175C00A32CD8 /* UITextView+Additions.swift */,
@@ -1010,6 +1013,7 @@
 				B1563DD81BB2BD4B00F6D00B /* IBBSRegisterViewController.swift in Sources */,
 				B17376B31CC4E0FC00C27725 /* IBBSTopicModel.swift in Sources */,
 				B1C7FD771CC38A630055DB1D /* PaddingLabel.swift in Sources */,
+				B1648DEA1CCE3C0C008257DB /* UIDevice+Extension.swift in Sources */,
 				B1D261781BE858D5005EAE10 /* IBBSAvatarImageView.swift in Sources */,
 				B1C105D31BA1D4730088DBCB /* IBBSNodesCell.swift in Sources */,
 				B113B0481BA196BF004ECFA0 /* RefreshBaseView.swift in Sources */,

@@ -30,7 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
     
         #if DEBUG
-            window?.addSubview(fps)
+//            window?.addSubview(fps)
         #endif
         
         // SlideMenu

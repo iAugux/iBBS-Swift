@@ -36,7 +36,6 @@ class IBBSViewController: IBBSBaseViewController {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        //        navigationController?.hidesBarsOnSwipe = true
         
         /**
         important: if present NavigationController's property of interactivePopGestureRecognizer is enable, we must set it to disable,
@@ -45,7 +44,7 @@ class IBBSViewController: IBBSBaseViewController {
         //        navigationController?.interactivePopGestureRecognizer?.delegate = nil
         navigationController?.interactivePopGestureRecognizer?.enabled = false
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(IBBSViewController.configureNavifationItemTitle), name: kJustLoggedinNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(configureNavifationItemTitle), name: kJustLoggedinNotification, object: nil)
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -57,7 +56,7 @@ class IBBSViewController: IBBSBaseViewController {
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
-    func sendRequest(page: Int) {
+    private func sendRequest(page: Int) {
         
         APIClient.sharedInstance.getLatestTopics(page, success: { (json) -> Void in
             if json == nil && page != 1 {
@@ -84,7 +83,7 @@ class IBBSViewController: IBBSBaseViewController {
     }
     
     
-    func configureNavifationItemTitle(){
+    @objc private func configureNavifationItemTitle() {
         
         navigationItem.title = "iBBS"
         
@@ -95,7 +94,7 @@ class IBBSViewController: IBBSBaseViewController {
         self.navigationItem.title = key.username
     }
     
-    func configureTableView(){
+    private func configureTableView() {
         tableView.registerNib(UINib(nibName: String(IBBSTableViewCell), bundle: nil ), forCellReuseIdentifier: String(IBBSTableViewCell))
         tableView.tableFooterView = UIView(frame: CGRectZero)
         tableView.estimatedRowHeight = 100
@@ -121,6 +120,7 @@ class IBBSViewController: IBBSBaseViewController {
 }
 
 extension IBBSViewController {
+    
     // MARK: - Table view data source
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -145,6 +145,7 @@ extension IBBSViewController {
     
     
     // MARK: - table view delegate
+    
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let json = datasource[indexPath.row]
 //                if let vc = storyboard?.instantiateViewControllerWithIdentifier(String(IBBSDetailViewController)) as? IBBSDetailViewController{

@@ -85,27 +85,6 @@
             </objects>
             <point key="canvasLocation" x="-609" y="168"/>
         </scene>
-        <!--Detail View Controller-->
-        <scene sceneID="HuC-Lc-mC7">
-            <objects>
-                <tableViewController storyboardIdentifier="IBBSDetailViewController" id="7lF-As-k9x" customClass="IBBSDetailViewController" customModule="iBBS" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="I0C-Hg-BTI">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                        <connections>
-                            <outlet property="dataSource" destination="7lF-As-k9x" id="vpf-8O-G1s"/>
-                            <outlet property="delegate" destination="7lF-As-k9x" id="wdA-ki-XpF"/>
-                        </connections>
-                    </tableView>
-                    <toolbarItems/>
-                    <navigationItem key="navigationItem" id="sYA-Gr-2L5"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="VSX-CM-Alq" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="240" y="-547"/>
-        </scene>
         <!--Comment View Controller-->
         <scene sceneID="7bb-FX-cBs">
             <objects>
@@ -786,6 +765,6 @@
         <image name="send_message" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="SF8-PN-qFy"/>
+        <segue reference="CVS-fO-o6k"/>
     </inferredMetricsTieBreakers>
 </document>

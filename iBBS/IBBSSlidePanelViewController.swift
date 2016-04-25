@@ -26,14 +26,16 @@ class SlidePanelViewController: UIViewController, UITableViewDataSource, UITable
             userProfileImage.backgroundColor = CUSTOM_THEME_COLOR.darkerColor(0.75)
             userProfileImage.image = AVATAR_PLACEHOLDER_IMAGE
             configureLoginAndLogoutView(userProfileImage)
-            
         }
     }
     
-    var delegate: ToggleLeftPanelDelegate!
-    private let cellTitleArray = ["Notification", "Favorite", "Profile", "Setting"]
-    private var themePickerBar: FrostedSidebar!
     @IBOutlet weak var tableView: UITableView!
+    
+    var delegate: ToggleLeftPanelDelegate!
+    
+    private var themePickerBar: FrostedSidebar!
+    
+    private let cellTitleArray = ["Notification", "Favorite", "Profile", "Setting"]
     
     override func loadView() {
         super.loadView()
@@ -80,13 +82,13 @@ class SlidePanelViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     // MARK: - configure login and register
-    func configureLoginAndLogoutView(sender: UIImageView) {
-        let longTapGesture = UILongPressGestureRecognizer(target: self , action: #selector(SlidePanelViewController.loginOrLogout(_:)))
+    private func configureLoginAndLogoutView(sender: UIImageView) {
+        let longTapGesture = UILongPressGestureRecognizer(target: self , action: #selector(loginOrLogout(_:)))
         sender.addGestureRecognizer(longTapGesture)
         sender.userInteractionEnabled = true
     }
     
-    func loginOrLogout(gesture: UIGestureRecognizer) {
+    @objc private func loginOrLogout(gesture: UIGestureRecognizer) {
         
         guard gesture.state == .Began else { return }
         
@@ -128,18 +130,22 @@ class SlidePanelViewController: UIViewController, UITableViewDataSource, UITable
         }
     }
     
-    func alertToChooseLoginOrRegister() {
+    private func alertToChooseLoginOrRegister() {
+        
         let alertCtrl = UIAlertController(title: "", message: REGISTER_OR_LOGIN, preferredStyle: .Alert)
+        
         let loginAction = UIAlertAction(title: BUTTON_LOGIN, style: .Default) { (_) -> Void in
-            // login
-            
+
             self.delegate?.toggleLeftPanel()
+            
             IBBSContext.sharedInstance.login(cancelled: {
                 self.delegate?.removeFrontBlurView()
+                
                 }, completion: {
                 IBBSContext.sharedInstance.configureCurrentUserAvatar(self.userProfileImage)
+                    
                 self.delegate?.removeFrontBlurView()
-//                NSNotificationCenter.defaultCenter().postNotificationName(kShouldReloadDataAfterPosting, object: nil)
+
                 NSNotificationCenter.defaultCenter().postNotificationName(kJustLoggedinNotification, object: nil)
             })
         }
@@ -162,8 +168,11 @@ class SlidePanelViewController: UIViewController, UITableViewDataSource, UITable
         presentViewController(alertCtrl, animated: true, completion: nil)
     }
     
+    
     // MARK: - configure theme
-    func showThemePickerView(){
+    
+    @objc private func showThemePickerView() {
+        
         let imageArray = [UIImage](count: themeColorArray.count, repeatedValue: UIImage(named: "clear_color_image")!)
         
         themePickerBar = FrostedSidebar(itemImages: imageArray, colors: themeColorArray, selectedItemIndices: NSIndexSet(index: 0))
@@ -183,7 +192,8 @@ class SlidePanelViewController: UIViewController, UITableViewDataSource, UITable
         themePickerBar.showInViewController(self, animated: true)
     }
     
-    func changeThemeAndDismissSelf(theme: IBBSThemes) {
+    private func changeThemeAndDismissSelf(theme: IBBSThemes) {
+        
         theme.setTheme()
 
         // save theme
@@ -203,7 +213,13 @@ class SlidePanelViewController: UIViewController, UITableViewDataSource, UITable
         }
     }
     
-    // MARK: - table view data source
+}
+
+
+// MARK: - table view data source
+
+extension SlidePanelViewController {
+
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
@@ -224,10 +240,10 @@ class SlidePanelViewController: UIViewController, UITableViewDataSource, UITable
         return cell
     }
     
-    
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
         let headerView = UIView(frame: CGRectMake(0, 0, kExpandedOffSet, 27))
-        let recognizer = UITapGestureRecognizer(target: self, action: #selector(SlidePanelViewController.showThemePickerView))
+        let recognizer = UITapGestureRecognizer(target: self, action: #selector(showThemePickerView))
         recognizer.numberOfTapsRequired = 1
 
         let titleLabel = UILabel()
@@ -248,9 +264,13 @@ class SlidePanelViewController: UIViewController, UITableViewDataSource, UITable
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 70
     }
+}
+
+
+// MARK: - table view delegate
+
+extension SlidePanelViewController {
     
-    
-    // MARK: - table view delegate
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 
         let slidePanelStoryboard = UIStoryboard(name: "IBBSSlidePanel", bundle: NSBundle.mainBundle())
@@ -273,6 +293,5 @@ class SlidePanelViewController: UIViewController, UITableViewDataSource, UITable
         destinationVC?.title = cellTitleArray[indexPath.row]
         navigationController?.pushViewController(destinationVC, animated: true)
     }
-    
 }
 

@@ -77,17 +77,18 @@ extension IBBSChatViewController {
     @objc private func keyboardWillShow(notification: NSNotification) {
         guard let kbSizeValue = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue else { return }
         guard let kbDurationNumber = notification.userInfo?[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber else { return }
-        print(kbSizeValue)
+
         animateToKeyboardHeight(kbSizeValue.CGRectValue().height, duration: kbDurationNumber.doubleValue)
     }
     
     @objc private func keyboardWillHide(notification: NSNotification) {
         guard let kbDurationNumber = notification.userInfo?[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber else { return }
+        
         animateToKeyboardHeight(0, duration: kbDurationNumber.doubleValue)
     }
     
     private func animateToKeyboardHeight(kbHeight: CGFloat, duration: Double) {
-        DEBUGLog("keyboardHeight: \(kbHeight), duration: \(duration)")
+
         keyboardHeight = kbHeight
         
         textViewBottomConstraint?.constant = kbHeight + 12

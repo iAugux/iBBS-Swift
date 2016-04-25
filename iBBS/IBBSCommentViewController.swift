@@ -18,21 +18,17 @@ class IBBSCommentViewController: IBBSEditorBaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: #selector(IBBSCommentViewController.cancelAction))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: #selector(cancelAction))
         navigationController?.navigationBar.translucent = false
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
 
-        // TODO: - There is a bug in `ZSSRichTextEditor`. If you show keyboard immediately, then the color picker won't work correctly.
-
-        executeAfterDelay(0.9) {
-            self.focusTextEditor()
-        }
+        focusTextEditor()
     }
     
-    func cancelAction(){
+    @objc private func cancelAction() {
         if getHTML().ausTrimHtmlInWhitespaceAndNewlineCharacterSet().isEmpty {
             blurTextEditor()
             dismissViewControllerAnimated(true , completion: nil)
@@ -53,7 +49,6 @@ class IBBSCommentViewController: IBBSEditorBaseViewController {
                 self.presentViewController(alert, animated: true, completion: nil)
             })
         }
-        
     }
     
     override func sendAction() {
@@ -80,10 +75,8 @@ class IBBSCommentViewController: IBBSEditorBaseViewController {
                 
                 IBBSToast.make(model.message, interval: TIME_OF_TOAST_OF_COMMENT_SUCCESS)
                 
-                executeAfterDelay(0.3, completion: {
-                    self.dismissViewControllerAnimated(true , completion: nil)
-                })
-                
+                self.dismissViewControllerAnimated(true , completion: nil)
+
             } else {
                 IBBSToast.make(model.message, interval: TIME_OF_TOAST_OF_COMMENT_FAILED)
                 
@@ -99,7 +92,7 @@ class IBBSCommentViewController: IBBSEditorBaseViewController {
         }
     }
     
-    func configureAlertController() {
+    private func configureAlertController() {
         let alertController = UIAlertController(title: "", message: YOU_HAVENOT_WROTE_ANYTHING, preferredStyle: .Alert)
         let action = UIAlertAction(title: GOT_IT, style: .Cancel) { (_) -> Void in
                self.focusTextEditor()
@@ -107,7 +100,6 @@ class IBBSCommentViewController: IBBSEditorBaseViewController {
         alertController.addAction(action)
         presentViewController(alertController, animated: true, completion: nil)
     }
-    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

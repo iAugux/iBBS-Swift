@@ -21,7 +21,6 @@ class IBBSPostViewController: IBBSEditorBaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -55,45 +54,50 @@ class IBBSPostViewController: IBBSEditorBaseViewController {
         
         let nodeId  = contentsArrayOfPostArticle[nodeID] as! Int
         let title   = contentsArrayOfPostArticle[articleTitle] as! String
-        let content = getHTML()
+        let content = getHTML()!
         
         APIClient.sharedInstance.post(key.uid, nodeID: nodeId, content: content, title: title, token: key.token, success: { (json) -> Void in
             
+            
+            print(json["code"].intValue)
+            print(json["msg"].stringValue)
+            
             let model = IBBSModel(json: json)
             
-            if model.success { //post successfully
-                
-                NSNotificationCenter.defaultCenter().postNotificationName(kShouldReloadDataAfterPosting, object: nil)
-                
-                IBBSToast.make(model.message, interval: TIME_OF_TOAST_OF_POST_SUCCESS)
-                
-                executeAfterDelay(0.3, completion: {
-                    self.dismissViewControllerAnimated(true , completion: nil)
-                })
-                
-            } else {
-                IBBSToast.make(model.message, interval: TIME_OF_TOAST_OF_POST_FAILED)
-                
-                executeAfterDelay(1.5, completion: {
-                    self.navigationController?.popViewControllerAnimated(true)
-                })
-                
-            }
+            print(model)
+            
+//
+//            if model.success { //post successfully
+//                
+//                NSNotificationCenter.defaultCenter().postNotificationName(kShouldReloadDataAfterPosting, object: nil)
+//                
+//                IBBSToast.make(model.message, interval: TIME_OF_TOAST_OF_POST_SUCCESS)
+//                
+//                executeAfterDelay(0.3, completion: {
+//                    self.dismissViewControllerAnimated(true , completion: nil)
+//                })
+//                
+//            } else {
+//                IBBSToast.make(model.message, interval: TIME_OF_TOAST_OF_POST_FAILED)
+//                
+//                executeAfterDelay(1.5, completion: {
+//                    self.navigationController?.popViewControllerAnimated(true)
+//                })
+//                
+//            }
             
         }) { (error) -> Void in
             DEBUGLog(error)
             IBBSToast.make(SERVER_ERROR, interval: TIME_OF_TOAST_OF_SERVER_ERROR)
         }
-        
-        DEBUGLog(contentsArrayOfPostArticle)
     }
     
-    func cancelAction(){
+    private func cancelAction() {
         blurTextEditor()
         dismissViewControllerAnimated(true , completion: nil)
     }
     
-    func configureAlertController() {
+    private func configureAlertController() {
         let alertController = UIAlertController(title: "", message: YOU_HAVENOT_WROTE_ANYTHING, preferredStyle: .Alert)
         let action = UIAlertAction(title: GOT_IT, style: .Cancel) { (_) -> Void in
             self.focusTextEditor()

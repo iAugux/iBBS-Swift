@@ -7,22 +7,25 @@
 //
 
 import UIKit
+import SnapKit
 
 class IBBSEffectViewController: UIViewController {
     
-    var blurView: UIVisualEffectView!
-
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor(patternImage: BACKGROUNDER_IMAGE!)
         
-        blurView = UIVisualEffectView(effect: UIBlurEffect(style: .Light))
-        blurView.frame = view.frame
+        view.layer.contents = UIColor(patternImage: BACKGROUNDER_IMAGE!).CGColor
+        
+        // blur view
+        let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .Light))
         blurView.alpha = BLUR_VIEW_ALPHA_OF_BG_IMAGE
+        view.addSubview(blurView)
+        blurView.snp_makeConstraints { (make) in
+            make.edges.equalTo(UIEdgeInsetsZero)
+        }
+        
         let gesture = UITapGestureRecognizer(target: self, action: #selector(IBBSEffectViewController.blurViewDidTap))
         blurView.addGestureRecognizer(gesture)
-        view.addSubview(blurView)
-        
     }
     
     override func didReceiveMemoryWarning() {
@@ -30,26 +33,8 @@ class IBBSEffectViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func blurViewDidTap(){
+    @objc private func blurViewDidTap() {
         dismissViewControllerAnimated(true , completion: nil)
     }
     
-    override func willRotateToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval) {
-        blurView.frame = CGRectMake(0, 0, 750, 750)
-    }
-    
-    override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
-        blurView.frame = view.frame
-    }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

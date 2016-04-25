@@ -18,19 +18,20 @@ var whoCalledEditingViewController: Int! = -1
 
 class IBBSEditingViewController: UIViewController, UITextViewDelegate {
     
-    @IBOutlet var avatarImageView: IBBSAvatarImageView!{
+    @IBOutlet var avatarImageView: IBBSAvatarImageView! {
         didSet{
-           
             avatarImageView.backgroundColor = CUSTOM_THEME_COLOR.darkerColor(0.75)
             IBBSContext.sharedInstance.configureCurrentUserAvatar(avatarImageView)
         }
     }
-    @IBOutlet var nodesPickerView: UIPickerView!{
+    
+    @IBOutlet var nodesPickerView: UIPickerView! {
         didSet{
             nodesPickerView.showsSelectionIndicator = false
         }
     }
-    @IBOutlet var contentTextView: UITextView!{
+    
+    @IBOutlet var contentTextView: UITextView! {
         didSet{
             contentTextView.layer.cornerRadius = 8.0
             contentTextView.backgroundColor = CUSTOM_THEME_COLOR.darkerColor(0.75).colorWithAlphaComponent(0.35)
@@ -49,9 +50,11 @@ class IBBSEditingViewController: UIViewController, UITextViewDelegate {
         IBBSConfigureNodesInfo.sharedInstance.configureNodesInfo()
         node = IBBSContext.sharedInstance.getNodes()
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self , action: #selector(IBBSEditingViewController.cancelAction))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: BUTTON_NEXT, style: .Plain, target: self, action: #selector(IBBSEditingViewController.okAction(_:)))
-        view.backgroundColor = UIColor(patternImage: BACKGROUNDER_IMAGE!)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self , action: #selector(cancelAction))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: BUTTON_NEXT, style: .Plain, target: self, action: #selector(okAction(_:)))
+        
+        view.layer.contents = UIColor(patternImage: BACKGROUNDER_IMAGE!).CGColor
+        
         blurView = UIVisualEffectView(effect: UIBlurEffect(style: .Light))
         blurView.alpha = BLUR_VIEW_ALPHA_OF_BG_IMAGE
         view.insertSubview(blurView, atIndex: 0)
@@ -66,6 +69,7 @@ class IBBSEditingViewController: UIViewController, UITextViewDelegate {
         contentTextView.delegate = self
        
         contentsArrayOfPostArticle = NSMutableDictionary()
+        
         // set default node ID
         contentsArrayOfPostArticle.setObject(defaultSelectedRow, forKey: nodeID)
  
@@ -79,10 +83,10 @@ class IBBSEditingViewController: UIViewController, UITextViewDelegate {
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: CUSTOM_THEME_COLOR]
 
         navigationController?.navigationBar.translucent = true
-
     }
     
-    func configureDefaultSelectedRow() {
+    private func configureDefaultSelectedRow() {
+        
         if whoCalledEditingViewController == -1 { // IBBSViewController called me
             defaultSelectedRow = 2
         } else {
@@ -90,7 +94,7 @@ class IBBSEditingViewController: UIViewController, UITextViewDelegate {
         }
     }
     
-    func cancelAction(){
+    @objc private func cancelAction(){
         // close keyboard first
         contentTextView.resignFirstResponder()
         
@@ -131,11 +135,14 @@ class IBBSEditingViewController: UIViewController, UITextViewDelegate {
     }
     
     func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
+        
         let str = text as NSString
+        
         if str.isEqual("\n") {
             textView.resignFirstResponder()
             return false
         }
+        
         return true
     }
     
@@ -146,8 +153,13 @@ class IBBSEditingViewController: UIViewController, UITextViewDelegate {
     
 }
 
+
+// MARK: - UIPickerViewDataSource
+
 extension IBBSEditingViewController: UIPickerViewDataSource {
+    
     func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        
         if let node = node {
             return node.count
         } else {
@@ -160,7 +172,7 @@ extension IBBSEditingViewController: UIPickerViewDataSource {
     }
     
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        //        DEBUGLog(node)
+
         if let node = node {
             let node = node.arrayValue[row]
             let nodeName = node["name"].stringValue
@@ -168,15 +180,17 @@ extension IBBSEditingViewController: UIPickerViewDataSource {
         }
         return ""
     }
-    
-
 }
+
+
+// MARK: - UIPickerViewDelegate
 
 extension IBBSEditingViewController: UIPickerViewDelegate {
 
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        
         let pickerID = nodesPickerView.selectedRowInComponent(0)
-        DEBUGLog(pickerID)
+        
         // save node ID to array
         contentsArrayOfPostArticle.setObject(pickerID, forKey: nodeID)
     }

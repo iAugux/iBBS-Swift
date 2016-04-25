@@ -11,10 +11,12 @@
 //
 
 import UIKit
+import SnapKit
 
-var statusBarView: UIToolbar!
 
 class TabBarController: UITabBarController {
+    
+    private var statusBarView: UIToolbar!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,11 +26,7 @@ class TabBarController: UITabBarController {
         tabBar.items?[1].title = TITLE_NODE
         tabBar.items?[2].title = TITLE_MESSAGE
         
-    }
-    
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        tabBar.tintColor = CUSTOM_THEME_COLOR
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(changeTabBarTintColor), name: kThemeDidChangeNotification, object: nil)
     }
 
     override func viewDidLayoutSubviews() {
@@ -36,13 +34,17 @@ class TabBarController: UITabBarController {
         statusBarView?.frame = UIApplication.sharedApplication().statusBarFrame
     }
     
-    func changeStatusBarColorOnSwipe(){
+    private func changeStatusBarColorOnSwipe() {
+        
         if SHOULD_HIDE_NAVIGATIONBAR {
             statusBarView = UIToolbar(frame: UIApplication.sharedApplication().statusBarFrame)
             statusBarView.barStyle = UIBarStyle.Default
             view.addSubview(statusBarView)
-
         }
+    }
+    
+    @objc private func changeTabBarTintColor() {
+        tabBar.tintColor = CUSTOM_THEME_COLOR
     }
 
 }

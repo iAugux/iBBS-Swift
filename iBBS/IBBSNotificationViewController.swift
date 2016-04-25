@@ -13,7 +13,6 @@ class IBBSNotificationViewController: IBBSSlidePanelBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-//        manuallyConfigureTopBar(self, title: "ddd")
     }
 
     override func didReceiveMemoryWarning() {
