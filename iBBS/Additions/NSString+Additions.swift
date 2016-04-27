@@ -47,4 +47,10 @@ extension String {
         str = str.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
         return str
     }
+    
+    func ausTrimHtmlInNewlineCharacterSet() -> String {
+        var str = self
+        str = str.stringByTrimmingCharactersInSet(NSCharacterSet(charactersInString: "<br /><div><br /></div>"))
+        return str
+    }
 }

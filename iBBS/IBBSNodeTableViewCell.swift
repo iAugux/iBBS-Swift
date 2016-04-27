@@ -37,11 +37,13 @@ class IBBSNodeTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func loadDataToCell(json: JSON){
-        
+    func loadDataToCell(json: JSON) {
+
         let model = IBBSNodeTopicListModel(json: json)
         
         userProfireImage.kf_setImageWithURL(model.avatarUrl, placeholderImage: AVATAR_PLACEHOLDER_IMAGE)
+        
+        userProfireImage.user = User(id: model.uid, name: model.username)
         
         topicLabel.text = model.title
         userName.text   = model.username

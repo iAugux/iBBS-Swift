@@ -12,6 +12,7 @@
 
 import UIKit
 
+
 extension UITextView {
     
     /**
@@ -20,23 +21,24 @@ extension UITextView {
     */
 
     func ausAttributedText(data: String) {
-        do {
-            let formatedData = data.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
-            let text = try NSAttributedString(data: formatedData.dataUsingEncoding(NSUnicodeStringEncoding,allowLossyConversion: false)!,
-                options: [ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType],
-                documentAttributes: nil)
-            self.attributedText = text
-        }catch{
-            print("something error with NSAttributedString")
-        }
+                
+        var formatedData = data.stringByDecodingHTMLEntities()
+        formatedData = formatedData.stringByReplacingOccurrencesOfString("\\\"", withString: "\"")
+        
+        let text = try? NSAttributedString(data: formatedData.dataUsingEncoding(NSUnicodeStringEncoding, allowLossyConversion: false)!,
+                                          options: [ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType],
+                                          documentAttributes: nil)
+        
+        self.attributedText = text
     }
+
     
     /**
     calculate size of UITextView
     
     :returns: CGSize
     */
-    func ausReturnFrameSizeAfterResizingTextView() -> CGSize{
+    func ausReturnFrameSizeAfterResizingTextView() -> CGSize {
         let fixedWidth = self.frame.size.width
         self.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.max))
         let newSize = self.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.max))
@@ -50,7 +52,7 @@ extension UITextView {
 }
 
 
-func AusTextViewSizeForAttributedText(text: String) -> CGSize {
+func ausTextViewSizeForAttributedText(text: String) -> CGSize {
     let calculationView = UITextView()
     calculationView.ausAttributedText(text)
     let size = calculationView.sizeThatFits(CGSizeMake(CGFloat.max, CGFloat.max))

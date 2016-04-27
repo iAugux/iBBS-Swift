@@ -15,6 +15,7 @@ import SwiftyJSON
 
 
 class IBBSMessageTableViewCell: UITableViewCell {
+    
     @IBOutlet var avatarImageView: IBBSAvatarImageView!
     @IBOutlet var isMessageRead: UIImageView!
     @IBOutlet var timeLabel: UILabel!
@@ -54,11 +55,13 @@ class IBBSMessageTableViewCell: UITableViewCell {
         if !model.isAdministrator {
             avatarImageView.backgroundColor = UIColor.blackColor()
             avatarImageView.image = UIImage(named: "administrator")
-            //                usernameLabel.text = json["username"].stringValue
             usernameLabel.text = "Admin"
+            avatarImageView.user = User(id: model.senderUid, name: "Admin")
         } else {
-            usernameLabel.text = json["sender"].stringValue
+            usernameLabel.text = model.sender
+            avatarImageView.user = User(id: model.senderUid, name: model.sender)
         }
+        
     }
     
     func changeColorForMessageMarker() {

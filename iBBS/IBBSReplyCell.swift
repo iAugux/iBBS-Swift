@@ -17,7 +17,12 @@ class IBBSReplyCell: UITableViewCell {
     
     @IBOutlet weak var avatarImageView: IBBSAvatarImageView!
     @IBOutlet weak var usernameLabel: UILabel!
-    @IBOutlet weak var replyContent: UITextView!
+    
+    @IBOutlet weak var replyContent: UITextView! {
+        didSet {
+            replyContent.sizeToFit()
+        }
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -39,6 +44,8 @@ class IBBSReplyCell: UITableViewCell {
         let model = IBBSReplyMessageModel(json: json)
         
         avatarImageView.kf_setImageWithURL(model.avatarUrl, placeholderImage: AVATAR_PLACEHOLDER_IMAGE)
+        
+        avatarImageView.user = User(id: model.uid, name: model.username)
         
         usernameLabel.text = model.username
 

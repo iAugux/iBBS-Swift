@@ -21,7 +21,7 @@ class IBBSContext {
     private let kLoginFeedbackJson = "kLoginFeedbackJson"
 
     
-    func login(cancelled cancelled: (() -> Void)?, completion: (() -> Void)?) {
+    func loginIfNeeded(cancelled cancelled: (() -> Void)?, completion: (() -> Void)?) {
         
         var username, password: UITextField!
       
@@ -31,6 +31,7 @@ class IBBSContext {
             textField.placeholder = HOLDER_USERNAME
             username = textField
         }
+        
         alertVC.addTextFieldWithConfigurationHandler { (textField: UITextField) -> Void in
             textField.placeholder = HOLDER_PASSWORD
             textField.secureTextEntry = true
@@ -78,8 +79,6 @@ class IBBSContext {
         alertVC.addAction(okAction)
         alertVC.addAction(cancelAction)
         UIApplication.topMostViewController?.presentViewController(alertVC, animated: true, completion: nil)
-        
-       
     }
 
     func logout(completion completion: (() -> Void)?) {

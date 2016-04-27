@@ -60,3 +60,9 @@ let ARE_YOU_SURE_TO_GIVE_UP    = NSLocalizedString("Are you sure to give up ?", 
 
 let SEND_FAILED                = NSLocalizedString("Send failed!", comment: "")
 let SEND_SUCCESSFULLY          = NSLocalizedString("Send successfully!", comment: "")
+
+let CHANGE_PASSWORD            = NSLocalizedString("Change Password", comment: "")
+let CHANGE_AVATAR              = NSLocalizedString("Change Avatar", comment: "")
+let OLD_PASSWORD               = NSLocalizedString("Old Password", comment: "")
+let NEW_PASSWORD               = NSLocalizedString("New Password", comment: "")
+let CONFIRM_PASSWORD           = NSLocalizedString("Confirm Password", comment: "")

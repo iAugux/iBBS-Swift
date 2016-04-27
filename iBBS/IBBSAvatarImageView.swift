@@ -8,9 +8,20 @@
 
 import UIKit
 
+
+struct User {
+    var id: Int
+    var name: String
+    
+    init(id: Int, name: String) {
+        self.id = id
+        self.name = name
+    }
+}
+
 class IBBSAvatarImageView: UIImageView {
     
-    var userId: Int!
+    var user: User!
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -19,7 +30,7 @@ class IBBSAvatarImageView: UIImageView {
 //        layer.borderWidth   = 0.3
 //        layer.borderColor   = UIColor.blackColor().CGColor
         layer.cornerRadius  = frame.width / 2.0
-        backgroundColor     = UIColor.randomColor()
+        backgroundColor     = UIColor.randomColorFilterDarkerOut()
         
         userInteractionEnabled = true
         
@@ -32,9 +43,9 @@ class IBBSAvatarImageView: UIImageView {
         guard let nav = MainStoryboard.instantiateViewControllerWithIdentifier("UserNavigationViewController") as? UINavigationController else { return }
         guard let vc = nav.viewControllers.first as? IBBSUserViewController else { return }
 
-        vc.userId = userId
+        guard user != nil else { return }
         
-        guard userId != nil else { return }
+        vc.user = user
         
         UIApplication.topMostViewController?.presentViewController(nav, animated: true, completion: nil)
     }

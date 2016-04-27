@@ -26,6 +26,11 @@ class SlidePanelViewController: UIViewController, UITableViewDataSource, UITable
             userProfileImage.backgroundColor = CUSTOM_THEME_COLOR.darkerColor(0.75)
             userProfileImage.image = AVATAR_PLACEHOLDER_IMAGE
             configureLoginAndLogoutView(userProfileImage)
+            
+            let key = IBBSLoginKey()
+            
+            guard let id = key.uid, let name = key.username else { return }
+            userProfileImage.user = User(id: id, name: name)
         }
     }
     

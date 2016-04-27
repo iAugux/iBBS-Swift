@@ -47,7 +47,8 @@ class IBBSTableViewCell: UITableViewCell {
         let model = IBBSTopicListModel(json: json)
         
         userProfireImage.kf_setImageWithURL(model.avatarUrl, placeholderImage: AVATAR_PLACEHOLDER_IMAGE)
-        userProfireImage.userId = model.uid
+        
+        userProfireImage.user = User(id: model.uid, name: model.username)
         
         topicLabel.text = model.title
         userName.text   = model.username

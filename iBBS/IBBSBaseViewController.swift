@@ -15,20 +15,20 @@ import SnapKit
 import GearRefreshControl
 import SwiftyJSON
 
-let postNewArticleWithNodeSegue = "postNewArticleWithNode"
 
 class IBBSBaseViewController: UITableViewController {
     
     var gearRefreshControl: GearRefreshControl!
     var cornerActionButton: UIButton!
     var page: Int = 1
-    var postNewArticleSegue: String!
 
     var datasource: [JSON]! {
         didSet{
             tableView.reloadData()
         }
     }
+    
+    private var nodeId: Int!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -153,12 +153,10 @@ class IBBSBaseViewController: UITableViewController {
     }
     
     func hideCornerActionButton() {
-        DEBUGLog("hide corner button")
         cornerActionButton?.hidden = true
     }
     
     func showCornerActionButton() {
-        DEBUGLog("show corner button")
         cornerActionButton?.hidden = false
     }
 
@@ -167,19 +165,22 @@ class IBBSBaseViewController: UITableViewController {
 extension IBBSBaseViewController {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        
-        if segue.identifier == postNewArticleWithNodeSegue {
-            if let destinationVC = segue.destinationViewController as? UINavigationController {
-                
-                presentLoginViewControllerIfNotLogin(alertMessage: LOGIN_TO_POST, completion: {
-                    
-                    self.presentViewController(destinationVC, animated: true, completion: nil)
-                })
-            }
+
+        if segue.identifier == postNewArticleWithNodeSegue || segue.identifier == postSegue {
+            
+            guard let destinationVC = segue.destinationViewController as? UINavigationController else { return }
+
+            let edittingVC = destinationVC.viewControllers.first as? IBBSEditingViewController
+            
+            edittingVC?.segueId = segue.identifier
+            edittingVC?.nodeId = nodeId
+            nodeId = nil
         }
     }
     
-    func performPostNewArticleSegue(segueIdentifier segueID: String) {
+    func performPostNewArticleSegue(segueIdentifier segueID: String, nodeId: Int? = nil) {
+        
+        self.nodeId = nodeId
         
         let key = IBBSLoginKey()
         

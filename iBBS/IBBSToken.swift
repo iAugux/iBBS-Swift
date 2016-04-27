@@ -52,7 +52,6 @@ struct IBBSLoginKey {
     
     private var tokenJson: JSON? {
         guard let data = NSUserDefaults.standardUserDefaults().objectForKey(kLoginFeedbackJson) else { return nil }
-        
         guard let json = NSKeyedUnarchiver.unarchiveObjectWithData(data as! NSData) else { return nil }
         
         return JSON(json)

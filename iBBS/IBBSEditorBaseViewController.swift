@@ -15,7 +15,7 @@ class IBBSEditorBaseViewController: ZSSRichTextEditor {
         
         shouldShowKeyboard = false
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: BUTTON_SEND, style: .Plain, target: self, action: #selector(IBBSEditorBaseViewController.sendAction))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: BUTTON_SEND, style: .Plain, target: self, action: #selector(sendAction))
         
         formatHTML = false
         

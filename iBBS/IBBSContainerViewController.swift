@@ -85,18 +85,6 @@ class ContainerViewController: UIViewController, UIGestureRecognizerDelegate, To
         return false
     }
     
-    
-    internal func toggleLeftPanel() {
-        
-        let notAlreadyExpanded = (currentState != .LeftPanelExpanded)
-        
-        if notAlreadyExpanded {
-            addLeftPanelViewController()
-        }
-        
-        animateLeftPanel(notAlreadyExpanded)
-    }
-    
     private func addLeftPanelViewController() {
         if leftViewController == nil {
             leftViewController = UIStoryboard.leftViewController()
@@ -217,11 +205,23 @@ class ContainerViewController: UIViewController, UIGestureRecognizerDelegate, To
         }
     }
     
-    // ToggleLeftPanelDelegate
+    
+    // MARK: - ToggleLeftPanelDelegate
+    
     internal func removeFrontBlurView(){
         centerVCFrontBlurView.removeFromSuperview()
     }
     
+    internal func toggleLeftPanel() {
+        
+        let notAlreadyExpanded = (currentState != .LeftPanelExpanded)
+        
+        if notAlreadyExpanded {
+            addLeftPanelViewController()
+        }
+        
+        animateLeftPanel(notAlreadyExpanded)
+    }
 }
 
 
@@ -235,3 +235,4 @@ private extension UIStoryboard {
         return MainStoryboard.instantiateViewControllerWithIdentifier(String(TabBarController)) as? TabBarController
     }
 }
+

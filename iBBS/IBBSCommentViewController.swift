@@ -63,7 +63,8 @@ class IBBSCommentViewController: IBBSEditorBaseViewController {
             return
         }
         
-        let content = getHTML()
+        let content = getHTML()//.ausTrimHtmlInNewlineCharacterSet()
+        // http://img.iai.cn/shot.php?app_id=1100088630&index=1
         
         let key = IBBSLoginKey()
         

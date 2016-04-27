@@ -13,6 +13,7 @@
 import UIKit
 import SwiftyJSON
 
+let postNewArticleWithNodeSegue = "postNewArticleWithNode"
 
 class IBBSNodeViewController: IBBSBaseViewController, UIGestureRecognizerDelegate {
     
@@ -25,7 +26,6 @@ class IBBSNodeViewController: IBBSBaseViewController, UIGestureRecognizerDelegat
         configureView()
         configureGestureRecognizer()
         sendRequest(page)
-        postNewArticleSegue = postNewArticleWithNodeSegue
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(reloadDataAfterPosting), name: kShouldReloadDataAfterPosting, object: nil)
     }
@@ -53,8 +53,10 @@ class IBBSNodeViewController: IBBSBaseViewController, UIGestureRecognizerDelegat
     private func sendRequest(page: Int) {
         
         guard let node = nodeJSON else { return }
+        
+        let id = IBBSNodeModel(json: node).id
 
-        APIClient.sharedInstance.getLatestTopics(node["id"].stringValue, page: page, success: { (json) -> Void in
+        APIClient.sharedInstance.getLatestTopics(id, page: page, success: { (json) -> Void in
             
             if json == nil && page != 1 {
                 IBBSToast.make(NO_MORE_DATA, interval: TIME_OF_TOAST_OF_NO_MORE_DATA)
@@ -68,8 +70,8 @@ class IBBSNodeViewController: IBBSBaseViewController, UIGestureRecognizerDelegat
                 } else {
                     let appendArray = json.arrayValue
                     self.datasource? += appendArray
-                    self.tableView.reloadData()
                 }
+                self.tableView.reloadData()
             }
             
             }, failure: { (error) -> Void in
@@ -79,10 +81,11 @@ class IBBSNodeViewController: IBBSBaseViewController, UIGestureRecognizerDelegat
     }
     
     private func configureView() {
+        
         navigationController?.navigationBarHidden = false
         
         if let node = nodeJSON {
-            title = node["title"].stringValue
+            title = IBBSNodeModel(json: node).title
         }else {
             title = "iBBS"
         }
@@ -102,7 +105,12 @@ class IBBSNodeViewController: IBBSBaseViewController, UIGestureRecognizerDelegat
     }
 
     override func cornerActionButtonDidTap() {
-        performPostNewArticleSegue(segueIdentifier: postNewArticleWithNodeSegue)
+        
+        guard let node = nodeJSON else { return }
+        
+        let nodeId = IBBSNodeModel(json: node).id
+        
+        performPostNewArticleSegue(segueIdentifier: postNewArticleWithNodeSegue, nodeId: nodeId)
     }
     
 }
@@ -152,8 +160,7 @@ extension IBBSNodeViewController {
         
         sendRequest(page)
 
-        executeAfterDelay(1.3) {
-            self.tableView.reloadData()
+        executeAfterDelay(0.9) {
             self.page = 1
             self.gearRefreshControl?.endRefreshing()
         }

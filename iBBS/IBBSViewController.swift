@@ -13,10 +13,9 @@
 import UIKit
 import SwiftyJSON
 
+let postSegue = "postNewArticle"
 
 class IBBSViewController: IBBSBaseViewController {
-    
-    private let postSegue = "postNewArticle"
     
     @IBOutlet var postNewArticleButton: UIBarButtonItem!
     
@@ -27,10 +26,11 @@ class IBBSViewController: IBBSBaseViewController {
         configureNavifationItemTitle()
         pullUpToLoadmore()
         sendRequest(page)
-        postNewArticleSegue = postSegue
         
-        IBBSConfigureNodesInfo.sharedInstance.configureNodesInfo()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(reloadDataAfterPosting), name: kShouldReloadDataAfterPosting, object: nil)
+        
+        let nodesController = IBBSNodesCollectionViewController()
+        nodesController.getNodesIfNeeded()
         
     }
     
@@ -74,8 +74,8 @@ class IBBSViewController: IBBSBaseViewController {
                     let appendArray = json.arrayValue
                     
                     self.datasource? += appendArray
-                    self.tableView.reloadData()
                 }
+                self.tableView.reloadData()
             }
             
             }, failure: { (error) -> Void in
@@ -111,7 +111,6 @@ class IBBSViewController: IBBSBaseViewController {
     
     override func cornerActionButtonDidTap() {
         performPostNewArticleSegue(segueIdentifier: postSegue)
-        
     }
     
     @IBAction func postNewArticleButtonDidTap(sender: AnyObject) {
@@ -126,12 +125,7 @@ extension IBBSViewController {
     // MARK: - Table view data source
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if datasource != nil {
-            DEBUGLog(datasource.count)
-            return datasource.count
-            
-        }
-        return 0
+        return datasource?.count ?? 0
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -150,28 +144,19 @@ extension IBBSViewController {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let json = datasource[indexPath.row]
-        //                if let vc = storyboard?.instantiateViewControllerWithIdentifier(String(IBBSDetailViewController)) as? IBBSDetailViewController{
-        //                    vc.json = json
-        //                    navigationController?.pushViewController(vc, animated: true)
-        //                }
+        
         let vc = IBBSDetailViewController()
         vc.json = json
         vc.navigationController?.navigationBar.hidden = true
         navigationController?.pushViewController(vc, animated: true)
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        super.prepareForSegue(segue, sender: sender)
-        if segue.identifier == postSegue {
-            whoCalledEditingViewController = -1
-        }
-    }
-    
 }
 
 extension IBBSViewController {
+    
     // MARK: - refresh
-    override func refreshData(){
+    override func refreshData() {
         super.refreshData()
         
         sendRequest(page)
@@ -179,7 +164,6 @@ extension IBBSViewController {
         let refreshInSeconds = 1.3
         let popTime = dispatch_time(DISPATCH_TIME_NOW, Int64(refreshInSeconds * Double(NSEC_PER_SEC)));
         dispatch_after(popTime, dispatch_get_main_queue()) { () -> Void in
-            self.tableView.reloadData()
             self.page = 1
             self.gearRefreshControl?.endRefreshing()
         }
@@ -188,9 +172,9 @@ extension IBBSViewController {
     
     
     // MARK: - pull up to load more
-    func pullUpToLoadmore(){
+    func pullUpToLoadmore() {
         tableView.addFooterWithCallback({
-            DEBUGLog("pulling up")
+
             self.page += 1
             DEBUGLog("page: \(self.page)")
             

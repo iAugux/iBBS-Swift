@@ -719,16 +719,13 @@
                     </view>
                     <navigationItem key="navigationItem" id="ZRW-h1-WyS">
                         <barButtonItem key="leftBarButtonItem" image="close" id="4u2-8p-8go"/>
-                        <barButtonItem key="rightBarButtonItem" image="send_message" id="N5o-56-4dz">
-                            <connections>
-                                <segue destination="8XT-ov-1Vd" kind="show" identifier="GoToChatViewController" id="w8K-9n-MFw"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" image="send_message" id="N5o-56-4dz"/>
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="yiX-eL-dzI" id="h1O-Bn-Tu4"/>
                         <outlet property="userImageView" destination="479-Su-Ufw" id="fKb-YY-fKE"/>
                         <outlet property="usernameLabel" destination="u5D-8Y-f1c" id="FH1-VQ-7NS"/>
+                        <segue destination="8XT-ov-1Vd" kind="show" identifier="GoToChatViewController" id="yIa-CE-yi0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jcW-by-x3S" userLabel="First Responder" sceneMemberID="firstResponder"/>

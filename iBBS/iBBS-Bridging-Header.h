@@ -14,6 +14,7 @@
 #define iBBS_Bridging_Header_h
 
 #import "ZSSRichTextEditor.h"
+#import "NSString+HTML.h"
 #import <CommonCrypto/CommonCrypto.h>
 
 

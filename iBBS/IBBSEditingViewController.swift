@@ -13,10 +13,16 @@
 import UIKit
 import SwiftyJSON
 
+
+let nodeID = "board"
+let articleTitle = "title"
+
 var contentsArrayOfPostArticle: NSMutableDictionary!
-var whoCalledEditingViewController: Int! = -1
 
 class IBBSEditingViewController: UIViewController, UITextViewDelegate {
+    
+    var segueId: String!
+    var nodeId: Int!
     
     @IBOutlet var avatarImageView: IBBSAvatarImageView! {
         didSet{
@@ -39,15 +45,13 @@ class IBBSEditingViewController: UIViewController, UITextViewDelegate {
     }
     
     private var node: JSON?
-    private let nodeID = "board"
-    private let articleTitle = "title"
     private let postControllerID = "iBBSPostViewController"
     private var defaultSelectedRow: Int!
     private var blurView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        IBBSConfigureNodesInfo.sharedInstance.configureNodesInfo()
+
         node = IBBSContext.sharedInstance.getNodes()
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self , action: #selector(cancelAction))
@@ -63,15 +67,17 @@ class IBBSEditingViewController: UIViewController, UITextViewDelegate {
         }
   
         configureDefaultSelectedRow()
+        
         nodesPickerView.delegate = self
         nodesPickerView.dataSource = self
         nodesPickerView.selectRow(defaultSelectedRow, inComponent: 0, animated: true)
+        
         contentTextView.delegate = self
        
         contentsArrayOfPostArticle = NSMutableDictionary()
         
         // set default node ID
-        contentsArrayOfPostArticle.setObject(defaultSelectedRow, forKey: nodeID)
+        contentsArrayOfPostArticle.setObject(defaultSelectedRow + 1, forKey: nodeID)
  
         contentTextView.becomeFirstResponder()
     }
@@ -87,10 +93,18 @@ class IBBSEditingViewController: UIViewController, UITextViewDelegate {
     
     private func configureDefaultSelectedRow() {
         
-        if whoCalledEditingViewController == -1 { // IBBSViewController called me
-            defaultSelectedRow = 2
+        if segueId == postSegue {
+            // IBBSViewController called me
+            defaultSelectedRow = 0
         } else {
-            defaultSelectedRow = whoCalledEditingViewController
+            // IBBSNodeViewController called me
+            
+            guard nodeId != nil else {
+                defaultSelectedRow = 0
+                return
+            }
+            
+            defaultSelectedRow = nodeId - 1
         }
     }
     
@@ -103,7 +117,7 @@ class IBBSEditingViewController: UIViewController, UITextViewDelegate {
     
     @IBAction func okAction(sender: AnyObject) {
        
-        let title = contentTextView.text
+        guard let title = contentTextView.text else { return }
         
         contentsArrayOfPostArticle.setObject(title, forKey: articleTitle)
         
@@ -159,12 +173,7 @@ class IBBSEditingViewController: UIViewController, UITextViewDelegate {
 extension IBBSEditingViewController: UIPickerViewDataSource {
     
     func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        
-        if let node = node {
-            return node.count
-        } else {
-            return 0
-        }
+        return node?.count ?? 0
     }
     
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
@@ -173,12 +182,9 @@ extension IBBSEditingViewController: UIPickerViewDataSource {
     
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
 
-        if let node = node {
-            let node = node.arrayValue[row]
-            let nodeName = node["name"].stringValue
-            return nodeName
-        }
-        return ""
+        guard let node = node?.arrayValue[row] else { return nil }
+        
+        return node["name"].stringValue
     }
 }
 
@@ -189,9 +195,11 @@ extension IBBSEditingViewController: UIPickerViewDelegate {
 
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
-        let pickerID = nodesPickerView.selectedRowInComponent(0)
+        guard let node = node?.arrayValue[row] else { return }
         
+        let nodeId = node["id"].intValue
+                
         // save node ID to array
-        contentsArrayOfPostArticle.setObject(pickerID, forKey: nodeID)
+        contentsArrayOfPostArticle.setObject(nodeId, forKey: nodeID)
     }
 }

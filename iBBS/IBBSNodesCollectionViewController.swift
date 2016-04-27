@@ -21,14 +21,16 @@ class IBBSNodesCollectionViewController: UICollectionViewController {
     
     private var nodesArray: [JSON]? {
         didSet {
-            collectionView?.reloadData()
+            dispatch_async(GlobalMainQueue) {
+                self.collectionView?.reloadData()
+            }
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        IBBSConfigureNodesInfo.sharedInstance.configureNodesInfo()
-        nodesArray = IBBSConfigureNodesInfo.sharedInstance.nodesArray
+        
+        configureNodesInfo()
         gearRefreshManager()
         
         collectionView?.addSubview(gearRefreshControl)
@@ -96,7 +98,6 @@ extension IBBSNodesCollectionViewController {
     }
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
         return nodesArray?.count ?? 0
     }
     
@@ -124,7 +125,6 @@ extension IBBSNodesCollectionViewController {
         
         let json = array[indexPath.row]
         vc.nodeJSON = json
-        whoCalledEditingViewController = indexPath.row
         navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -152,55 +152,33 @@ extension IBBSNodesCollectionViewController {
     }
     
     @objc private func refreshData() {
-        
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-            
-            IBBSConfigureNodesInfo.sharedInstance.configureNodesInfo()
-            self.nodesArray = IBBSConfigureNodesInfo.sharedInstance.nodesArray
-            
-            dispatch_async(dispatch_get_main_queue(), {
-                self.collectionView?.reloadData()
-            })
-        })
+        configureNodesInfo()
     }
     
-}
-
-
-public class IBBSConfigureNodesInfo {
-    
-    static let sharedInstance = IBBSConfigureNodesInfo()
-    
-    public var nodesArray: [JSON]?
-    
-    public func configureNodesInfo() {
+    private func configureNodesInfo() {
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
             
-            self.getNodesIfNeeded()
-            
-            let nodes = IBBSContext.sharedInstance.getNodes()
-            
-            dispatch_async(dispatch_get_main_queue(), {
-                
+            self.getNodesIfNeeded({ (nodes) in
                 if let json = nodes {
+                    print(json)
                     self.nodesArray = json.arrayValue
                 } else {
-                    self.configureNodesInfo()
+                    IBBSToast.make(TRY_AGAIN, interval: 1)
                 }
             })
         })
     }
     
-    private func getNodesIfNeeded() {
+    func getNodesIfNeeded(completion: ((nodes: JSON?) -> ())? = nil) {
         
         APIClient.sharedInstance.getNodes({ (json) -> Void in
             
             guard json.type == Type.Array else { return }
             
-            self.nodesArray = json.arrayValue
-            debugPrint(json.arrayValue)
             IBBSContext.sharedInstance.saveNodes(json.object)
+            
+            completion?(nodes: json)
             
         }) { (error) -> Void in
             IBBSToast.make(SERVER_ERROR, interval: TIME_OF_TOAST_OF_SERVER_ERROR)

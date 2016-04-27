@@ -28,6 +28,8 @@
 		B124B9F41BA9BB92000034CC /* IBBSMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B124B9F21BA9BB92000034CC /* IBBSMessageTableViewCell.xib */; };
 		B125567C1C8FF660000EBED8 /* DEBUGLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = B125567B1C8FF660000EBED8 /* DEBUGLog.swift */; };
 		B12556801C8FF742000EBED8 /* Encrypt+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B125567F1C8FF742000EBED8 /* Encrypt+Additions.swift */; };
+		B136AA7F1CCF3E6300A728D2 /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = B136AA7C1CCF3E6300A728D2 /* GTMNSString+HTML.m */; };
+		B136AA801CCF3E6300A728D2 /* NSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = B136AA7E1CCF3E6300A728D2 /* NSString+HTML.m */; };
 		B13BFF7E1BC8FD3D0034E1E8 /* IBBSSlidePanel.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B13BFF7D1BC8FD3D0034E1E8 /* IBBSSlidePanel.storyboard */; };
 		B13BFF801BC8FF710034E1E8 /* IBBSNotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B13BFF7F1BC8FF710034E1E8 /* IBBSNotificationViewController.swift */; };
 		B13BFF821BC8FF840034E1E8 /* IBBSFavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B13BFF811BC8FF840034E1E8 /* IBBSFavoriteViewController.swift */; };
@@ -58,6 +60,7 @@
 		B1648DEA1CCE3C0C008257DB /* UIDevice+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1648DE91CCE3C0C008257DB /* UIDevice+Extension.swift */; };
 		B165BCEA1BA940DC00036477 /* IBBSCommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B165BCE91BA940DC00036477 /* IBBSCommentViewController.swift */; };
 		B165BCEC1BA9662B00036477 /* IBBSConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B165BCEB1BA9662B00036477 /* IBBSConstants.swift */; };
+		B16803CE1CCF7CFC004EF786 /* IBBSNodeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B16803CD1CCF7CFC004EF786 /* IBBSNodeModel.swift */; };
 		B16C66B51CCD2F87002C62A9 /* Alamofire3-SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = B16C66B41CCD2F87002C62A9 /* Alamofire3-SwiftyJSON.swift */; };
 		B17376AB1CC4BFBA00C27725 /* IBBSChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17376AA1CC4BFBA00C27725 /* IBBSChatViewController.swift */; };
 		B17376AD1CC4D97300C27725 /* IBBSUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17376AC1CC4D97300C27725 /* IBBSUserViewController.swift */; };
@@ -210,6 +213,10 @@
 		B124B9F21BA9BB92000034CC /* IBBSMessageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IBBSMessageTableViewCell.xib; sourceTree = "<group>"; };
 		B125567B1C8FF660000EBED8 /* DEBUGLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DEBUGLog.swift; sourceTree = "<group>"; };
 		B125567F1C8FF742000EBED8 /* Encrypt+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Encrypt+Additions.swift"; sourceTree = "<group>"; };
+		B136AA7B1CCF3E6300A728D2 /* GTMNSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GTMNSString+HTML.h"; sourceTree = "<group>"; };
+		B136AA7C1CCF3E6300A728D2 /* GTMNSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GTMNSString+HTML.m"; sourceTree = "<group>"; };
+		B136AA7D1CCF3E6300A728D2 /* NSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+HTML.h"; sourceTree = "<group>"; };
+		B136AA7E1CCF3E6300A728D2 /* NSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+HTML.m"; sourceTree = "<group>"; };
 		B13BFF7D1BC8FD3D0034E1E8 /* IBBSSlidePanel.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = IBBSSlidePanel.storyboard; sourceTree = "<group>"; };
 		B13BFF7F1BC8FF710034E1E8 /* IBBSNotificationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSNotificationViewController.swift; sourceTree = "<group>"; };
 		B13BFF811BC8FF840034E1E8 /* IBBSFavoriteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSFavoriteViewController.swift; sourceTree = "<group>"; };
@@ -240,6 +247,7 @@
 		B1648DE91CCE3C0C008257DB /* UIDevice+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extension.swift"; sourceTree = "<group>"; };
 		B165BCE91BA940DC00036477 /* IBBSCommentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSCommentViewController.swift; sourceTree = "<group>"; };
 		B165BCEB1BA9662B00036477 /* IBBSConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSConstants.swift; sourceTree = "<group>"; };
+		B16803CD1CCF7CFC004EF786 /* IBBSNodeModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSNodeModel.swift; sourceTree = "<group>"; };
 		B16C66B41CCD2F87002C62A9 /* Alamofire3-SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Alamofire3-SwiftyJSON.swift"; sourceTree = "<group>"; };
 		B17376AA1CC4BFBA00C27725 /* IBBSChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSChatViewController.swift; sourceTree = "<group>"; };
 		B17376AC1CC4D97300C27725 /* IBBSUserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSUserViewController.swift; sourceTree = "<group>"; };
@@ -452,6 +460,17 @@
 			path = CWStatusBarNotification;
 			sourceTree = "<group>";
 		};
+		B136AA7A1CCF3E6300A728D2 /* MWFeedParser */ = {
+			isa = PBXGroup;
+			children = (
+				B136AA7B1CCF3E6300A728D2 /* GTMNSString+HTML.h */,
+				B136AA7C1CCF3E6300A728D2 /* GTMNSString+HTML.m */,
+				B136AA7D1CCF3E6300A728D2 /* NSString+HTML.h */,
+				B136AA7E1CCF3E6300A728D2 /* NSString+HTML.m */,
+			);
+			path = MWFeedParser;
+			sourceTree = "<group>";
+		};
 		B141A52A1BC4ED2000A32CD8 /* IBBSSlidePanelControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -506,6 +525,7 @@
 				B1CCFE841CCCA91400CCAC69 /* IBBSLoginModel.swift */,
 				B17376B21CC4E0FC00C27725 /* IBBSTopicModel.swift */,
 				B17376B01CC4DFE600C27725 /* IBBSTopicListModel.swift */,
+				B16803CD1CCF7CFC004EF786 /* IBBSNodeModel.swift */,
 				B17376AE1CC4DC8300C27725 /* IBBSNodeTopicListModel.swift */,
 				B17376B41CC4E38700C27725 /* IBBSMessageModel.swift */,
 				B17376B61CC4ECC000C27725 /* IBBSReplyMessageModel.swift */,
@@ -561,6 +581,7 @@
 		B1CA72041B96DE55006823B3 /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				B136AA7A1CCF3E6300A728D2 /* MWFeedParser */,
 				B1F643A61CCC72E600A5A5E9 /* ZSSRichTextEditor */,
 				B1179CD11CCB57C400EBC0EE /* CWStatusBarNotification */,
 				B1AF3F941BC695A900BCBB8F /* FrostedSidebar(Edited) */,
@@ -1034,6 +1055,7 @@
 				B13BFF8C1BC983D70034E1E8 /* UIImageView+Additions.swift in Sources */,
 				B141A5401BC5175C00A32CD8 /* PanDirectionGestureRecognizer+Addtions.swift in Sources */,
 				B13BFF801BC8FF710034E1E8 /* IBBSNotificationViewController.swift in Sources */,
+				B136AA7F1CCF3E6300A728D2 /* GTMNSString+HTML.m in Sources */,
 				B179394B1B96DE08002E1B21 /* IBBSTableViewCell.swift in Sources */,
 				B197C82C1BA73D1D00DE0678 /* IBBSPostViewController.swift in Sources */,
 				B13BFF8A1BC962890034E1E8 /* CAAnimation+Additions.swift in Sources */,
@@ -1057,6 +1079,8 @@
 				B1179C9F1CBE0500008D18EC /* FPSLabel.swift in Sources */,
 				B1F644581CCC72E600A5A5E9 /* CYRTextStorage.m in Sources */,
 				B11373DB1BB6E32C00DB9D1F /* IBBSEffectViewController.swift in Sources */,
+				B16803CE1CCF7CFC004EF786 /* IBBSNodeModel.swift in Sources */,
+				B136AA801CCF3E6300A728D2 /* NSString+HTML.m in Sources */,
 				B17376B51CC4E38700C27725 /* IBBSMessageModel.swift in Sources */,
 				B15BD5B61BA54BBC00969D36 /* IBBSNodeTableViewCell.swift in Sources */,
 				B141A5451BC5175C00A32CD8 /* UITextView+Additions.swift in Sources */,

@@ -10,7 +10,7 @@ import UIKit
 
 class IBBSChatViewController: UIViewController {
     
-    var receiver: Int!
+    var receiver: User!
     
     @IBOutlet private weak var textView: UITextView! {
         didSet {
@@ -98,7 +98,9 @@ class IBBSChatViewController: UIViewController {
         print(receiver)
         print(content)
         
-        APIClient.sharedInstance.sendMessage(key.uid!, token: key.token!, receiver_uid: receiver, title: "kkk", content: "hhhhhhhh", success: { (json) -> Void in
+        let title = "@\(receiver.name)"
+        
+        APIClient.sharedInstance.sendMessage(key.uid!, token: key.token!, receiver_uid: receiver.id, title: title, content: content, success: { (json) -> Void in
             
             let model = IBBSModel(json: json)
             

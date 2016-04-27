@@ -48,4 +48,9 @@
 	"Invalid password" = "\U5bc6\U7801\U4e0d\U53ef\U7528";
 	"Send successfully!" = "\U53d1\U9001\U6210\U529f\Uff01";
 	"Send failed!" = "\U53d1\U9001\U5931\U8d25\Uff01";
+	"Change Password" = "\U4fee\U6539\U5bc6\U7801";
+	"Change Avatar" = "\U66f4\U6539\U5934\U50cf";
+	"Old Password" = "\U65e7\U5bc6\U7801";
+	"New Password" = "\U65b0\U5bc6\U7801";
+	"Confirm Password" = "\U786e\U8ba4\U5bc6\U7801";
 }

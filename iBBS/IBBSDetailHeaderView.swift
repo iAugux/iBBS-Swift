@@ -34,6 +34,8 @@ class IBBSDetailHeaderView: UIView {
         
         avatarImageView.kf_setImageWithURL(model.avatarUrl, placeholderImage: AVATAR_PLACEHOLDER_IMAGE)
         
+        avatarImageView.user = User(id: model.uid, name: model.username)
+
         nodeName              = model.board
         usernameLabel.text    = model.username
         headerTitleLabel.text = model.title
