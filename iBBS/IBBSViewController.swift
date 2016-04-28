@@ -58,7 +58,7 @@ class IBBSViewController: IBBSBaseViewController {
     
     private func sendRequest(page: Int) {
         
-        APIClient.sharedInstance.getLatestTopics(page, success: { (json) -> Void in
+        APIClient.defaultClient.getLatestTopics(page, success: { (json) -> Void in
             
             DEBUGPrint(json)
             

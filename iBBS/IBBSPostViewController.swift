@@ -56,13 +56,18 @@ class IBBSPostViewController: IBBSEditorBaseViewController {
         
         let key = IBBSLoginKey()
         
-        guard key.isValid else { return }
+        guard key.isValid else {
+            IBBSContext.login(completion: { 
+                self.sendAction()
+            })
+            return
+        }
         
         let nodeId  = contentsArrayOfPostArticle[nodeID] as! Int
         let title   = contentsArrayOfPostArticle[articleTitle] as! String
         let content = getHTML()!
                 
-        APIClient.sharedInstance.post(key.uid, nodeID: nodeId, content: content, title: title, token: key.token, success: { (json) -> Void in
+        APIClient.defaultClient.post(key.uid, nodeID: nodeId, content: content, title: title, token: key.token, success: { (json) -> Void in
             
             let model = IBBSModel(json: json)
             

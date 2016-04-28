@@ -75,25 +75,21 @@ class IBBSMessagesViewController: IBBSBaseViewController {
     
     private func sendRequest() {
         
-        let key = IBBSLoginKey()
-        
-        guard key.isValid else {
-            presentLoginViewControllerIfNotLogin(alertMessage: LOGIN_TO_READ_MESSAGE, completion: { () -> Void in
-                self.automaticPullingDownToRefresh()
-                self.sendRequest()
+        IBBSContext.loginIfNeeded(alertMessage: LOGIN_TO_READ_MESSAGE) {
+            
+            // after login, the key has been saved, so here get it.
+            let key = IBBSLoginKey()
+            
+            APIClient.defaultClient.getMessages(key.uid, token: key.token, success: { (json ) -> Void in
+                
+                self.messageArray = json.arrayValue
+                self.tableView.reloadData()
+                
+                }, failure: { (error ) -> Void in
+                    DEBUGLog(error)
+                    IBBSToast.make(SERVER_ERROR, delay: 0, interval: TIME_OF_TOAST_OF_SERVER_ERROR)
             })
-            return
         }
-        
-        APIClient.sharedInstance.getMessages(key.uid, token: key.token, success: { (json ) -> Void in
-            
-            self.messageArray = json.arrayValue
-            self.tableView.reloadData()
-            
-            }, failure: { (error ) -> Void in
-                DEBUGLog(error)
-                IBBSToast.make(SERVER_ERROR, delay: 0, interval: TIME_OF_TOAST_OF_SERVER_ERROR)
-        })
     }
     
     override func updateTheme() {
@@ -149,7 +145,7 @@ class IBBSMessagesViewController: IBBSBaseViewController {
         
         guard key.isValid else { return }
         
-        APIClient.sharedInstance.readMessage(key.uid, token: key.token, msgID: messageID, success: { (json) -> Void in
+        APIClient.defaultClient.readMessage(key.uid, token: key.token, msgID: messageID, success: { (json) -> Void in
             
             self.messageContent = json
             
@@ -267,7 +263,7 @@ extension IBBSMessagesViewController: DraggableViewDelegate {
             return
         }
         
-        APIClient.sharedInstance.replyMessage(key.uid, token: key.token, receiver_uid: receiver_uid, title: title, content: content, success: { (json) -> Void in
+        APIClient.defaultClient.replyMessage(key.uid, token: key.token, receiver_uid: receiver_uid, title: title, content: content, success: { (json) -> Void in
             
             let model = IBBSModel(json: json)
             

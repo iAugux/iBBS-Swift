@@ -82,6 +82,7 @@
 		B197C82C1BA73D1D00DE0678 /* IBBSPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B197C82B1BA73D1D00DE0678 /* IBBSPostViewController.swift */; };
 		B197C8331BA74C0200DE0678 /* IBBSPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B197C8321BA74C0200DE0678 /* IBBSPickerViewController.swift */; };
 		B199E3201BA9B1250088DFC5 /* IBBSMessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B199E31F1BA9B1250088DFC5 /* IBBSMessagesViewController.swift */; };
+		B1A46D2A1CD1C5750098AEB1 /* DrawCornerRadiusImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A46D291CD1C5750098AEB1 /* DrawCornerRadiusImage.swift */; };
 		B1AF3F961BC695A900BCBB8F /* FrostedSidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1AF3F951BC695A900BCBB8F /* FrostedSidebar.swift */; };
 		B1B097CB1BA42F1E009B02E2 /* IBBSTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B097CA1BA42F1E009B02E2 /* IBBSTabBarController.swift */; };
 		B1B097CD1BA43A86009B02E2 /* IBBSNodesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B097CC1BA43A86009B02E2 /* IBBSNodesCollectionViewController.swift */; };
@@ -271,6 +272,7 @@
 		B197C82B1BA73D1D00DE0678 /* IBBSPostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSPostViewController.swift; sourceTree = "<group>"; };
 		B197C8321BA74C0200DE0678 /* IBBSPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSPickerViewController.swift; sourceTree = "<group>"; };
 		B199E31F1BA9B1250088DFC5 /* IBBSMessagesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSMessagesViewController.swift; sourceTree = "<group>"; };
+		B1A46D291CD1C5750098AEB1 /* DrawCornerRadiusImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawCornerRadiusImage.swift; sourceTree = "<group>"; };
 		B1AF3F951BC695A900BCBB8F /* FrostedSidebar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrostedSidebar.swift; sourceTree = "<group>"; };
 		B1B097CA1BA42F1E009B02E2 /* IBBSTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSTabBarController.swift; sourceTree = "<group>"; };
 		B1B097CC1BA43A86009B02E2 /* IBBSNodesCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSNodesCollectionViewController.swift; sourceTree = "<group>"; };
@@ -505,6 +507,7 @@
 				B141A5381BC5175C00A32CD8 /* UITextView+Additions.swift */,
 				B141A5391BC5175C00A32CD8 /* UIView+Additions.swift */,
 				B13BFF8B1BC983D70034E1E8 /* UIImageView+Additions.swift */,
+				B1A46D291CD1C5750098AEB1 /* DrawCornerRadiusImage.swift */,
 				B17376B81CC5026C00C27725 /* UIViewController+Extension.swift */,
 				B13BFF891BC962890034E1E8 /* CAAnimation+Additions.swift */,
 				B1D186F71CCBC7D700F5FFD7 /* Utils.swift */,
@@ -1029,6 +1032,7 @@
 				B1AF3F961BC695A900BCBB8F /* FrostedSidebar.swift in Sources */,
 				B165BCEA1BA940DC00036477 /* IBBSCommentViewController.swift in Sources */,
 				B1F6445A1CCC72E600A5A5E9 /* CYRToken.m in Sources */,
+				B1A46D2A1CD1C5750098AEB1 /* DrawCornerRadiusImage.swift in Sources */,
 				B197C8331BA74C0200DE0678 /* IBBSPickerViewController.swift in Sources */,
 				B1CA72081B96DE74006823B3 /* IBBSAPIClient.swift in Sources */,
 				B1563DD81BB2BD4B00F6D00B /* IBBSRegisterViewController.swift in Sources */,

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SnapKit
 
 
 struct User {
@@ -19,19 +20,43 @@ struct User {
     }
 }
 
+private let overlayImage: UIImage = {
+    let radius: CGFloat = 15
+    let innerSize = CGSizeMake(30, 30)
+    let image = UIGraphicsDrawAntiRoundedCornerImageWithRadius(radius, outerSize: innerSize, innerSize: innerSize, fillColor: UIColor.whiteColor())
+    return image
+}()
+
 class IBBSAvatarImageView: UIImageView {
     
     var user: User!
+    
+    var antiOffScreenRendering: Bool = true {
+        didSet {
+            guard !antiOffScreenRendering else { return }
+            guard let _ = overlayView?.removeFromSuperview() else { return }
+            
+            layer.cornerRadius = frame.width / 2
+            layoutIfNeeded()
+        }
+    }
+    
+    private var overlayView: UIImageView!
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
         clipsToBounds       = true
-//        layer.borderWidth   = 0.3
-//        layer.borderColor   = UIColor.blackColor().CGColor
-        layer.cornerRadius  = frame.width / 2.0
         backgroundColor     = UIColor.randomColorFilterDarkerOut()
         
+        overlayView = UIImageView()
+        overlayView.image = overlayImage
+        overlayView.contentMode = .ScaleToFill
+        addSubview(overlayView)
+        overlayView.snp_makeConstraints { (make) in
+            make.edges.equalTo(UIEdgeInsetsZero)
+        }
+
         userInteractionEnabled = true
         
         let recognizer = UITapGestureRecognizer(target: self, action: #selector(IBBSAvatarImageView.avatarDidTap))

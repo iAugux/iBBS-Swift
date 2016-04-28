@@ -14,7 +14,7 @@ import UIKit
 import SnapKit
 import SwiftyJSON
 
-protocol ToggleLeftPanelDelegate{
+protocol ToggleLeftPanelDelegate {
     func toggleLeftPanel()
     func removeFrontBlurView()
 }
@@ -23,6 +23,8 @@ class SlidePanelViewController: UIViewController, UITableViewDataSource, UITable
     
     @IBOutlet weak var userProfileImage: IBBSAvatarImageView! {
         didSet{
+            userProfileImage.antiOffScreenRendering = false
+            
             userProfileImage.backgroundColor = CUSTOM_THEME_COLOR.darkerColor(0.75)
             userProfileImage.image = AVATAR_PLACEHOLDER_IMAGE
             configureLoginAndLogoutView(userProfileImage)
@@ -33,6 +35,14 @@ class SlidePanelViewController: UIViewController, UITableViewDataSource, UITable
             userProfileImage.user = User(id: id, name: name)
         }
     }
+    
+    @IBOutlet weak var loginStatusIndicator: UIView! {
+        didSet {
+            loginStatusIndicator.layer.cornerRadius = loginStatusIndicator.frame.width / 2
+            changeLoginStatusIndicatorColor()
+        }
+    }
+    
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -61,7 +71,7 @@ class SlidePanelViewController: UIViewController, UITableViewDataSource, UITable
         tableView.backgroundColor = UIColor.clearColor()
         tableView.tableFooterView = UIView(frame: CGRectZero)
         tableView.scrollEnabled = false
-        IBBSContext.sharedInstance.configureCurrentUserAvatar(userProfileImage)
+        IBBSContext.configureCurrentUserAvatar(userProfileImage)
         
         NSNotificationCenter.defaultCenter().postNotificationName(kShouldHideCornerActionButton, object: nil)
     }
@@ -86,6 +96,13 @@ class SlidePanelViewController: UIViewController, UITableViewDataSource, UITable
         }
     }
     
+    private func changeLoginStatusIndicatorColor() {
+        let key = IBBSLoginKey()
+        let color = key.isValid ? UIColor.greenColor() : UIColor.redColor()
+        
+        loginStatusIndicator.backgroundColor = color
+    }
+    
     // MARK: - configure login and register
     private func configureLoginAndLogoutView(sender: UIImageView) {
         let longTapGesture = UILongPressGestureRecognizer(target: self , action: #selector(loginOrLogout(_:)))
@@ -101,8 +118,9 @@ class SlidePanelViewController: UIViewController, UITableViewDataSource, UITable
         
         guard !key.isValid else {
             // logout
-            IBBSContext.sharedInstance.logout(completion: {
+            IBBSContext.logout(completion: {
                 self.userProfileImage.image = AVATAR_PLACEHOLDER_IMAGE
+                self.changeLoginStatusIndicatorColor()
             })
             return
         }
@@ -118,10 +136,10 @@ class SlidePanelViewController: UIViewController, UITableViewDataSource, UITable
             let alertVC = UIAlertController(title: TOKEN_LOST_EFFECTIVENESS, message: PLEASE_LOGIN_AGAIN, preferredStyle: .Alert)
             let okAction = UIAlertAction(title: BUTTON_OK, style: .Default, handler: { (_) -> Void in
                 self.delegate?.toggleLeftPanel()
-                IBBSContext.sharedInstance.login(cancelled: {
+                IBBSContext.login(cancelled: {
                     self.delegate?.removeFrontBlurView()
                     }, completion: {
-                        IBBSContext.sharedInstance.configureCurrentUserAvatar(self.userProfileImage)
+                        IBBSContext.configureCurrentUserAvatar(self.userProfileImage)
                         self.delegate?.removeFrontBlurView()
                         //                                    NSNotificationCenter.defaultCenter().postNotificationName(kShouldReloadDataAfterPosting, object: nil)
                 })
@@ -143,11 +161,11 @@ class SlidePanelViewController: UIViewController, UITableViewDataSource, UITable
 
             self.delegate?.toggleLeftPanel()
             
-            IBBSContext.sharedInstance.login(cancelled: {
+            IBBSContext.login(cancelled: {
                 self.delegate?.removeFrontBlurView()
                 
                 }, completion: {
-                IBBSContext.sharedInstance.configureCurrentUserAvatar(self.userProfileImage)
+                IBBSContext.configureCurrentUserAvatar(self.userProfileImage)
                     
                 self.delegate?.removeFrontBlurView()
 

@@ -15,13 +15,49 @@ import SwiftyJSON
 
 class IBBSContext {
     
-    static let sharedInstance = IBBSContext()
+    private static let kNodesId = "kNodes"
+    private static let kLoginFeedbackJson = "kLoginFeedbackJson"
     
-    private let kNodesId = "kNodes"
-    private let kLoginFeedbackJson = "kLoginFeedbackJson"
-
     
-    func loginIfNeeded(cancelled cancelled: (() -> Void)?, completion: (() -> Void)?) {
+    // MARK: - Login
+    
+    static func loginIfNeeded(alertMessage message: String?, completion: CompletionHandler?) {
+        
+        let key = IBBSLoginKey()
+        
+        guard !key.isValid else {
+            completion?()
+            return
+        }
+                
+        let msg = message ?? PLEASE_LOGIN
+        
+        let loginAlertController = UIAlertController(title: "", message: msg, preferredStyle: .Alert)
+        
+        let okAction = UIAlertAction(title: BUTTON_OK, style: .Default, handler: { (_) -> Void in
+            
+            let vc = IBBSEffectViewController()
+            vc.modalTransitionStyle = UIModalTransitionStyle.FlipHorizontal
+            UIApplication.topMostViewController?.presentViewController(vc, animated: true, completion: nil)
+            
+            IBBSContext.login(cancelled: {
+                vc.dismissViewControllerAnimated(true , completion: nil)
+                
+                }, completion: {
+                    
+                    vc.dismissViewControllerAnimated(true, completion: nil)
+                    completion?()
+            })
+        })
+        
+        let cancelAction = UIAlertAction(title: BUTTON_CANCEL, style: .Cancel , handler: nil)
+        loginAlertController.addAction(cancelAction)
+        loginAlertController.addAction(okAction)
+        
+        UIApplication.topMostViewController?.presentViewController(loginAlertController, animated: true, completion: nil)
+    }
+    
+    static func login(cancelled cancelled: CompletionHandler? = nil, completion: CompletionHandler?) {
         
         var username, password: UITextField!
       
@@ -43,12 +79,12 @@ class IBBSContext {
             
             let encryptedPasswd = password.text?.MD5()
             
-            APIClient.sharedInstance.userLogin(username.text!, passwd: encryptedPasswd!, success: { (json) -> Void in
+            APIClient.defaultClient.userLogin(username.text!, passwd: encryptedPasswd!, success: { (json) -> Void in
                 
                 let model = IBBSLoginModel(json: json)
                 
                 // something wrong , alert!!
-                if model.code == 0 {
+                if !model.success {
                     let alert = UIAlertController(title: ERROR_MESSAGE, message: model.message, preferredStyle: UIAlertControllerStyle.Alert)
                     let cancelAction = UIAlertAction(title: TRY_AGAIN, style: .Cancel, handler: { (_) -> Void in
                         self.login(cancelled: nil, completion: nil)
@@ -81,7 +117,10 @@ class IBBSContext {
         UIApplication.topMostViewController?.presentViewController(alertVC, animated: true, completion: nil)
     }
 
-    func logout(completion completion: (() -> Void)?) {
+    
+    // MARK: - Logout
+    
+    static func logout(completion completion: CompletionHandler?) {
         
         let alertController = UIAlertController(title: "", message: SURE_TO_LOGOUT, preferredStyle: .Alert)
         let cancelAction = UIAlertAction(title: BUTTON_CANCEL, style: .Default, handler: nil)
@@ -98,14 +137,17 @@ class IBBSContext {
         UIApplication.topMostViewController?.presentViewController(alertController, animated: true, completion: nil)
     }
     
-    func saveNodes(nodes: AnyObject) {
+    
+    // MARK: - Nodes
+    
+    static func saveNodes(nodes: AnyObject) {
         let userDefaults = NSUserDefaults.standardUserDefaults()
         userDefaults.removeObjectForKey(kNodesId)
         userDefaults.setObject(NSKeyedArchiver.archivedDataWithRootObject(nodes), forKey: kNodesId)
         userDefaults.synchronize()
     }
     
-    func getNodes() -> JSON? {
+    static func getNodes() -> JSON? {
         let userDefaults = NSUserDefaults.standardUserDefaults()
         let data: AnyObject? = userDefaults.objectForKey(kNodesId)
         if let obj: AnyObject = data {
@@ -115,7 +157,10 @@ class IBBSContext {
         return nil
     }
     
-    func configureCurrentUserAvatar(imageView: UIImageView) {
+    
+    // MARK: - Avatar
+    
+    static func configureCurrentUserAvatar(imageView: UIImageView) {
         
         let json = IBBSLoginKey()
         

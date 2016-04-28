@@ -157,7 +157,7 @@ class ContainerViewController: UIViewController, UIGestureRecognizerDelegate, To
             
             mainViewController.view.addSubview(centerVCFrontBlurView)
             centerVCFrontBlurView.snp_makeConstraints(closure: { (make) in
-                make.edges.equalTo(view)
+                make.edges.equalTo(UIEdgeInsetsZero)
             })
             
             mainViewController.navigationController?.setNavigationBarHidden(true , animated: false)
@@ -170,7 +170,7 @@ class ContainerViewController: UIViewController, UIGestureRecognizerDelegate, To
             }
         case .Changed:
             let pointX = centerNavigationController.view.frame.origin.x
-            if (gestureIsDraggingFromLeftToRight || pointX > 0){
+            if (gestureIsDraggingFromLeftToRight || pointX > 0) {
                 recognizer.view!.center.x = recognizer.view!.center.x + recognizer.translationInView(view).x
                 recognizer.setTranslation(CGPointZero, inView: view)
                 

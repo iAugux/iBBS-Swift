@@ -188,7 +188,7 @@ extension IBBSBaseViewController {
             performSegueWithIdentifier(segueID, sender: self)
             
         } else {
-            presentLoginViewControllerIfNotLogin(alertMessage: LOGIN_TO_POST, completion:{
+            IBBSContext.loginIfNeeded(alertMessage: LOGIN_TO_POST, completion: {
                 self.performPostNewArticleSegue(segueIdentifier: segueID)
             })
         }
@@ -204,35 +204,4 @@ extension IBBSBaseViewController {
         }
     }
     
-     func presentLoginViewControllerIfNotLogin(alertMessage message: String, completion: (() -> Void)?) {
-        
-        let key = IBBSLoginKey()
-        
-        guard !key.isValid else { return }
-        
-        let loginAlertController = UIAlertController(title: "", message: message, preferredStyle: .Alert)
-        
-        let okAction = UIAlertAction(title: BUTTON_OK, style: .Default, handler: { (_) -> Void in
-            
-            let vc = IBBSEffectViewController()
-            vc.modalTransitionStyle = UIModalTransitionStyle.FlipHorizontal
-            self.presentViewController(vc, animated: true, completion: nil)
-            
-            IBBSContext.sharedInstance.login(cancelled: {
-                vc.dismissViewControllerAnimated(true , completion: nil)
-                }, completion: {
-                    vc.dismissViewControllerAnimated(true, completion: nil)
-                    
-                    if let completionHandler = completion {
-                        completionHandler()
-                    }
-            })
-        })
-        
-        let cancelAction = UIAlertAction(title: BUTTON_CANCEL, style: .Cancel , handler: nil)
-        loginAlertController.addAction(cancelAction)
-        loginAlertController.addAction(okAction)
-        
-        presentViewController(loginAlertController, animated: true, completion: nil)
-    }
 }

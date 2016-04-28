@@ -26,8 +26,10 @@ class IBBSEditingViewController: UIViewController, UITextViewDelegate {
     
     @IBOutlet var avatarImageView: IBBSAvatarImageView! {
         didSet{
+            avatarImageView.antiOffScreenRendering = false
+            
             avatarImageView.backgroundColor = CUSTOM_THEME_COLOR.darkerColor(0.75)
-            IBBSContext.sharedInstance.configureCurrentUserAvatar(avatarImageView)
+            IBBSContext.configureCurrentUserAvatar(avatarImageView)
         }
     }
     
@@ -52,7 +54,7 @@ class IBBSEditingViewController: UIViewController, UITextViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        node = IBBSContext.sharedInstance.getNodes()
+        node = IBBSContext.getNodes()
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self , action: #selector(cancelAction))
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: BUTTON_NEXT, style: .Plain, target: self, action: #selector(okAction(_:)))

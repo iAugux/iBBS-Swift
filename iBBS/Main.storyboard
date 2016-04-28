@@ -327,10 +327,20 @@
                                             <constraint firstAttribute="height" constant="70" id="dPT-oy-Erw"/>
                                         </constraints>
                                     </imageView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i4w-cT-QPP">
+                                        <rect key="frame" x="58.5" y="111" width="5" height="5"/>
+                                        <color key="backgroundColor" red="0.40000000600000002" green="1" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="5" id="mSt-Cg-J11"/>
+                                            <constraint firstAttribute="width" secondItem="i4w-cT-QPP" secondAttribute="height" multiplier="1:1" id="yDu-5E-QTO"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="ljr-27-UBM" firstAttribute="leading" secondItem="Okh-bE-T3D" secondAttribute="leading" constant="26" id="P1U-uP-ebf"/>
                                     <constraint firstAttribute="height" constant="135" id="Xzy-Ok-Fuj"/>
+                                    <constraint firstItem="i4w-cT-QPP" firstAttribute="top" secondItem="ljr-27-UBM" secondAttribute="bottom" constant="8" id="aDd-VC-YvA"/>
+                                    <constraint firstItem="i4w-cT-QPP" firstAttribute="centerX" secondItem="ljr-27-UBM" secondAttribute="centerX" id="f2V-GA-Qf4"/>
                                     <constraint firstItem="ljr-27-UBM" firstAttribute="top" secondItem="Okh-bE-T3D" secondAttribute="top" constant="33" id="zHd-4q-6Aa"/>
                                 </constraints>
                             </view>
@@ -365,6 +375,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="O7B-Ro-WbC"/>
                     <connections>
+                        <outlet property="loginStatusIndicator" destination="i4w-cT-QPP" id="agg-VH-7Wx"/>
                         <outlet property="tableView" destination="WhN-Ml-bqX" id="pp7-xk-0fe"/>
                         <outlet property="userProfileImage" destination="ljr-27-UBM" id="Jck-sv-1so"/>
                     </connections>

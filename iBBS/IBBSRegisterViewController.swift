@@ -139,14 +139,14 @@ class IBBSRegisterViewController: UIViewController, UITextFieldDelegate {
         
         let encryptedPasswd = (passwd as! String).MD5()
         
-        APIClient.sharedInstance.userRegister(email!, username: username!, passwd: encryptedPasswd, success: { (json) -> Void in
+        APIClient.defaultClient.userRegister(email!, username: username!, passwd: encryptedPasswd, success: { (json) -> Void in
 
             let model = IBBSModel(json: json)
             
             if model.success {
                 
                 // register successfully!
-                APIClient.sharedInstance.userLogin(username!, passwd: encryptedPasswd, success: { (json) -> Void in
+                APIClient.defaultClient.userLogin(username!, passwd: encryptedPasswd, success: { (json) -> Void in
 
                     IBBSLoginKey.saveTokenJson(json.object)
                     

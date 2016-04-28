@@ -50,7 +50,7 @@ class IBBSDetailViewController: IBBSBaseViewController, UIGestureRecognizerDeleg
             
         } else {
             
-            IBBSContext.sharedInstance.login(cancelled: nil, completion: {
+            IBBSContext.login(cancelled: nil, completion: {
                 self.cornerActionButtonDidTap()
             })
         }
@@ -86,7 +86,7 @@ class IBBSDetailViewController: IBBSBaseViewController, UIGestureRecognizerDeleg
     
     private func sendRequest(page: Int) {
         
-        APIClient.sharedInstance.getReplies(json["id"].stringValue, page: page, success: { (json) -> Void in
+        APIClient.defaultClient.getReplies(json["id"].stringValue, page: page, success: { (json) -> Void in
             
             if json == nil && page != 1 {
                 IBBSToast.make(NO_MORE_DATA, interval: TIME_OF_TOAST_OF_NO_MORE_DATA)

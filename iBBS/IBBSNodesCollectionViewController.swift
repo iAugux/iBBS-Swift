@@ -172,11 +172,11 @@ extension IBBSNodesCollectionViewController {
     
     func getNodesIfNeeded(completion: ((nodes: JSON?) -> ())? = nil) {
         
-        APIClient.sharedInstance.getNodes({ (json) -> Void in
+        APIClient.defaultClient.getNodes({ (json) -> Void in
             
             guard json.type == Type.Array else { return }
             
-            IBBSContext.sharedInstance.saveNodes(json.object)
+            IBBSContext.saveNodes(json.object)
             
             completion?(nodes: json)
             

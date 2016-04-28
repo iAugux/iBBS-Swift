@@ -56,6 +56,12 @@ class IBBSCommentViewController: IBBSEditorBaseViewController {
     override func sendAction() {
         super.sendAction()
         
+        navigationItem.rightBarButtonItem?.action = nil
+        
+        let resetActionIfFailed = {
+            self.navigationItem.rightBarButtonItem?.action = #selector(self.sendAction)
+        }
+        
         blurTextEditor()
         
         if getHTML().ausTrimHtmlInWhitespaceAndNewlineCharacterSet().isEmpty {
@@ -63,14 +69,18 @@ class IBBSCommentViewController: IBBSEditorBaseViewController {
             return
         }
         
-        let content = getHTML()//.ausTrimHtmlInNewlineCharacterSet()
-        // http://img.iai.cn/shot.php?app_id=1100088630&index=1
+        let content = getHTML()
         
         let key = IBBSLoginKey()
         
-        guard key.isValid else { return }
+        guard key.isValid else {
+            IBBSContext.login(completion: { 
+                self.sendAction()
+            })
+            return
+        }
                 
-        APIClient.sharedInstance.comment(key.uid, postID: post_id, content: content, token: key.token, success: { (json) -> Void in
+        APIClient.defaultClient.comment(key.uid, postID: post_id, content: content, token: key.token, success: { (json) -> Void in
 
             let model = IBBSModel(json: json)
 
@@ -83,14 +93,18 @@ class IBBSCommentViewController: IBBSEditorBaseViewController {
             } else {
                 IBBSToast.make(model.message, interval: TIME_OF_TOAST_OF_COMMENT_FAILED)
                 
+                resetActionIfFailed()
+                
                 executeAfterDelay(0.5, completion: {
                     self.focusTextEditor()
                 })
             }
             
         }) { (error ) -> Void in
-            
             DEBUGLog(error)
+            
+            resetActionIfFailed()
+            
             IBBSToast.make(SERVER_ERROR, interval: TIME_OF_TOAST_OF_SERVER_ERROR)
         }
     }

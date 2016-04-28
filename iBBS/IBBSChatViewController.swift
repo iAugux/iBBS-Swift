@@ -100,7 +100,7 @@ class IBBSChatViewController: UIViewController {
         
         let title = "@\(receiver.name)"
         
-        APIClient.sharedInstance.sendMessage(key.uid!, token: key.token!, receiver_uid: receiver.id, title: title, content: content, success: { (json) -> Void in
+        APIClient.defaultClient.sendMessage(key.uid!, token: key.token!, receiver_uid: receiver.id, title: title, content: content, success: { (json) -> Void in
             
             let model = IBBSModel(json: json)
             

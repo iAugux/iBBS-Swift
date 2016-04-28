@@ -56,7 +56,7 @@ class IBBSNodeViewController: IBBSBaseViewController, UIGestureRecognizerDelegat
         
         let id = IBBSNodeModel(json: node).id
 
-        APIClient.sharedInstance.getLatestTopics(id, page: page, success: { (json) -> Void in
+        APIClient.defaultClient.getLatestTopics(id, page: page, success: { (json) -> Void in
             
             if json == nil && page != 1 {
                 IBBSToast.make(NO_MORE_DATA, interval: TIME_OF_TOAST_OF_NO_MORE_DATA)

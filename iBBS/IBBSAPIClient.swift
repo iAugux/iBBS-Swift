@@ -15,16 +15,16 @@ import Alamofire
 import SwiftyJSON
 
 
-//let APIRootURL = "http://192.168.1.177/YABBS/index.php/Home/Api/"
+let APIRootURL = "http://192.168.1.177/YABBS/index.php/Home/Api/"
 
-let APIRootURL = "http://192.168.1.100/YABBS/index.php/Home/Api/"
+//let APIRootURL = "http://192.168.1.100/YABBS/index.php/Home/Api/"
 //let APIRootURL = "http://127.0.0.1/YABBS/index.php/Home/Api/"
 //let APIRootURL = "http://obbs.sinaapp.com/index.php/Home/Api/"
 
 
 class APIClient {
     
-    static let sharedInstance = APIClient()
+    static let defaultClient = APIClient()
     
     func getJSONData(path: String, parameters: [String : AnyObject]?, success: (JSON) -> Void, failure: (NSError) -> Void) {
         
@@ -130,6 +130,21 @@ class APIClient {
     
     func getNodes(success: (JSON) -> Void, failure: (NSError) -> Void) {
         getJSONData("boards", parameters: nil, success: success, failure: failure)
+    }
+    
+    
+    
+    
+}
+
+
+// MARK: - Settings
+
+extension APIClient {
+    
+    func changePassword(username: AnyObject, oldPassword: AnyObject, newPassword: AnyObject, success: (JSON) -> (), failure: (NSError) -> ()) {
+        let dict = ["username": username, "old_password": oldPassword, "new_password": newPassword]
+        postJSONData("change_password", parameters: dict, success: success, failure: failure)
     }
     
     
