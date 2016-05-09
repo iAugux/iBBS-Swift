@@ -109,7 +109,8 @@ extension IBBSNodesCollectionViewController {
         // nodesArray = IBBSConfigureNodesInfo.sharedInstance.nodesArray
         if let array = nodesArray {
             let json = array[indexPath.row]
-            cell.infoLabel?.text = json["name"].stringValue
+            let model = IBBSNodeModel(json: json)
+            cell.infoLabel?.text = model.name
         }
         
         return cell
@@ -121,7 +122,7 @@ extension IBBSNodesCollectionViewController {
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         
         guard let array = nodesArray else { return }
-        guard let vc = MainStoryboard.instantiateViewControllerWithIdentifier(String(IBBSNodeViewController)) as? IBBSNodeViewController else { return }
+        guard let vc = UIStoryboard.Main.instantiateViewControllerWithIdentifier(String(IBBSNodeViewController)) as? IBBSNodeViewController else { return }
         
         let json = array[indexPath.row]
         vc.nodeJSON = json

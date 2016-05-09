@@ -14,8 +14,13 @@ struct IBBSModel {
     var success: Bool
     var message: String!
     
-    init(json: JSON) {
-        success = json["code"].boolValue
-        message = json["msg"].stringValue
+    init(json: JSON?) {
+        if json != nil {
+            success = json!["code"].boolValue
+            message = json!["msg"].stringValue
+        } else {
+            success = false
+            message = ""
+        }
     }
 }

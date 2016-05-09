@@ -7,11 +7,20 @@
 //
 
 import UIKit
+import SwiftyJSON
+
 
 class IBBSUserViewController: UIViewController {
     
-    var user: User!
+    var user: User! {
+        didSet {
+            headerViewbackgroundColorKey += user.name
+        }
+    }
     
+    private var datasource:[JSON]!
+    private var page: Int = 1
+
     private var textField996IsEmpty = true
     private var textField997IsEmpty = true
     private var textField998IsEmpty = true
@@ -19,15 +28,39 @@ class IBBSUserViewController: UIViewController {
     
     private var blurView: UIVisualEffectView!
     private var changePasswordAction: UIAlertAction!
+    private var changeUsernameAction: UIAlertAction!
+    
+    private var headerViewBackgroundColor: UIColor {
+        get {
+            return NSUserDefaults.standardUserDefaults().colorForKey(headerViewbackgroundColorKey) ?? headerViewDefaultColor
+        }
+        set {
+            headerView.backgroundColor = newValue
+            NSUserDefaults.standardUserDefaults().setColor(newValue, forKey: headerViewbackgroundColorKey)
+        }
+    }
+    
+    private var headerViewbackgroundColorKey = "headerViewbackgroundColorKey"
     
     private let segueIdentifier = "GoToChatViewController"
+    private let headerViewDefaultColor = UIColor.purpleColor()
     
     @IBOutlet weak var tableView: UITableView!
     
+    @IBOutlet weak var headerView: UIView! {
+        didSet {
+            headerView.backgroundColor = headerViewBackgroundColor
+        }
+    }
+    
     @IBOutlet weak var userImageView: IBBSAvatarImageView! {
         didSet {
+            userImageView.antiOffScreenRendering = false
             userImageView.layer.cornerRadius = userImageView.frame.width / 2
             userImageView.userInteractionEnabled = false
+            
+            guard let url = IBBSLoginKey().avatar else { return }
+            userImageView.kf_setImageWithURL(url, placeholderImage: nil)
         }
     }
     
@@ -39,14 +72,17 @@ class IBBSUserViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         navigationItem.leftBarButtonItem?.target = self
         navigationItem.leftBarButtonItem?.action = #selector(dismissViewController)
         
         navigationItem.rightBarButtonItem?.target = self
         navigationItem.rightBarButtonItem?.action = #selector(goToChatViewController)
         
+        configureTableView()
         configureViewsIfSelf()
+        
+        sendRequest(page)
     }
     
     override func didReceiveMemoryWarning() {
@@ -54,13 +90,52 @@ class IBBSUserViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    private func sendRequest(page: Int) {
+        
+        guard let uid = user?.id else { return }
+                
+        APIClient.defaultClient.getUserTopics(uid, page: page, suceess: { (json) -> Void in
+            
+            DEBUGPrint(json)
+            
+            if json == nil && page != 1 {
+                IBBSToast.make(NO_MORE_DATA, delay: 0, interval: TIME_OF_TOAST_OF_NO_MORE_DATA)
+            }
+            
+            if json.type == Type.Array {
+                if page == 1 {
+                    self.datasource = json.arrayValue
+                    
+                } else {
+                    let appendArray = json.arrayValue
+                    
+                    self.datasource? += appendArray
+                }
+                self.tableView.reloadData()
+            }
+            
+            }, failure: { (error) -> Void in
+                DEBUGLog(error)
+                IBBSToast.make(SERVER_ERROR, delay: 0, interval: TIME_OF_TOAST_OF_SERVER_ERROR)
+        })
+    }
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
-        guard segue.identifier == segueIdentifier else { return }
-        
-        guard let vc = segue.destinationViewController as? IBBSChatViewController else { return }
-        
-        vc.receiver = user
+        if segue.identifier == segueIdentifier {
+            guard let vc = segue.destinationViewController as? IBBSChatViewController else { return }
+            vc.receiver = user
+        }
+        else if segue.identifier == "PopColorPickerController" {
+            guard let vc = segue.destinationViewController as? IBBSColorPickerViewController else { return }
+            vc.delegate = self
+            vc.popoverPresentationController?.delegate = self
+            vc.popoverPresentationController?.sourceView = view
+            vc.popoverPresentationController?.sourceRect = CGRect(origin: view.center, size: CGSizeZero)
+            vc.popoverPresentationController?.permittedArrowDirections = UIPopoverArrowDirection(rawValue: 0)
+            vc.popoverPresentationController?.backgroundColor = UIColor.clearColor()
+            vc.preferredContentSize = CGSizeMake(200, 350)
+        }
     }
     
     @objc private func goToChatViewController() {
@@ -79,12 +154,16 @@ class IBBSUserViewController: UIViewController {
         navigationItem.rightBarButtonItem?.action = #selector(showActionSheet)
     }
     
-    @objc private func showActionSheet() {
+    @objc func showActionSheet() {
         
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
         
         let passwdAction = UIAlertAction(title: CHANGE_PASSWORD, style: .Default) { (_) in
             self.changePassword()
+        }
+        
+        let usernameAction = UIAlertAction(title: CHANGE_USERNAME, style: .Default) { (_) in
+            self.changeUsername()
         }
         
         let avatarAction = UIAlertAction(title: CHANGE_AVATAR, style: .Default) { (_) in
@@ -93,13 +172,104 @@ class IBBSUserViewController: UIViewController {
         
         let cancelAction = UIAlertAction(title: BUTTON_CANCEL, style: .Cancel, handler: nil)
         
+        
         alertController.addAction(passwdAction)
+        alertController.addAction(usernameAction)
         alertController.addAction(avatarAction)
         alertController.addAction(cancelAction)
         
         presentViewController(alertController, animated: true, completion: nil)
     }
     
+}
+
+
+// MARK: -
+
+extension IBBSUserViewController {
+    
+    override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
+        guard let topVC = UIApplication.topMostViewController as? IBBSColorPickerViewController else { return }
+        topVC.popoverPresentationController?.sourceRect = CGRect(origin: view.center, size: CGSizeZero)
+    }
+}
+
+
+// MARK: - 
+
+extension IBBSUserViewController: ColorPickerViewControllerDelegate {
+    
+    func colorDidChange(color: UIColor) {
+        headerViewBackgroundColor = color
+    }
+}
+
+
+// MARK: - UIPopoverPresentationControllerDelegate
+
+extension IBBSUserViewController: UIPopoverPresentationControllerDelegate {
+    
+    // MARK: - UIAdaptivePresentationControllerDelegate
+    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .None
+    }
+    
+    // MARK: - for iPhone 6(s) Plus
+    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
+        return .None
+    }
+    
+    override func overrideTraitCollectionForChildViewController(childViewController: UIViewController) -> UITraitCollection? {
+        // disable default UITraitCollection, fix size of popover view on iPhone 6(s) Plus.
+        return nil
+    }
+}
+
+
+// MARK: - 
+
+extension IBBSUserViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    private func configureTableView() {
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.registerNib(UINib(nibName: String(IBBSUserTopicTableViewCell), bundle: nil), forCellReuseIdentifier: String(IBBSUserTopicTableViewCell))
+        tableView.estimatedRowHeight = 100
+        tableView.rowHeight = UITableViewAutomaticDimension
+    }
+    
+    
+    // MARK: - Table View Datasource
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return datasource?.count ?? 0
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
+        guard let cell = tableView.dequeueReusableCellWithIdentifier(String(IBBSUserTopicTableViewCell), forIndexPath: indexPath) as? IBBSUserTopicTableViewCell else { return UITableViewCell() }
+        
+        let json = datasource[indexPath.row]
+        cell.loadDataToCell(json)
+        
+        return cell
+    }
+    
+    
+    // MARK: - Table View Delegate
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let json = datasource[indexPath.row]
+        
+        let vc = IBBSDetailViewController()
+        vc.json = json
+        vc.navigationController?.navigationBar.hidden = true
+        navigationController?.pushViewController(vc, animated: true)
+    }
 }
 
 
@@ -123,7 +293,7 @@ extension IBBSUserViewController {
         
         alertVC.addTextFieldWithConfigurationHandler { (textField) -> Void in
             textField.tag = 996
-            textField.addTarget(self, action: #selector(IBBSUserViewController.textFieldDidChange(_:)), forControlEvents: .EditingChanged)
+            textField.addTarget(self, action: #selector(IBBSUserViewController.changePasswdTextFieldDidChange(_:)), forControlEvents: .EditingChanged)
             
             textField.placeholder = HOLDER_USERNAME
             textField.text = username
@@ -133,7 +303,7 @@ extension IBBSUserViewController {
         
         alertVC.addTextFieldWithConfigurationHandler { (textField) -> Void in
             textField.tag = 997
-            textField.addTarget(self, action: #selector(IBBSUserViewController.textFieldDidChange(_:)), forControlEvents: .EditingChanged)
+            textField.addTarget(self, action: #selector(IBBSUserViewController.changePasswdTextFieldDidChange(_:)), forControlEvents: .EditingChanged)
             
             textField.placeholder = OLD_PASSWORD
             textField.secureTextEntry = true
@@ -143,7 +313,7 @@ extension IBBSUserViewController {
         
         alertVC.addTextFieldWithConfigurationHandler { (textField) -> Void in
             textField.tag = 998
-            textField.addTarget(self, action: #selector(IBBSUserViewController.textFieldDidChange(_:)), forControlEvents: .EditingChanged)
+            textField.addTarget(self, action: #selector(IBBSUserViewController.changePasswdTextFieldDidChange(_:)), forControlEvents: .EditingChanged)
             
             textField.placeholder = NEW_PASSWORD
             textField.secureTextEntry = true
@@ -153,7 +323,7 @@ extension IBBSUserViewController {
         
         alertVC.addTextFieldWithConfigurationHandler { (textField) in
             textField.tag = 999
-            textField.addTarget(self, action: #selector(IBBSUserViewController.textFieldDidChange(_:)), forControlEvents: .EditingChanged)
+            textField.addTarget(self, action: #selector(IBBSUserViewController.changePasswdTextFieldDidChange(_:)), forControlEvents: .EditingChanged)
             
             textField.placeholder = CONFIRM_PASSWORD
             textField.secureTextEntry = true
@@ -191,8 +361,6 @@ extension IBBSUserViewController {
                 
                 let model = IBBSModel(json: json)
                 
-                print(json)
-                
                 if model.success {
                     self.alertToLogin(username, password: newMD5, title: model.message, message: LOGIN_NOW)
                 } else {
@@ -214,9 +382,9 @@ extension IBBSUserViewController {
             })
         }
         
-        self.changePasswordAction.enabled = false
+        changePasswordAction.enabled = false
         
-        alertVC.addAction(self.changePasswordAction)
+        alertVC.addAction(changePasswordAction)
         alertVC.addAction(cancelAction)
         
         self.addBlurView()
@@ -281,7 +449,7 @@ extension IBBSUserViewController {
         textField999IsEmpty = true
     }
     
-    @objc private func textFieldDidChange(textField: UITextField) {
+    @objc private func changePasswdTextFieldDidChange(textField: UITextField) {
         
         let isEmpty = textField.text?.isEmpty ?? true
         
@@ -333,12 +501,77 @@ extension IBBSUserViewController {
 }
 
 
-// MARK: - Change Avatar
+// MARK:  Change Username
 
 extension IBBSUserViewController {
-
-    private func changeAvatar() {
+    
+    private func changeUsername() {
         
+        let key = IBBSLoginKey()
+        
+        var usernameTF: UITextField!
+        
+        let alertVC = UIAlertController(title: CHANGE_USERNAME, message: CHECK_DIGITS_OF_USERNAME, preferredStyle: .Alert)
+        
+        alertVC.addTextFieldWithConfigurationHandler { (textField) -> Void in
+            textField.addTarget(self, action: #selector(IBBSUserViewController.changeUsernameTextFieldDidChange(_:)), forControlEvents: .EditingChanged)
+            
+            textField.placeholder = HOLDER_USERNAME
+            textField.enablesReturnKeyAutomatically = true
+            usernameTF = textField
+        }
+        
+        changeUsernameAction = UIAlertAction(title: BUTTON_OK, style: .Default) { (action: UIAlertAction) -> Void in
+            
+            self.removeBlurView()
+            
+            guard let username = usernameTF.text where !username.isEmpty else { return }
+
+            // ready to change username
+            
+            print(key.uid)
+            print(key.token)
+            print(username)
+            print(key.username)
+            
+            APIClient.defaultClient.changeUsername(key.uid, username: username, old_username: key.username, token: key.token, success: { (json) in
+                
+                let model = IBBSModel(json: json)
+                
+                if model.success {
+                    IBBSLoginKey.modifyUsername(json["new_username"].stringValue)
+                }
+                
+                IBBSToast.make(model.message, delay: 0, interval: 3)
+                
+                }, failure: { (error) in
+                    IBBSToast.make(ERROR_MESSAGE, delay: 0, interval: 3)
+            })
+        }
+        
+        let cancelAction = UIAlertAction(title: BUTTON_CANCEL, style: .Cancel) { (_) -> Void in
+            
+            self.removeBlurView()
+            
+            alertVC.dismissViewControllerAnimated(true , completion: nil)
+        }
+        
+        changeUsernameAction?.enabled = false
+
+        alertVC.addAction(changeUsernameAction)
+        alertVC.addAction(cancelAction)
+        
+        self.addBlurView()
+        
+        UIApplication.topMostViewController?.presentViewController(alertVC, animated: true, completion: nil)
     }
     
+    @objc private func changeUsernameTextFieldDidChange(textField: UITextField) {
+        
+        let isEmpty = textField.text?.isEmpty ?? true
+        let count = textField.text?.utf8.count
+        let enabled = !isEmpty && (count > 4 && count < 16)
+        
+        changeUsernameAction?.enabled = enabled
+    }
 }

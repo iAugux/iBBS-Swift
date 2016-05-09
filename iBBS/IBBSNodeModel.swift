@@ -12,10 +12,14 @@ import SwiftyJSON
 struct IBBSNodeModel {
     
     var id: Int!
-    var title: String!
+    var name: String!
+    var numberOfTotal: Int!
+    var numberOfToday: Int!
     
     init(json: JSON) {
-        id    = json["id"].intValue
-        title = json["title"].stringValue
+        id            = json["id"].intValue
+        name          = json["name"].stringValue
+        numberOfTotal = json["post_num"].intValue
+        numberOfToday = json["post_today"].intValue
     }
 }

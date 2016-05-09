@@ -13,6 +13,7 @@ let TITLE_ALL_NODES            = NSLocalizedString("All Nodes", comment: "")
 
 
 let NO_MORE_DATA               = NSLocalizedString("There is no more data!", comment: "")
+let NO_DATA                    = NSLocalizedString("Nothing here...", comment: "")
 let NO_REPLY_YET               = NSLocalizedString("No reply yet", comment: "")
 let REPLY_COUNT                = NSLocalizedString("Reply", comment: "reply count")
 let REPLY_COUNTS               = NSLocalizedString("Replies", comment: "reply count(more than one)")
@@ -65,7 +66,16 @@ let SEND_SUCCESSFULLY          = NSLocalizedString("Send successfully!", comment
 
 let CHANGE_PASSWORD            = NSLocalizedString("Change Password", comment: "")
 let CHANGE_AVATAR              = NSLocalizedString("Change Avatar", comment: "")
+let CHANGE_USERNAME            = NSLocalizedString("Change Username", comment: "")
 let OLD_PASSWORD               = NSLocalizedString("Old Password", comment: "")
 let NEW_PASSWORD               = NSLocalizedString("New Password", comment: "")
 let CONFIRM_PASSWORD           = NSLocalizedString("Confirm Password", comment: "")
 let PLEASE_SET_NEW_PASSWORD    = NSLocalizedString("Please set a new password!", comment: "")
+
+let CHANGE_AVATAR_SUCCESSFULLY = NSLocalizedString("Change avatar successfully!", comment: "")
+let CHANGE_AVATAR_FAILED       = NSLocalizedString("Change avatar failed!", comment: "")
+
+
+let UPLOADING                  = NSLocalizedString("Uploading... Are you sure to cancel?", comment: "")
+let YES                        = NSLocalizedString("Yes", comment: "")
+let NO                         = NSLocalizedString("No", comment: "")

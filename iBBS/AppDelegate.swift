@@ -12,32 +12,41 @@
 
 
 import UIKit
+import Kingfisher
 
 
-let MainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
 
 @UIApplicationMain
 
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
+    var containerViewController: ContainerViewController!
+    
+    lazy var passcodeLockPresenter: PasscodeLockPresenter = {
+        
+        let configuration = PasscodeLockConfiguration()
+        let presenter = PasscodeLockPresenter(mainWindow: self.window, configuration: configuration)
+        
+        return presenter
+    }()
+
     
     #if DEBUG
     let fps = FPSLabel(center: CGPointMake(3, 20))
     #endif
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
     
-        #if DEBUG
-            window?.addSubview(fps)
-        #endif
-        
+        // Touch ID
+        passcodeLockPresenter.presentPasscodeLock()
+
         // SlideMenu
         application.statusBarStyle = .LightContent
-        let containerViewController = ContainerViewController()
+        containerViewController = ContainerViewController()
         
-        let homeNav = MainStoryboard.instantiateViewControllerWithIdentifier(String(RootNavigationController)) as! UINavigationController
+        let homeNav = UIStoryboard.Main.instantiateViewControllerWithIdentifier(String(RootNavigationController)) as! UINavigationController
         homeNav.viewControllers[0] = containerViewController
         homeNav.setNavigationBarHidden(true, animated: false)
         window?.rootViewController = homeNav
@@ -48,9 +57,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if isIphone3_5Inch {
             SHOULD_HIDE_NAVIGATIONBAR = true
         }
-        
-//        SHOULD_HIDE_NAVIGATIONBAR = true
-        
         
         // Set Theme
         let userDefaults = NSUserDefaults.standardUserDefaults()
@@ -64,12 +70,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             setWindowColor()
 
         }
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AppDelegate.setWindowColor), name: kThemeDidChangeNotification, object: nil)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(setWindowColor), name: kThemeDidChangeNotification, object: nil)
+        
+        
+        let cache = KingfisherManager.sharedManager.cache
+        // Set max disk cache to 50 mb.
+        cache.maxDiskCacheSize = 50 * 1024 * 1024
+        
+        
+        #if DEBUG
+//            window?.addSubview(fps)
+        #endif
         
         return true
     }
     
-    func setWindowColor(){
+    @objc private func setWindowColor() {
         window?.tintColor = CUSTOM_THEME_COLOR
         window?.backgroundColor = CUSTOM_THEME_COLOR.lighterColor(0.6)
 
@@ -81,8 +98,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func applicationDidEnterBackground(application: UIApplication) {
-        // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-        // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        passcodeLockPresenter.presentPasscodeLock()
     }
     
     func applicationWillEnterForeground(application: UIApplication) {

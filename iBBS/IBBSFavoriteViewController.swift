@@ -8,12 +8,15 @@
 
 import UIKit
 
-class IBBSFavoriteViewController: IBBSSlidePanelBaseViewController {
-
+class IBBSFavoriteViewController: UIViewController {
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let image = UIImage(named: "close")?.imageWithRenderingMode(.AlwaysTemplate)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: image, style: .Plain, target: self, action: #selector(dismissViewController))
 
-        // Do any additional setup after loading the view.
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : CUSTOM_THEME_COLOR]
     }
 
     override func didReceiveMemoryWarning() {
@@ -21,15 +24,4 @@ class IBBSFavoriteViewController: IBBSSlidePanelBaseViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

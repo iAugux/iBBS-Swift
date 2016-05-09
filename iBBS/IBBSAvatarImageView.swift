@@ -65,11 +65,12 @@ class IBBSAvatarImageView: UIImageView {
     
     @objc private func avatarDidTap() {
         
-        guard let nav = MainStoryboard.instantiateViewControllerWithIdentifier("UserNavigationViewController") as? UINavigationController else { return }
-        guard let vc = nav.viewControllers.first as? IBBSUserViewController else { return }
-
         guard user != nil else { return }
         
+        guard let nav = UIStoryboard.User.instantiateViewControllerWithIdentifier("UserNavigationViewController") as? UINavigationController else { return }
+        
+        guard let vc = nav.viewControllers.first as? IBBSUserViewController else { return }
+
         vc.user = user
         
         UIApplication.topMostViewController?.presentViewController(nav, animated: true, completion: nil)

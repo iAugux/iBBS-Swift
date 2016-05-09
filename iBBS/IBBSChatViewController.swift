@@ -93,11 +93,6 @@ class IBBSChatViewController: UIViewController {
             return
         }
         
-        print(key.uid)
-        print(key.token)
-        print(receiver)
-        print(content)
-        
         let title = "@\(receiver.name)"
         
         APIClient.defaultClient.sendMessage(key.uid!, token: key.token!, receiver_uid: receiver.id, title: title, content: content, success: { (json) -> Void in
@@ -106,6 +101,9 @@ class IBBSChatViewController: UIViewController {
             
             if model.success {
                 // send successfully
+                
+                self.navigationController?.popViewControllerAnimated(true)
+                
                 IBBSToast.make(SEND_SUCCESSFULLY, delay: 0, interval: TIME_OF_TOAST_OF_REPLY_SUCCESS)
                 
             } else {

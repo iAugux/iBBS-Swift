@@ -13,7 +13,7 @@
 import UIKit
 import SwiftyJSON
 
-class IBBSDetailViewController: IBBSBaseViewController, UIGestureRecognizerDelegate {
+class IBBSDetailViewController: IBBSBaseViewController, UIGestureRecognizerDelegate, IBBSCommentViewControllerDelegate {
     
     var json: JSON!
     
@@ -27,6 +27,7 @@ class IBBSDetailViewController: IBBSBaseViewController, UIGestureRecognizerDeleg
         configureHeaderView()
         configureTableView()
         configureGesture()
+        configureFavoriteButton()
     }
     
     override func didReceiveMemoryWarning() {
@@ -40,13 +41,14 @@ class IBBSDetailViewController: IBBSBaseViewController, UIGestureRecognizerDeleg
         
         if key.isValid {
             
-            guard let vc = MainStoryboard.instantiateViewControllerWithIdentifier(String(IBBSCommentViewController)) as? IBBSCommentViewController else { return }
+            guard let vc = UIStoryboard.Main.instantiateViewControllerWithIdentifier(String(IBBSCommentViewController)) as? IBBSCommentViewController else { return }
             
-            let model = IBBSTopicModel(json: json)
-            vc.post_id = model.id
+            let model   = IBBSTopicModel(json: json)
+            vc.post_id  = model.id
+            vc.delegate = self
             
             let nav = UINavigationController(rootViewController: vc)
-            presentViewController(nav, animated: true, completion: nil)
+            UIApplication.topMostViewController?.presentViewController(nav, animated: true, completion: nil)
             
         } else {
             
@@ -54,6 +56,15 @@ class IBBSDetailViewController: IBBSBaseViewController, UIGestureRecognizerDeleg
                 self.cornerActionButtonDidTap()
             })
         }
+    }
+    
+    private func configureFavoriteButton() {
+        let image = UIImage(named: "unstar")
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: image, style: .Plain, target: self, action: #selector(favoriteOrUnfavorite))
+    }
+    
+    @objc private func favoriteOrUnfavorite() {
+        
     }
     
     private func configureTableView() {
@@ -101,7 +112,6 @@ class IBBSDetailViewController: IBBSBaseViewController, UIGestureRecognizerDeleg
                     let appendArray = json.arrayValue
                     self.datasource? += appendArray
                     self.tableView.reloadData()
-                    debugPrint(self.datasource)
                 }
             }
             

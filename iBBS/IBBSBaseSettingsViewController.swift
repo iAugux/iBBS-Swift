@@ -1,5 +1,5 @@
 //
-//  IBBSSlidePanelBaseViewController.swift
+//  IBBSBaseSettingsViewController.swift
 //  iBBS
 //
 //  Created by Augus on 10/10/15.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class IBBSSlidePanelBaseViewController: UIViewController {
+class IBBSBaseSettingsViewController: UIViewController {
     
     private var navBar: UINavigationBar!
     private var popButton: UIButton!

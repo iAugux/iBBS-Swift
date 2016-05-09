@@ -20,7 +20,7 @@ enum SlideOutState {
     case LeftPanelExpanded
 }
 
-class ContainerViewController: UIViewController, UIGestureRecognizerDelegate, ToggleLeftPanelDelegate {
+class ContainerViewController: UIViewController, UIGestureRecognizerDelegate {
     
     private var centerVCFrontBlurView: UIVisualEffectView!
     private var centerNavigationController: UINavigationController!
@@ -87,9 +87,7 @@ class ContainerViewController: UIViewController, UIGestureRecognizerDelegate, To
     
     private func addLeftPanelViewController() {
         if leftViewController == nil {
-            leftViewController = UIStoryboard.leftViewController()
-            leftViewController?.delegate = self
-            
+            leftViewController = UIStoryboard.leftViewController()            
             addChildSidePanelController(leftViewController!)
         }
     }
@@ -205,9 +203,6 @@ class ContainerViewController: UIViewController, UIGestureRecognizerDelegate, To
         }
     }
     
-    
-    // MARK: - ToggleLeftPanelDelegate
-    
     internal func removeFrontBlurView(){
         centerVCFrontBlurView.removeFromSuperview()
     }
@@ -228,11 +223,11 @@ class ContainerViewController: UIViewController, UIGestureRecognizerDelegate, To
 private extension UIStoryboard {
     
     class func leftViewController() -> SlidePanelViewController? {
-        return MainStoryboard.instantiateViewControllerWithIdentifier(String(SlidePanelViewController)) as? SlidePanelViewController
+        return UIStoryboard.SlidePanel.instantiateViewControllerWithIdentifier(String(SlidePanelViewController)) as? SlidePanelViewController
     }
     
     class func mainViewController() -> TabBarController? {
-        return MainStoryboard.instantiateViewControllerWithIdentifier(String(TabBarController)) as? TabBarController
+        return UIStoryboard.Main.instantiateViewControllerWithIdentifier(String(TabBarController)) as? TabBarController
     }
 }
 

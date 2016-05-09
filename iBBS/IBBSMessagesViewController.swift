@@ -98,7 +98,7 @@ class IBBSMessagesViewController: IBBSBaseViewController {
         guard let cells = tableView?.visibleCells as? [IBBSMessageTableViewCell] else { return }
         
         _ = cells.map() {
-            if $0.isRead { $0.isMessageRead?.changeColorForImageOfImageView(CUSTOM_THEME_COLOR.lighterColor(0.7)) }
+            if $0.isRead { $0.isMessageRead?.changeImageColor(CUSTOM_THEME_COLOR.lighterColor(0.7)) }
         }
     }
     

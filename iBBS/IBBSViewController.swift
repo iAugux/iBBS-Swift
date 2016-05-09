@@ -17,21 +17,28 @@ let postSegue = "postNewArticle"
 
 class IBBSViewController: IBBSBaseViewController {
     
-    @IBOutlet var postNewArticleButton: UIBarButtonItem!
+    // for double tapping tab bar
+    private var tapCounter : Int = 0
+    private var previousVC = UIViewController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        tabBarController?.delegate = self
+        
         automaticPullingDownToRefresh()
         configureTableView()
-        configureNavifationItemTitle()
+        configureNavigationItemTitle()
         pullUpToLoadmore()
         sendRequest(page)
+        
+        navigationItem.rightBarButtonItem?.target = self
+        navigationItem.rightBarButtonItem?.action = #selector(cornerActionButtonDidTap)
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(reloadDataAfterPosting), name: kShouldReloadDataAfterPosting, object: nil)
         
         let nodesController = IBBSNodesCollectionViewController()
         nodesController.getNodesIfNeeded()
-        
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -44,7 +51,7 @@ class IBBSViewController: IBBSBaseViewController {
         //        navigationController?.interactivePopGestureRecognizer?.delegate = nil
         navigationController?.interactivePopGestureRecognizer?.enabled = false
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(configureNavifationItemTitle), name: kJustLoggedinNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(configureNavigationItemTitle), name: kJustLoggedinNotification, object: nil)
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -64,6 +71,8 @@ class IBBSViewController: IBBSBaseViewController {
             
             if json == nil && page != 1 {
                 IBBSToast.make(NO_MORE_DATA, delay: 0, interval: TIME_OF_TOAST_OF_NO_MORE_DATA)
+                self.tableView.reloadData()
+                return
             }
             
             if json.type == Type.Array {
@@ -85,7 +94,7 @@ class IBBSViewController: IBBSBaseViewController {
     }
     
     
-    @objc private func configureNavifationItemTitle() {
+    @objc private func configureNavigationItemTitle() {
         
         navigationItem.title = "iBBS"
         
@@ -112,11 +121,6 @@ class IBBSViewController: IBBSBaseViewController {
     override func cornerActionButtonDidTap() {
         performPostNewArticleSegue(segueIdentifier: postSegue)
     }
-    
-    @IBAction func postNewArticleButtonDidTap(sender: AnyObject) {
-        performPostNewArticleSegue(segueIdentifier: postSegue)
-    }
-    
     
 }
 
@@ -188,3 +192,37 @@ extension IBBSViewController {
     
 }
 
+
+// MARK: - double tap tab bar to refresh
+
+extension IBBSViewController: UITabBarControllerDelegate {
+    
+    // Handle double tapping on bar item
+    func tabBarController(tabBarController: UITabBarController, shouldSelectViewController viewController: UIViewController) -> Bool {
+        
+        tapCounter += 1
+        
+        let hasTappedTwice = previousVC == viewController
+        previousVC = viewController
+        
+        if tapCounter == 2 && hasTappedTwice {
+            DEBUGLog("Tab bar did double tap")
+            
+            tapCounter = 0
+            
+            sendRequest(page)
+            let topIndexPath = NSIndexPath(forRow: 0, inSection: 0)
+            tableView.scrollToRowAtIndexPath(topIndexPath, atScrollPosition: .Top, animated: false)
+            automaticContentOffset()
+        }
+        
+        if tapCounter == 1 {
+            let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(0.3 * Double(NSEC_PER_SEC)))
+            dispatch_after(delayTime, dispatch_get_main_queue(), {
+                self.tapCounter = 0
+            })
+        }
+        
+        return true
+    }
+}

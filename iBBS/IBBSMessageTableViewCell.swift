@@ -50,7 +50,7 @@ class IBBSMessageTableViewCell: UITableViewCell {
         isRead            = model.isRead
         
         isMessageRead.image = UIImage(named: "message_is_read_marker")
-        isRead ? isMessageRead.changeColorForImageOfImageView(CUSTOM_THEME_COLOR.lighterColor(0.7)) : ()
+        isRead ? isMessageRead.changeImageColor(CUSTOM_THEME_COLOR.lighterColor(0.7)) : ()
         
         if !model.isAdministrator {
             avatarImageView.backgroundColor = UIColor.blackColor()

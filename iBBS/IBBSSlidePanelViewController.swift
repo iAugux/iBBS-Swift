@@ -14,12 +14,16 @@ import UIKit
 import SnapKit
 import SwiftyJSON
 
-protocol ToggleLeftPanelDelegate {
-    func toggleLeftPanel()
-    func removeFrontBlurView()
-}
 
 class SlidePanelViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate {
+    
+    private lazy var removeFrontBlurView = {
+        return appDelegate.containerViewController?.removeFrontBlurView()
+    }
+    
+    private lazy var toggleLeftPanel = {
+        return appDelegate.containerViewController?.toggleLeftPanel()
+    }
     
     @IBOutlet weak var userProfileImage: IBBSAvatarImageView! {
         didSet{
@@ -33,6 +37,9 @@ class SlidePanelViewController: UIViewController, UITableViewDataSource, UITable
             
             guard let id = key.uid, let name = key.username else { return }
             userProfileImage.user = User(id: id, name: name)
+            
+            guard let url = key.avatar else { return }
+            userProfileImage.kf_setImageWithURL(url, placeholderImage: nil)
         }
     }
     
@@ -46,11 +53,9 @@ class SlidePanelViewController: UIViewController, UITableViewDataSource, UITable
     
     @IBOutlet weak var tableView: UITableView!
     
-    var delegate: ToggleLeftPanelDelegate!
-    
     private var themePickerBar: FrostedSidebar!
     
-    private let cellTitleArray = ["Notification", "Favorite", "Profile", "Setting"]
+    private let cellTitleArray = ["", "Favorites", "Settings"]
     
     override func loadView() {
         super.loadView()
@@ -135,13 +140,19 @@ class SlidePanelViewController: UIViewController, UITableViewDataSource, UITable
             
             let alertVC = UIAlertController(title: TOKEN_LOST_EFFECTIVENESS, message: PLEASE_LOGIN_AGAIN, preferredStyle: .Alert)
             let okAction = UIAlertAction(title: BUTTON_OK, style: .Default, handler: { (_) -> Void in
-                self.delegate?.toggleLeftPanel()
+                
+                self.toggleLeftPanel()
+                
                 IBBSContext.login(cancelled: {
-                    self.delegate?.removeFrontBlurView()
+                    
+                    self.removeFrontBlurView()
+
                     }, completion: {
                         IBBSContext.configureCurrentUserAvatar(self.userProfileImage)
-                        self.delegate?.removeFrontBlurView()
-                        //                                    NSNotificationCenter.defaultCenter().postNotificationName(kShouldReloadDataAfterPosting, object: nil)
+
+                        self.removeFrontBlurView()
+                        
+                        // NSNotificationCenter.defaultCenter().postNotificationName(kShouldReloadDataAfterPosting, object: nil)
                 })
                 
             })
@@ -159,15 +170,15 @@ class SlidePanelViewController: UIViewController, UITableViewDataSource, UITable
         
         let loginAction = UIAlertAction(title: BUTTON_LOGIN, style: .Default) { (_) -> Void in
 
-            self.delegate?.toggleLeftPanel()
+            appDelegate.containerViewController?.toggleLeftPanel()
             
             IBBSContext.login(cancelled: {
-                self.delegate?.removeFrontBlurView()
+                appDelegate.containerViewController?.removeFrontBlurView()
                 
                 }, completion: {
                 IBBSContext.configureCurrentUserAvatar(self.userProfileImage)
                     
-                self.delegate?.removeFrontBlurView()
+                self.removeFrontBlurView()
 
                 NSNotificationCenter.defaultCenter().postNotificationName(kJustLoggedinNotification, object: nil)
             })
@@ -175,14 +186,15 @@ class SlidePanelViewController: UIViewController, UITableViewDataSource, UITable
         
         let registerAction = UIAlertAction(title: BUTTON_REGISTER, style: .Default) { (_) -> Void in
             
-            guard let vc = MainStoryboard.instantiateViewControllerWithIdentifier(String(IBBSRegisterViewController)) as? IBBSRegisterViewController else { return }
+            guard let vc = UIStoryboard.User.instantiateViewControllerWithIdentifier(String(IBBSRegisterViewController)) as? IBBSRegisterViewController else { return }
             
             self.navigationController?.pushViewController(vc, animated: true)
-            self.delegate?.toggleLeftPanel()
+            
+            self.toggleLeftPanel()
             
             // after pushing view controller, remove the blur view
             executeAfterDelay(1, completion: {
-                self.delegate?.removeFrontBlurView()
+                self.removeFrontBlurView()
             })
         }
         
@@ -227,11 +239,11 @@ class SlidePanelViewController: UIViewController, UITableViewDataSource, UITable
         NSNotificationCenter.defaultCenter().postNotificationName(kThemeDidChangeNotification, object: nil)
         
         executeAfterDelay(0.8) {
-            self.delegate?.toggleLeftPanel()
+            self.toggleLeftPanel()
         }
         
         executeAfterDelay(1.2) {
-            self.delegate?.removeFrontBlurView()
+            self.removeFrontBlurView()
             NSNotificationCenter.defaultCenter().postNotificationName(kShouldShowCornerActionButton, object: nil)
         }
     }
@@ -248,7 +260,7 @@ extension SlidePanelViewController {
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        return cellTitleArray.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -285,7 +297,10 @@ extension SlidePanelViewController {
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 70
+        switch indexPath.row {
+        case 0: return 20
+        default: return 70
+        }
     }
 }
 
@@ -295,26 +310,28 @@ extension SlidePanelViewController {
 extension SlidePanelViewController {
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-
-        let slidePanelStoryboard = UIStoryboard(name: "IBBSSlidePanel", bundle: NSBundle.mainBundle())
         
         var destinationVC: UIViewController!
         
         switch indexPath.row {
-        case 0:
-            destinationVC = slidePanelStoryboard.instantiateViewControllerWithIdentifier(String(IBBSNotificationViewController))
         case 1:
-            destinationVC = slidePanelStoryboard.instantiateViewControllerWithIdentifier(String(IBBSFavoriteViewController))
+            
+            appDelegate.containerViewController?.toggleLeftPanel()
+            appDelegate.containerViewController?.removeFrontBlurView()
+            
+            destinationVC = UIStoryboard.SlidePanel.instantiateViewControllerWithIdentifier(String(IBBSFavoriteViewController))
+            let nav = UINavigationController(rootViewController: destinationVC)
+            presentViewController(nav, animated: true, completion: nil)
+            
         case 2:
-            destinationVC = slidePanelStoryboard.instantiateViewControllerWithIdentifier(String(IBBSProfileViewController))
-        case 3:
-            destinationVC = slidePanelStoryboard.instantiateViewControllerWithIdentifier(String(IBBSSettingViewController))
+            destinationVC = UIStoryboard.SlidePanel.instantiateViewControllerWithIdentifier(String(IBBSSettingViewController))
+            navigationController?.pushViewController(destinationVC, animated: true)
+            
         default:
             return
         }
         
         destinationVC?.title = cellTitleArray[indexPath.row]
-        navigationController?.pushViewController(destinationVC, animated: true)
     }
 }
 

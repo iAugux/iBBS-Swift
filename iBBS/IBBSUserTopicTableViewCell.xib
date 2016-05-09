@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="IBBSUserTopicTableViewCell" rowHeight="61" id="lWY-b1-mFr" customClass="IBBSUserTopicTableViewCell" customModule="iBBS" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="323" height="61"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lWY-b1-mFr" id="pht-Ac-dVc">
+                <rect key="frame" x="0.0" y="0.0" width="323" height="60.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PVa-3S-cuh">
+                        <rect key="frame" x="282" y="38" width="33" height="13.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Requires initial sign-up." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dxy-4b-Uxj">
+                        <rect key="frame" x="16" y="10" width="299" height="20.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" enabled="NO" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wl6-wo-1gh">
+                        <rect key="frame" x="148" y="42.5" width="26.5" height="12"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="PVa-3S-cuh" firstAttribute="top" secondItem="dxy-4b-Uxj" secondAttribute="bottom" constant="8" id="9DE-xA-Oyo"/>
+                    <constraint firstItem="dxy-4b-Uxj" firstAttribute="leading" secondItem="pht-Ac-dVc" secondAttribute="leading" constant="16" id="Hau-xB-YcL"/>
+                    <constraint firstItem="Wl6-wo-1gh" firstAttribute="centerX" secondItem="pht-Ac-dVc" secondAttribute="centerX" id="Q7z-mu-Uhk"/>
+                    <constraint firstItem="Wl6-wo-1gh" firstAttribute="top" secondItem="PVa-3S-cuh" secondAttribute="top" constant="4" id="QNy-vm-2Aa"/>
+                    <constraint firstItem="dxy-4b-Uxj" firstAttribute="top" secondItem="pht-Ac-dVc" secondAttribute="top" constant="10" id="XPO-Ip-VRD"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="dxy-4b-Uxj" secondAttribute="trailing" id="dRv-Ey-Wp8"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="PVa-3S-cuh" secondAttribute="trailing" id="m9X-wd-hQ4"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="PVa-3S-cuh" secondAttribute="bottom" constant="0.5" id="xbU-Sb-7F7"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="nodeName" destination="PVa-3S-cuh" id="BQO-xg-SdC"/>
+                <outlet property="postTime" destination="Wl6-wo-1gh" id="B5g-xI-hTh"/>
+                <outlet property="topicLabel" destination="dxy-4b-Uxj" id="DFO-UU-7sc"/>
+            </connections>
+            <point key="canvasLocation" x="-214.5" y="235.5"/>
+        </tableViewCell>
+    </objects>
+</document>

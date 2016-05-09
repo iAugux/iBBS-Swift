@@ -28,16 +28,20 @@
 		B124B9F41BA9BB92000034CC /* IBBSMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B124B9F21BA9BB92000034CC /* IBBSMessageTableViewCell.xib */; };
 		B125567C1C8FF660000EBED8 /* DEBUGLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = B125567B1C8FF660000EBED8 /* DEBUGLog.swift */; };
 		B12556801C8FF742000EBED8 /* Encrypt+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B125567F1C8FF742000EBED8 /* Encrypt+Additions.swift */; };
+		B12F96971CDA564500C84C86 /* NSUserDefaults+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12F96961CDA564500C84C86 /* NSUserDefaults+Extension.swift */; };
+		B12F96C21CDB20FE00C84C86 /* IBBSSettingContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12F96C11CDB20FE00C84C86 /* IBBSSettingContainerViewController.swift */; };
+		B12F96C41CDB35A700C84C86 /* IBBSFavoriteContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12F96C31CDB35A700C84C86 /* IBBSFavoriteContainerViewController.swift */; };
 		B136AA7F1CCF3E6300A728D2 /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = B136AA7C1CCF3E6300A728D2 /* GTMNSString+HTML.m */; };
 		B136AA801CCF3E6300A728D2 /* NSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = B136AA7E1CCF3E6300A728D2 /* NSString+HTML.m */; };
-		B13BFF7E1BC8FD3D0034E1E8 /* IBBSSlidePanel.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B13BFF7D1BC8FD3D0034E1E8 /* IBBSSlidePanel.storyboard */; };
-		B13BFF801BC8FF710034E1E8 /* IBBSNotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B13BFF7F1BC8FF710034E1E8 /* IBBSNotificationViewController.swift */; };
+		B13BFF7E1BC8FD3D0034E1E8 /* SlidePanel.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B13BFF7D1BC8FD3D0034E1E8 /* SlidePanel.storyboard */; };
 		B13BFF821BC8FF840034E1E8 /* IBBSFavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B13BFF811BC8FF840034E1E8 /* IBBSFavoriteViewController.swift */; };
-		B13BFF841BC8FF8D0034E1E8 /* IBBSProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B13BFF831BC8FF8D0034E1E8 /* IBBSProfileViewController.swift */; };
 		B13BFF861BC8FF970034E1E8 /* IBBSSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B13BFF851BC8FF970034E1E8 /* IBBSSettingViewController.swift */; };
-		B13BFF881BC91D3E0034E1E8 /* IBBSSlidePanelBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B13BFF871BC91D3E0034E1E8 /* IBBSSlidePanelBaseViewController.swift */; };
+		B13BFF881BC91D3E0034E1E8 /* IBBSBaseSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B13BFF871BC91D3E0034E1E8 /* IBBSBaseSettingsViewController.swift */; };
 		B13BFF8A1BC962890034E1E8 /* CAAnimation+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B13BFF891BC962890034E1E8 /* CAAnimation+Additions.swift */; };
-		B13BFF8C1BC983D70034E1E8 /* UIImageView+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B13BFF8B1BC983D70034E1E8 /* UIImageView+Additions.swift */; };
+		B13C21641CD86BE7002A38E3 /* User.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B13C21631CD86BE7002A38E3 /* User.storyboard */; };
+		B13C21661CD86C0F002A38E3 /* UIStoryboard+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B13C21651CD86C0F002A38E3 /* UIStoryboard+Extension.swift */; };
+		B13C21681CD871FC002A38E3 /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B13C21671CD871FC002A38E3 /* UIButton+Extension.swift */; };
+		B13C216A1CD87B98002A38E3 /* AlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B13C21691CD87B98002A38E3 /* AlertController.swift */; };
 		B141A52C1BC4EDC100A32CD8 /* IBBSThemes.swift in Sources */ = {isa = PBXBuildFile; fileRef = B141A52B1BC4EDC100A32CD8 /* IBBSThemes.swift */; };
 		B141A53C1BC5175C00A32CD8 /* CheckEmailAddress+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B141A52F1BC5175C00A32CD8 /* CheckEmailAddress+Additions.swift */; };
 		B141A53F1BC5175C00A32CD8 /* NSString+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B141A5321BC5175C00A32CD8 /* NSString+Additions.swift */; };
@@ -52,6 +56,7 @@
 		B148AF1E1B98B1D800D00524 /* IBBSReplyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B148AF1C1B98B1D800D00524 /* IBBSReplyCell.xib */; };
 		B148AF221B98C3B100D00524 /* IBBSDetailHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B148AF211B98C3B100D00524 /* IBBSDetailHeaderView.xib */; };
 		B148AF241B98C52300D00524 /* IBBSDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B148AF231B98C52300D00524 /* IBBSDetailHeaderView.swift */; };
+		B155672F1CD2375D003D49A3 /* IBBSUserViewController+UploadAvatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B155672E1CD2375D003D49A3 /* IBBSUserViewController+UploadAvatar.swift */; };
 		B1563DD81BB2BD4B00F6D00B /* IBBSRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1563DD71BB2BD4B00F6D00B /* IBBSRegisterViewController.swift */; };
 		B15AF5B51BA5763700810969 /* IBBSRootNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B15AF5B41BA5763700810969 /* IBBSRootNavigationController.swift */; };
 		B15BD5B61BA54BBC00969D36 /* IBBSNodeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B15BD5B41BA54BBC00969D36 /* IBBSNodeTableViewCell.swift */; };
@@ -61,6 +66,10 @@
 		B165BCEA1BA940DC00036477 /* IBBSCommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B165BCE91BA940DC00036477 /* IBBSCommentViewController.swift */; };
 		B165BCEC1BA9662B00036477 /* IBBSConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B165BCEB1BA9662B00036477 /* IBBSConstants.swift */; };
 		B16803CE1CCF7CFC004EF786 /* IBBSNodeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B16803CD1CCF7CFC004EF786 /* IBBSNodeModel.swift */; };
+		B16981481CDA2F4F00D87812 /* IBBSUserTopicTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B16981471CDA2F4F00D87812 /* IBBSUserTopicTableViewCell.swift */; };
+		B169814A1CDA2F5C00D87812 /* IBBSUserTopicTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B16981491CDA2F5C00D87812 /* IBBSUserTopicTableViewCell.xib */; };
+		B169814C1CDA305B00D87812 /* IBBSUserTopicModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B169814B1CDA305B00D87812 /* IBBSUserTopicModel.swift */; };
+		B169814E1CDA425F00D87812 /* IBBSColorPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B169814D1CDA425F00D87812 /* IBBSColorPickerViewController.swift */; };
 		B16C66B51CCD2F87002C62A9 /* Alamofire3-SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = B16C66B41CCD2F87002C62A9 /* Alamofire3-SwiftyJSON.swift */; };
 		B17376AB1CC4BFBA00C27725 /* IBBSChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17376AA1CC4BFBA00C27725 /* IBBSChatViewController.swift */; };
 		B17376AD1CC4D97300C27725 /* IBBSUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17376AC1CC4D97300C27725 /* IBBSUserViewController.swift */; };
@@ -84,6 +93,7 @@
 		B199E3201BA9B1250088DFC5 /* IBBSMessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B199E31F1BA9B1250088DFC5 /* IBBSMessagesViewController.swift */; };
 		B1A46D2A1CD1C5750098AEB1 /* DrawCornerRadiusImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A46D291CD1C5750098AEB1 /* DrawCornerRadiusImage.swift */; };
 		B1AF3F961BC695A900BCBB8F /* FrostedSidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1AF3F951BC695A900BCBB8F /* FrostedSidebar.swift */; };
+		B1AF8E341CD318EC0033C175 /* UIImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1AF8E331CD318EC0033C175 /* UIImageView+Extension.swift */; };
 		B1B097CB1BA42F1E009B02E2 /* IBBSTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B097CA1BA42F1E009B02E2 /* IBBSTabBarController.swift */; };
 		B1B097CD1BA43A86009B02E2 /* IBBSNodesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B097CC1BA43A86009B02E2 /* IBBSNodesCollectionViewController.swift */; };
 		B1C105D31BA1D4730088DBCB /* IBBSNodesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1C105D21BA1D4730088DBCB /* IBBSNodesCell.swift */; };
@@ -92,7 +102,7 @@
 		B1C7FD771CC38A630055DB1D /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1C7FD761CC38A630055DB1D /* PaddingLabel.swift */; };
 		B1CA72081B96DE74006823B3 /* IBBSAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1CA72071B96DE74006823B3 /* IBBSAPIClient.swift */; };
 		B1CA721F1B9734DA006823B3 /* IBBSBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1CA721E1B9734DA006823B3 /* IBBSBaseViewController.swift */; };
-		B1CCFE831CCC99C700CCAC69 /* IBBSToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1CCFE821CCC99C700CCAC69 /* IBBSToken.swift */; };
+		B1CCFE831CCC99C700CCAC69 /* IBBSLoginKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1CCFE821CCC99C700CCAC69 /* IBBSLoginKey.swift */; };
 		B1CCFE851CCCA91400CCAC69 /* IBBSLoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1CCFE841CCCA91400CCAC69 /* IBBSLoginModel.swift */; };
 		B1CCFE871CCCF41C00CCAC69 /* IBBSModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1CCFE861CCCF41C00CCAC69 /* IBBSModel.swift */; };
 		B1D186F81CCBC7D700F5FFD7 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D186F71CCBC7D700F5FFD7 /* Utils.swift */; };
@@ -100,6 +110,25 @@
 		B1D27C551BC3B002006153BB /* IBBSNodesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D27C541BC3B002006153BB /* IBBSNodesCollectionViewCell.swift */; };
 		B1D27C571BC4109F006153BB /* IBBSCustomSelectedBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D27C561BC4109F006153BB /* IBBSCustomSelectedBackgroundView.swift */; };
 		B1D6B1EC1CC36A0C008B966D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B1D6B1EB1CC36A0C008B966D /* main.m */; };
+		B1D746AF1CE0377D009A5AA6 /* PasscodeLock.strings in Resources */ = {isa = PBXBuildFile; fileRef = B1D746911CE0377D009A5AA6 /* PasscodeLock.strings */; };
+		B1D746B01CE0377D009A5AA6 /* ChangePasscodeState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D746941CE0377D009A5AA6 /* ChangePasscodeState.swift */; };
+		B1D746B11CE0377D009A5AA6 /* ConfirmPasscodeState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D746951CE0377D009A5AA6 /* ConfirmPasscodeState.swift */; };
+		B1D746B21CE0377D009A5AA6 /* EnterPasscodeState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D746961CE0377D009A5AA6 /* EnterPasscodeState.swift */; };
+		B1D746B31CE0377D009A5AA6 /* PasscodeLock.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D746971CE0377D009A5AA6 /* PasscodeLock.swift */; };
+		B1D746B41CE0377D009A5AA6 /* SetPasscodeState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D746981CE0377D009A5AA6 /* SetPasscodeState.swift */; };
+		B1D746B51CE0377D009A5AA6 /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D7469A1CE0377D009A5AA6 /* Functions.swift */; };
+		B1D746B61CE0377D009A5AA6 /* PasscodeLockConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D7469B1CE0377D009A5AA6 /* PasscodeLockConfiguration.swift */; };
+		B1D746B71CE0377D009A5AA6 /* PasscodeLockPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D7469C1CE0377D009A5AA6 /* PasscodeLockPresenter.swift */; };
+		B1D746B81CE0377D009A5AA6 /* PasscodeLockViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D7469D1CE0377D009A5AA6 /* PasscodeLockViewController.swift */; };
+		B1D746B91CE0377D009A5AA6 /* UserDefaultsPasscodeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D7469E1CE0377D009A5AA6 /* UserDefaultsPasscodeRepository.swift */; };
+		B1D746BA1CE0377D009A5AA6 /* PasscodeLockConfigurationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D746A01CE0377D009A5AA6 /* PasscodeLockConfigurationType.swift */; };
+		B1D746BB1CE0377D009A5AA6 /* PasscodeLockStateType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D746A11CE0377D009A5AA6 /* PasscodeLockStateType.swift */; };
+		B1D746BC1CE0377D009A5AA6 /* PasscodeLockType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D746A21CE0377D009A5AA6 /* PasscodeLockType.swift */; };
+		B1D746BD1CE0377D009A5AA6 /* PasscodeRepositoryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D746A31CE0377D009A5AA6 /* PasscodeRepositoryType.swift */; };
+		B1D746BE1CE0377D009A5AA6 /* PasscodeLockView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B1D746A51CE0377D009A5AA6 /* PasscodeLockView.xib */; };
+		B1D746BF1CE0377D009A5AA6 /* PasscodeSignButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D746A71CE0377D009A5AA6 /* PasscodeSignButton.swift */; };
+		B1D746C01CE0377D009A5AA6 /* PasscodeSignPlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D746A81CE0377D009A5AA6 /* PasscodeSignPlaceholderView.swift */; };
+		B1D746C11CE0377D009A5AA6 /* TouchID.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B1D746A91CE0377D009A5AA6 /* TouchID.xcassets */; };
 		B1F6440E1CCC72E600A5A5E9 /* editor.html in Resources */ = {isa = PBXBuildFile; fileRef = B1F643A71CCC72E600A5A5E9 /* editor.html */; };
 		B1F6440F1CCC72E600A5A5E9 /* ZSSbgcolor.png in Resources */ = {isa = PBXBuildFile; fileRef = B1F643A91CCC72E600A5A5E9 /* ZSSbgcolor.png */; };
 		B1F644101CCC72E600A5A5E9 /* ZSSbgcolor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B1F643AA1CCC72E600A5A5E9 /* ZSSbgcolor@2x.png */; };
@@ -214,18 +243,22 @@
 		B124B9F21BA9BB92000034CC /* IBBSMessageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IBBSMessageTableViewCell.xib; sourceTree = "<group>"; };
 		B125567B1C8FF660000EBED8 /* DEBUGLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DEBUGLog.swift; sourceTree = "<group>"; };
 		B125567F1C8FF742000EBED8 /* Encrypt+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Encrypt+Additions.swift"; sourceTree = "<group>"; };
+		B12F96961CDA564500C84C86 /* NSUserDefaults+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSUserDefaults+Extension.swift"; sourceTree = "<group>"; };
+		B12F96C11CDB20FE00C84C86 /* IBBSSettingContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSSettingContainerViewController.swift; sourceTree = "<group>"; };
+		B12F96C31CDB35A700C84C86 /* IBBSFavoriteContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSFavoriteContainerViewController.swift; sourceTree = "<group>"; };
 		B136AA7B1CCF3E6300A728D2 /* GTMNSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GTMNSString+HTML.h"; sourceTree = "<group>"; };
 		B136AA7C1CCF3E6300A728D2 /* GTMNSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GTMNSString+HTML.m"; sourceTree = "<group>"; };
 		B136AA7D1CCF3E6300A728D2 /* NSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+HTML.h"; sourceTree = "<group>"; };
 		B136AA7E1CCF3E6300A728D2 /* NSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+HTML.m"; sourceTree = "<group>"; };
-		B13BFF7D1BC8FD3D0034E1E8 /* IBBSSlidePanel.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = IBBSSlidePanel.storyboard; sourceTree = "<group>"; };
-		B13BFF7F1BC8FF710034E1E8 /* IBBSNotificationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSNotificationViewController.swift; sourceTree = "<group>"; };
+		B13BFF7D1BC8FD3D0034E1E8 /* SlidePanel.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SlidePanel.storyboard; sourceTree = "<group>"; };
 		B13BFF811BC8FF840034E1E8 /* IBBSFavoriteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSFavoriteViewController.swift; sourceTree = "<group>"; };
-		B13BFF831BC8FF8D0034E1E8 /* IBBSProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSProfileViewController.swift; sourceTree = "<group>"; };
 		B13BFF851BC8FF970034E1E8 /* IBBSSettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSSettingViewController.swift; sourceTree = "<group>"; };
-		B13BFF871BC91D3E0034E1E8 /* IBBSSlidePanelBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSSlidePanelBaseViewController.swift; sourceTree = "<group>"; };
+		B13BFF871BC91D3E0034E1E8 /* IBBSBaseSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSBaseSettingsViewController.swift; sourceTree = "<group>"; };
 		B13BFF891BC962890034E1E8 /* CAAnimation+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CAAnimation+Additions.swift"; sourceTree = "<group>"; };
-		B13BFF8B1BC983D70034E1E8 /* UIImageView+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+Additions.swift"; sourceTree = "<group>"; };
+		B13C21631CD86BE7002A38E3 /* User.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = User.storyboard; sourceTree = "<group>"; };
+		B13C21651CD86C0F002A38E3 /* UIStoryboard+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIStoryboard+Extension.swift"; sourceTree = "<group>"; };
+		B13C21671CD871FC002A38E3 /* UIButton+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
+		B13C21691CD87B98002A38E3 /* AlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertController.swift; sourceTree = "<group>"; };
 		B141A52B1BC4EDC100A32CD8 /* IBBSThemes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSThemes.swift; sourceTree = "<group>"; };
 		B141A52F1BC5175C00A32CD8 /* CheckEmailAddress+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CheckEmailAddress+Additions.swift"; sourceTree = "<group>"; };
 		B141A5321BC5175C00A32CD8 /* NSString+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSString+Additions.swift"; sourceTree = "<group>"; };
@@ -240,6 +273,7 @@
 		B148AF1C1B98B1D800D00524 /* IBBSReplyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IBBSReplyCell.xib; sourceTree = "<group>"; };
 		B148AF211B98C3B100D00524 /* IBBSDetailHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IBBSDetailHeaderView.xib; sourceTree = "<group>"; };
 		B148AF231B98C52300D00524 /* IBBSDetailHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSDetailHeaderView.swift; sourceTree = "<group>"; };
+		B155672E1CD2375D003D49A3 /* IBBSUserViewController+UploadAvatar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IBBSUserViewController+UploadAvatar.swift"; sourceTree = "<group>"; };
 		B1563DD71BB2BD4B00F6D00B /* IBBSRegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSRegisterViewController.swift; sourceTree = "<group>"; };
 		B15AF5B41BA5763700810969 /* IBBSRootNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSRootNavigationController.swift; sourceTree = "<group>"; };
 		B15BD5B41BA54BBC00969D36 /* IBBSNodeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSNodeTableViewCell.swift; sourceTree = "<group>"; };
@@ -249,6 +283,10 @@
 		B165BCE91BA940DC00036477 /* IBBSCommentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSCommentViewController.swift; sourceTree = "<group>"; };
 		B165BCEB1BA9662B00036477 /* IBBSConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSConstants.swift; sourceTree = "<group>"; };
 		B16803CD1CCF7CFC004EF786 /* IBBSNodeModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSNodeModel.swift; sourceTree = "<group>"; };
+		B16981471CDA2F4F00D87812 /* IBBSUserTopicTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSUserTopicTableViewCell.swift; sourceTree = "<group>"; };
+		B16981491CDA2F5C00D87812 /* IBBSUserTopicTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IBBSUserTopicTableViewCell.xib; sourceTree = "<group>"; };
+		B169814B1CDA305B00D87812 /* IBBSUserTopicModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSUserTopicModel.swift; sourceTree = "<group>"; };
+		B169814D1CDA425F00D87812 /* IBBSColorPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSColorPickerViewController.swift; sourceTree = "<group>"; };
 		B16C66B41CCD2F87002C62A9 /* Alamofire3-SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Alamofire3-SwiftyJSON.swift"; sourceTree = "<group>"; };
 		B17376AA1CC4BFBA00C27725 /* IBBSChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSChatViewController.swift; sourceTree = "<group>"; };
 		B17376AC1CC4D97300C27725 /* IBBSUserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSUserViewController.swift; sourceTree = "<group>"; };
@@ -274,6 +312,7 @@
 		B199E31F1BA9B1250088DFC5 /* IBBSMessagesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSMessagesViewController.swift; sourceTree = "<group>"; };
 		B1A46D291CD1C5750098AEB1 /* DrawCornerRadiusImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawCornerRadiusImage.swift; sourceTree = "<group>"; };
 		B1AF3F951BC695A900BCBB8F /* FrostedSidebar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrostedSidebar.swift; sourceTree = "<group>"; };
+		B1AF8E331CD318EC0033C175 /* UIImageView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extension.swift"; sourceTree = "<group>"; };
 		B1B097CA1BA42F1E009B02E2 /* IBBSTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSTabBarController.swift; sourceTree = "<group>"; };
 		B1B097CC1BA43A86009B02E2 /* IBBSNodesCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSNodesCollectionViewController.swift; sourceTree = "<group>"; };
 		B1C105D21BA1D4730088DBCB /* IBBSNodesCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSNodesCell.swift; sourceTree = "<group>"; };
@@ -284,7 +323,7 @@
 		B1CA72071B96DE74006823B3 /* IBBSAPIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSAPIClient.swift; sourceTree = "<group>"; };
 		B1CA72191B972434006823B3 /* iBBS-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iBBS-Bridging-Header.h"; sourceTree = "<group>"; };
 		B1CA721E1B9734DA006823B3 /* IBBSBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSBaseViewController.swift; sourceTree = "<group>"; };
-		B1CCFE821CCC99C700CCAC69 /* IBBSToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSToken.swift; sourceTree = "<group>"; };
+		B1CCFE821CCC99C700CCAC69 /* IBBSLoginKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSLoginKey.swift; sourceTree = "<group>"; };
 		B1CCFE841CCCA91400CCAC69 /* IBBSLoginModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSLoginModel.swift; sourceTree = "<group>"; };
 		B1CCFE861CCCF41C00CCAC69 /* IBBSModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSModel.swift; sourceTree = "<group>"; };
 		B1D186F71CCBC7D700F5FFD7 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
@@ -292,6 +331,27 @@
 		B1D27C541BC3B002006153BB /* IBBSNodesCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSNodesCollectionViewCell.swift; sourceTree = "<group>"; };
 		B1D27C561BC4109F006153BB /* IBBSCustomSelectedBackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSCustomSelectedBackgroundView.swift; sourceTree = "<group>"; };
 		B1D6B1EB1CC36A0C008B966D /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		B1D746921CE0377D009A5AA6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/PasscodeLock.strings; sourceTree = "<group>"; };
+		B1D746941CE0377D009A5AA6 /* ChangePasscodeState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePasscodeState.swift; sourceTree = "<group>"; };
+		B1D746951CE0377D009A5AA6 /* ConfirmPasscodeState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmPasscodeState.swift; sourceTree = "<group>"; };
+		B1D746961CE0377D009A5AA6 /* EnterPasscodeState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnterPasscodeState.swift; sourceTree = "<group>"; };
+		B1D746971CE0377D009A5AA6 /* PasscodeLock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasscodeLock.swift; sourceTree = "<group>"; };
+		B1D746981CE0377D009A5AA6 /* SetPasscodeState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetPasscodeState.swift; sourceTree = "<group>"; };
+		B1D7469A1CE0377D009A5AA6 /* Functions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
+		B1D7469B1CE0377D009A5AA6 /* PasscodeLockConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasscodeLockConfiguration.swift; sourceTree = "<group>"; };
+		B1D7469C1CE0377D009A5AA6 /* PasscodeLockPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasscodeLockPresenter.swift; sourceTree = "<group>"; };
+		B1D7469D1CE0377D009A5AA6 /* PasscodeLockViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasscodeLockViewController.swift; sourceTree = "<group>"; };
+		B1D7469E1CE0377D009A5AA6 /* UserDefaultsPasscodeRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsPasscodeRepository.swift; sourceTree = "<group>"; };
+		B1D746A01CE0377D009A5AA6 /* PasscodeLockConfigurationType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasscodeLockConfigurationType.swift; sourceTree = "<group>"; };
+		B1D746A11CE0377D009A5AA6 /* PasscodeLockStateType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasscodeLockStateType.swift; sourceTree = "<group>"; };
+		B1D746A21CE0377D009A5AA6 /* PasscodeLockType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasscodeLockType.swift; sourceTree = "<group>"; };
+		B1D746A31CE0377D009A5AA6 /* PasscodeRepositoryType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasscodeRepositoryType.swift; sourceTree = "<group>"; };
+		B1D746A61CE0377D009A5AA6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/PasscodeLockView.xib; sourceTree = "<group>"; };
+		B1D746A71CE0377D009A5AA6 /* PasscodeSignButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasscodeSignButton.swift; sourceTree = "<group>"; };
+		B1D746A81CE0377D009A5AA6 /* PasscodeSignPlaceholderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasscodeSignPlaceholderView.swift; sourceTree = "<group>"; };
+		B1D746A91CE0377D009A5AA6 /* TouchID.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = TouchID.xcassets; sourceTree = "<group>"; };
+		B1D746AD1CE0377D009A5AA6 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/PasscodeLock.strings"; sourceTree = "<group>"; };
+		B1D746AE1CE0377D009A5AA6 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/PasscodeLock.strings"; sourceTree = "<group>"; };
 		B1F643A71CCC72E600A5A5E9 /* editor.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = editor.html; sourceTree = "<group>"; };
 		B1F643A91CCC72E600A5A5E9 /* ZSSbgcolor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ZSSbgcolor.png; sourceTree = "<group>"; };
 		B1F643AA1CCC72E600A5A5E9 /* ZSSbgcolor@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZSSbgcolor@2x.png"; sourceTree = "<group>"; };
@@ -476,12 +536,13 @@
 		B141A52A1BC4ED2000A32CD8 /* IBBSSlidePanelControllers */ = {
 			isa = PBXGroup;
 			children = (
-				B13BFF871BC91D3E0034E1E8 /* IBBSSlidePanelBaseViewController.swift */,
-				B13BFF7F1BC8FF710034E1E8 /* IBBSNotificationViewController.swift */,
+				B17939491B96DE08002E1B21 /* IBBSSlidePanelViewController.swift */,
+				B13BFF871BC91D3E0034E1E8 /* IBBSBaseSettingsViewController.swift */,
 				B13BFF811BC8FF840034E1E8 /* IBBSFavoriteViewController.swift */,
-				B13BFF831BC8FF8D0034E1E8 /* IBBSProfileViewController.swift */,
+				B12F96C31CDB35A700C84C86 /* IBBSFavoriteContainerViewController.swift */,
 				B13BFF851BC8FF970034E1E8 /* IBBSSettingViewController.swift */,
-				B13BFF7D1BC8FD3D0034E1E8 /* IBBSSlidePanel.storyboard */,
+				B12F96C11CDB20FE00C84C86 /* IBBSSettingContainerViewController.swift */,
+				B13BFF7D1BC8FD3D0034E1E8 /* SlidePanel.storyboard */,
 			);
 			name = IBBSSlidePanelControllers;
 			sourceTree = "<group>";
@@ -489,6 +550,7 @@
 		B141A52D1BC5175C00A32CD8 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				B13C21691CD87B98002A38E3 /* AlertController.swift */,
 				B16C66B41CCD2F87002C62A9 /* Alamofire3-SwiftyJSON.swift */,
 				B17376BC1CC5D92D00C27725 /* UINavigationBar+Extension.swift */,
 				B125567B1C8FF660000EBED8 /* DEBUGLog.swift */,
@@ -501,12 +563,15 @@
 				B141A5341BC5175C00A32CD8 /* TopMostViewController+Additions.swift */,
 				B141A5351BC5175C00A32CD8 /* UIColor+Additions.swift */,
 				B10149D91BCB9C14001DC5AB /* UIColor+Hex.swift */,
+				B12F96961CDA564500C84C86 /* NSUserDefaults+Extension.swift */,
+				B13C21671CD871FC002A38E3 /* UIButton+Extension.swift */,
 				B1648DE91CCE3C0C008257DB /* UIDevice+Extension.swift */,
 				B141A5361BC5175C00A32CD8 /* UILabel+Additions.swift */,
 				B17376BA1CC5D3C900C27725 /* UIScreen+Extension.swift */,
+				B1AF8E331CD318EC0033C175 /* UIImageView+Extension.swift */,
 				B141A5381BC5175C00A32CD8 /* UITextView+Additions.swift */,
+				B13C21651CD86C0F002A38E3 /* UIStoryboard+Extension.swift */,
 				B141A5391BC5175C00A32CD8 /* UIView+Additions.swift */,
-				B13BFF8B1BC983D70034E1E8 /* UIImageView+Additions.swift */,
 				B1A46D291CD1C5750098AEB1 /* DrawCornerRadiusImage.swift */,
 				B17376B81CC5026C00C27725 /* UIViewController+Extension.swift */,
 				B13BFF891BC962890034E1E8 /* CAAnimation+Additions.swift */,
@@ -520,7 +585,7 @@
 			isa = PBXGroup;
 			children = (
 				B1CA72071B96DE74006823B3 /* IBBSAPIClient.swift */,
-				B1CCFE821CCC99C700CCAC69 /* IBBSToken.swift */,
+				B1CCFE821CCC99C700CCAC69 /* IBBSLoginKey.swift */,
 				B1C5F5F91BA8338400CAF514 /* IBBSContext.swift */,
 				B165BCEB1BA9662B00036477 /* IBBSConstants.swift */,
 				B141A52B1BC4EDC100A32CD8 /* IBBSThemes.swift */,
@@ -528,6 +593,7 @@
 				B1CCFE841CCCA91400CCAC69 /* IBBSLoginModel.swift */,
 				B17376B21CC4E0FC00C27725 /* IBBSTopicModel.swift */,
 				B17376B01CC4DFE600C27725 /* IBBSTopicListModel.swift */,
+				B169814B1CDA305B00D87812 /* IBBSUserTopicModel.swift */,
 				B16803CD1CCF7CFC004EF786 /* IBBSNodeModel.swift */,
 				B17376AE1CC4DC8300C27725 /* IBBSNodeTopicListModel.swift */,
 				B17376B41CC4E38700C27725 /* IBBSMessageModel.swift */,
@@ -567,6 +633,7 @@
 				B1CA72041B96DE55006823B3 /* ThirdParty */,
 				B1CA72131B97220F006823B3 /* Supporting Files */,
 				B17939431B96DDF3002E1B21 /* Main.storyboard */,
+				B13C21631CD86BE7002A38E3 /* User.storyboard */,
 				B179393D1B96DDD3002E1B21 /* Info.plist */,
 			);
 			path = iBBS;
@@ -584,6 +651,7 @@
 		B1CA72041B96DE55006823B3 /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				B1D746901CE0377D009A5AA6 /* PasscodeLock */,
 				B136AA7A1CCF3E6300A728D2 /* MWFeedParser */,
 				B1F643A61CCC72E600A5A5E9 /* ZSSRichTextEditor */,
 				B1179CD11CCB57C400EBC0EE /* CWStatusBarNotification */,
@@ -621,11 +689,12 @@
 				B197C82B1BA73D1D00DE0678 /* IBBSPostViewController.swift */,
 				B199E31F1BA9B1250088DFC5 /* IBBSMessagesViewController.swift */,
 				B17376AC1CC4D97300C27725 /* IBBSUserViewController.swift */,
+				B155672E1CD2375D003D49A3 /* IBBSUserViewController+UploadAvatar.swift */,
 				B17376AA1CC4BFBA00C27725 /* IBBSChatViewController.swift */,
 				B197C8321BA74C0200DE0678 /* IBBSPickerViewController.swift */,
 				B1563DD71BB2BD4B00F6D00B /* IBBSRegisterViewController.swift */,
+				B169814D1CDA425F00D87812 /* IBBSColorPickerViewController.swift */,
 				B11373DA1BB6E32C00DB9D1F /* IBBSEffectViewController.swift */,
-				B17939491B96DE08002E1B21 /* IBBSSlidePanelViewController.swift */,
 				B17939481B96DE08002E1B21 /* IBBSContainerViewController.swift */,
 				B141A52A1BC4ED2000A32CD8 /* IBBSSlidePanelControllers */,
 			);
@@ -646,12 +715,72 @@
 				B124B9F21BA9BB92000034CC /* IBBSMessageTableViewCell.xib */,
 				B148AF1B1B98B1D800D00524 /* IBBSReplyCell.swift */,
 				B148AF1C1B98B1D800D00524 /* IBBSReplyCell.xib */,
+				B16981471CDA2F4F00D87812 /* IBBSUserTopicTableViewCell.swift */,
+				B16981491CDA2F5C00D87812 /* IBBSUserTopicTableViewCell.xib */,
 				B1C105D21BA1D4730088DBCB /* IBBSNodesCell.swift */,
 				B1D27C541BC3B002006153BB /* IBBSNodesCollectionViewCell.swift */,
 				B1D261771BE858D5005EAE10 /* IBBSAvatarImageView.swift */,
 				B1D27C561BC4109F006153BB /* IBBSCustomSelectedBackgroundView.swift */,
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		B1D746901CE0377D009A5AA6 /* PasscodeLock */ = {
+			isa = PBXGroup;
+			children = (
+				B1D746911CE0377D009A5AA6 /* PasscodeLock.strings */,
+				B1D746931CE0377D009A5AA6 /* PasscodeLock */,
+				B1D746991CE0377D009A5AA6 /* PasscodeLockController */,
+				B1D7469F1CE0377D009A5AA6 /* Protocols */,
+				B1D746A41CE0377D009A5AA6 /* Views */,
+			);
+			path = PasscodeLock;
+			sourceTree = "<group>";
+		};
+		B1D746931CE0377D009A5AA6 /* PasscodeLock */ = {
+			isa = PBXGroup;
+			children = (
+				B1D746941CE0377D009A5AA6 /* ChangePasscodeState.swift */,
+				B1D746951CE0377D009A5AA6 /* ConfirmPasscodeState.swift */,
+				B1D746961CE0377D009A5AA6 /* EnterPasscodeState.swift */,
+				B1D746971CE0377D009A5AA6 /* PasscodeLock.swift */,
+				B1D746981CE0377D009A5AA6 /* SetPasscodeState.swift */,
+			);
+			path = PasscodeLock;
+			sourceTree = "<group>";
+		};
+		B1D746991CE0377D009A5AA6 /* PasscodeLockController */ = {
+			isa = PBXGroup;
+			children = (
+				B1D7469A1CE0377D009A5AA6 /* Functions.swift */,
+				B1D7469B1CE0377D009A5AA6 /* PasscodeLockConfiguration.swift */,
+				B1D7469C1CE0377D009A5AA6 /* PasscodeLockPresenter.swift */,
+				B1D7469D1CE0377D009A5AA6 /* PasscodeLockViewController.swift */,
+				B1D7469E1CE0377D009A5AA6 /* UserDefaultsPasscodeRepository.swift */,
+			);
+			path = PasscodeLockController;
+			sourceTree = "<group>";
+		};
+		B1D7469F1CE0377D009A5AA6 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				B1D746A01CE0377D009A5AA6 /* PasscodeLockConfigurationType.swift */,
+				B1D746A11CE0377D009A5AA6 /* PasscodeLockStateType.swift */,
+				B1D746A21CE0377D009A5AA6 /* PasscodeLockType.swift */,
+				B1D746A31CE0377D009A5AA6 /* PasscodeRepositoryType.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		B1D746A41CE0377D009A5AA6 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				B1D746A51CE0377D009A5AA6 /* PasscodeLockView.xib */,
+				B1D746A71CE0377D009A5AA6 /* PasscodeSignButton.swift */,
+				B1D746A81CE0377D009A5AA6 /* PasscodeSignPlaceholderView.swift */,
+				B1D746A91CE0377D009A5AA6 /* TouchID.xcassets */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		B1F643A61CCC72E600A5A5E9 /* ZSSRichTextEditor */ = {
@@ -834,6 +963,7 @@
 				en,
 				Base,
 				"zh-Hans",
+				"zh-Hant",
 			);
 			mainGroup = B17939251B96DDD3002E1B21;
 			productRefGroup = B179392F1B96DDD3002E1B21 /* Products */;
@@ -864,7 +994,9 @@
 				B1F6441E1CCC72E600A5A5E9 /* ZSSh3@2x.png in Resources */,
 				B1F644451CCC72E600A5A5E9 /* ZSSsubscript.png in Resources */,
 				B1F644251CCC72E600A5A5E9 /* ZSShorizontalrule.png in Resources */,
+				B1D746C11CE0377D009A5AA6 /* TouchID.xcassets in Resources */,
 				B1F644221CCC72E600A5A5E9 /* ZSSh5@2x.png in Resources */,
+				B1D746AF1CE0377D009A5AA6 /* PasscodeLock.strings in Resources */,
 				B1F6443C1CCC72E600A5A5E9 /* ZSSpicker@2x.png in Resources */,
 				B1F644211CCC72E600A5A5E9 /* ZSSh5.png in Resources */,
 				B1F6442E1CCC72E600A5A5E9 /* ZSSitalic@2x.png in Resources */,
@@ -884,7 +1016,7 @@
 				B1F644261CCC72E600A5A5E9 /* ZSShorizontalrule@2x.png in Resources */,
 				B1F644401CCC72E600A5A5E9 /* ZSSredo@2x.png in Resources */,
 				B1F6442F1CCC72E600A5A5E9 /* ZSSkeyboard.png in Resources */,
-				B13BFF7E1BC8FD3D0034E1E8 /* IBBSSlidePanel.storyboard in Resources */,
+				B13BFF7E1BC8FD3D0034E1E8 /* SlidePanel.storyboard in Resources */,
 				B1F644181CCC72E600A5A5E9 /* ZSSforcejustify@2x.png in Resources */,
 				B15BD5B71BA54BBC00969D36 /* IBBSNodeTableViewCell.xib in Resources */,
 				B1F6442B1CCC72E600A5A5E9 /* ZSSinsertkeyword.png in Resources */,
@@ -893,12 +1025,14 @@
 				B1F644421CCC72E600A5A5E9 /* ZSSrightjustify@2x.png in Resources */,
 				B1F6441D1CCC72E600A5A5E9 /* ZSSh3.png in Resources */,
 				B1F644201CCC72E600A5A5E9 /* ZSSh4@2x.png in Resources */,
+				B1D746BE1CE0377D009A5AA6 /* PasscodeLockView.xib in Resources */,
 				B1F644511CCC72E600A5A5E9 /* ZSSunlink.png in Resources */,
 				B1F6443A1CCC72E600A5A5E9 /* ZSSparagraph@2x.png in Resources */,
 				B124B9F41BA9BB92000034CC /* IBBSMessageTableViewCell.xib in Resources */,
 				B1F644151CCC72E600A5A5E9 /* ZSSclearstyle.png in Resources */,
 				B10149E11BCBB264001DC5AB /* LaunchScreen.storyboard in Resources */,
 				B1F6444B1CCC72E600A5A5E9 /* ZSStextcolor.png in Resources */,
+				B13C21641CD86BE7002A38E3 /* User.storyboard in Resources */,
 				B1F644101CCC72E600A5A5E9 /* ZSSbgcolor@2x.png in Resources */,
 				B1F644521CCC72E600A5A5E9 /* ZSSunlink@2x.png in Resources */,
 				B1F644471CCC72E600A5A5E9 /* ZSSsuperscript.png in Resources */,
@@ -920,6 +1054,7 @@
 				B1F6443B1CCC72E600A5A5E9 /* ZSSpicker.png in Resources */,
 				B148AF221B98C3B100D00524 /* IBBSDetailHeaderView.xib in Resources */,
 				B1F711A11BB83AC900128E26 /* Localizable.strings in Resources */,
+				B169814A1CDA2F5C00D87812 /* IBBSUserTopicTableViewCell.xib in Resources */,
 				B1F644281CCC72E600A5A5E9 /* ZSSimage@2x.png in Resources */,
 				B1F644441CCC72E600A5A5E9 /* ZSSstrikethrough@2x.png in Resources */,
 				B1F644341CCC72E600A5A5E9 /* ZSSlink@2x.png in Resources */,
@@ -1008,31 +1143,40 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B1D746BB1CE0377D009A5AA6 /* PasscodeLockStateType.swift in Sources */,
 				B141A53F1BC5175C00A32CD8 /* NSString+Additions.swift in Sources */,
 				B1017FF71BAA827200533D61 /* DraggableView.swift in Sources */,
 				B179394A1B96DE08002E1B21 /* IBBSViewController.swift in Sources */,
-				B13BFF841BC8FF8D0034E1E8 /* IBBSProfileViewController.swift in Sources */,
 				B17376AD1CC4D97300C27725 /* IBBSUserViewController.swift in Sources */,
+				B1AF8E341CD318EC0033C175 /* UIImageView+Extension.swift in Sources */,
 				B199E3201BA9B1250088DFC5 /* IBBSMessagesViewController.swift in Sources */,
 				B1017FF81BAA827200533D61 /* DraggableViewBackground.swift in Sources */,
 				B17376BD1CC5D92D00C27725 /* UINavigationBar+Extension.swift in Sources */,
+				B12F96971CDA564500C84C86 /* NSUserDefaults+Extension.swift in Sources */,
 				B17376BB1CC5D3C900C27725 /* UIScreen+Extension.swift in Sources */,
+				B169814C1CDA305B00D87812 /* IBBSUserTopicModel.swift in Sources */,
 				B141A52C1BC4EDC100A32CD8 /* IBBSThemes.swift in Sources */,
 				B124B9F31BA9BB92000034CC /* IBBSMessageTableViewCell.swift in Sources */,
 				B1D27C571BC4109F006153BB /* IBBSCustomSelectedBackgroundView.swift in Sources */,
 				B13BFF861BC8FF970034E1E8 /* IBBSSettingViewController.swift in Sources */,
+				B13C21681CD871FC002A38E3 /* UIButton+Extension.swift in Sources */,
 				B179394E1B96DE08002E1B21 /* IBBSSlidePanelViewController.swift in Sources */,
+				B169814E1CDA425F00D87812 /* IBBSColorPickerViewController.swift in Sources */,
 				B1F6445D1CCC72E600A5A5E9 /* HRColorCursor.m in Sources */,
 				B1F711A61BB83C8300128E26 /* IBBSLocalizableStrings.swift in Sources */,
 				B17376B91CC5026C00C27725 /* UIViewController+Extension.swift in Sources */,
 				B10149A81BCAC164001DC5AB /* IBBSEditorBaseViewController.swift in Sources */,
+				B155672F1CD2375D003D49A3 /* IBBSUserViewController+UploadAvatar.swift in Sources */,
+				B1D746B21CE0377D009A5AA6 /* EnterPasscodeState.swift in Sources */,
 				B1F644571CCC72E600A5A5E9 /* CYRLayoutManager.m in Sources */,
 				B1F644611CCC72E600A5A5E9 /* ZSSBarButtonItem.m in Sources */,
 				B1CCFE871CCCF41C00CCAC69 /* IBBSModel.swift in Sources */,
+				B12F96C21CDB20FE00C84C86 /* IBBSSettingContainerViewController.swift in Sources */,
 				B1AF3F961BC695A900BCBB8F /* FrostedSidebar.swift in Sources */,
 				B165BCEA1BA940DC00036477 /* IBBSCommentViewController.swift in Sources */,
 				B1F6445A1CCC72E600A5A5E9 /* CYRToken.m in Sources */,
 				B1A46D2A1CD1C5750098AEB1 /* DrawCornerRadiusImage.swift in Sources */,
+				B1D746B01CE0377D009A5AA6 /* ChangePasscodeState.swift in Sources */,
 				B197C8331BA74C0200DE0678 /* IBBSPickerViewController.swift in Sources */,
 				B1CA72081B96DE74006823B3 /* IBBSAPIClient.swift in Sources */,
 				B1563DD81BB2BD4B00F6D00B /* IBBSRegisterViewController.swift in Sources */,
@@ -1040,13 +1184,16 @@
 				B1C7FD771CC38A630055DB1D /* PaddingLabel.swift in Sources */,
 				B1648DEA1CCE3C0C008257DB /* UIDevice+Extension.swift in Sources */,
 				B1D261781BE858D5005EAE10 /* IBBSAvatarImageView.swift in Sources */,
+				B16981481CDA2F4F00D87812 /* IBBSUserTopicTableViewCell.swift in Sources */,
 				B1C105D31BA1D4730088DBCB /* IBBSNodesCell.swift in Sources */,
+				B13C216A1CD87B98002A38E3 /* AlertController.swift in Sources */,
 				B113B0481BA196BF004ECFA0 /* RefreshBaseView.swift in Sources */,
 				B1C5F5F81BA80B2400CAF514 /* IBBSEditingViewController.swift in Sources */,
 				B1F644631CCC72E600A5A5E9 /* ZSSRichTextEditor.m in Sources */,
 				B113B0491BA196BF004ECFA0 /* RefreshConst.swift in Sources */,
 				B1179CD51CCB57C400EBC0EE /* CWStatusBarNotificationUtils.swift in Sources */,
 				B1F644641CCC72E600A5A5E9 /* ZSSTextView.m in Sources */,
+				B1D746BF1CE0377D009A5AA6 /* PasscodeSignButton.swift in Sources */,
 				B1CCFE851CCCA91400CCAC69 /* IBBSLoginModel.swift in Sources */,
 				B113B04A1BA196BF004ECFA0 /* RefreshFooterView.swift in Sources */,
 				B141A53C1BC5175C00A32CD8 /* CheckEmailAddress+Additions.swift in Sources */,
@@ -1056,9 +1203,7 @@
 				B1B097CD1BA43A86009B02E2 /* IBBSNodesCollectionViewController.swift in Sources */,
 				B141A5431BC5175C00A32CD8 /* UILabel+Additions.swift in Sources */,
 				B1179CD71CCB590800EBC0EE /* IBBSToast.swift in Sources */,
-				B13BFF8C1BC983D70034E1E8 /* UIImageView+Additions.swift in Sources */,
 				B141A5401BC5175C00A32CD8 /* PanDirectionGestureRecognizer+Addtions.swift in Sources */,
-				B13BFF801BC8FF710034E1E8 /* IBBSNotificationViewController.swift in Sources */,
 				B136AA7F1CCF3E6300A728D2 /* GTMNSString+HTML.m in Sources */,
 				B179394B1B96DE08002E1B21 /* IBBSTableViewCell.swift in Sources */,
 				B197C82C1BA73D1D00DE0678 /* IBBSPostViewController.swift in Sources */,
@@ -1066,6 +1211,7 @@
 				B17376AB1CC4BFBA00C27725 /* IBBSChatViewController.swift in Sources */,
 				B15BD5B91BA54C8100969D36 /* IBBSNodeViewController.swift in Sources */,
 				B1F6445C1CCC72E600A5A5E9 /* HRCgUtil.m in Sources */,
+				B1D746B41CE0377D009A5AA6 /* SetPasscodeState.swift in Sources */,
 				B1D186F81CCBC7D700F5FFD7 /* Utils.swift in Sources */,
 				B16C66B51CCD2F87002C62A9 /* Alamofire3-SwiftyJSON.swift in Sources */,
 				B1C5F5FA1BA8338400CAF514 /* IBBSContext.swift in Sources */,
@@ -1073,34 +1219,47 @@
 				B125567C1C8FF660000EBED8 /* DEBUGLog.swift in Sources */,
 				B17376B71CC4ECC000C27725 /* IBBSReplyMessageModel.swift in Sources */,
 				B179394D1B96DE08002E1B21 /* IBBSContainerViewController.swift in Sources */,
-				B13BFF881BC91D3E0034E1E8 /* IBBSSlidePanelBaseViewController.swift in Sources */,
+				B13BFF881BC91D3E0034E1E8 /* IBBSBaseSettingsViewController.swift in Sources */,
+				B12F96C41CDB35A700C84C86 /* IBBSFavoriteContainerViewController.swift in Sources */,
 				B17376B11CC4DFE600C27725 /* IBBSTopicListModel.swift in Sources */,
+				B1D746C01CE0377D009A5AA6 /* PasscodeSignPlaceholderView.swift in Sources */,
+				B1D746BA1CE0377D009A5AA6 /* PasscodeLockConfigurationType.swift in Sources */,
 				B1B097CB1BA42F1E009B02E2 /* IBBSTabBarController.swift in Sources */,
 				B141A5461BC5175C00A32CD8 /* UIView+Additions.swift in Sources */,
 				B1F6445B1CCC72E600A5A5E9 /* HRBrightnessCursor.m in Sources */,
 				B15AF5B51BA5763700810969 /* IBBSRootNavigationController.swift in Sources */,
+				B1D746BC1CE0377D009A5AA6 /* PasscodeLockType.swift in Sources */,
 				B17376AF1CC4DC8300C27725 /* IBBSNodeTopicListModel.swift in Sources */,
 				B1179C9F1CBE0500008D18EC /* FPSLabel.swift in Sources */,
 				B1F644581CCC72E600A5A5E9 /* CYRTextStorage.m in Sources */,
 				B11373DB1BB6E32C00DB9D1F /* IBBSEffectViewController.swift in Sources */,
+				B13C21661CD86C0F002A38E3 /* UIStoryboard+Extension.swift in Sources */,
 				B16803CE1CCF7CFC004EF786 /* IBBSNodeModel.swift in Sources */,
 				B136AA801CCF3E6300A728D2 /* NSString+HTML.m in Sources */,
+				B1D746B91CE0377D009A5AA6 /* UserDefaultsPasscodeRepository.swift in Sources */,
+				B1D746B61CE0377D009A5AA6 /* PasscodeLockConfiguration.swift in Sources */,
 				B17376B51CC4E38700C27725 /* IBBSMessageModel.swift in Sources */,
 				B15BD5B61BA54BBC00969D36 /* IBBSNodeTableViewCell.swift in Sources */,
 				B141A5451BC5175C00A32CD8 /* UITextView+Additions.swift in Sources */,
 				B141A5411BC5175C00A32CD8 /* TopMostViewController+Additions.swift in Sources */,
 				B1F6445F1CCC72E600A5A5E9 /* HRColorPickerViewController.m in Sources */,
 				B1F644591CCC72E600A5A5E9 /* CYRTextView.m in Sources */,
+				B1D746B11CE0377D009A5AA6 /* ConfirmPasscodeState.swift in Sources */,
+				B1D746B81CE0377D009A5AA6 /* PasscodeLockViewController.swift in Sources */,
 				B1F644601CCC72E600A5A5E9 /* HRColorUtil.m in Sources */,
 				B10149DA1BCB9C14001DC5AB /* UIColor+Hex.swift in Sources */,
+				B1D746B31CE0377D009A5AA6 /* PasscodeLock.swift in Sources */,
 				B13BFF821BC8FF840034E1E8 /* IBBSFavoriteViewController.swift in Sources */,
+				B1D746BD1CE0377D009A5AA6 /* PasscodeRepositoryType.swift in Sources */,
 				B141A5421BC5175C00A32CD8 /* UIColor+Additions.swift in Sources */,
 				B113B04B1BA196BF004ECFA0 /* UIScrollView+Refresh.swift in Sources */,
 				B1F6445E1CCC72E600A5A5E9 /* HRColorPickerView.m in Sources */,
 				B165BCEC1BA9662B00036477 /* IBBSConstants.swift in Sources */,
+				B1D746B51CE0377D009A5AA6 /* Functions.swift in Sources */,
+				B1D746B71CE0377D009A5AA6 /* PasscodeLockPresenter.swift in Sources */,
 				B148AF1D1B98B1D800D00524 /* IBBSReplyCell.swift in Sources */,
 				B17939321B96DDD3002E1B21 /* AppDelegate.swift in Sources */,
-				B1CCFE831CCC99C700CCAC69 /* IBBSToken.swift in Sources */,
+				B1CCFE831CCC99C700CCAC69 /* IBBSLoginKey.swift in Sources */,
 				B1179CD41CCB57C400EBC0EE /* CWStatusBarNotification.swift in Sources */,
 				B12556801C8FF742000EBED8 /* Encrypt+Additions.swift in Sources */,
 				B1D6B1EC1CC36A0C008B966D /* main.m in Sources */,
@@ -1116,6 +1275,24 @@
 				B10149E01BCBB264001DC5AB /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		B1D746911CE0377D009A5AA6 /* PasscodeLock.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B1D746921CE0377D009A5AA6 /* Base */,
+				B1D746AD1CE0377D009A5AA6 /* zh-Hans */,
+				B1D746AE1CE0377D009A5AA6 /* zh-Hant */,
+			);
+			name = PasscodeLock.strings;
+			sourceTree = "<group>";
+		};
+		B1D746A51CE0377D009A5AA6 /* PasscodeLockView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B1D746A61CE0377D009A5AA6 /* Base */,
+			);
+			name = PasscodeLockView.xib;
 			sourceTree = "<group>";
 		};
 		B1F711A31BB83AC900128E26 /* Localizable.strings */ = {

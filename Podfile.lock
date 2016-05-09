@@ -1,31 +1,68 @@
 PODS:
+  - AFNetworking (2.6.3):
+    - AFNetworking/NSURLConnection (= 2.6.3)
+    - AFNetworking/NSURLSession (= 2.6.3)
+    - AFNetworking/Reachability (= 2.6.3)
+    - AFNetworking/Security (= 2.6.3)
+    - AFNetworking/Serialization (= 2.6.3)
+    - AFNetworking/UIKit (= 2.6.3)
+  - AFNetworking/NSURLConnection (2.6.3):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/NSURLSession (2.6.3):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (2.6.3)
+  - AFNetworking/Security (2.6.3)
+  - AFNetworking/Serialization (2.6.3)
+  - AFNetworking/UIKit (2.6.3):
+    - AFNetworking/NSURLConnection
+    - AFNetworking/NSURLSession
   - Alamofire (3.3.1)
   - GearRefreshControl (0.3.0)
+  - HappyDNS (0.2.3)
   - Kingfisher (1.9.3)
+  - KYNavigationProgress (1.0.0)
+  - Qiniu (7.0.17):
+    - AFNetworking (~> 2.0)
+    - HappyDNS (~> 0.2)
   - SnapKit (0.20.0)
+  - SwiftColorPicker (0.0.5)
   - SwiftyJSON (2.3.2)
 
 DEPENDENCIES:
   - Alamofire (~> 3.3)
   - GearRefreshControl (~> 0.3)
   - Kingfisher (~> 1.6)
+  - KYNavigationProgress
+  - Qiniu (~> 7.0)
   - SnapKit
-  - SwiftyJSON (from `https://github.com/SwiftyJSON/SwiftyJSON.git`)
+  - SwiftColorPicker (from `https://github.com/MrMatthias/SwiftColorPicker`, commit
+    `47611ac2adf323a3f92c875fb2f8f7feb459f80c`)
+  - SwiftyJSON
 
 EXTERNAL SOURCES:
-  SwiftyJSON:
-    :git: https://github.com/SwiftyJSON/SwiftyJSON.git
+  SwiftColorPicker:
+    :commit: 47611ac2adf323a3f92c875fb2f8f7feb459f80c
+    :git: https://github.com/MrMatthias/SwiftColorPicker
 
 CHECKOUT OPTIONS:
-  SwiftyJSON:
-    :commit: 2a5b70f06001316d4fb54501edc70b4084705da0
-    :git: https://github.com/SwiftyJSON/SwiftyJSON.git
+  SwiftColorPicker:
+    :commit: 47611ac2adf323a3f92c875fb2f8f7feb459f80c
+    :git: https://github.com/MrMatthias/SwiftColorPicker
 
 SPEC CHECKSUMS:
+  AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
   Alamofire: 369bc67b6f5ac33ded3648d7bd21c5bfb91c2ecc
   GearRefreshControl: c7b1abac8a298f180df48c1bc450469e98840c46
+  HappyDNS: 6d85942e64c28b4fa61f8c76580398f52d6d1d11
   Kingfisher: 9e37d2a78a082dc123bfe8a16de65de85518daae
+  KYNavigationProgress: 98df05cf12545f7c2a74570b2b23770dac4551a6
+  Qiniu: 2c05af1f9d580c036b18faf832cc98e98bfb21bc
   SnapKit: 5fce3c1bbbf1fbd31de9aa92f33eb9fa03f15650
+  SwiftColorPicker: aee0bb6991feb70f675c6ee5c91a55164ed128d7
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
 
 COCOAPODS: 0.39.0

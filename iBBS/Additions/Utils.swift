@@ -14,7 +14,7 @@ public typealias CompletionHandler = () -> ()
 
 class Utils {
     
-    class func documentPath() -> String {
+    class var documentPath: String {
         return NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).first!
     }
     

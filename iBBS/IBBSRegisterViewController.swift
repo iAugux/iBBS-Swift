@@ -15,6 +15,7 @@ class IBBSRegisterViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet var avatarImageView: IBBSAvatarImageView! {
         didSet{
+            avatarImageView.antiOffScreenRendering = false
             avatarImageView.backgroundColor = CUSTOM_THEME_COLOR.darkerColor(0.75)
             avatarImageView.image           = AVATAR_PLACEHOLDER_IMAGE
         }

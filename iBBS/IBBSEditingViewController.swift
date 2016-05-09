@@ -41,7 +41,7 @@ class IBBSEditingViewController: UIViewController, UITextViewDelegate {
     
     @IBOutlet var contentTextView: UITextView! {
         didSet{
-            contentTextView.layer.cornerRadius = 8.0
+            contentTextView.layer.cornerRadius = 4.0
             contentTextView.backgroundColor = CUSTOM_THEME_COLOR.darkerColor(0.75).colorWithAlphaComponent(0.35)
         }
     }
@@ -141,7 +141,7 @@ class IBBSEditingViewController: UIViewController, UITextViewDelegate {
             }
         }
         
-        guard let vc = MainStoryboard.instantiateViewControllerWithIdentifier(String(IBBSPostViewController)) as? IBBSPostViewController else { return }
+        guard let vc = UIStoryboard.Main.instantiateViewControllerWithIdentifier(String(IBBSPostViewController)) as? IBBSPostViewController else { return }
         
         navigationController?.pushViewController(vc , animated: true)
     }

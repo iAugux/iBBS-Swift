@@ -22,18 +22,16 @@ class IBBSBaseViewController: UITableViewController {
     var cornerActionButton: UIButton!
     var page: Int = 1
 
-    var datasource: [JSON]! {
-        didSet{
-            tableView.reloadData()
-        }
-    }
+    var datasource: [JSON]!
     
     private var nodeId: Int!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         gearRefreshManager()
         configureCornerActionButton()
+        
         navigationController?.navigationBar.hidden = SHOULD_HIDE_NAVIGATIONBAR
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : CUSTOM_THEME_COLOR]
 
@@ -80,7 +78,7 @@ class IBBSBaseViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func configureCornerActionButton() {
+     private func configureCornerActionButton() {
         cornerActionButton = UIButton()
         cornerActionButton?.layer.cornerRadius = 20.0
         cornerActionButton?.clipsToBounds = true
@@ -97,16 +95,10 @@ class IBBSBaseViewController: UITableViewController {
         }
     }
     
-    func cornerActionButtonDidTap() {
-        DEBUGLog("corner action button did tap")
-        let alertCtrl = UIAlertController(title: "", message: "TODO...", preferredStyle: .Alert)
-        let cancelAction = UIAlertAction(title: "OK", style: .Cancel , handler: nil)
-        alertCtrl.addAction(cancelAction)
-        UIApplication.topMostViewController?.presentViewController(alertCtrl, animated: true, completion: nil)
-    }
+    func cornerActionButtonDidTap() {}
     
-    
-    func updateTheme() {
+    internal func updateTheme() {
+        
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : CUSTOM_THEME_COLOR]
         cornerActionButton?.backgroundColor = CUSTOM_THEME_COLOR.lighterColor(0.85)
         
@@ -166,7 +158,7 @@ extension IBBSBaseViewController {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 
-        if segue.identifier == postNewArticleWithNodeSegue || segue.identifier == postSegue {
+        if segue.identifier == postNewArticleWithNodeSegue || segue.identifier == postSegue || segue.identifier == postNewArticleInFavoriteVCSegueId {
             
             guard let destinationVC = segue.destinationViewController as? UINavigationController else { return }
 

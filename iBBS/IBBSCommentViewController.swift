@@ -12,9 +12,16 @@
 
 import UIKit
 
+
+protocol IBBSCommentViewControllerDelegate {
+    func refreshData()
+}
+
 class IBBSCommentViewController: IBBSEditorBaseViewController {
     
     var post_id = Int()
+    
+    var delegate: IBBSCommentViewControllerDelegate!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +38,7 @@ class IBBSCommentViewController: IBBSEditorBaseViewController {
     }
     
     @objc private func cancelAction() {
+        
         if getHTML().ausTrimHtmlInWhitespaceAndNewlineCharacterSet().isEmpty {
             blurTextEditor()
             dismissViewControllerAnimated(true , completion: nil)
@@ -81,14 +89,16 @@ class IBBSCommentViewController: IBBSEditorBaseViewController {
         }
                 
         APIClient.defaultClient.comment(key.uid, postID: post_id, content: content, token: key.token, success: { (json) -> Void in
-
+            
             let model = IBBSModel(json: json)
 
             if model.success { //comment successfully
                 
                 IBBSToast.make(model.message, interval: TIME_OF_TOAST_OF_COMMENT_SUCCESS)
                 
-                self.dismissViewControllerAnimated(true , completion: nil)
+                self.dismissViewControllerAnimated(true , completion: {
+                    self.delegate?.refreshData()
+                })
 
             } else {
                 IBBSToast.make(model.message, interval: TIME_OF_TOAST_OF_COMMENT_FAILED)

@@ -20,7 +20,6 @@ let kShouldReloadDataAfterPosting                  = "kShouldReloadDataAfterPost
 let kJustLoggedinNotification                      = "kJustLoggedinNotification"
 
 
-
 var SHOULD_HIDE_NAVIGATIONBAR                      = false
 
 let BLUR_VIEW_ALPHA_OF_BG_IMAGE: CGFloat           = 0.70

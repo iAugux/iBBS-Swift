@@ -30,10 +30,20 @@ class IBBSNodeViewController: IBBSBaseViewController, UIGestureRecognizerDelegat
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(reloadDataAfterPosting), name: kShouldReloadDataAfterPosting, object: nil)
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        cornerActionButton?.hidden = false
+    }
+    
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         navigationController?.interactivePopGestureRecognizer?.delegate = self
         navigationController?.interactivePopGestureRecognizer?.enabled = true
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        cornerActionButton?.hidden = true
     }
     
     deinit {
@@ -84,11 +94,14 @@ class IBBSNodeViewController: IBBSBaseViewController, UIGestureRecognizerDelegat
         
         navigationController?.navigationBarHidden = false
         
-        if let node = nodeJSON {
-            title = IBBSNodeModel(json: node).title
-        }else {
+        guard let node = nodeJSON else {
             title = "iBBS"
+            return
         }
+        
+        let model = IBBSNodeModel(json: node)
+        title = model.name
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: String(model.numberOfTotal), style: .Plain, target: self, action: nil)
     }
     
     private func configureTableView() {
@@ -112,7 +125,7 @@ class IBBSNodeViewController: IBBSBaseViewController, UIGestureRecognizerDelegat
         
         performPostNewArticleSegue(segueIdentifier: postNewArticleWithNodeSegue, nodeId: nodeId)
     }
-    
+
 }
 
 

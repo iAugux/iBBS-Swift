@@ -33,7 +33,7 @@ class IBBSTableViewCell: UITableViewCell {
         separatorInset = UIEdgeInsetsZero
         layoutMargins  = UIEdgeInsetsZero
         selectionStyle = .None
- 
+
     }
     
     override func setSelected(selected: Bool, animated: Bool) {

@@ -49,6 +49,7 @@
 	"Send successfully!" = "\U53d1\U9001\U6210\U529f\Uff01";
 	"Send failed!" = "\U53d1\U9001\U5931\U8d25\Uff01";
 	"Change Password" = "\U4fee\U6539\U5bc6\U7801";
+	"Change Username" = "\U66f4\U6539\U7528\U6237\U540d";
 	"Change Avatar" = "\U66f4\U6539\U5934\U50cf";
 	"Old Password" = "\U65e7\U5bc6\U7801";
 	"New Password" = "\U65b0\U5bc6\U7801";
@@ -56,4 +57,10 @@
 	"Please login..." = "\U8bf7\U767b\U9646...";
 	"Login now?" = "\U91cd\U65b0\U767b\U9646\Uff1f";
 	"Please set a new password!" = "\U8bf7\U8bbe\U7f6e\U4e00\U4e2a\U65b0\U7684\U5bc6\U7801\Uff01";
+	"Change avatar successfully!" = "\U4fee\U6539\U5934\U50cf\U6210\U529f\Uff01";
+	"Change avatar failed!" = "\U4fee\U6539\U5934\U50cf\U5931\U8d25\Uff01";
+	"Uploading... Are you sure to cancel?" = "\U4e0a\U4f20\U4e2d... \U786e\U5b9a\U53d6\U6d88\U5417\Uff1f";
+	YES = "\U662f";
+	NO = "\U5426";
+	"Nothing here..." = "\U65e0\U6570\U636e...";
 }
