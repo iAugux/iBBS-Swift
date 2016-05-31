@@ -109,7 +109,6 @@
 		B1D261781BE858D5005EAE10 /* IBBSAvatarImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D261771BE858D5005EAE10 /* IBBSAvatarImageView.swift */; };
 		B1D27C551BC3B002006153BB /* IBBSNodesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D27C541BC3B002006153BB /* IBBSNodesCollectionViewCell.swift */; };
 		B1D27C571BC4109F006153BB /* IBBSCustomSelectedBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D27C561BC4109F006153BB /* IBBSCustomSelectedBackgroundView.swift */; };
-		B1D6B1EC1CC36A0C008B966D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B1D6B1EB1CC36A0C008B966D /* main.m */; };
 		B1D746AF1CE0377D009A5AA6 /* PasscodeLock.strings in Resources */ = {isa = PBXBuildFile; fileRef = B1D746911CE0377D009A5AA6 /* PasscodeLock.strings */; };
 		B1D746B01CE0377D009A5AA6 /* ChangePasscodeState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D746941CE0377D009A5AA6 /* ChangePasscodeState.swift */; };
 		B1D746B11CE0377D009A5AA6 /* ConfirmPasscodeState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D746951CE0377D009A5AA6 /* ConfirmPasscodeState.swift */; };
@@ -330,7 +329,6 @@
 		B1D261771BE858D5005EAE10 /* IBBSAvatarImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSAvatarImageView.swift; sourceTree = "<group>"; };
 		B1D27C541BC3B002006153BB /* IBBSNodesCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSNodesCollectionViewCell.swift; sourceTree = "<group>"; };
 		B1D27C561BC4109F006153BB /* IBBSCustomSelectedBackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSCustomSelectedBackgroundView.swift; sourceTree = "<group>"; };
-		B1D6B1EB1CC36A0C008B966D /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		B1D746921CE0377D009A5AA6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/PasscodeLock.strings; sourceTree = "<group>"; };
 		B1D746941CE0377D009A5AA6 /* ChangePasscodeState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePasscodeState.swift; sourceTree = "<group>"; };
 		B1D746951CE0377D009A5AA6 /* ConfirmPasscodeState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmPasscodeState.swift; sourceTree = "<group>"; };
@@ -666,7 +664,6 @@
 			children = (
 				B10149DF1BCBB264001DC5AB /* LaunchScreen.storyboard */,
 				B1F711A31BB83AC900128E26 /* Localizable.strings */,
-				B1D6B1EB1CC36A0C008B966D /* main.m */,
 				B1CA72191B972434006823B3 /* iBBS-Bridging-Header.h */,
 				B17939381B96DDD3002E1B21 /* Assets.xcassets */,
 			);
@@ -1262,7 +1259,6 @@
 				B1CCFE831CCC99C700CCAC69 /* IBBSLoginKey.swift in Sources */,
 				B1179CD41CCB57C400EBC0EE /* CWStatusBarNotification.swift in Sources */,
 				B12556801C8FF742000EBED8 /* Encrypt+Additions.swift in Sources */,
-				B1D6B1EC1CC36A0C008B966D /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

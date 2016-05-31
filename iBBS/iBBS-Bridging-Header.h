@@ -19,11 +19,3 @@
 
 
 #endif /* iBBS_Bridging_Header_h */
-
-// From here to end of file added by Injection Plugin //
-
-#ifdef DEBUG
-#define INJECTION_ENABLED
-
-#import "/tmp/injectionforxcode/BundleInterface.h"
-#endif

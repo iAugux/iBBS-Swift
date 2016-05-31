@@ -35,7 +35,7 @@ extension UILabel {
     
     :returns: CGSize
     */
-    func ausReturnFrameSizeAfterResizingLabel() -> CGSize{
+    func ausReturnFrameSizeAfterResizingLabel() -> CGSize {
         let fixedWidth = self.frame.size.width
         self.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.max))
         let newSize = self.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.max))

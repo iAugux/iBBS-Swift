@@ -15,7 +15,7 @@ import Alamofire
 import SwiftyJSON
 
 
-let APIRootURL = "http://192.168.1.178/YABBS/index.php/Home/Api/"
+let APIRootURL = "http://192.168.1.105/YABBS/index.php/Home/Api/"
 
 //let APIRootURL = "http://192.168.1.100/YABBS/index.php/Home/Api/"
 //let APIRootURL = "http://127.0.0.1/YABBS/index.php/Home/Api/"
