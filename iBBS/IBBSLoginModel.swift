@@ -13,6 +13,7 @@ struct IBBSLoginModel {
     
     var message: String!
     var token: String!
+    var isAdmin: Bool!
     var success: Bool!
     var expire: NSDate!
     var avatar: NSURL!
@@ -22,6 +23,7 @@ struct IBBSLoginModel {
     init(json: JSON) {
         message  = json["msg"].stringValue
         token    = json["token"].stringValue
+        isAdmin  = json["is_admin"].boolValue
         success  = json["code"].boolValue
         expire   = NSDate(timeIntervalSince1970: json["expire"].doubleValue)
         avatar   = NSURL(string: json["avatar"].stringValue)

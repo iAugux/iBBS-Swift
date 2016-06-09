@@ -211,6 +211,9 @@ extension IBBSViewController: UITabBarControllerDelegate {
             tapCounter = 0
             
             sendRequest(page)
+            
+            guard tableView.numberOfSections != 0 && tableView.numberOfRowsInSection(0) != 0 else { return false }
+            
             let topIndexPath = NSIndexPath(forRow: 0, inSection: 0)
             tableView.scrollToRowAtIndexPath(topIndexPath, atScrollPosition: .Top, animated: false)
             automaticContentOffset()

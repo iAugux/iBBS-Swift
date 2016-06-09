@@ -55,7 +55,7 @@ class SlidePanelViewController: UIViewController, UITableViewDataSource, UITable
     
     private var themePickerBar: FrostedSidebar!
     
-    private let cellTitleArray = ["", "Favorites", "Settings"]
+    private let cellTitleArray = ["", "Settings"]//["", "Favorites", "Settings"]
     
     override func loadView() {
         super.loadView()
@@ -314,16 +314,16 @@ extension SlidePanelViewController {
         var destinationVC: UIViewController!
         
         switch indexPath.row {
+//        case 1:
+//            
+//            appDelegate.containerViewController?.toggleLeftPanel()
+//            appDelegate.containerViewController?.removeFrontBlurView()
+//            
+//            destinationVC = UIStoryboard.SlidePanel.instantiateViewControllerWithIdentifier(String(IBBSFavoriteViewController))
+//            let nav = UINavigationController(rootViewController: destinationVC)
+//            presentViewController(nav, animated: true, completion: nil)
+//            
         case 1:
-            
-            appDelegate.containerViewController?.toggleLeftPanel()
-            appDelegate.containerViewController?.removeFrontBlurView()
-            
-            destinationVC = UIStoryboard.SlidePanel.instantiateViewControllerWithIdentifier(String(IBBSFavoriteViewController))
-            let nav = UINavigationController(rootViewController: destinationVC)
-            presentViewController(nav, animated: true, completion: nil)
-            
-        case 2:
             destinationVC = UIStoryboard.SlidePanel.instantiateViewControllerWithIdentifier(String(IBBSSettingViewController))
             navigationController?.pushViewController(destinationVC, animated: true)
             

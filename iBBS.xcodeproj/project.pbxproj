@@ -50,7 +50,6 @@
 		B141A5421BC5175C00A32CD8 /* UIColor+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B141A5351BC5175C00A32CD8 /* UIColor+Additions.swift */; };
 		B141A5431BC5175C00A32CD8 /* UILabel+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B141A5361BC5175C00A32CD8 /* UILabel+Additions.swift */; };
 		B141A5451BC5175C00A32CD8 /* UITextView+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B141A5381BC5175C00A32CD8 /* UITextView+Additions.swift */; };
-		B141A5461BC5175C00A32CD8 /* UIView+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B141A5391BC5175C00A32CD8 /* UIView+Additions.swift */; };
 		B148AF181B98572900D00524 /* IBBSDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B148AF171B98572900D00524 /* IBBSDetailViewController.swift */; };
 		B148AF1D1B98B1D800D00524 /* IBBSReplyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B148AF1B1B98B1D800D00524 /* IBBSReplyCell.swift */; };
 		B148AF1E1B98B1D800D00524 /* IBBSReplyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B148AF1C1B98B1D800D00524 /* IBBSReplyCell.xib */; };
@@ -91,6 +90,7 @@
 		B197C82C1BA73D1D00DE0678 /* IBBSPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B197C82B1BA73D1D00DE0678 /* IBBSPostViewController.swift */; };
 		B197C8331BA74C0200DE0678 /* IBBSPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B197C8321BA74C0200DE0678 /* IBBSPickerViewController.swift */; };
 		B199E3201BA9B1250088DFC5 /* IBBSMessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B199E31F1BA9B1250088DFC5 /* IBBSMessagesViewController.swift */; };
+		B19E74591CFEC71400178ABE /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B19E74581CFEC71400178ABE /* UIView+Extension.swift */; };
 		B1A46D2A1CD1C5750098AEB1 /* DrawCornerRadiusImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A46D291CD1C5750098AEB1 /* DrawCornerRadiusImage.swift */; };
 		B1AF3F961BC695A900BCBB8F /* FrostedSidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1AF3F951BC695A900BCBB8F /* FrostedSidebar.swift */; };
 		B1AF8E341CD318EC0033C175 /* UIImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1AF8E331CD318EC0033C175 /* UIImageView+Extension.swift */; };
@@ -266,7 +266,6 @@
 		B141A5351BC5175C00A32CD8 /* UIColor+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Additions.swift"; sourceTree = "<group>"; };
 		B141A5361BC5175C00A32CD8 /* UILabel+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+Additions.swift"; sourceTree = "<group>"; };
 		B141A5381BC5175C00A32CD8 /* UITextView+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextView+Additions.swift"; sourceTree = "<group>"; };
-		B141A5391BC5175C00A32CD8 /* UIView+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Additions.swift"; sourceTree = "<group>"; };
 		B148AF171B98572900D00524 /* IBBSDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSDetailViewController.swift; sourceTree = "<group>"; };
 		B148AF1B1B98B1D800D00524 /* IBBSReplyCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSReplyCell.swift; sourceTree = "<group>"; };
 		B148AF1C1B98B1D800D00524 /* IBBSReplyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IBBSReplyCell.xib; sourceTree = "<group>"; };
@@ -309,6 +308,7 @@
 		B197C82B1BA73D1D00DE0678 /* IBBSPostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSPostViewController.swift; sourceTree = "<group>"; };
 		B197C8321BA74C0200DE0678 /* IBBSPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSPickerViewController.swift; sourceTree = "<group>"; };
 		B199E31F1BA9B1250088DFC5 /* IBBSMessagesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBSMessagesViewController.swift; sourceTree = "<group>"; };
+		B19E74581CFEC71400178ABE /* UIView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		B1A46D291CD1C5750098AEB1 /* DrawCornerRadiusImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawCornerRadiusImage.swift; sourceTree = "<group>"; };
 		B1AF3F951BC695A900BCBB8F /* FrostedSidebar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrostedSidebar.swift; sourceTree = "<group>"; };
 		B1AF8E331CD318EC0033C175 /* UIImageView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extension.swift"; sourceTree = "<group>"; };
@@ -569,7 +569,7 @@
 				B1AF8E331CD318EC0033C175 /* UIImageView+Extension.swift */,
 				B141A5381BC5175C00A32CD8 /* UITextView+Additions.swift */,
 				B13C21651CD86C0F002A38E3 /* UIStoryboard+Extension.swift */,
-				B141A5391BC5175C00A32CD8 /* UIView+Additions.swift */,
+				B19E74581CFEC71400178ABE /* UIView+Extension.swift */,
 				B1A46D291CD1C5750098AEB1 /* DrawCornerRadiusImage.swift */,
 				B17376B81CC5026C00C27725 /* UIViewController+Extension.swift */,
 				B13BFF891BC962890034E1E8 /* CAAnimation+Additions.swift */,
@@ -1158,6 +1158,7 @@
 				B13BFF861BC8FF970034E1E8 /* IBBSSettingViewController.swift in Sources */,
 				B13C21681CD871FC002A38E3 /* UIButton+Extension.swift in Sources */,
 				B179394E1B96DE08002E1B21 /* IBBSSlidePanelViewController.swift in Sources */,
+				B19E74591CFEC71400178ABE /* UIView+Extension.swift in Sources */,
 				B169814E1CDA425F00D87812 /* IBBSColorPickerViewController.swift in Sources */,
 				B1F6445D1CCC72E600A5A5E9 /* HRColorCursor.m in Sources */,
 				B1F711A61BB83C8300128E26 /* IBBSLocalizableStrings.swift in Sources */,
@@ -1222,7 +1223,6 @@
 				B1D746C01CE0377D009A5AA6 /* PasscodeSignPlaceholderView.swift in Sources */,
 				B1D746BA1CE0377D009A5AA6 /* PasscodeLockConfigurationType.swift in Sources */,
 				B1B097CB1BA42F1E009B02E2 /* IBBSTabBarController.swift in Sources */,
-				B141A5461BC5175C00A32CD8 /* UIView+Additions.swift in Sources */,
 				B1F6445B1CCC72E600A5A5E9 /* HRBrightnessCursor.m in Sources */,
 				B15AF5B51BA5763700810969 /* IBBSRootNavigationController.swift in Sources */,
 				B1D746BC1CE0377D009A5AA6 /* PasscodeLockType.swift in Sources */,

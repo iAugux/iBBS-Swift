@@ -158,6 +158,19 @@ class APIClient {
         getJSONData("unfavorite", parameters: dict, success: success, failure: failure)
     }
     
+    
+    // MARK: - Delete (Admin)
+    
+    func deleteTopic(uid: AnyObject, token: AnyObject, postId: AnyObject, success: Success, failure: Failure) {
+        let dict = ["uid": uid, "token": token, "post_id": postId]
+        getJSONData("delete_post", parameters: dict, success: success, failure: failure)
+    }
+    
+    func deleteComment(uid: AnyObject, token: AnyObject, commentId: AnyObject, success: Success, failure: Failure) {
+        let dict = ["uid": uid, "token": token, "comment_id": commentId]
+        getJSONData("delete_comment", parameters: dict, success: success, failure: failure)
+    }
+    
 }
 
 

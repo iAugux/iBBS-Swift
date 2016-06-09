@@ -27,7 +27,7 @@ class IBBSDetailViewController: IBBSBaseViewController, UIGestureRecognizerDeleg
         configureHeaderView()
         configureTableView()
         configureGesture()
-        configureFavoriteButton()
+        configureDeleteItemIfNeeded()
     }
     
     override func didReceiveMemoryWarning() {
@@ -58,13 +58,59 @@ class IBBSDetailViewController: IBBSBaseViewController, UIGestureRecognizerDeleg
         }
     }
     
-    private func configureFavoriteButton() {
-        let image = UIImage(named: "unstar")
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: image, style: .Plain, target: self, action: #selector(favoriteOrUnfavorite))
+    private func configureDeleteItemIfNeeded() {
+        
+        let key = IBBSLoginKey()
+
+        guard key.isValid && key.isAdmin else { return }
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Trash, target: self, action: #selector(deleteButtonDidTap))
+        navigationItem.rightBarButtonItem?.tintColor = UIColor.redColor()
     }
     
-    @objc private func favoriteOrUnfavorite() {
+    @objc private func deleteButtonDidTap() {
         
+        let key = IBBSLoginKey()
+        
+        guard key.isValid else { return }
+        
+        let alertController = UIAlertController(title: DELTE_THIS_TOPIC, message: nil, preferredStyle: .ActionSheet)
+        
+        let deleteAction = UIAlertAction(title: DELETE, style: .Destructive) { (_) in
+            self.deleteTopic()
+        }
+        
+        let cancelAction = UIAlertAction(title: BUTTON_CANCEL, style: .Cancel, handler: nil)
+        
+        alertController.addAction(deleteAction)
+        alertController.addAction(cancelAction)
+        presentViewController(alertController, animated: true, completion: nil)
+    }
+    
+    private func deleteTopic() {
+        
+        let key = IBBSLoginKey()
+        
+        guard key.isValid && key.isAdmin else { return }
+
+        let postId = json["id"].stringValue
+        
+        APIClient.defaultClient.deleteTopic(key.uid, token: key.token, postId: postId, success: { (json) in
+            
+            let model = IBBSModel(json: json)
+            
+            if model.success {
+                
+                IBBSToast.make(model.message, delay: 0, interval: 3)
+                self.navigationController?.popViewControllerAnimated(true)
+                
+            } else {
+                IBBSToast.make(model.message, delay: 0, interval: 5)
+            }
+            
+            }) { (error) in
+                IBBSToast.make(DELETE_FAILED_TRY_AGAIN, delay: 0, interval: 6)
+        }
     }
     
     private func configureTableView() {

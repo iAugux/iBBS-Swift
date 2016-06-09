@@ -74,7 +74,10 @@ let PLEASE_SET_NEW_PASSWORD    = NSLocalizedString("Please set a new password!",
 
 let CHANGE_AVATAR_SUCCESSFULLY = NSLocalizedString("Change avatar successfully!", comment: "")
 let CHANGE_AVATAR_FAILED       = NSLocalizedString("Change avatar failed!", comment: "")
-
+let DELTE_THIS_TOPIC           = NSLocalizedString("Delete This Topic", comment: "")
+let DELETE                     = NSLocalizedString("Delete", comment: "")
+let DELETE_FAILED_TRY_AGAIN    = NSLocalizedString("Can not delete it right now, please try again", comment: "")
+let DELETE_THIS_COMMENT        = NSLocalizedString("Delete This Comment", comment: "")
 
 let UPLOADING                  = NSLocalizedString("Uploading... Are you sure to cancel?", comment: "")
 let YES                        = NSLocalizedString("Yes", comment: "")

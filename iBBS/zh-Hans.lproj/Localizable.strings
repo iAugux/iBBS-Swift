@@ -63,4 +63,7 @@
 	YES = "\U662f";
 	NO = "\U5426";
 	"Nothing here..." = "\U65e0\U6570\U636e...";
+	"Delete This Topic" = "\U5220\U9664\U8fd9\U4e2a\U4e3b\U9898";
+	Delete = "\U5220\U9664";
+	"Can not delete it right now, please try again" = "\U65e0\U6cd5\U5220\U9664\Uff0c\U8bf7\U91cd\U8bd5\Uff01";
 }

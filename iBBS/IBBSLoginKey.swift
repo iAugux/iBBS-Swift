@@ -15,6 +15,7 @@ struct IBBSLoginKey {
         
     var uid: Int!
     var token: String!
+    var isAdmin: Bool!
     var expiry: NSDate!
     var sex: String!
     var avatar: NSURL!
@@ -29,6 +30,7 @@ struct IBBSLoginKey {
 
         self.uid      = model.userId
         self.token    = model.token
+        self.isAdmin  = model.isAdmin
         self.expiry   = model.expire
         self.avatar   = model.avatar
         self.username = model.username
