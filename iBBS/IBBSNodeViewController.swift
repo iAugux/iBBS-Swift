@@ -23,7 +23,6 @@ class IBBSNodeViewController: IBBSBaseViewController, UIGestureRecognizerDelegat
         super.viewDidLoad()
         pullUpToLoadmore()
         configureTableView()
-        configureView()
         configureGestureRecognizer()
         sendRequest(page)
         
@@ -32,6 +31,7 @@ class IBBSNodeViewController: IBBSBaseViewController, UIGestureRecognizerDelegat
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        configureView()
         cornerActionButton?.hidden = false
     }
     
@@ -101,7 +101,7 @@ class IBBSNodeViewController: IBBSBaseViewController, UIGestureRecognizerDelegat
         
         let model = IBBSNodeModel(json: node)
         title = model.name
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: String(model.numberOfTotal), style: .Plain, target: self, action: nil)
+//        navigationItem.rightBarButtonItem = UIBarButtonItem(title: String(model.numberOfTotal), style: .Plain, target: self, action: nil)
     }
     
     private func configureTableView() {
