@@ -1,4 +1,4 @@
-###`抱歉，由于新浪SAE收费提高，服务端暂时关闭`
+#`ABANDONED | 已废弃`
 # iBBS-Swift
 ![Language](https://img.shields.io/badge/language-Swift%202.2-orange.svg)
 ![GitHub license](http://img.shields.io/github/license/mashape/apistatus.svg)
